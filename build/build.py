@@ -26,6 +26,8 @@ def load(p):
 SETTINGS = load(f"{ROOT}/content/site.yml")
 ABOUT = load(f"{ROOT}/content/pages/about.yml")
 PRODUCER = load(f"{ROOT}/content/pages/producer.yml")
+SUPPORT = load(f"{ROOT}/content/pages/support.yml")
+PRESS = load(f"{ROOT}/content/pages/press.yml")
 PRODUCTIONS = []
 for p in sorted(glob.glob(f"{ROOT}/content/productions/*.yml")):
     d = load(p)
@@ -64,17 +66,19 @@ R = {  # routes: key -> (uk, en)
     "about": ("/pro-teatr/", "/en/about/"),
     "org": ("/orhanizatsiia/", "/en/organisation/"),
     "contact": ("/kontakty/", "/en/contact/"),
+    "support": ("/pidtrymaty/", "/en/support/"),
+    "press": ("/presa/", "/en/press/"),
 }
 NAV = ["afisha", "shows", "producer", "about", "org", "contact"]
 T = {
-    "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти"),
+    "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти", support="Підтримати", press="Преса"),
                tickets="Квитки", menu="Меню", skip="До змісту", other="EN", soon="Продаж скоро", free="Вхід вільний", sold="Квитки продано",
                all_dates="Уся афіша", all_shows="Усі вистави", next="Найближчі покази", repertoire="Репертуар", produced="Продюсування",
                upcoming_tag="Прем'єра скоро", produced_tag="За продюсування Бентег", nodates="Нові дати зʼявляться найближчим часом. Стежте за анонсами в Instagram і Telegram.",
                genre="Жанр", premiere="Прем'єра", duration="Тривалість", age="Вік", credits="Команда", dates="Дати показів", photos="Фото",
                producer_cta="Співпраця з продюсером", about_producer="Засновник і продюсер", read_more="Детальніше", time="Час",
                legal="Діє через Громадську організацію «В РЕСУРСІ» · код ЄДРПОУ 44977435", sections="Розділи", connect="Звʼязок", org_h="Організація"),
-    "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact"),
+    "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", press="Press"),
                tickets="Tickets", menu="Menu", skip="Skip to content", other="UA", soon="On sale soon", free="Free entry", sold="Sold out",
                all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Produced by Bentegy",
                upcoming_tag="Premiering soon", produced_tag="Produced by Bentegy", nodates="New dates will be announced soon. Follow us on Instagram and Telegram.",
@@ -154,6 +158,18 @@ def nav_links(lang, key):
     return "".join(f'<a href="{url(k, lang)}"{" aria-current=page" if k == key else ""}>{t["nav"][k]}</a>' for k in NAV)
 
 
+def analytics():
+    code = (SETTINGS.get("goatcounter") or "").strip()
+    if not code:
+        return ""
+    return f'\n<script data-goatcounter="https://{e(code)}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
+
+
+def extra_links(lang, key):
+    t = T[lang]
+    return "".join(f'<a class="sm" href="{url(k, lang)}"{" aria-current=page" if k == key else ""}>{t["nav"][k]}</a>' for k in ("support", "press"))
+
+
 def head(lang, key, title, desc, paths, body_cls="", og=""):
     t = T[lang]
     o = other(lang)
@@ -179,15 +195,16 @@ def head(lang, key, title, desc, paths, body_cls="", og=""):
 <link rel="icon" href="/brand/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
 <link rel="preload" href="/fonts/inter-tight-cyrillic-900-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/main.css">
+<link rel="stylesheet" href="/main.css">{analytics()}
 </head>
 <body class="{body_cls}">
 <a class="skip" href="#main">{t['skip']}</a>
 <header class="hd" id="hd"><div class="in gut max">
   <a class="mk" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark.png" alt="" width="40" height="39"></a>
   <nav aria-label="{t['menu']}">{nav}</nav>
+  <a class="sup" href="{url('support', lang)}"{" aria-current=page" if key == 'support' else ""}>{t['nav']['support']}</a>
   <a class="lg" href="{paths[1]}" hreflang="{o}" lang="{o}">{t['other']}</a>
-  <details class="burger"><summary>{t['menu']}</summary><div class="panel">{nav}
+  <details class="burger"><summary>{t['menu']}</summary><div class="panel">{nav}{extra_links(lang, key)}
     <div class="row"><a href="{paths[1]}" hreflang="{o}" lang="{o}">{'English' if lang == 'uk' else 'Українська'}</a><a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a></div></div></details>
   <a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a>
 </div></header>
@@ -199,7 +216,7 @@ def foot(lang):
     t = T[lang]
     c = SETTINGS["contacts"]
     o = SETTINGS["organization"]
-    links = "".join(f'<li><a href="{url(k, lang)}">{t["nav"][k]}</a></li>' for k in NAV)
+    links = "".join(f'<li><a href="{url(k, lang)}">{t["nav"][k]}</a></li>' for k in NAV + ["press", "support"])
     return f"""</main>
 <footer class="ft gut max">
   <p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
@@ -487,12 +504,107 @@ def page_contact(lang):
         ("Телефон" if uk else "Phone", f"tel:{c['phone'].replace(' ', '')}", c["phone"], ""),
         ("Instagram", c["instagram"], "@teatr.bentegy", "Анонси вистав і квитки." if uk else "Announcements and tickets."),
         ("Telegram", c["telegram"], "@teatr_bentegy", ""),
+        ("Пресматеріали" if uk else "Press kit", url("press", lang), "bentegy.org" + url("press", lang), "Фото, логотипи, тексти про театр." if uk else "Photos, logos and texts about the theatre."),
     ]
     g = "".join(f"<div class='cr'><div><small>{a}</small>{f'<p>{e(p)}</p>' if p else ''}</div><a href='{h}'>{e(v)}</a></div>" for a, h, v, p in items)
     lead = "Пишіть нам щодо співпраці, гастролей, продюсування чи медіа. Відповідаємо українською та англійською." if uk else "Write to us about cooperation, touring, producing or media. We reply in English and Ukrainian."
     body = page_head(t["nav"]["contact"], lead) + f'<section class="gut max"><div class="cgrid">{g}</div></section>'
     return head(lang, "contact", t["nav"]["contact"], lead, (url("contact", lang), url("contact", other(lang)))) + body + foot(lang)
 
+
+
+def copy_btn(lang, target):
+    return f'<button type="button" class="copy" data-copy="{target}" data-done="{"Скопійовано" if lang == "uk" else "Copied"}">{"Скопіювати" if lang == "uk" else "Copy"}</button>'
+
+
+def page_support(lang):
+    t = T[lang]
+    uk = lang == "uk"
+    sp = SUPPORT
+    b = sp.get("bank") or {}
+    mail = SETTINGS["contacts"]["team"]
+    org = SETTINGS["organization"]
+    ways = []
+    # 1. online card payment
+    if sp.get("online_url"):
+        ways.append(f"""<article class="way"><span class="n">01</span><div><h3>{'Онлайн карткою' if uk else 'Card payment online'}</h3>
+  <p>{e(L(sp, 'online_note', lang))}</p></div>
+  <div class="act"><a class="tix big" href="{e(sp['online_url'])}" target="_blank" rel="noopener">{'Зробити внесок ↗' if uk else 'Donate ↗'}</a><small>WayForPay</small></div></article>""")
+    # 2. bank transfer
+    rows = [(("Отримувач" if uk else "Recipient"), L(b, "recipient", lang)), ("Код ЄДРПОУ" if uk else "EDRPOU", b.get("edrpou", "")),
+            ("Банк" if uk else "Bank", L(b, "bank", lang))]
+    if uk:
+        rows.append(("IBAN (гривня)", b.get("iban_uah", "")))
+    else:
+        rows += [("IBAN (USD)", b.get("iban_usd", "")), ("IBAN (EUR)", b.get("iban_eur", "")), ("SWIFT / BIC", b.get("swift", "")), ("IBAN (UAH)", b.get("iban_uah", ""))]
+    rows.append(("Призначення платежу" if uk else "Payment reference", L(b, "purpose", lang)))
+    has_acc = any(b.get(k) for k in ("iban_uah", "iban_usd", "iban_eur"))
+    if has_acc:
+        dl = "".join(f"<dt>{a}</dt><dd>{e(v)}</dd>" for a, v in rows if v)
+        foreign = "" if not uk else ("<p class='mu'>Для переказів з-за кордону в доларах чи євро перейдіть на англійську версію сторінки.</p>" if (b.get("iban_usd") or b.get("iban_eur")) else "")
+        ways.append(f"""<article class="way"><span class="n">{len(ways) + 1:02d}</span><div><h3>{'Переказ на рахунок' if uk else 'Bank transfer'}</h3>
+  <dl class="req tight">{dl}</dl>{foreign}</div><div class="act"></div></article>""")
+    if not ways:
+        ways.append(f"""<article class="way"><span class="n">01</span><div><h3>{'Реквізити для внеску' if uk else 'How to give'}</h3>
+  <p>{'Напишіть нам, і ми надішлемо реквізити для переказу в гривні, доларах чи євро, а також договір благодійної пожертви для юридичних осіб.' if uk else 'Write to us and we will send bank details for transfers in hryvnia, US dollars or euro, and a donation agreement for companies and foundations.'}</p></div>
+  <div class="act"><a class="tix big" href="mailto:{mail}?subject={'Підтримка театру' if uk else 'Supporting Bentegy'}">{'Написати' if uk else 'Write to us'}</a></div></article>""")
+    uses = "".join(f"<div class='rw'><h3>{e(x['title'])}</h3><p>{e(x['text'])}</p></div>" for x in sp.get(f"uses_{lang}", []))
+    parts = "".join(f"<div><h3>{e(x['title'])}</h3><p>{e(x['text'])}</p></div>" for x in sp.get(f"partners_{lang}", []))
+    partners = "".join(f"<span>{e(x)}</span>" for x in SETTINGS.get("partners", []))
+    trust = (f"Внески отримує {e(org['name_uk'])}, код ЄДРПОУ {org['edrpou']}. Організація неприбуткова (ознака 0032) і використовує кошти лише на статутну діяльність. Звіт про використання надсилаємо на запит."
+             if uk else
+             f"Donations are received by {e(org['name_en'])}, EDRPOU {org['edrpou']}, a registered non-profit (code 0032) that uses funds only for its statutory activities. A report on how funds were used is available on request.")
+    body = page_head(t["nav"]["support"], L(sp, "lead", lang)) + f"""
+<section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{'Як підтримати' if uk else 'How to give'}</h2></div>{''.join(ways)}</section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'На що йдуть кошти' if uk else 'Where it goes'}</h2></div><div class="rows" style="margin-top:28px">{uses}</div></section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Партнерам' if uk else 'Partners'}</h2></div><div class="grid2">{parts}</div>
+  <div class="cgrid" style="border-top:0"><div class="cr"><div><small>{'Партнерства й меценатство' if uk else 'Partnerships and patronage'}</small><p>{'Розкажемо про сезон, підготуємо пропозицію й договір.' if uk else 'We will share the season plan and prepare a proposal and agreement.'}</p></div><a href="mailto:{mail}">{mail}</a></div></div>
+  <div class="chips" style="margin-top:28px">{partners}</div></section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Прозорість' if uk else 'Transparency'}</h2><a class="more" href="{url('org', lang)}">{'Реквізити організації' if uk else 'Organisation details'}</a></div>
+  <div class="two"><span></span><p class="prose">{trust}</p></div></section>
+"""
+    return head(lang, "support", t["nav"]["support"], L(sp, "lead", lang), (url("support", lang), url("support", other(lang)))) + body + foot(lang)
+
+
+def page_press(lang):
+    t = T[lang]
+    uk = lang == "uk"
+    pr = PRESS
+    c = SETTINGS["contacts"]
+    texts = f"""<div class="bp"><div class="bh"><h3>{'Коротко' if uk else 'Short'}</h3>{copy_btn(lang, 'bp-short')}</div><div class="prose" id="bp-short"><p>{e(L(pr, 'about_short', lang))}</p></div></div>
+<div class="bp"><div class="bh"><h3>{'Детально' if uk else 'Long'}</h3>{copy_btn(lang, 'bp-long')}</div><div class="prose" id="bp-long">{mdh(L(pr, 'about_long', lang))}</div></div>
+<div class="bp"><div class="bh"><h3>{'Засновник' if uk else 'Founder'}: {e(L(PRODUCER, 'name', lang))}</h3>{copy_btn(lang, 'bp-bio')}</div><div class="prose" id="bp-bio">{mdh(L(PRODUCER, 'bio', lang))}</div></div>"""
+    ph = []
+    for x in pr.get("photos", []):
+        cap = L(x, "caption", lang)
+        ph.append(f"""<figure>{img(x['image'], cap, "(max-width:640px) 100vw, 33vw")}<figcaption><span>{e(cap)}<small>{'Фото' if uk else 'Photo'}: {e(x.get('credit', ''))}</small></span><a href="{e(x['image'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""")
+    full = f'<a class="tix" href="{e(pr["photos_full_url"])}" target="_blank" rel="noopener">{"Усі фото в повній якості ↗" if uk else "All photos, full resolution ↗"}</a>' if pr.get("photos_full_url") else ""
+    logos = "".join(f"""<figure class="lg-{x.get('bg', 'light')}"><div class="lgim"><img src="{e(x['file'])}" alt="{e(L(x, 'title', lang))}" loading="lazy"></div><figcaption><span>{e(L(x, 'title', lang))}<small>PNG</small></span><a href="{e(x['file'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""" for x in pr.get("logos", []))
+    cov = ""
+    if pr.get("coverage"):
+        items = []
+        for x in sorted(pr["coverage"], key=lambda z: str(z.get("date", "")), reverse=True):
+            d = str(x.get("date", ""))
+            try:
+                dd = dt.date.fromisoformat(d)
+                ds = f"{dd.day:02d}.{dd.month:02d}.{dd.year}"
+            except ValueError:
+                ds = d
+            items.append(f"""<a class="cov" href="{e(x['url'])}" target="_blank" rel="noopener"><span class="d">{ds}</span><b>{e(x.get('outlet', ''))}</b><span class="t">{e(x.get('title', ''))}</span><span class="ar">↗</span></a>""")
+        cov = f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Публікації" if uk else "Coverage"}</h2></div>{"".join(items)}</section>'
+    qs = ""
+    if pr.get("quotes"):
+        qs = '<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>' + ("Відгуки" if uk else "Quotes") + '</h2></div><div class="quotes">' + "".join(
+            f"""<blockquote><p>{e(L(x, 'text', lang))}</p><footer>{e(x.get('author', ''))}{', ' if x.get('author') and x.get('outlet') else ''}{f'<a href="{e(x["url"])}" target="_blank" rel="noopener">{e(x.get("outlet", ""))}</a>' if x.get('url') else e(x.get('outlet', ''))}</footer></blockquote>""" for x in pr["quotes"]) + "</div></section>"
+    body = page_head(t["nav"]["press"], L(pr, "lead", lang)) + f"""
+<section class="gut max"><div class="cgrid"><div class="cr"><div><small>{'Контакт для преси' if uk else 'Press contact'}</small><p>{'Акредитації, інтервʼю, запити на фото й відео.' if uk else 'Accreditation, interviews, photo and video requests.'}</p></div><a href="mailto:{c['press']}">{c['press']}</a></div></div></section>
+<section class="sec gut max" style="padding-top:clamp(40px,5vw,72px)"><div class="sh"><h2>{'Про театр' if uk else 'About'}</h2></div><div class="bps">{texts}</div></section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Фото' if uk else 'Photos'}</h2><a class="more" href="/press/bentegy-photos.zip" download>{'Усі фото .zip' if uk else 'All photos .zip'}</a></div>
+  <div class="dl">{''.join(ph)}</div>{f'<p style="margin-top:24px">{full}</p>' if full else ''}</section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Логотипи' if uk else 'Logos'}</h2><a class="more" href="/press/bentegy-logos.zip" download>{'Усі логотипи .zip' if uk else 'All logos .zip'}</a></div><div class="dl logos">{logos}</div></section>
+{cov}{qs}
+"""
+    return head(lang, "press", t["nav"]["press"], L(pr, "lead", lang), (url("press", lang), url("press", other(lang)))) + body + foot(lang)
 
 
 GOALS = {
@@ -531,6 +643,17 @@ def build():
     for d in ("fonts", "brand"):
         shutil.copytree(f"{ROOT}/static/{d}", f"{OUT}/{d}")
     shutil.copytree(f"{ROOT}/admin", f"{OUT}/admin")
+    shutil.copytree(f"{ROOT}/static/uploads", f"{OUT}/uploads")
+    shutil.copytree(f"{ROOT}/static/press", f"{OUT}/press")
+    import zipfile
+    with zipfile.ZipFile(f"{OUT}/press/bentegy-logos.zip", "w", zipfile.ZIP_DEFLATED) as z:
+        for x in PRESS.get("logos", []):
+            z.write(f"{ROOT}/static{x['file']}", os.path.basename(x["file"]))
+    with zipfile.ZipFile(f"{OUT}/press/bentegy-photos.zip", "w", zipfile.ZIP_STORED) as z:
+        for x in PRESS.get("photos", []):
+            src = f"{ROOT}/static{x['image']}"
+            if os.path.exists(src):
+                z.write(src, os.path.basename(src))
     css = open(f"{ROOT}/build/fonts.css", encoding="utf-8").read() + open(f"{ROOT}/build/main.css", encoding="utf-8").read()
     open(f"{OUT}/main.css", "w", encoding="utf-8").write(css)
     shutil.copy(f"{ROOT}/build/site.js", f"{OUT}/site.js")
@@ -539,7 +662,8 @@ def build():
     urls = []
     for lang in ("uk", "en"):
         for key, fn in (("home", page_home), ("afisha", page_afisha), ("shows", page_shows), ("producer", page_producer),
-                        ("about", page_about), ("org", page_org), ("contact", page_contact)):
+                        ("about", page_about), ("org", page_org), ("contact", page_contact),
+                        ("support", page_support), ("press", page_press)):
             write(url(key, lang), fn(lang))
             urls.append(url(key, lang))
         for p in PRODUCTIONS:

@@ -32,3 +32,15 @@
     a.addEventListener('click', function () { var d = a.closest('details'); if (d) d.removeAttribute('open'); });
   });
 })();
+
+// copy boilerplate texts
+document.querySelectorAll('button.copy').forEach(function (b) {
+  b.addEventListener('click', function () {
+    var el = document.getElementById(b.getAttribute('data-copy'));
+    if (!el || !navigator.clipboard) return;
+    navigator.clipboard.writeText(el.innerText.trim()).then(function () {
+      var t = b.textContent; b.textContent = b.getAttribute('data-done'); b.classList.add('ok');
+      setTimeout(function () { b.textContent = t; b.classList.remove('ok'); }, 1800);
+    });
+  });
+});
