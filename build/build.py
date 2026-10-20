@@ -9,7 +9,7 @@ import shutil
 
 import markdown as md
 import yaml
-from PIL import Image, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 OUT = os.path.join(ROOT, "public")
@@ -148,6 +148,159 @@ def img_url(path, size=1600):
     return ""
 
 
+# ------------------------------------------------------------------ share images (Open Graph)
+OG_DONE = {}
+
+
+def _og_font(size, latin):
+    sub = "latin" if latin else "cyrillic"
+    return ImageFont.truetype(f"{ROOT}/static/fonts/inter-tight-{sub}-900-normal.woff2", size)
+
+
+def _og_draw_text(draw, xy, text, size, fill, track=-0.045):
+    """Draw text char by char, picking the Cyrillic or Latin subset font."""
+    x, y = xy
+    fc, fl = _og_font(size, False), _og_font(size, True)
+    for ch in text:
+        f = fc if 0x0400 <= ord(ch) <= 0x052F else fl
+        draw.text((x, y), ch, font=f, fill=fill)
+        x += f.getlength(ch) + size * track
+    return x
+
+
+def _og_width(text, size):
+    fc, fl = _og_font(size, False), _og_font(size, True)
+    return sum((fc if 0x0400 <= ord(ch) <= 0x052F else fl).getlength(ch) - size * 0.045 for ch in text)
+
+
+def _og_lines(text, size, maxw):
+    words, lines, cur = text.split(), [], ""
+    for w in words:
+        t = (cur + " " + w).strip()
+        if _og_width(t, size) <= maxw or not cur:
+            cur = t
+        else:
+            lines.append(cur)
+            cur = w
+    lines.append(cur)
+    return lines
+
+
+def og_image(key, photo, title, label):
+    """1200x630 share image: B&W stage photo, dark gradient, giant title with a red dot."""
+    W, H, pad = 1200, 630, 56
+    if photo and os.path.exists(f"{ROOT}/static{photo}"):
+        im = ImageOps.exif_transpose(Image.open(f"{ROOT}/static{photo}")).convert("L")
+        im = ImageOps.fit(im, (W, H), Image.LANCZOS, centering=(0.5, 0.45))
+        im = ImageOps.autocontrast(im, cutoff=1).convert("RGB")
+    else:
+        im = Image.new("RGB", (W, H), (0, 0, 0))
+    grad = Image.linear_gradient("L").resize((W, H))
+    shade = Image.new("RGB", (W, H), (0, 0, 0))
+    im = Image.composite(shade, im, grad.point(lambda v: int(v * 0.92)))
+    top = Image.linear_gradient("L").rotate(180).resize((W, 200)).point(lambda v: int(v * 0.5))
+    im.paste(shade.crop((0, 0, W, 200)), (0, 0), top)
+    d = ImageDraw.Draw(im)
+    mk = Image.open(f"{ROOT}/static/brand/mark.png").convert("RGBA")
+    mk.thumbnail((76, 76))
+    im.paste(mk, (pad, pad), mk)
+    text = title.upper()
+    size = 132
+    while size > 56:
+        lines = _og_lines(text, size, W - 2 * pad - size * 0.4)
+        if len(lines) <= 2:
+            break
+        size -= 8
+    lh = size * 0.86
+    y = H - pad - lh * len(lines) - 8
+    d.rectangle((pad, y - 26, W - pad, y - 22), fill=(255, 255, 255))
+    _og_draw_text(d, (pad, y - 64), label.upper(), 24, (220, 220, 220), track=0.08)
+    for i, ln in enumerate(lines):
+        x = _og_draw_text(d, (pad, y + i * lh - size * 0.18), ln, size, (255, 255, 255))
+    d.text((x - size * 0.03, y + (len(lines) - 1) * lh - size * 0.18), ".", font=_og_font(size, True), fill=(179, 18, 12))
+    os.makedirs(f"{OUT}/og", exist_ok=True)
+    im.save(f"{OUT}/og/{key}.jpg", quality=86, optimize=True, progressive=True)
+    OG_DONE[key] = f"/og/{key}.jpg"
+    return OG_DONE[key]
+
+
+def make_og_images():
+    hero = (SETTINGS.get("hero") or [{}])[0].get("image")
+    og_image("bentegy-uk", hero, "Бентеги", "Незалежний театр · Київ")
+    og_image("bentegy-en", hero, "Bentegy", "Independent theatre · Kyiv")
+    for p in PRODUCTIONS:
+        pic = p.get("cover") or next((g["image"] for g in (p.get("gallery") or [])), None)
+        og_image(f"{p['slug']}-uk", pic, L(p, "title", "uk"), "Театр Бентеги")
+        og_image(f"{p['slug']}-en", pic, L(p, "title", "en"), "Bentegy Theatre")
+
+
+# ------------------------------------------------------------------ structured data (schema.org)
+import json
+from zoneinfo import ZoneInfo
+
+
+def ld_tag(data):
+    if not data:
+        return ""
+    return '\n<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + "</script>"
+
+
+def ld_org(lang):
+    c = SETTINGS["contacts"]
+    o = SETTINGS["organization"]
+    return {
+        "@context": "https://schema.org", "@type": "TheaterGroup",
+        "name": T[lang]["name"], "alternateName": ["Театр Бентеги", "Bentegy Theatre", "Бентеги"],
+        "url": SITE + url("home", lang), "logo": SITE + "/press/bentegy-znak.png",
+        "image": SITE + OG_DONE.get(f"bentegy-{lang}", ""), "description": L(SETTINGS, "tagline", lang),
+        "email": c["team"], "telephone": c["phone"].replace(" ", ""),
+        "address": {"@type": "PostalAddress", "addressLocality": "Kyiv", "addressCountry": "UA"},
+        "foundingDate": "2025", "founder": {"@type": "Person", "name": L(PRODUCER, "name", lang)},
+        "sameAs": [c["instagram"], c["telegram"]],
+        "parentOrganization": {"@type": "NGO", "name": L(o, "name", lang), "taxID": o["edrpou"]},
+    }
+
+
+def ld_event(ev, lang):
+    if ev.get("date_note_uk") or ev.get("date_note_en"):
+        return None
+    p = BY_SLUG.get(ev.get("production"), {})
+    start = ev["date"].isoformat()
+    if ev.get("time"):
+        try:
+            hh, mm = [int(x) for x in str(ev["time"]).split(":")[:2]]
+            start = dt.datetime(ev["date"].year, ev["date"].month, ev["date"].day, hh, mm, tzinfo=ZoneInfo("Europe/Kyiv")).isoformat()
+        except ValueError:
+            pass
+    d = {
+        "@context": "https://schema.org", "@type": "TheaterEvent",
+        "name": L(p, "title", lang) or L(ev, "title", lang), "startDate": start,
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "location": {"@type": "Place", "name": L(ev, "venue", lang),
+                     "address": {"@type": "PostalAddress", "addressLocality": L(ev, "city", lang), "addressCountry": "UA"}},
+        "organizer": {"@type": "TheaterGroup", "name": T[lang]["name"], "url": SITE + url("home", lang)},
+        "description": L(p, "summary", lang),
+        "inLanguage": lang,
+    }
+    if p:
+        d["url"] = SITE + show_url(p["slug"], lang)
+        if OG_DONE.get(f"{p['slug']}-{lang}"):
+            d["image"] = [SITE + OG_DONE[f"{p['slug']}-{lang}"]]
+    if ev.get("ticket_url"):
+        d["offers"] = {"@type": "Offer", "url": ev["ticket_url"],
+                       "availability": "https://schema.org/SoldOut" if ev.get("status") == "sold_out" else "https://schema.org/InStock"}
+    return d
+
+
+def ld_events(evs, lang):
+    return [x for x in (ld_event(ev, lang) for ev in evs) if x]
+
+
+def ld_production(p, evs, lang):
+    return ld_events(evs, lang) or None
+
+
 # ------------------------------------------------------------------ layout
 def other(lang):
     return "en" if lang == "uk" else "uk"
@@ -170,11 +323,11 @@ def extra_links(lang, key):
     return "".join(f'<a class="sm" href="{url(k, lang)}"{" aria-current=page" if k == key else ""}>{t["nav"][k]}</a>' for k in ("support", "press"))
 
 
-def head(lang, key, title, desc, paths, body_cls="", og=""):
+def head(lang, key, title, desc, paths, body_cls="", og="", ld=None):
     t = T[lang]
     o = other(lang)
     full = t["name"] if key == "home" and not title else f"{title} — {t['name']}"
-    og_img = SITE + (og or img_url("/uploads/msid-scene-1.jpg"))
+    og_img = SITE + (og or OG_DONE.get(f"bentegy-{lang}", ""))
     nav = nav_links(lang, key)
     return f"""<!doctype html>
 <html lang="{lang}">
@@ -191,6 +344,11 @@ def head(lang, key, title, desc, paths, body_cls="", og=""):
 <meta property="og:title" content="{e(full)}">
 <meta property="og:description" content="{e(desc)}">
 <meta property="og:image" content="{og_img}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="{SITE}{paths[0]}">
+<meta property="og:locale" content="{'uk_UA' if lang == 'uk' else 'en_GB'}">
+<meta name="twitter:card" content="summary_large_image">{ld_tag(ld)}
 <meta name="theme-color" content="#000000">
 <link rel="icon" href="/brand/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
@@ -345,8 +503,14 @@ def page_home(lang):
     <div><p class="role">{t['about_producer']}</p><p class="n">{'<br>'.join(e(x) for x in L(pr, 'name', lang).split(' ', 1))}</p>
       <p class="q">{e(L(pr, 'lead', lang))}</p><a class="go" href="{url('producer', lang)}">{t['read_more']}</a></div></div>
 </section>
+<section class="band gut max"><div class="bin">
+  <h2>{'Підтримати театр' if lang == 'uk' else 'Support the theatre'}<span class="dot">.</span></h2>
+  <div><p>{e(L(SUPPORT, 'lead', lang))}</p>
+    <div class="bact"><a class="tix big" href="{url('support', lang)}">{'Зробити внесок' if lang == 'uk' else 'Make a donation'}</a>
+    <a class="go" href="{url('press', lang)}">{'Для преси' if lang == 'uk' else 'Press kit'}</a></div></div>
+</div></section>
 """
-    return head(lang, "home", "", L(SETTINGS, "tagline", lang), (url("home", lang), url("home", o)), "home") + body + foot(lang)
+    return head(lang, "home", "", L(SETTINGS, "tagline", lang), (url("home", lang), url("home", o)), "home", ld=[ld_org(lang)] + ld_events(EVENTS, lang)) + body + foot(lang)
 
 
 def page_afisha(lang):
@@ -355,7 +519,7 @@ def page_afisha(lang):
              if lang == "uk" else
              "All upcoming performances by Bentegy Theatre and the productions we produce. Tickets are sold through different operators; the button next to each date takes you to the right one.")
     body = page_head(t["nav"]["afisha"], intro) + f'<section class="gut max" style="padding-bottom:clamp(40px,6vw,80px)">{schedule(EVENTS, lang)}</section>'
-    return head(lang, "afisha", t["nav"]["afisha"], intro, (url("afisha", lang), url("afisha", other(lang)))) + body + foot(lang)
+    return head(lang, "afisha", t["nav"]["afisha"], intro, (url("afisha", lang), url("afisha", other(lang))), ld=ld_events(EVENTS, lang) or None) + body + foot(lang)
 
 
 def page_shows(lang):
@@ -410,7 +574,7 @@ def page_show(p, lang):
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["photos"]}</h2></div><div class="gal">{"".join(gal_items)}</div>{pc}</section>' if gal_items else ''}
 """
     paths = (show_url(p["slug"], lang), show_url(p["slug"], other(lang)))
-    return head(lang, "shows", title, L(p, "summary", lang), paths, og=img_url(cover)) + body + foot(lang)
+    return head(lang, "shows", title, L(p, "summary", lang), paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang)) + body + foot(lang)
 
 
 def page_producer(lang):
@@ -449,7 +613,7 @@ def page_about(lang):
   <p class="mu" style="margin-top:20px;max-width:62ch">{'Над кожною виставою працюють запрошені режисери, актори, хореографи й художники.' if lang == 'uk' else 'Each production brings in guest directors, performers, choreographers and designers.'}</p></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Партнери' if lang == 'uk' else 'Partners'}</h2></div><div class="chips" style="margin-top:28px">{partners}</div></section>
 """
-    return head(lang, "about", t["nav"]["about"], L(a, "lead", lang), (url("about", lang), url("about", other(lang)))) + body + foot(lang)
+    return head(lang, "about", t["nav"]["about"], L(a, "lead", lang), (url("about", lang), url("about", other(lang))), ld=ld_org(lang)) + body + foot(lang)
 
 
 def page_org(lang):
@@ -640,6 +804,7 @@ def build():
         shutil.rmtree(OUT)
     os.makedirs(OUT)
     process_images()
+    make_og_images()
     for d in ("fonts", "brand"):
         shutil.copytree(f"{ROOT}/static/{d}", f"{OUT}/{d}")
     shutil.copytree(f"{ROOT}/admin", f"{OUT}/admin")
