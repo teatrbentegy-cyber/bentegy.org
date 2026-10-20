@@ -3,52 +3,52 @@ lead_en: Bentegy is an independent documentary and postdramatic theatre company 
 mission_uk: Розвивати культуру й мистецтво в Україні — передусім театр і перформативні мистецтва. Створювати умови для молодих митців і нових культурних практик. Давати молоді простір для неформальної та громадянської освіти й змістовної участі в культурі.
 mission_en: To develop culture and the arts in Ukraine, theatre and the performing arts above all. To create conditions for young artists and new cultural practices. To give young people space for non-formal and civic education and meaningful cultural participation.
 approach:
-  - title_uk: Документ
-    title_en: Document
-    text_uk: Інтервʼю, листи, архіви, особисті свідчення — матеріал, з якого виростає текст вистави.
-    text_en: Interviews, letters, archives and personal testimony — the material the text grows from.
-  - title_uk: Тіло
-    title_en: Body
-    text_uk: Фізичний театр, метод Судзукі, Viewpoints і Moment Work як спільна мова ансамблю.
-    text_en: Physical theatre, the Suzuki method, Viewpoints and Moment Work as the ensemble’s shared language.
-  - title_uk: Процес
-    title_en: Process
-    text_uk: Колективний девайзинг — вистава складається на репетиціях разом з виконавцями.
-    text_en: Collective devising — the performance is composed in rehearsal together with the performers.
-  - title_uk: Спільнота
-    title_en: Community
-    text_uk: Покази супроводжують розмови з глядачами, молоді команди отримують продюсерську підтримку.
-    text_en: Performances come with audience conversations; young teams receive producing support.
+- title_uk: Документ
+  title_en: Document
+  text_uk: Інтервʼю, листи, архіви, особисті свідчення — матеріал, з якого виростає текст вистави.
+  text_en: Interviews, letters, archives and personal testimony — the material the text grows from.
+- title_uk: Тіло
+  title_en: Body
+  text_uk: Фізичний театр, метод Судзукі, Viewpoints і Moment Work як спільна мова ансамблю.
+  text_en: Physical theatre, the Suzuki method, Viewpoints and Moment Work as the ensemble’s shared language.
+- title_uk: Процес
+  title_en: Process
+  text_uk: Колективний девайзинг — вистава складається на репетиціях разом з виконавцями.
+  text_en: Collective devising — the performance is composed in rehearsal together with the performers.
+- title_uk: Спільнота
+  title_en: Community
+  text_uk: Покази супроводжують розмови з глядачами, молоді команди отримують продюсерську підтримку.
+  text_en: Performances come with audience conversations; young teams receive producing support.
 programmes:
-  - title_uk: НАОСЛІП
-    title_en: NAOSLIP
-    image: /uploads/naoslip-talk.jpg
-    text_uk: Вечір незалежного театру, що 7 серпня 2026 року відкрив перший сезон у КультМотиві. Ескізи вистав, публічна розмова театрів із Харкова, Львова, Луцька й Києва, відкритий пітчинг для молодих митців.
-    text_en: An evening of independent theatre that opened the first season at KultMotyv on 7 August 2026. Sketches of new work, a public conversation between theatres from Kharkiv, Lviv, Lutsk and Kyiv, an open pitch for young artists.
-  - title_uk: Тренінги для виконавців
-    title_en: Training for performers
-    image: /uploads/kinets-zminy-dance.jpg
-    text_uk: Практичні заняття з ансамблевих методик Viewpoints і Moment Work для акторів, танцівників і студентів.
-    text_en: Practical sessions in Viewpoints and Moment Work for actors, dancers and students.
-  - title_uk: Міжнародна співпраця
-    title_en: International cooperation
-    image: /uploads/festival-panel.jpg
-    text_uk: Копродукція з Qendra Multimedia (Приштина), резиденція в Міському театрі ім. Бекіма Фехміу в Призрені. Провідний грантоотримувач консорціуму з чотирьох партнерів у програмі Culture Helps Solidarity Європейської культурної фундації, співфінансованій ЄС.
-    text_en: A co-production with Qendra Multimedia (Pristina) and a residency at the Bekim Fehmiu City Theatre in Prizren. Lead grant holder of a four-partner consortium in the European Cultural Foundation’s Culture Helps Solidarity programme, co-funded by the EU.
+- title_uk: НАОСЛІП
+  title_en: NAOSLIP
+  image: /uploads/naoslip-talk.jpg
+  text_uk: 'Вечір незалежного театру, яким 7 серпня 2026 року Театр Бентеги відкрив свій перший репертуарний сезон у просторі КультМотив. Близько 250 гостей побачили ескізи нових вистав і публічну розмову незалежних театрів із Києва, Харкова, Львова та Луцька — НАШі, Химери, Лава, Гармидер — про умови, в яких працює незалежна сцена. Підґрунтям для розмови стало відкрите опитування «Карта незалежного театру України». Того ж вечора відбувся відкритий пітчинг молодих митців: переможець, «Коні за вікном», вийшов на премʼєру за продюсування Бентег через 72 дні. Партнери: КультМотив, Quests, Distil №9, «Пішли в театр».'
+  text_en: 'An evening of independent theatre with which Bentegy Theatre opened its first repertoire season at KultMotyv on 7 August 2026. Around 250 guests saw sketches of new work and a public conversation between independent theatres from Kyiv, Kharkiv, Lviv and Lutsk — NASHi, Khymery, Lava and Harmyder — about the conditions in which the independent scene works. The conversation drew on the open survey “Map of Independent Theatre in Ukraine”. The same evening hosted an open pitch for young artists: the winner, Horses Outside the Window, premiered 72 days later, produced by Bentegy. Partners: KultMotyv, Quests, Distil No9, Pishly v Teatr.'
+- title_uk: Тренінги для виконавців
+  title_en: Training for performers
+  image: /uploads/kinets-zminy-dance.jpg
+  text_uk: Практичні заняття з ансамблевих методик Viewpoints і Moment Work для акторів, танцівників і студентів.
+  text_en: Practical sessions in Viewpoints and Moment Work for actors, dancers and students.
+- title_uk: Міжнародна співпраця
+  title_en: International cooperation
+  image: /uploads/festival-panel.jpg
+  text_uk: Копродукція з Qendra Multimedia (Приштина), резиденція в Міському театрі ім. Бекіма Фехміу в Призрені. Провідний грантоотримувач консорціуму з чотирьох партнерів у програмі Culture Helps Solidarity Європейської культурної фундації, співфінансованій ЄС.
+  text_en: A co-production with Qendra Multimedia (Pristina) and a residency at the Bekim Fehmiu City Theatre in Prizren. Lead grant holder of a four-partner consortium in the European Cultural Foundation’s Culture Helps Solidarity programme, co-funded by the EU.
 team:
-  - name_uk: Павло Коваль
-    name_en: Pavlo Koval
-    role_uk: Засновник, голова правління, продюсер
-    role_en: Founder, Head of the Board, producer
-  - name_uk: Анастасія Кушта
-    name_en: Anastasiia Kushta
-    role_uk: Проєктна менеджерка
-    role_en: Project manager
-  - name_uk: Дарʼя Кошкіна
-    name_en: Daria Koshkina
-    role_uk: Фінансова менеджерка
-    role_en: Finance manager
-  - name_uk: Ніна Смик
-    name_en: Nina Smyk
-    role_uk: Секретарка організації
-    role_en: Secretary of the organisation
+- name_uk: Павло Коваль
+  name_en: Pavlo Koval
+  role_uk: Засновник, голова правління, продюсер
+  role_en: Founder, Head of the Board, producer
+- name_uk: Анастасія Кушта
+  name_en: Anastasiia Kushta
+  role_uk: Проєктна менеджерка
+  role_en: Project manager
+- name_uk: Дарʼя Кошкіна
+  name_en: Daria Koshkina
+  role_uk: Фінансова менеджерка
+  role_en: Finance manager
+- name_uk: Ніна Смик
+  name_en: Nina Smyk
+  role_uk: Секретарка організації
+  role_en: Secretary of the organisation
