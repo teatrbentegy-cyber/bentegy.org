@@ -1,0 +1,96 @@
+# Сторінка «Преса»
+lead_uk: Матеріали для медіа, фестивалів і партнерів. Фото, логотипи й тексти можна вільно використовувати в публікаціях про театр із зазначенням авторів фото.
+lead_en: Materials for media, festivals and partners. Photos, logos and texts are free to use in coverage of the theatre, with photo credits.
+
+about_short_uk: Бентеги — незалежний документальний і постдраматичний театр у Києві, заснований у 2025 році. Театр працює з інтерв'ю, архівами й особистими свідченнями, а сцену будує через тіло й колективний девайзинг.
+about_short_en: Bentegy is an independent documentary and postdramatic theatre company in Kyiv, founded in 2025. The company works with interviews, archives and personal testimony, and builds its stage language through the body and collective devising.
+
+about_long_uk: |
+  Бентеги — незалежний документальний і постдраматичний театр у Києві. Театр заснував продюсер і режисер Павло Коваль у 2025 році; з 2026 року Бентеги мають власний репертуарний сезон, який відкрив вечір незалежного театру НАОСЛІП.
+
+  Вистави народжуються з дослідження: інтерв'ю, листів, архівів і особистих свідчень. Ансамбль працює з фізичним театром, методом Судзукі, Viewpoints і Moment Work, а текст вистави складається на репетиціях разом із виконавцями. У репертуарі — моновистава «Між світом і душею», «Промова 2.0», фізичний і танцювальний театр «Кінець зміни», міждисциплінарна The Inferior Play.
+
+  Театр розвиває міжнародну співпрацю: копродукція з Qendra Multimedia (Приштина), резиденція в Міському театрі ім. Бекіма Фехміу в Призрені, участь у програмі Culture Helps Solidarity Європейської культурної фундації. Бентеги також продюсують молоді незалежні команди та студентські роботи.
+about_long_en: |
+  Bentegy is an independent documentary and postdramatic theatre company in Kyiv. It was founded by producer and director Pavlo Koval in 2025; since 2026 it has had its own repertoire season, opened by NAOSLIP, an evening of independent theatre.
+
+  Each production grows out of research: interviews, letters, archives and personal testimony. The ensemble works with physical theatre, the Suzuki method, Viewpoints and Moment Work, and the text is composed in rehearsal together with the performers. The repertoire includes the solo performance Between the World and the Soul, Promova 2.0, the physical and dance theatre piece End of Shift, and the interdisciplinary The Inferior Play.
+
+  The company develops international cooperation: a co-production with Qendra Multimedia (Pristina), a residency at the Bekim Fehmiu City Theatre in Prizren, and participation in the European Cultural Foundation’s Culture Helps Solidarity programme. Bentegy also produces young independent teams and student work.
+
+# Посилання на папку з фото в повній якості (Google Drive тощо)
+photos_full_url: ""
+
+photos:
+  - image: /uploads/msid-scene-1.jpg
+    caption_uk: «Між світом і душею»
+    caption_en: Between the World and the Soul
+    credit: Архів театру / Company archive
+  - image: /uploads/msid-hands.jpg
+    caption_uk: «Між світом і душею»
+    caption_en: Between the World and the Soul
+    credit: Архів театру / Company archive
+  - image: /uploads/kinets-zminy-sea.jpg
+    caption_uk: «Кінець зміни»
+    caption_en: End of Shift
+    credit: Архів театру / Company archive
+  - image: /uploads/kinets-zminy-poles.jpg
+    caption_uk: «Кінець зміни»
+    caption_en: End of Shift
+    credit: Архів театру / Company archive
+  - image: /uploads/promova-1.jpg
+    caption_uk: «Промова 2.0»
+    caption_en: Promova 2.0
+    credit: Архів театру / Company archive
+  - image: /uploads/inferior-play-1.jpg
+    caption_uk: The Inferior Play
+    caption_en: The Inferior Play
+    credit: Архів театру / Company archive
+  - image: /uploads/naoslip-talk.jpg
+    caption_uk: НАОСЛІП, вечір незалежного театру
+    caption_en: NAOSLIP, an evening of independent theatre
+    credit: Архів театру / Company archive
+  - image: /uploads/pavlo-koval.jpg
+    caption_uk: Павло Коваль, засновник і продюсер
+    caption_en: Pavlo Koval, founder and producer
+    credit: Sergeitsev
+
+logos:
+  - file: /press/bentegy-znak.png
+    title_uk: Знак
+    title_en: Mark
+    bg: light
+  - file: /press/bentegy-lokap-chornyi.png
+    title_uk: Знак і назва, чорний
+    title_en: Mark and name, black
+    bg: light
+  - file: /press/bentegy-lokap-bilyi.png
+    title_uk: Знак і назва, білий
+    title_en: Mark and name, white
+    bg: dark
+  - file: /press/bentegy-napys-chornyi.png
+    title_uk: Напис, чорний
+    title_en: Wordmark, black
+    bg: light
+  - file: /press/bentegy-napys-bilyi.png
+    title_uk: Напис, білий
+    title_en: Wordmark, white
+    bg: dark
+
+# Публікації в медіа. Додавайте лише справжні, з посиланням.
+coverage:
+  - outlet: Київ Life
+    title: "У Києві покажуть «Коні за вікном» за Матеєм Вішнеком: прем'єра 18 жовтня"
+    date: "2026-10-13"
+    url: https://life.kyiv.ua/news/u-kyievi-pokazhut-koni-za-viknom-za-mateiem-vishnekom-premiera-18-zhovtnia
+  - outlet: Kyiv.news
+    title: Студенти КНУТКіТ покажуть «Коней за вікном» Вішнєка в «Хорі» 18 жовтня
+    date: "2026-10-14"
+    url: https://kyiv.news/showbiz/koni-za-viknom-vishniek-premiera-khora/
+  - outlet: Київ Life
+    title: У київському Collider покажуть моновиставу «Між Світом і Душею» за методом Тадаші Сузукі
+    date: "2026-06-05"
+    url: https://life.kyiv.ua/news/u-kyivskomu-collider-pokazhut-monovystavu-mizh-svitom-i-dusheiu-za-metodom-tadas
+
+# Цитати з рецензій та відгуків критиків. Лише справжні, з джерелом.
+quotes: []

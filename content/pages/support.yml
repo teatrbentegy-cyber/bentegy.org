@@ -1,0 +1,64 @@
+# Сторінка «Підтримати театр»
+lead_uk: Бентеги — незалежний театр. Кожен внесок стає новою виставою, чесним гонораром для команди й показом для глядачів.
+lead_en: Bentegy is an independent theatre. Every contribution becomes a new production, fair pay for the team and a performance for the audience.
+
+# Онлайн-внесок карткою (WayForPay). Коли буде посилання на платіжну сторінку — вставте його сюди.
+online_url: ""
+online_note_uk: Visa і Mastercard з будь-якої країни, Apple Pay, Google Pay. Суму списують у гривнях, конвертацію робить ваш банк.
+online_note_en: Visa and Mastercard from any country, Apple Pay and Google Pay. The amount is charged in Ukrainian hryvnia; your bank converts it from your currency.
+
+# Банківські реквізити. Порожні поля на сайті не показуються.
+bank:
+  recipient_uk: Громадська організація «В РЕСУРСІ»
+  recipient_en: NGO “In the Resource” (Hromadska orhanizatsiia «V RESURSI»)
+  edrpou: "44977435"
+  iban_uah: ""
+  bank_uk: ""
+  bank_en: ""
+  iban_usd: ""
+  iban_eur: ""
+  swift: ""
+  purpose_uk: Благодійний внесок на статутну діяльність
+  purpose_en: Charitable donation for statutory activities
+
+uses_uk:
+  - title: Нові вистави
+    text: Дослідження, репетиції, сценографія, костюми й світло для прем'єр.
+  - title: Команда
+    text: Гонорари акторів, режисерів, хореографів і художників.
+  - title: Покази
+    text: Оренда майданчиків, техніка, перевезення декорацій.
+  - title: Гастролі
+    text: Участь у фестивалях в Україні та за кордоном.
+  - title: Освіта
+    text: Тренінги, відкриті пітчинги й продюсерська підтримка молодих команд.
+uses_en:
+  - title: New productions
+    text: Research, rehearsals, set, costumes and lighting for premieres.
+  - title: The team
+    text: Fees for performers, directors, choreographers and designers.
+  - title: Performances
+    text: Venue hire, technical equipment and transport for the sets.
+  - title: Touring
+    text: Festival appearances in Ukraine and abroad.
+  - title: Learning
+    text: Training, open pitches and producing support for young teams.
+
+partners_uk:
+  - title: Партнер сезону
+    text: Підтримка репертуарного сезону з присутністю бренду в усіх анонсах і на покажах.
+  - title: Партнер вистави
+    text: Внесок у конкретну прем'єру чи гастроль.
+  - title: Підтримка в натуральній формі
+    text: Майданчик для репетицій, світло й звук, друк, перевезення, проживання для гастролей.
+  - title: Меценатство
+    text: Особиста підтримка театру з подякою на сайті та в програмках, якщо ви цього бажаєте.
+partners_en:
+  - title: Season partner
+    text: Support for the repertoire season, with your brand in every announcement and at every performance.
+  - title: Production partner
+    text: A contribution to a specific premiere or tour.
+  - title: In-kind support
+    text: Rehearsal space, lighting and sound, printing, transport, accommodation on tour.
+  - title: Patronage
+    text: Personal support for the theatre, with thanks on the website and in programmes if you wish.
