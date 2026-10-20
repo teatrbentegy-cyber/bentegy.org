@@ -80,8 +80,10 @@ collections:
           - { label: Репертуар, value: repertoire }
           - { label: Прем'єра скоро, value: upcoming }
           - { label: За продюсування Бентег, value: produced }
+          - { label: В розробці, value: development }
           - { label: Архів, value: archive }
       - { name: order, label: Порядок у списку, widget: number, value_type: int, default: 10 }
+      - { name: year, label: "Рік (для архіву)", widget: string, required: false }
       - { name: cover, label: Головне фото (горизонтальне), widget: image, required: false }
       - { name: summary_uk, label: Коротко, одне речення (UA), widget: text }
       - { name: summary_en, label: Коротко, одне речення (EN), widget: text }
@@ -101,7 +103,8 @@ collections:
         fields:
           - { name: role_uk, label: Роль (UA), widget: string }
           - { name: role_en, label: Роль (EN), widget: string }
-          - { name: names, label: Імена, widget: string }
+          - { name: names, label: Імена (UA), widget: string }
+          - { name: names_en, label: Імена (EN), widget: string, required: false }
       - name: gallery
         label: Галерея
         widget: list
