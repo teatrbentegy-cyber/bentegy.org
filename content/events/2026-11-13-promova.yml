@@ -1,0 +1,14 @@
+production: promova
+date: 2026-11-13
+time: "19:00"
+date_note_uk: ""
+date_note_en: ""
+venue_uk: Підвал Культури, вул. Олеся Гончара, 30а
+venue_en: Pidval Kultury, 30a Olesia Honchara St.
+city_uk: Київ
+city_en: Kyiv
+label_uk: ""
+label_en: ""
+ticket_url: https://secure.wayforpay.com/payment/promova_1311
+ticket_operator: WayForPay
+status: on_sale
