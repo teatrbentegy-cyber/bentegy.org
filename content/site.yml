@@ -1,19 +1,18 @@
-# Загальні налаштування сайту
 hero:
-  - image: /uploads/msid-scene-1.jpg
-    caption_uk: «Між світом і душею»
-    caption_en: Between the World and the Soul
+  - image: /uploads/07.jpg
+    caption_uk: Між світом і душею
+    caption_en: Between World and Soul
   - image: /uploads/kinets-zminy-sea.jpg
-    caption_uk: «Кінець зміни»
+    caption_uk: Кінець зміни
     caption_en: End of Shift
   - image: /uploads/inferior-play-1.jpg
     caption_uk: The Inferior Play
     caption_en: The Inferior Play
   - image: /uploads/promova-1.jpg
-    caption_uk: «Промова»
-    caption_en: Promova (The Speech)
-tagline_uk: Незалежний документальний і постдраматичний театр у Києві. Вистави, де особисте свідчення зустрічається з реальністю.
-tagline_en: An independent documentary and postdramatic theatre company in Kyiv. Performances where personal testimony meets reality.
+    caption_uk: Промова
+    caption_en: The Speech
+tagline_uk: Незалежний театр у Києві. Вистави, де особисте свідчення зустрічається з реальністю.
+tagline_en: An independent theatre company in Kyiv. Performances where personal testimony meets reality.
 contacts:
   team: team@bentegy.org
   press: press@bentegy.org
@@ -36,9 +35,8 @@ partners:
   - European Cultural Foundation
   - Culture Helps Solidarity
   - Qendra Multimedia
-  - Підвал Культури / Pidval Kultury
-  - КультМотив / KultMotyv
-  - Простір «Хора» / Chora Stage
-  - Театральний клуб «НАШі» / NASHi
+  - КультМотив / CultMotive
+  - Chora Stage
+  - NASHi Experimental Theatre Club
 # Статистика відвідувань GoatCounter: впишіть код сайту (наприклад bentegy), щоб увімкнути
 goatcounter: ""
