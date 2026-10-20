@@ -1,0 +1,81 @@
+name_uk: Павло Коваль
+name_en: Pavlo Koval
+role_uk: Театральний продюсер, режисер, засновник Театру Бентеги
+role_en: Theatre producer, director, founder of Bentegy Theatre
+photo: /uploads/pavlo-koval.jpg
+photo_credit: "Фото / Photo: Sergeitsev"
+lead_uk: Продюсування для мене — повний цикл. Від народження ідеї до звіту після останнього показу.
+lead_en: For me, producing is the full cycle. From the birth of an idea to the report after the final performance.
+bio_uk: |
+  Родом із Камʼянського, де випустив свої перші дві вистави. У Києві почав працювати в театральному клубі «НАШі», а у 2025 році заснував Театр Бентеги й дебютував у місті виставою «Промова».
+
+  Продюсує молоді незалежні команди: допомагає випускати вистави, знаходити партнерів і домовлятися про співпрацю. Як режисер працює в документальних і постдраматичних формах, веде тренінги Viewpoints.
+
+  Продакшн-менеджер KÏ Platforma. Випускник Київського національного університету культури і мистецтв (культурологія та івент-менеджмент, 2026). Fellow програми ITI Academy Week 2026 Міжнародного театрального інституту.
+bio_en: |
+  Pavlo comes from Kamianske, where he made his first two productions. In Kyiv he started working at the NASHi theatre club, and in 2025 founded Bentegy Theatre, debuting in the city with Promova (The Speech).
+
+  He produces young independent teams, helping them release productions, find partners and secure agreements. As a director he works in documentary and postdramatic forms and leads Viewpoints training.
+
+  Production manager at KÏ Platforma. Graduate of the Kyiv National University of Culture and Arts (Cultural Studies and Event Management, 2026). Fellow of the International Theatre Institute’s ITI Academy Week 2026.
+services_uk:
+  - title: Повний продюсерський цикл
+    text: Концепція, кошторис, команда, майданчик, графік показів, звітність.
+  - title: Партнерства й фінансування
+    text: Гранти, копродукції, міжнародні партнери, домовленості з майданчиками.
+  - title: Промо і квитки
+    text: Анонси, робота з медіа, продаж квитків, аналітика каси.
+  - title: Менторство молодих команд
+    text: Супровід студентських і дебютних робіт до професійної сцени.
+services_en:
+  - title: Full producing cycle
+    text: Concept, budget, team, venue, performance schedule, reporting.
+  - title: Partnerships and funding
+    text: Grants, co-productions, international partners, venue agreements.
+  - title: Promotion and ticketing
+    text: Announcements, media relations, ticket sales, box-office analytics.
+  - title: Mentoring young teams
+    text: Taking student and debut work to the professional stage.
+cases:
+  - title_uk: Коні за вікном
+    title_en: Horses Outside the Window
+    year: "2026"
+    role_uk: Продюсер проєкту
+    role_en: Producer
+    text_uk: Студентська робота за пʼєсою Матея Вішнека — від пітчингу до професійної прем'єри в просторі «Хора».
+    text_en: A student piece by Matei Vișniec — from a pitch to a professional premiere at Chora Stage.
+  - title_uk: НАОСЛІП
+    title_en: NAOSLIP
+    year: "2026"
+    role_uk: Куратор, продюсер
+    role_en: Curator, producer
+    text_uk: "Вечір незалежного театру, що відкрив сезон: ескізи пʼяти вистав, розмова театрів чотирьох міст, відкритий пітчинг."
+    text_en: An evening of independent theatre that opened the season — five sketches, a conversation between theatres from four cities, an open pitch.
+  - title_uk: Кінець зміни
+    title_en: End of Shift
+    year: "2026"
+    role_uk: Продюсер
+    role_en: Producer
+    text_uk: Фізичний і танцювальний театр з одинадцятьма виконавцями.
+    text_en: Physical and dance theatre with eleven performers.
+  - title_uk: The Inferior Play
+    title_en: The Inferior Play
+    year: "2026"
+    role_uk: Продюсер
+    role_en: Producer
+    text_uk: Міждисциплінарний work-in-progress про гру як практику присутності.
+    text_en: An interdisciplinary work-in-progress on play as a practice of presence.
+  - title_uk: Під уніформою / Under the Uniform
+    title_en: Under the Uniform
+    year: "2026–2027"
+    role_uk: Режисер, драматург, продюсер
+    role_en: Director, playwright, producer
+    text_uk: Документальна вистава й міжнародна копродукція з Qendra Multimedia (Косово).
+    text_en: A documentary performance and an international co-production with Qendra Multimedia (Kosovo).
+  - title_uk: Троянські жінки
+    title_en: Trojan Women
+    year: "2026"
+    role_uk: Асистент режисера, продакшн-менеджер
+    role_en: Assistant director, production manager
+    text_uk: Міжнародний проєкт театрального клубу «НАШі» і The Trojan Women Project / La MaMa ETC (Нью-Йорк).
+    text_en: An international project by NASHi and The Trojan Women Project / La MaMa ETC (New York).

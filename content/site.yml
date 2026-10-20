@@ -1,0 +1,42 @@
+# Загальні налаштування сайту
+hero:
+  - image: /uploads/msid-scene-1.jpg
+    caption_uk: «Між світом і душею»
+    caption_en: Between the World and the Soul
+  - image: /uploads/kinets-zminy-sea.jpg
+    caption_uk: «Кінець зміни»
+    caption_en: End of Shift
+  - image: /uploads/inferior-play-1.jpg
+    caption_uk: The Inferior Play
+    caption_en: The Inferior Play
+  - image: /uploads/promova-1.jpg
+    caption_uk: «Промова»
+    caption_en: Promova (The Speech)
+tagline_uk: Незалежний документальний і постдраматичний театр у Києві. Вистави, де особисте свідчення зустрічається з реальністю.
+tagline_en: An independent documentary and postdramatic theatre company in Kyiv. Performances where personal testimony meets reality.
+contacts:
+  team: team@bentegy.org
+  press: press@bentegy.org
+  producer: pavlo.koval@bentegy.org
+  phone: "+380 98 151 45 00"
+  instagram: https://www.instagram.com/teatr.bentegy/
+  telegram: https://t.me/teatr_bentegy
+organization:
+  name_uk: Громадська організація «В РЕСУРСІ»
+  name_en: NGO “In the Resource”
+  edrpou: "44977435"
+  registered: "2023-01-25"
+  address_uk: Україна, 51909, Дніпропетровська обл., м. Камʼянське, проспект Героїв АТО, 7б
+  address_en: 7b Heroiv ATO Ave., Kamianske, Dnipropetrovsk region, 51909, Ukraine
+  head_uk: Павло Коваль, голова правління
+  head_en: Pavlo Koval, Head of the Board
+  nonprofit_uk: Рішення ДПС № 2304034600006 від 06.02.2023, ознака неприбутковості 0032
+  nonprofit_en: State Tax Service decision No. 2304034600006 of 6 February 2023, non-profit code 0032
+partners:
+  - European Cultural Foundation
+  - Culture Helps Solidarity
+  - Qendra Multimedia
+  - Підвал Культури / Pidval Kultury
+  - КультМотив / KultMotyv
+  - Простір «Хора» / Chora Stage
+  - Театральний клуб «НАШі» / NASHi
