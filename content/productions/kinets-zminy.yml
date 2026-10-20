@@ -5,23 +5,34 @@ status: repertoire
 order: 4
 genre_uk: Фізичний і танцювальний театр
 genre_en: Physical and dance theatre
-premiere_uk: 2026, Київ
-premiere_en: 2026, Kyiv
-duration_uk: ""
-duration_en: ""
-age: ""
+premiere_uk: Вересень 2026, простір «Хора»
+premiere_en: September 2026, Chora Stage, Kyiv
+duration_uk: 60 хвилин без антракту
+duration_en: 60 minutes, no interval
+age: "12+"
 cover: /uploads/kinets-zminy-sea.jpg
 summary_uk: Як колективний тиск переписує ідентичність — і що потрібно, щоб лишатися собою.
 summary_en: How collective pressure rewrites identity — and what it takes to remain yourself.
 description_uk: |
-  Вистава про те, як інформаційні потоки й колективний тиск переписують ідентичність, і скільки сили потрібно, щоб лишатися собою, коли суспільство навʼязує роль.
+  Одного дня в місто приносять нову воду. Її п'ють усі. Люди змінюються: інакше рухаються, інакше думають і щиро вірять, що так і має бути. Не п'є тільки один. Він бачить, як змінюються сусіди й друзі, і з кожним днем лишається дедалі самотнішим. Скільки можна залишатися собою, якщо всі навколо вважають божевільним саме тебе?
 
-  На сцені — одинадцять виконавців.
+  Чотирнадцять виконавців розповідають цю історію тілом, без жодного слова. На сцені відра з водою на коромислі, крапельниці, рожеві окуляри і стіна з дерев'яних палиць, яка росте просто на очах. Сюжет зрозумілий з першої сцени, підготовка чи знання сучасного танцю для перегляду зайві.
+
+  Це вистава про конформізм: як легко прийняти чужі правила за свої і назвати це дорослішанням.
+
+  Театральний проєкт «Межа», продюсує Театр Бентеги.
 description_en: |
-  A performance about how information flows and collective pressure reshape identity, and what it takes to remain yourself when society imposes a role.
+  One day the town gets new water. Everyone drinks it. People change: they move differently, think differently and sincerely believe this is how it should be. Only one man refuses to drink. He watches his neighbours and friends change and grows lonelier every day. How long can you stay yourself when everyone around you thinks you are the one who has gone mad?
 
-  Eleven performers on stage.
-credits: []
+  Fourteen performers tell this story with their bodies, without a single word. On stage: buckets of water on a yoke, IV drips, rose-tinted glasses and a wall of wooden poles that grows before your eyes. The story is clear from the first scene; no background in contemporary dance is needed.
+
+  A performance about conformity: how easily we accept someone else’s rules as our own and call it growing up.
+
+  A Mezha theatre project, produced by Bentegy Theatre.
+credits:
+  - role_uk: Режисер-хореограф
+    role_en: Director and choreographer
+    names: Владислав Дирда
 gallery:
   - image: /uploads/kinets-zminy-stage.jpg
   - image: /uploads/kinets-zminy-poles.jpg
