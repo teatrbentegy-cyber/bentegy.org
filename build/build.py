@@ -460,6 +460,10 @@ def card(p, lang):
         tag = f'<span class="tag">{t["upcoming_tag"]}</span>'
     elif p.get("status") == "produced":
         tag = f'<span class="tag o">{t["produced_tag"]}</span>'
+    elif p.get("status") == "development":
+        tag = f'<span class="tag o">{"В розробці" if lang == "uk" else "In development"}</span>'
+    elif p.get("status") == "archive":
+        tag = f'<span class="tag o">{"Архів" if lang == "uk" else "Archive"}{" · " + str(p["year"]) if p.get("year") else ""}</span>'
     pic = img(p.get("cover"), L(p, "title", lang), "(max-width:760px) 100vw, 58vw") or f'<span class="ty">{e(L(p, "title", lang))}</span>'
     return f"""<a class="c" href="{show_url(p['slug'], lang)}"><div class="im">{pic}</div>
   <div class="cap"><h3>{e(L(p, 'title', lang))}</h3><span>{e(L(p, 'genre', lang))}</span></div>{tag}</a>"""
@@ -527,6 +531,7 @@ def page_shows(lang):
     rep = [p for p in PRODUCTIONS if p.get("status") in ("repertoire", "upcoming")]
     prod = [p for p in PRODUCTIONS if p.get("status") == "produced"]
     arch = [p for p in PRODUCTIONS if p.get("status") == "archive"]
+    dev = [p for p in PRODUCTIONS if p.get("status") == "development"]
     intro = ("Документальні й постдраматичні вистави, що виростають із дослідження: інтервʼю, архівів, особистих історій і роботи з тілом."
              if lang == "uk" else
              "Documentary and postdramatic performances grown out of research: interviews, archives, personal stories and work with the body.")
@@ -535,7 +540,7 @@ def page_shows(lang):
         if not items:
             return ""
         return f'<section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{title}</h2></div><div class="rep">{"".join(card(p, lang) for p in items)}</div></section>'
-    body = page_head(t["nav"]["shows"], intro) + sec(t["repertoire"], rep) + sec(t["produced"], prod) + sec("Архів" if lang == "uk" else "Archive", arch)
+    body = page_head(t["nav"]["shows"], intro) + sec(t["repertoire"], rep) + sec(t["produced"], prod) + sec("В розробці" if lang == "uk" else "In development", dev) + sec("Архів" if lang == "uk" else "Archive", arch)
     return head(lang, "shows", t["nav"]["shows"], intro, (url("shows", lang), url("shows", other(lang)))) + body + foot(lang)
 
 
@@ -547,6 +552,10 @@ def page_show(p, lang):
         kick.append(f'<span class="tag">{t["upcoming_tag"]}</span>')
     elif p.get("status") == "produced":
         kick.append(f'<span class="tag">{t["produced_tag"]}</span>')
+    elif p.get("status") == "development":
+        kick.append(f'<span class="tag">{"В розробці" if lang == "uk" else "In development"}</span>')
+    elif p.get("status") == "archive":
+        kick.append(f'<span class="tag">{"Архів" if lang == "uk" else "Archive"}{" · " + str(p["year"]) if p.get("year") else ""}</span>')
     if L(p, "genre", lang):
         kick.append(f"<span>{e(L(p, 'genre', lang))}</span>")
     kick_h = f'<p class="kick">{"".join(kick)}</p>' if kick else ""
@@ -558,7 +567,7 @@ def page_show(p, lang):
     facts = [(t["genre"], L(p, "genre", lang)), (t["premiere"], L(p, "premiere", lang)), (t["duration"], L(p, "duration", lang)), (t["age"], p.get("age") or "")]
     facts_h = "".join(f"<div><dt>{a}</dt><dd>{e(b)}</dd></div>" for a, b in facts if b)
     evs = [ev for ev in EVENTS if ev.get("production") == p["slug"]]
-    credits = "".join(f"<dt>{e(L(c, 'role', lang))}</dt><dd>{e(c.get('names', ''))}</dd>" for c in (p.get("credits") or []))
+    credits = "".join(f"<dt>{e(L(c, 'role', lang))}</dt><dd>{e(c.get(f'names_{lang}') or c.get('names', ''))}</dd>" for c in (p.get("credits") or []))
     gal_items = []
     for g in (p.get("gallery") or []):
         cap = L(g, "caption", lang)
