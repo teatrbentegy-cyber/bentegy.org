@@ -3,27 +3,47 @@ title_uk: Між світом і душею
 title_en: Between the World and the Soul
 status: repertoire
 order: 1
-genre_uk: Документальна моновистава
-genre_en: Documentary solo performance
-premiere_uk: 2026, Київ
-premiere_en: 2026, Kyiv
-duration_uk: Одна дія з цезурою, без антракту
-duration_en: One act with a caesura, no interval
-age: ""
+genre_uk: Монодрама · фізичний театр за методом Тадаші Сузукі
+genre_en: Solo performance · physical theatre, Tadashi Suzuki method
+premiere_uk: 11 червня 2026, Collider, Київ
+premiere_en: 11 June 2026, Collider, Kyiv
+duration_uk: 55–65 хвилин без антракту
+duration_en: 55–65 minutes, no interval
+age: 16+
 cover: /uploads/msid-scene-1.jpg
 summary_uk: Памʼять, спротив і моральний вибір крізь постать поета Василя Стуса.
 summary_en: Memory, resistance and moral choice through the figure of the poet Vasyl Stus.
 description_uk: |
-  Документальна моновистава, побудована на поезії, листах і автобіографічній прозі Василя Стуса.
+  Не біографія Василя Стуса, а тілесне дослідження стану: що відбувається з людиною, коли система намагається відібрати все — мову, простір, час, свободу, — а вона залишається собою.
 
-  Документальне дослідження поєднується з фізичними практиками за методом Тадаші Судзукі та мінімалістичною сценографією: сорочка, дві дошки, відро води, крапля, що відміряє час.
+  Драматургічна основа — листи Стуса до дружини Валентини з табору Перм-36 та його вірші. Вони не декламуються, а проступають крізь сценічну дію. Вистава створена за методом японського режисера Тадаші Сузукі, однією з найвимогливіших систем фізичного театру, де актор працює «від ніг», а вага, рух і дихання стають головною мовою.
+
+  Центральний образ — дві звичайні дерев'яні дошки, які протягом дії стають ґратами, кліткою і хрестом. Актор переставляє і несе їх сам: трансформація фізична, а не метафорична.
+
+  Вистава народжувалася як відкритий процес: допрем'єрний показ work-in-progress, а після прем'єри — розмова з глядачами. Адаптивна сценографія дає змогу показувати її на гастролях і фестивалях.
 description_en: |
-  A documentary solo performance built from the poetry, letters and autobiographical prose of Vasyl Stus.
+  Not a biography of Vasyl Stus but a bodily study of a state: what happens to a person when the system tries to take everything — language, space, time, freedom — and they remain themselves.
 
-  Documentary research meets physical practice drawing on Tadashi Suzuki’s method and a minimal stage: a shirt, two planks, a bucket of water, a drop that measures time.
-credits: []
+  The dramaturgical source is Stus’s letters to his wife Valentyna from the Perm-36 labour camp, and his poems. They are not recited but surface through stage action. The piece is made through the method of Japanese director Tadashi Suzuki, one of the most demanding systems of physical theatre, where the actor works “from the feet up” and weight, movement and breath become the primary language.
+
+  The central image is two ordinary wooden boards that become prison bars, a cage and a cross. The actor moves and carries them himself: the transformation is physical, not metaphorical.
+
+  The piece grew as an open process, with a work-in-progress showing before the premiere and a conversation with the audience after it. Its adaptive scenography makes touring and festival showings possible.
+credits:
+- role_uk: Режисер і продюсер
+  role_en: Director and producer
+  names: Павло Коваль
+  names_en: Pavlo Koval
+- role_uk: Актор
+  role_en: Performer
+  names: Антон Старостін
+  names_en: Anton Starostin
+- role_uk: Матеріал
+  role_en: Source material
+  names: Листи Василя Стуса до дружини Валентини (Перм-36) та його вірші
+  names_en: Vasyl Stus’s letters to his wife Valentyna (Perm-36) and his poems
 gallery:
-  - image: /uploads/msid-scene-2.jpg
-  - image: /uploads/msid-hands.jpg
-  - image: /uploads/msid-ladder.jpg
+- image: /uploads/msid-scene-2.jpg
+- image: /uploads/msid-hands.jpg
+- image: /uploads/msid-ladder.jpg
 photo_credit: Архів театру / Company archive

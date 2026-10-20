@@ -1,15 +1,15 @@
 slug_hint: kinets-zminy
 title_uk: Кінець зміни
 title_en: End of Shift
-status: repertoire
+status: produced
 order: 4
 genre_uk: Фізичний і танцювальний театр
 genre_en: Physical and dance theatre
-premiere_uk: Вересень 2026, простір «Хора»
-premiere_en: September 2026, Chora Stage, Kyiv
+premiere_uk: 2 вересня 2026, простір «Хора»
+premiere_en: 2 September 2026, Chora Stage, Kyiv
 duration_uk: 60 хвилин без антракту
 duration_en: 60 minutes, no interval
-age: "12+"
+age: 12+
 cover: /uploads/kinets-zminy-2026-01.jpg
 summary_uk: Як колективний тиск переписує ідентичність — і що потрібно, щоб лишатися собою.
 summary_en: How collective pressure rewrites identity — and what it takes to remain yourself.
@@ -20,7 +20,9 @@ description_uk: |
 
   Це вистава про конформізм: як легко прийняти чужі правила за свої і назвати це дорослішанням.
 
-  Театральний проєкт «Межа», продюсує Театр Бентеги.
+  В основі — суфійська притча «Як змінилася вода». Вистава йде без словесного тексту, тож відкрита для нечуючих глядачів, іноземців і тих, хто в театрі ще не бував.
+
+  «Кінець зміни» — дебютна режисерська робота повного формату хореографа Владислава Дирди і перша постановка заснованого ним театрального проєкту «Межа». Робота над виставою тривала близько семи місяців, з відкритими репетиціями та двома показами work-in-progress. Продюсує Театр Бентеги.
 description_en: |
   One day the town gets new water. Everyone drinks it. People change: they move differently, think differently and sincerely believe this is how it should be. Only one man refuses to drink. He watches his neighbours and friends change and grows lonelier every day. How long can you stay yourself when everyone around you thinks you are the one who has gone mad?
 
@@ -28,19 +30,34 @@ description_en: |
 
   A performance about conformity: how easily we accept someone else’s rules as our own and call it growing up.
 
-  A Mezha theatre project, produced by Bentegy Theatre.
+  It is based on the Sufi parable “When the Waters Were Changed”. With no spoken text, the piece is open to Deaf audiences, visitors from abroad and people who have never been to the theatre.
+
+  End of Shift is the first full-length piece directed by choreographer Vladyslav Dyrda and the first production of his Mezha theatre project. It was made over about seven months, with open rehearsals and two work-in-progress showings. Produced by Bentegy Theatre.
 credits:
-  - role_uk: Режисер-хореограф
-    role_en: Director and choreographer
-    names: Владислав Дирда
+- role_uk: Ідея, хореографія та постановка
+  role_en: Concept, choreography and direction
+  names: Владислав Дирда, театральний проєкт «Межа»
+  names_en: Vladyslav Dyrda, Mezha theatre project
+- role_uk: Продюсер
+  role_en: Producer
+  names: Павло Коваль, Театр Бентеги
+  names_en: Pavlo Koval, Bentegy Theatre
+- role_uk: Стейдж-менеджерка
+  role_en: Stage manager
+  names: Софія Форніка
+  names_en: Sofiia Fornika
+- role_uk: SMM
+  role_en: Social media
+  names: Вікторія Дуб
+  names_en: Viktoriia Dub
 gallery:
-  - image: /uploads/kinets-zminy-2026-02.jpg
-  - image: /uploads/kinets-zminy-2026-03.jpg
-  - image: /uploads/kinets-zminy-2026-04.jpg
-  - image: /uploads/kinets-zminy-2026-05.jpg
-  - image: /uploads/kinets-zminy-2026-06.jpg
-  - image: /uploads/kinets-zminy-2026-07.jpg
-  - image: /uploads/kinets-zminy-2026-08.jpg
-  - image: /uploads/kinets-zminy-2026-09.jpg
-  - image: /uploads/kinets-zminy-2026-10.jpg
+- image: /uploads/kinets-zminy-2026-02.jpg
+- image: /uploads/kinets-zminy-2026-03.jpg
+- image: /uploads/kinets-zminy-2026-04.jpg
+- image: /uploads/kinets-zminy-2026-05.jpg
+- image: /uploads/kinets-zminy-2026-06.jpg
+- image: /uploads/kinets-zminy-2026-07.jpg
+- image: /uploads/kinets-zminy-2026-08.jpg
+- image: /uploads/kinets-zminy-2026-09.jpg
+- image: /uploads/kinets-zminy-2026-10.jpg
 photo_credit: Архів театру / Company archive

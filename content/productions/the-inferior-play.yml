@@ -3,22 +3,42 @@ title_uk: The Inferior Play
 title_en: The Inferior Play
 status: repertoire
 order: 5
-genre_uk: Міждисциплінарний work-in-progress
-genre_en: Interdisciplinary work-in-progress
-premiere_uk: 2026, Київ
-premiere_en: 2026, Kyiv
-duration_uk: ""
-duration_en: ""
-age: ""
+genre_uk: Проєкт-дослідження гри
+genre_en: A research project on play
+premiere_uk: Фінальна презентація 23 серпня 2026, Київ
+premiere_en: Final presentation 23 August 2026, Kyiv
+duration_uk: ''
+duration_en: ''
+age: ''
 cover: /uploads/inferior-play-1.jpg
-summary_uk: Гра як чуттєва практика присутності й стійкості.
-summary_en: Play as a sensory practice of presence and resilience.
+summary_uk: Міждисциплінарне дослідження гри як чуттєвої практики присутності. Замість глядачів — гості-дослідники.
+summary_en: An interdisciplinary study of play as a sensory practice of presence. Instead of spectators, guest researchers.
 description_uk: |
-  Проєкт повертає гру як чуттєву практику присутності й стійкості. Гості стають дослідниками й учасниками дії.
+  Міждисциплінарний проєкт-дослідження гри як чуттєвої практики присутності. Це не вистава в класичному сенсі: замість глядачів тут гості-дослідники, а межа між грою і життям поступово зникає.
+
+  Проєкт існує у форматі відкритої лабораторії — плейтести, воркшопи, відкриті репетиції, розмови й архів. Гра тут постає як «щеплення від іронії» і вправа на стійкість. Незавершеність work-in-progress — частина задуму.
+
+  Проєкт є переможцем грантової програми Per Forma, яку здійснює платформа Kyiv Contemporary Music Days за підтримки Performing Arts Fund NL та Міністерства освіти, культури та науки Нідерландів для розвитку сектору перформативних мистецтв в Україні.
 description_en: |
-  Reclaiming play as a sensory practice of presence and resilience. Guests become researchers and participants.
-credits: []
+  An interdisciplinary research project on play as a sensory practice of presence. It is not a performance in the classical sense: instead of spectators there are guest researchers, and the line between play and life gradually disappears.
+
+  The project works as an open laboratory: playtests, workshops, open rehearsals, conversations and an archive. Play becomes an “inoculation against irony” and an exercise in resilience. Being a work in progress is part of the idea.
+
+  The project is a winner of the Per Forma grant programme run by Kyiv Contemporary Music Days with the support of Performing Arts Fund NL and the Ministry of Education, Culture and Science of the Netherlands for the development of the performing arts sector in Ukraine.
+credits:
+- role_uk: Режисерка й кураторка
+  role_en: Director and curator
+  names: Марічка Гавриш
+  names_en: Marichka Havrysh
+- role_uk: Продюсер
+  role_en: Producer
+  names: Павло Коваль, Театр Бентеги
+  names_en: Pavlo Koval, Bentegy Theatre
+- role_uk: Підтримка
+  role_en: Support
+  names: Per Forma · Kyiv Contemporary Music Days · Performing Arts Fund NL
+  names_en: Per Forma · Kyiv Contemporary Music Days · Performing Arts Fund NL
 gallery:
-  - image: /uploads/inferior-play-2.jpg
-  - image: /uploads/inferior-play-3.jpg
+- image: /uploads/inferior-play-2.jpg
+- image: /uploads/inferior-play-3.jpg
 photo_credit: Архів театру / Company archive
