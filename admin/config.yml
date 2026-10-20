@@ -154,6 +154,7 @@ collections:
               - { name: nonprofit_uk, label: Неприбутковий статус (UA), widget: string }
               - { name: nonprofit_en, label: Неприбутковий статус (EN), widget: string }
           - { name: partners, label: Партнери, widget: list, field: { name: name, label: Назва, widget: string } }
+          - { name: goatcounter, label: "Статистика GoatCounter: код сайту", widget: string, required: false, hint: "Напр. bentegy для bentegy.goatcounter.com. Порожнє — статистику вимкнено" }
       - name: producer
         label: Сторінка «Продюсер»
         file: content/pages/producer.yml
@@ -220,3 +221,90 @@ collections:
               - { name: name_en, label: Імʼя (EN), widget: string }
               - { name: role_uk, label: Роль (UA), widget: string }
               - { name: role_en, label: Роль (EN), widget: string }
+      - name: support
+        label: Сторінка «Підтримати»
+        file: content/pages/support.yml
+        fields:
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - { name: online_url, label: "Посилання на онлайн-оплату (WayForPay)", widget: string, required: false, hint: "Поки порожнє — кнопки оплати на сайті немає" }
+          - { name: online_note_uk, label: Примітка до оплати (UA), widget: text, required: false }
+          - { name: online_note_en, label: Примітка до оплати (EN), widget: text, required: false }
+          - name: bank
+            label: Банківські реквізити
+            widget: object
+            hint: Порожні поля на сайті не показуються
+            fields:
+              - { name: recipient_uk, label: Отримувач (UA), widget: string }
+              - { name: recipient_en, label: Отримувач (EN), widget: string }
+              - { name: edrpou, label: Код ЄДРПОУ, widget: string }
+              - { name: bank_uk, label: Банк (UA), widget: string, required: false }
+              - { name: bank_en, label: Банк (EN), widget: string, required: false }
+              - { name: iban_uah, label: IBAN у гривні, widget: string, required: false }
+              - { name: iban_usd, label: IBAN у доларах, widget: string, required: false }
+              - { name: iban_eur, label: IBAN у євро, widget: string, required: false }
+              - { name: swift, label: SWIFT / BIC банку, widget: string, required: false }
+              - { name: purpose_uk, label: Призначення платежу (UA), widget: string }
+              - { name: purpose_en, label: Призначення платежу (EN), widget: string }
+          - name: uses_uk
+            label: На що йдуть кошти (UA)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: uses_en
+            label: На що йдуть кошти (EN)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: partners_uk
+            label: Формати партнерства (UA)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: partners_en
+            label: Формати партнерства (EN)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+      - name: press
+        label: Сторінка «Преса»
+        file: content/pages/press.yml
+        fields:
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - { name: about_short_uk, label: Про театр коротко (UA), widget: text }
+          - { name: about_short_en, label: Про театр коротко (EN), widget: text }
+          - { name: about_long_uk, label: Про театр детально (UA), widget: markdown }
+          - { name: about_long_en, label: Про театр детально (EN), widget: markdown }
+          - { name: photos_full_url, label: "Посилання на папку з фото в повній якості", widget: string, required: false }
+          - name: photos
+            label: Фото для преси
+            widget: list
+            fields:
+              - { name: image, label: Фото, widget: image }
+              - { name: caption_uk, label: Підпис (UA), widget: string }
+              - { name: caption_en, label: Підпис (EN), widget: string }
+              - { name: credit, label: Автор фото, widget: string }
+          - name: logos
+            label: Логотипи
+            widget: list
+            fields:
+              - { name: file, label: Файл PNG, widget: image }
+              - { name: title_uk, label: Назва (UA), widget: string }
+              - { name: title_en, label: Назва (EN), widget: string }
+              - { name: bg, label: Фон превʼю, widget: select, options: [{ label: Світлий, value: light }, { label: Темний, value: dark }], default: light }
+          - name: coverage
+            label: Публікації в медіа
+            widget: list
+            required: false
+            fields:
+              - { name: outlet, label: Видання, widget: string }
+              - { name: title, label: Заголовок, widget: string }
+              - { name: date, label: Дата, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+              - { name: url, label: Посилання, widget: string }
+          - name: quotes
+            label: Цитати з рецензій
+            widget: list
+            required: false
+            fields:
+              - { name: text_uk, label: Цитата (UA), widget: text }
+              - { name: text_en, label: Цитата (EN), widget: text, required: false }
+              - { name: author, label: Автор, widget: string, required: false }
+              - { name: outlet, label: Видання, widget: string, required: false }
+              - { name: url, label: Посилання, widget: string, required: false }
