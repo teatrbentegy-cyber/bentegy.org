@@ -7,20 +7,32 @@ genre_uk: Постдраматична вистава
 genre_en: Postdramatic performance
 premiere_uk: 22 вересня 2026, Підвал Культури
 premiere_en: 22 September 2026, Pidval Kultury
-duration_uk: ""
-duration_en: ""
+duration_uk: 45 хвилин
+duration_en: 45 minutes
 age: ""
 cover: /uploads/promova-1.jpg
 summary_uk: Троє жінок шукають вихід з бару. Єдина умова простору — сказати промову.
 summary_en: Three women look for a way out of a bar. The space has one condition — deliver a speech.
 description_uk: |
+  *Ви виглядаєте втомлено.* Знаємо. Ми теж.
+
+  Тривоги, новини, дедлайни, стрічка, яка ніколи не закінчується. «Промова 2.0» — вечір, коли можна зупинитися й побути з собою.
+
+  Вистава відбувається в барі, і бар справжній: він працює весь вечір. Приходь трохи раніше, візьми келих і займи місце за столиком. Вистава починається одразу, як ти заходиш.
+
+  Троє жінок у барі шукають вихід. Простір ставить одну умову: сказати промову, яку кожна з них довго носила в собі. Вона про втому, про любов і про те, що тримає, коли все навколо хитається. 45 хвилин на відстані витягнутої руки.
+
   Нова версія дебютної київської вистави театру — зі зміненою ідеєю, текстом і акторським складом.
-
-  Бар, з якого троє жінок шукають вихід. Наскрізна репліка — «Ви виглядаєте втомлено». Дослідження публічної мови, маніпуляції та колективної тиші.
 description_en: |
-  A new version of the company’s first Kyiv production, with a new concept, text and cast.
+  *You look tired.* We know. So are we.
 
-  Three women look for a way out of a bar. A recurring line: “You look tired.” An inquiry into public language, manipulation and collective silence.
+  Air-raid alerts, news, deadlines, a feed that never ends. Promova 2.0 is an evening to stop and be with yourself.
+
+  The performance takes place in a bar, and the bar is real: it is open all evening. Come a little early, get a glass and take a seat at a table. The performance begins as soon as you walk in.
+
+  Three women in a bar look for a way out. The space sets one condition: deliver the speech each of them has long carried inside. It is about tiredness, about love, and about what holds you when everything around is shaking. 45 minutes, at arm’s length.
+
+  A new version of the company’s first Kyiv production, with a new concept, text and cast.
 credits:
   - role_uk: Грають
     role_en: Cast
