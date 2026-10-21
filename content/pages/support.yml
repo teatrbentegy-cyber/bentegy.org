@@ -12,46 +12,46 @@ online_note_en: 'Secure payment via WayForPay: Visa and Mastercard from any coun
 tiers:
   - amount_uah: 300
     amount_eur: 10
-    title_uk: Квиток для ветерана
-    title_en: A ticket for a veteran
-    text_uk: Ми запрошуємо учасників бойових дій на покази безкоштовно. Ваш внесок дарує їм місце в залі.
-    text_en: We invite veterans to our performances free of charge. Your gift gives one of them a seat.
-    url_uah: ""
-    url_eur: ""
+    title_uk: Третій дзвінок
+    title_en: Third bell
+    text_uk: Маленький жест, з якого починається вечір. Він допомагає комусь опинитися в залі.
+    text_en: The small gesture that opens the evening. It helps someone take a seat in the hall.
+    url_uah: https://secure.wayforpay.com/donate/bentegy_uah
+    url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 800
     amount_eur: 20
-    title_uk: Гонорар актора
-    title_en: An actor’s fee
-    text_uk: Приблизно стільки отримує один виконавець за показ. Чесна оплата праці тримає незалежний театр.
-    text_en: Roughly what one performer earns for a show. Fair pay keeps independent theatre alive.
-    url_uah: ""
-    url_eur: ""
+    title_uk: Вихід на сцену
+    title_en: Stepping on stage
+    text_uk: Підтримка людей, які щовечора виходять до вас.
+    text_en: Support for the people who step out to meet you every night.
+    url_uah: https://secure.wayforpay.com/donate/bentegy_uah
+    url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 1500
     amount_eur: 35
-    title_uk: Світло для показу
-    title_en: Light for a performance
-    text_uk: Робота світлорежисера на одному показі.
-    text_en: A lighting operator’s work for one performance.
-    url_uah: ""
-    url_eur: ""
+    title_uk: Світло рампи
+    title_en: Footlights
+    text_uk: Те, що робить виставу видимою.
+    text_en: What makes the performance visible.
+    url_uah: https://secure.wayforpay.com/donate/bentegy_uah
+    url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 5000
     amount_eur: 100
     title_uk: Сцена
     title_en: The stage
     text_uk: Третина оренди зали для одного показу.
     text_en: A third of the venue hire for one performance.
-    url_uah: ""
-    url_eur: ""
+    url_uah: https://secure.wayforpay.com/donate/bentegy_uah
+    url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 15000
     amount_eur: 300
     title_uk: Партнер показу
     title_en: Performance partner
     text_uk: Повна оренда майданчика для одного показу. За бажанням подякуємо вам на сайті й перед виставою.
     text_en: The full venue hire for one performance. If you wish, we will thank you on our website and before the show.
-    url_uah: ""
-    url_eur: ""
-free_url_uah: ""
-free_url_eur: ""
+    url_uah: https://secure.wayforpay.com/donate/bentegy_uah
+    url_eur: https://secure.wayforpay.com/donate/bentegy_eur
+free_url_uah: https://secure.wayforpay.com/donate/bentegy_uah
+free_url_eur: https://secure.wayforpay.com/donate/bentegy_eur
 
 # Банківські реквізити. Порожні поля на сайті не показуються.
 bank:
