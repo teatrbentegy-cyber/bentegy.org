@@ -231,6 +231,21 @@ collections:
           - { name: lead_uk, label: Вступ (UA), widget: text }
           - { name: lead_en, label: Вступ (EN), widget: text }
           - { name: online_url, label: "Посилання на онлайн-оплату (WayForPay)", widget: string, required: false, hint: "Поки порожнє — кнопки оплати на сайті немає" }
+          - name: tiers
+            label: Рівні донатів
+            widget: list
+            hint: Рівень зʼявляється на сайті, щойно додано посилання WayForPay (гривневе — на українській сторінці, єврове — на англійській)
+            fields:
+              - { name: amount_uah, label: Сума в гривнях, widget: number, value_type: int }
+              - { name: amount_eur, label: Сума в євро, widget: number, value_type: int }
+              - { name: title_uk, label: Назва (UA), widget: string }
+              - { name: title_en, label: Назва (EN), widget: string }
+              - { name: text_uk, label: Опис (UA), widget: text }
+              - { name: text_en, label: Опис (EN), widget: text }
+              - { name: url_uah, label: Посилання WayForPay (гривня), widget: string, required: false }
+              - { name: url_eur, label: Посилання WayForPay (євро), widget: string, required: false }
+          - { name: free_url_uah, label: "Посилання «Своя сума» (гривня)", widget: string, required: false }
+          - { name: free_url_eur, label: "Посилання «Своя сума» (євро)", widget: string, required: false }
           - { name: online_note_uk, label: Примітка до оплати (UA), widget: text, required: false }
           - { name: online_note_en, label: Примітка до оплати (EN), widget: text, required: false }
           - name: bank
