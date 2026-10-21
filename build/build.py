@@ -698,8 +698,25 @@ def page_support(lang):
     mail = SETTINGS["contacts"]["team"]
     org = SETTINGS["organization"]
     ways = []
+    # 0. donation tiers (WayForPay buttons, UAH on the Ukrainian page, EUR on the English page)
+    cur = "uah" if uk else "eur"
+    sym = "₴" if uk else "€"
+    tiers = [x for x in (sp.get("tiers") or []) if x.get(f"url_{cur}")]
+    free = sp.get(f"free_url_{cur}")
+    tiers_html = ""
+    if tiers or free:
+        cards = "".join(f"""<div class="tier"><p class="amt">{'{:,}'.format(int(x.get(f'amount_{cur}') or 0)).replace(',', ' ')} {sym}</p><h3>{e(L(x, 'title', lang))}</h3><p>{e(L(x, 'text', lang))}</p>
+  <a class="tix" href="{e(x[f'url_{cur}'])}" target="_blank" rel="noopener">{'Підтримати' if uk else 'Donate'} ↗</a></div>""" for x in tiers)
+        if free:
+            cards += f"""<div class="tier free"><p class="amt">{'Своя сума' if uk else 'Any amount'}</p><h3>{'Як вам зручно' if uk else 'Your choice'}</h3><p>{'Кожна гривня йде на вистави, команду й покази.' if uk else 'Every euro goes to productions, the team and performances.'}</p>
+  <a class="tix" href="{e(free)}" target="_blank" rel="noopener">{'Обрати суму' if uk else 'Choose amount'} ↗</a></div>"""
+        alt = (f'<a class="go" href="{url("support", "en")}">Donate in euro from abroad →</a>' if uk and (sp.get("free_url_eur") or any(x.get("url_eur") for x in sp.get("tiers") or []))
+               else f'<a class="go" href="{url("support", "uk")}">Підтримати в гривні →</a>' if not uk and (sp.get("free_url_uah") or any(x.get("url_uah") for x in sp.get("tiers") or [])) else "")
+        tiers_html = f"""<div class="tiers">{cards}</div><p class="tnote">{e(L(sp, 'online_note', lang))} {alt}</p>"""
+    if tiers_html:
+        ways.append(f"""<article class="way wide"><span class="n">01</span><div><h3>{'Онлайн-донат' if uk else 'Donate online'}</h3>{tiers_html}</div></article>""")
     # 1. online card payment
-    if sp.get("online_url"):
+    if sp.get("online_url") and not tiers_html:
         ways.append(f"""<article class="way"><span class="n">01</span><div><h3>{'Онлайн карткою' if uk else 'Card payment online'}</h3>
   <p>{e(L(sp, 'online_note', lang))}</p></div>
   <div class="act"><a class="tix big" href="{e(sp['online_url'])}" target="_blank" rel="noopener">{'Зробити внесок ↗' if uk else 'Donate ↗'}</a><small>WayForPay</small></div></article>""")
