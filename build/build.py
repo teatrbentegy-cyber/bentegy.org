@@ -310,7 +310,8 @@ def ld_org(lang):
         "name": T[lang]["name"], "alternateName": ["Театр Бентеги", "Bentegy Theatre", "Бентеги"],
         "url": SITE + url("home", lang), "logo": SITE + "/press/bentegy-znak.png",
         "image": SITE + OG_DONE.get(f"bentegy-{lang}", ""), "description": L(SETTINGS, "tagline", lang),
-        "email": c["team"], "telephone": c["phone"].replace(" ", ""),
+        "email": c.get("theatre") or c["team"], "telephone": c["phone"].replace(" ", ""),
+        "contactPoint": [{"@type": "ContactPoint", "contactType": ct, "email": em} for ct, em in (("customer support", c.get("theatre")), ("partnerships", c.get("team")), ("press", c.get("press"))) if em],
         "address": {"@type": "PostalAddress", "addressLocality": "Kyiv", "addressCountry": "UA"},
         "foundingDate": "2025", "founder": {"@type": "Person", "name": L(PRODUCER, "name", lang)},
         "sameAs": [c["instagram"], c["telegram"]],
@@ -369,10 +370,15 @@ def nav_links(lang, key):
 
 
 def analytics():
+    out = ""
+    ga = (SETTINGS.get("ga4") or "").strip()
+    if ga:
+        out += (f'\n<script async src="https://www.googletagmanager.com/gtag/js?id={e(ga)}"></script>'
+                f"\n<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{e(ga)}');</script>")
     code = (SETTINGS.get("goatcounter") or "").strip()
-    if not code:
-        return ""
-    return f'\n<script data-goatcounter="https://{e(code)}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
+    if code:
+        out += f'\n<script data-goatcounter="https://{e(code)}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
+    return out
 
 
 def extra_links(lang, key):
@@ -438,7 +444,7 @@ def foot(lang):
   <div class="cols">
     <div><h4>{t['sections']}</h4><ul>{links}</ul></div>
     <div><h4>{t['connect']}</h4><ul>
-      <li><a href="mailto:{c['team']}">{c['team']}</a></li>
+      <li><a href="mailto:{c.get('theatre') or c['team']}">{c.get('theatre') or c['team']}</a></li>
       <li><a href="mailto:{c['press']}">{c['press']}</a></li>
       <li><a href="tel:{c['phone'].replace(' ', '')}">{c['phone']}</a></li></ul></div>
     <div><h4>{'Соцмережі' if lang == 'uk' else 'Follow'}</h4><ul>
@@ -705,7 +711,7 @@ def page_org(lang):
         ("Неприбутковий статус" if uk else "Non-profit status", L(o, "nonprofit", lang)),
     ]
     dl = "".join(f"<dt>{a}</dt><dd>{e(str(b))}</dd>" for a, b in rows)
-    mail = SETTINGS["contacts"]["team"]
+    mail = SETTINGS["contacts"].get("theatre") or SETTINGS["contacts"]["team"]
     dl += f'<dt>{"Електронна пошта" if uk else "Email"}</dt><dd><a href="mailto:{mail}">{mail}</a></dd>'
     goals = "".join(f"<li>{e(g)}</li>" for g in GOALS[lang])
     lead = ("Театр Бентеги діє через молодіжну громадську організацію «В РЕСУРСІ». Організація неприбуткова, позапартійна і незалежна, внесена до Реєстру неприбуткових установ та організацій."
@@ -732,9 +738,10 @@ def page_contact(lang):
     c = SETTINGS["contacts"]
     uk = lang == "uk"
     items = [
-        ("Команда і співпраця" if uk else "Team & partnerships", f"mailto:{c['team']}", c["team"], "Партнерства, гастролі, продюсування молодих команд." if uk else "Partnerships, touring, producing for young teams."),
+        ("Театр і організація" if uk else "Theatre & organisation", f"mailto:{c.get('theatre') or c['team']}", c.get("theatre") or c["team"], "Офіційне листування, державні органи, грантодавці, договори й реквізити." if uk else "Official correspondence, public bodies, funders, contracts and legal details."),
+        ("Співпраця" if uk else "Partnerships", f"mailto:{c['team']}", c["team"], "Партнерства, гастролі, продюсування молодих команд, меценатство." if uk else "Partnerships, touring, producing for young teams, patronage."),
         ("Медіа та преса" if uk else "Media & press", f"mailto:{c['press']}", c["press"], "Акредитації, інтервʼю, пресматеріали й фото." if uk else "Accreditation, interviews, press kits and photos."),
-        ("Продюсер" if uk else "Producer", f"mailto:{c['producer']}", c["producer"], "Павло Коваль" if uk else "Pavlo Koval"),
+        ("Продюсер" if uk else "Producer", f"mailto:{c['producer']}", c["producer"], "Павло Коваль, засновник і продюсер. Для прямого звернення." if uk else "Pavlo Koval, founder and producer. For direct enquiries."),
         ("Телефон" if uk else "Phone", f"tel:{c['phone'].replace(' ', '')}", c["phone"], ""),
         ("Instagram", c["instagram"], "@teatr.bentegy", "Анонси вистав і квитки." if uk else "Announcements and tickets."),
         ("Telegram", c["telegram"], "@teatr_bentegy", ""),

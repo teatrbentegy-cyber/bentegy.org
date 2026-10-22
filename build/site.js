@@ -44,3 +44,20 @@ document.querySelectorAll('button.copy').forEach(function (b) {
     });
   });
 });
+
+// GA4 conversion events (active only when a GA4 ID is set in the admin)
+document.addEventListener('click', function (ev) {
+  var a = ev.target.closest && ev.target.closest('a[href]');
+  if (!a || typeof window.gtag !== 'function') return;
+  var h = a.getAttribute('href') || '';
+  if (h.indexOf('mailto:') === 0) {
+    var addr = h.slice(7).split('?')[0];
+    gtag('event', 'email_click', { email_address: addr, email_type: addr.split('@')[0] });
+  } else if (/wayforpay\.com\/donate|\/pidtrymaty\/|\/en\/support\//.test(h) && /donate/.test(h)) {
+    gtag('event', 'donate_click', { link_url: h });
+  } else if (/t\.me\//.test(h) || /instagram\.com/.test(h)) {
+    gtag('event', 'social_click', { network: /t\.me/.test(h) ? 'telegram' : 'instagram', link_url: h });
+  } else if (a.classList.contains('tix') && /^https?:/.test(h)) {
+    gtag('event', 'ticket_click', { link_url: h, link_text: (a.textContent || '').trim() });
+  }
+});
