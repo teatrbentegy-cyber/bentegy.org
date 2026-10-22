@@ -219,7 +219,8 @@ collections:
             label: Контакти
             widget: object
             fields:
-              - { name: team, label: Пошта команди, widget: string }
+              - { name: theatre, label: "Головна пошта театру й ГО (офіційне листування)", widget: string }
+              - { name: team, label: "Пошта для співпраці (партнерства, гастролі)", widget: string }
               - { name: press, label: Пошта для преси, widget: string }
               - { name: producer, label: Пошта продюсера, widget: string }
               - { name: phone, label: Телефон, widget: string }
@@ -240,6 +241,7 @@ collections:
               - { name: nonprofit_uk, label: Неприбутковий статус (UA), widget: string }
               - { name: nonprofit_en, label: Неприбутковий статус (EN), widget: string }
           - { name: partners, label: Партнери, widget: list, field: { name: name, label: Назва, widget: string } }
+          - { name: ga4, label: "Google Analytics 4 — ID потоку (G-XXXXXXX)", widget: string, required: false, hint: "Порожньо — аналітика вимкнена" }
           - { name: goatcounter, label: "Статистика GoatCounter: код сайту", widget: string, required: false, hint: "Напр. bentegy для bentegy.goatcounter.com. Порожнє — статистику вимкнено" }
       - name: producer
         label: Сторінка «Продюсер»
