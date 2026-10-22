@@ -116,7 +116,90 @@ collections:
       - { name: photo_credit, label: Автор фото, widget: string, required: false }
 
   # ---------------------------------------------------------------- СТОРІНКИ
-  - name: pages
+  # ---------------------------------------------------------------- МЕДІА
+  - name: media
+    label: Медіа (тексти, новини, пресрелізи)
+    label_singular: Матеріал
+    description: "Тексти, новини й пресрелізи. Матеріал зʼявляється на сайті одразу після збереження (якщо не позначено «Чернетка»). Розділ «Медіа» в меню зʼявляється, щойно є перший матеріал."
+    folder: content/media
+    extension: yml
+    format: yaml
+    create: true
+    slug: "{{fields.slug_hint}}"
+    identifier_field: title_uk
+    summary: "{{date}} · {{type}} · {{title_uk}}"
+    sortable_fields: [date, title_uk]
+    fields:
+      - { name: slug_hint, label: "Адреса сторінки латиницею (напр. teatr-bez-zavisy)", widget: string, hint: "Задається один раз при створенні" }
+      - name: type
+        label: Тип
+        widget: select
+        default: text
+        options:
+          - { label: "Текст (критика, есей, рецензія, інтервʼю)", value: text }
+          - { label: Новина, value: news }
+          - { label: Пресреліз, value: release }
+      - { name: rubric_uk, label: "Рубрика (UA), напр. Рецензія, Есей, Інтервʼю", widget: string, required: false, hint: "Лише для текстів. Порожньо — буде «Текст»" }
+      - { name: rubric_en, label: Рубрика (EN), widget: string, required: false }
+      - { name: date, label: Дата, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+      - { name: authors, label: Автори з команди, widget: relation, collection: team, search_fields: [name_uk], value_field: "{{slug}}", display_fields: [name_uk], multiple: true, required: false }
+      - { name: guest_author_uk, label: "Запрошений автор (UA), якщо його немає в «Команді»", widget: string, required: false }
+      - { name: guest_author_en, label: Запрошений автор (EN), widget: string, required: false }
+      - { name: title_uk, label: Заголовок (UA), widget: string }
+      - { name: title_en, label: Заголовок (EN), widget: string, required: false }
+      - { name: lead_uk, label: "Лід (UA): 1–2 речення під заголовком", widget: text }
+      - { name: lead_en, label: Лід (EN), widget: text, required: false }
+      - { name: cover, label: Обкладинка (горизонтальне фото), widget: image, required: false }
+      - { name: cover_caption_uk, label: Підпис до фото (UA), widget: string, required: false }
+      - { name: cover_caption_en, label: Підпис до фото (EN), widget: string, required: false }
+      - { name: production, label: Повʼязана вистава, widget: relation, collection: productions, search_fields: [title_uk], value_field: "{{slug}}", display_fields: [title_uk], required: false, hint: "Матеріал покажеться і на сторінці вистави" }
+      - { name: city_uk, label: "Місто (UA) — для пресрелізів", widget: string, required: false, default: Київ }
+      - { name: city_en, label: Місто (EN), widget: string, required: false, default: Kyiv }
+      - { name: body_uk, label: Текст (UA), widget: markdown }
+      - { name: body_en, label: Текст (EN), widget: markdown, required: false }
+      - { name: source_uk, label: "Вперше опубліковано в (UA), напр. «Театральна риболовля»", widget: string, required: false }
+      - { name: source_en, label: First published in (EN), widget: string, required: false }
+      - { name: source_url, label: Посилання на першу публікацію, widget: string, required: false }
+      - { name: draft, label: Чернетка (не показувати на сайті), widget: boolean, default: false, required: false }
+
+  # ---------------------------------------------------------------- КОМАНДА
+  - name: team
+    label: Команда
+    label_singular: Людина
+    description: "Сторінка «Команда». Зʼявляється в меню, щойно додано першу людину."
+    folder: content/team
+    extension: yml
+    format: yaml
+    create: true
+    slug: "{{fields.slug_hint}}"
+    identifier_field: name_uk
+    summary: "{{group}} · {{name_uk}}"
+    sortable_fields: [order, name_uk]
+    fields:
+      - { name: slug_hint, label: "Адреса латиницею (імʼя-прізвище, напр. anastasiia-kushta)", widget: string, hint: "Для Павла — pavlo-koval" }
+      - { name: name_uk, label: Імʼя та прізвище (UA), widget: string }
+      - { name: name_en, label: Імʼя та прізвище (EN), widget: string }
+      - name: group
+        label: Група
+        widget: select
+        default: team
+        options:
+          - { label: Команда театру, value: team }
+          - { label: Постійні співпрацівники, value: collab }
+          - { label: Автори медіа, value: authors }
+      - { name: order, label: "Порядок (1, 2, 3…)", widget: number, value_type: int, required: false }
+      - { name: role_uk, label: Роль (UA), widget: string }
+      - { name: role_en, label: Роль (EN), widget: string }
+      - { name: photo, label: "Фото (вертикальне 3:4, можна кольорове — на сайті буде ЧБ)", widget: image, required: false }
+      - { name: bio_uk, label: "Біо (UA), 2–3 речення", widget: text, required: false }
+      - { name: bio_en, label: Біо (EN), widget: text, required: false }
+      - { name: projects_uk, label: "Проєкти з театром (UA) — для співпрацівників", widget: string, required: false }
+      - { name: projects_en, label: Проєкти (EN), widget: string, required: false }
+      - { name: email, label: Пошта (за бажанням), widget: string, required: false }
+      - { name: instagram, label: Instagram (посилання), widget: string, required: false }
+      - { name: website, label: Сайт / портфоліо (посилання), widget: string, required: false }
+      - { name: producer_page, label: Картка веде на сторінку «Продюсер», widget: boolean, default: false, required: false }
+
     label: Сторінки
     files:
       - name: site
