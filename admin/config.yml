@@ -56,6 +56,12 @@ collections:
           - { label: Квитки продано, value: sold_out }
       - { name: ticket_url, label: Посилання на квитки, widget: string, required: false, hint: "Повне посилання на сторінку події в квитковому операторі" }
       - { name: ticket_operator, label: Квитковий оператор, widget: string, required: false, hint: "Concert.ua, Karabas, Kontramarka, Internet-bilet…" }
+      - { name: concert_url, label: "Посилання на Concert.ua (друга кнопка)", widget: string, required: false, hint: "Мітки utm сайт додає сам" }
+      - { name: price, label: "Ціна квитка, грн (лише число, напр. 400)", widget: number, value_type: int, required: false, hint: "Потрібна для Google «Події». Якщо ціни кілька — найменша" }
+      - { name: price_max, label: "Максимальна ціна, грн (якщо є кілька типів квитків)", widget: number, value_type: int, required: false }
+      - { name: sale_start, label: Початок продажу, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD", required: false }
+      - { name: address_uk, label: "Адреса майданчика (UA), якщо її немає в полі «Майданчик»", widget: string, required: false }
+      - { name: address_en, label: Адреса майданчика (EN), widget: string, required: false }
 
   # ---------------------------------------------------------------- ВИСТАВИ
   - name: productions
@@ -73,6 +79,8 @@ collections:
       - { name: slug_hint, label: "Адреса сторінки латиницею (напр. promova)", widget: string, hint: "Задається один раз при створенні" }
       - { name: title_uk, label: Назва (UA), widget: string }
       - { name: title_en, label: Назва (EN), widget: string }
+      - { name: performer_uk, label: "Виконавець для Google (UA), якщо це не Театр Бентеги — напр. театральний проєкт «Межа»", widget: string, required: false }
+      - { name: performer_en, label: Виконавець для Google (EN), widget: string, required: false }
       - name: status
         label: Розділ
         widget: select
@@ -172,13 +180,13 @@ collections:
     format: yaml
     create: true
     slug: "{{fields.slug_hint}}"
-    identifier_field: name_uk
-    summary: "{{group}} · {{name_uk}}"
+    identifier_field: role_uk
+    summary: "{{group}} · {{role_uk}} · {{name_uk}}"
     sortable_fields: [order, name_uk]
     fields:
       - { name: slug_hint, label: "Адреса латиницею (імʼя-прізвище, напр. anastasiia-kushta)", widget: string, hint: "Для Павла — pavlo-koval" }
-      - { name: name_uk, label: Імʼя та прізвище (UA), widget: string }
-      - { name: name_en, label: Імʼя та прізвище (EN), widget: string }
+      - { name: name_uk, label: Імʼя та прізвище (UA), widget: string, required: false, hint: "Порожньо — на сайті буде картка ролі з позначкою «Скоро в команді»" }
+      - { name: name_en, label: Імʼя та прізвище (EN), widget: string, required: false }
       - name: group
         label: Група
         widget: select
