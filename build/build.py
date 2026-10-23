@@ -5,6 +5,7 @@ import datetime as dt
 import glob
 import html
 import os
+import re
 import shutil
 
 import markdown as md
@@ -71,7 +72,7 @@ for d in load_dir("media"):
     MEDIA.append(d)
 MEDIA.sort(key=lambda d: (d["date"], d["slug"]), reverse=True)
 GROUP_ORDER = {"team": 0, "collab": 1, "authors": 2}
-TEAM = [d for d in load_dir("team") if d.get("name_uk") or d.get("name_en")]
+TEAM = [d for d in load_dir("team") if d.get("name_uk") or d.get("name_en") or d.get("role_uk")]
 TEAM.sort(key=lambda d: (GROUP_ORDER.get(d.get("group") or "team", 3), d.get("order") or 99, d.get("name_uk") or ""))
 TEAM_BY = {d["slug"]: d for d in TEAM}
 
@@ -319,34 +320,73 @@ def ld_org(lang):
     }
 
 
+def concert_url(ev):
+    u = (ev.get("concert_url") or "").strip()
+    if not u:
+        return ""
+    sep = "&" if "?" in u else "?"
+    return f"{u}{sep}utm_source=bentegy&utm_medium=site&utm_campaign={ev.get('production') or 'bentegy'}"
+
+
+def provider(u):
+    u = (u or "").lower()
+    return "wayforpay" if "wayforpay" in u else "concertua" if "concert.ua" in u else "other"
+
+
+def ev_start(ev):
+    """(datetime with Kyiv tz or date, has_time)"""
+    if ev.get("time"):
+        try:
+            hh, mm = [int(x) for x in str(ev["time"]).split(":")[:2]]
+            return dt.datetime(ev["date"].year, ev["date"].month, ev["date"].day, hh, mm, tzinfo=ZoneInfo("Europe/Kyiv")), True
+        except ValueError:
+            pass
+    return ev["date"], False
+
+
+def duration_min(p):
+    nums = [int(x) for x in re.findall(r"\d+", p.get("duration_uk") or p.get("duration_en") or "")]
+    return max(nums) if nums else 0
+
+
+def venue_parts(ev, lang):
+    v = L(ev, "venue", lang)
+    name, _, street = v.partition(",")
+    return name.strip(), (L(ev, "address", lang) or street).strip()
+
+
 def ld_event(ev, lang):
     if ev.get("date_note_uk") or ev.get("date_note_en"):
         return None
     p = BY_SLUG.get(ev.get("production"), {})
-    start = ev["date"].isoformat()
-    if ev.get("time"):
-        try:
-            hh, mm = [int(x) for x in str(ev["time"]).split(":")[:2]]
-            start = dt.datetime(ev["date"].year, ev["date"].month, ev["date"].day, hh, mm, tzinfo=ZoneInfo("Europe/Kyiv")).isoformat()
-        except ValueError:
-            pass
+    st, has_time = ev_start(ev)
+    start = st.isoformat()
+    mins = duration_min(p)
+    end = (st + dt.timedelta(minutes=mins)).isoformat() if has_time and mins else start
+    vname, street = venue_parts(ev, lang)
+    theatre = {"@type": "PerformingGroup", "name": T[lang]["name"], "url": SITE}
+    perf = {"@type": "PerformingGroup", "name": L(p, "performer", lang), "url": SITE + show_url(p["slug"], lang)} if p and L(p, "performer", lang) else theatre
     d = {
         "@context": "https://schema.org", "@type": "TheaterEvent",
-        "name": L(p, "title", lang) or L(ev, "title", lang), "startDate": start,
+        "name": L(p, "title", lang) or L(ev, "title", lang), "startDate": start, "endDate": end,
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-        "location": {"@type": "Place", "name": L(ev, "venue", lang),
-                     "address": {"@type": "PostalAddress", "addressLocality": L(ev, "city", lang), "addressCountry": "UA"}},
-        "organizer": {"@type": "TheaterGroup", "name": T[lang]["name"], "url": SITE + url("home", lang)},
+        "location": {"@type": "Place", "name": vname or L(ev, "venue", lang),
+                     "address": {"@type": "PostalAddress", **({"streetAddress": street} if street else {}), "addressLocality": L(ev, "city", lang), "addressCountry": "UA"}},
+        "organizer": theatre, "performer": perf,
         "description": L(p, "summary", lang),
         "inLanguage": lang,
     }
     if p:
         d["url"] = SITE + show_url(p["slug"], lang)
-        if OG_DONE.get(f"{p['slug']}-{lang}"):
-            d["image"] = [SITE + OG_DONE[f"{p['slug']}-{lang}"]]
-    if ev.get("ticket_url"):
-        d["offers"] = {"@type": "Offer", "url": ev["ticket_url"],
+        ims = [SITE + x for x in (img_url(p.get("cover"), 1600), OG_DONE.get(f"{p['slug']}-{lang}")) if x]
+        if ims:
+            d["image"] = ims
+    buy = ev.get("ticket_url") or concert_url(ev)
+    if buy and ev.get("price"):
+        vf = ev.get("sale_start") or (ev["date"] - dt.timedelta(days=30))
+        d["offers"] = {"@type": "Offer", "url": buy, "price": str(ev["price"]), "priceCurrency": "UAH",
+                       "validFrom": vf.isoformat() if hasattr(vf, "isoformat") else str(vf),
                        "availability": "https://schema.org/SoldOut" if ev.get("status") == "sold_out" else "https://schema.org/InStock"}
     return d
 
@@ -373,7 +413,7 @@ def analytics():
     out = ""
     ga = (SETTINGS.get("ga4") or "").strip()
     if ga:
-        out += (f'\n<script async src="https://www.googletagmanager.com/gtag/js?id={e(ga)}"></script>'
+        out += (f'\n<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id={e(ga)}"></script>'
                 f"\n<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{e(ga)}');</script>")
     code = (SETTINGS.get("goatcounter") or "").strip()
     if code:
@@ -386,7 +426,7 @@ def extra_links(lang, key):
     return "".join(f'<a class="sm" href="{url(k, lang)}"{" aria-current=page" if k == key else ""}>{t["nav"][k]}</a>' for k in ("support", "press", "org", "contact") if k not in visible_nav())
 
 
-def head(lang, key, title, desc, paths, body_cls="", og="", ld=None):
+def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=False):
     t = T[lang]
     o = other(lang)
     full = t["name"] if key == "home" and not title else f"{title} — {t['name']}"
@@ -394,8 +434,8 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None):
     nav = nav_links(lang, key)
     return f"""<!doctype html>
 <html lang="{lang}">
-<head>
-<meta charset="utf-8">
+<head>{analytics()}
+<meta charset="utf-8">{'<meta name="robots" content="noindex,nofollow">' if noindex else ''}
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(full)}</title>
 <meta name="description" content="{e(desc)}">
@@ -416,7 +456,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None):
 <link rel="icon" href="/brand/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
 <link rel="preload" href="/fonts/inter-tight-cyrillic-900-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/main.css">{analytics()}
+<link rel="stylesheet" href="/main.css">
 </head>
 <body class="{body_cls}">
 <a class="skip" href="#main">{t['skip']}</a>
@@ -488,7 +528,7 @@ def cta(ev, lang):
         return f'<span class="ghost">{t["free"]}</span>'
     if ev.get("ticket_url"):
         op = f'<small>{e(ev["ticket_operator"])}</small>' if ev.get("ticket_operator") else ""
-        return f'<a class="tix" href="{e(ev["ticket_url"])}" target="_blank" rel="noopener">{t["tickets"]} ↗</a>{op}'
+        return f'<a class="tix" href="{e(ev["ticket_url"])}" target="_blank" rel="noopener" data-provider="{provider(ev["ticket_url"])}" data-show="{e(ev.get("production") or "")}">{t["tickets"]} ↗</a>{op}'
     return f'<span class="ghost">{t["soon"]}</span>'
 
 
@@ -629,6 +669,8 @@ def page_show(p, lang):
         top = f'<section class="cover">{img(cover, title, "100vw", eager=True)}<div class="in gut max">{kick_h}<h1>{e(title)}</h1><p class="sum">{e(L(p, "summary", lang))}</p></div></section>'
     else:
         top = f'<header class="notitle gut max">{kick_h}<h1>{e(title)}</h1><p class="sum">{e(L(p, "summary", lang))}</p></header>'
+    nxt = [ev for ev in EVENTS if ev.get("production") == p["slug"] and not ev.get(f"date_note_{lang}")]
+    tixbox = ticket_box(nxt[0], p, lang, len(nxt)) if nxt else ""
     facts = [(t["genre"], L(p, "genre", lang)), (t["premiere"], L(p, "premiere", lang)), (t["duration"], L(p, "duration", lang)), (t["age"], p.get("age") or "")]
     facts_h = "".join(f"<div><dt>{a}</dt><dd>{e(b)}</dd></div>" for a, b in facts if b)
     evs = [ev for ev in EVENTS if ev.get("production") == p["slug"]]
@@ -640,16 +682,36 @@ def page_show(p, lang):
         gal_items.append(f'<figure>{img(g["image"], cap or title, "(max-width:640px) 100vw, 50vw")}{fc}</figure>')
     pc = f'<p class="credit-line">{"Фото" if lang == "uk" else "Photo"}: {e(p.get("photo_credit"))}</p>' if p.get("photo_credit") else ""
     body = f"""{top}
+{tixbox}
 <div class="gut max"><dl class="facts">{facts_h}</dl></div>
 <section class="sec gut max"><div class="sh"><h2>{'Про виставу' if lang == 'uk' else 'About'}</h2></div>
   <div class="two"><span></span><div class="prose">{mdh(L(p, 'description', lang))}</div></div></section>
-<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t['dates']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>{schedule(evs, lang, group=False)}</section>
+<section class="sec gut max" id="dates" style="padding-top:0"><div class="sh"><h2>{t['dates']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>{schedule(evs, lang, group=False)}</section>
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["credits"]}</h2></div><dl class="credits" style="margin-top:28px">{credits}</dl></section>' if credits else ''}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["photos"]}</h2></div><div class="gal">{"".join(gal_items)}</div>{pc}</section>' if gal_items else ''}
 {media_strip([m for m in MEDIA if m.get("production") == p["slug"]], lang, t['nav']['media'], url('media', lang), 'Усе з медіа' if lang == 'uk' else 'All media', top0=True)}
 """
     paths = (show_url(p["slug"], lang), show_url(p["slug"], other(lang)))
     return head(lang, "shows", title, L(p, "summary", lang), paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang)) + body + foot(lang)
+
+
+def ticket_box(ev, p, lang, count):
+    uk = lang == "uk"
+    d = ev["date"]
+    tm = f" · {ev['time']}" if ev.get("time") else ""
+    when = f"{d.day} {MONTHS[lang][d.month - 1]}, {DOW[lang][d.weekday()]}{tm}"
+    price = f'<p class="tbp">{ev["price"]}{"–" + str(ev["price_max"]) if ev.get("price_max") else ""} ₴</p>' if ev.get("price") else ""
+    btns = []
+    if ev.get("ticket_url") and ev.get("status") != "sold_out":
+        btns.append(f'<a class="tix big" href="{e(ev["ticket_url"])}" target="_blank" rel="noopener" data-provider="{provider(ev["ticket_url"])}" data-show="{p["slug"]}">{"Оплатити через WayForPay" if uk and provider(ev["ticket_url"]) == "wayforpay" else "Pay with WayForPay" if provider(ev["ticket_url"]) == "wayforpay" else T[lang]["tickets"]} ↗</a>')
+    if concert_url(ev) and ev.get("status") != "sold_out":
+        btns.append(f'<a class="tbo" href="{e(concert_url(ev))}" target="_blank" rel="noopener" data-provider="concertua" data-show="{p["slug"]}">{"Купити на Concert.ua" if uk else "Buy on Concert.ua"} ↗</a>')
+    if not btns:
+        btns.append(cta(ev, lang))
+    more = f'<a class="go" href="#dates">{"Усі дати" if uk else "All dates"} ({count})</a>' if count > 1 else ""
+    return f"""<section class="tbox gut max" aria-label="{T[lang]['tickets']}"><div class="tbi">
+  <div class="tbw"><p class="tbl">{"Найближчий показ" if uk else "Next performance"}</p><p class="tbd">{e(when)}</p><p class="tbv">{e(L(ev, 'venue', lang))}</p></div>
+  {price}<div class="tbb">{''.join(btns)}{more}</div></div></section>"""
 
 
 def page_producer(lang):
@@ -1026,13 +1088,13 @@ def page_team(lang):
         return f'<p class="tlinks">{"".join(out)}</p>' if out else ""
 
     def initials(x):
-        return "".join(w[0] for w in L(x, "name", lang).split()[:2]).upper()
+        return "".join(w[0] for w in L(x, "name", lang).split()[:2]).upper() or "—"
 
     core = [x for x in TEAM if (x.get("group") or "team") == "team"]
     collab = [x for x in TEAM if x.get("group") == "collab"]
     auth = [x for x in TEAM if x.get("group") == "authors"]
     cards = "".join(f"""<article class="tc" id="{x['slug']}"><div class="im">{img(x.get('photo'), L(x, 'name', lang), "(max-width:760px) 50vw, 25vw") or f'<span class="ini">{e(initials(x))}</span>'}</div>
-  <p class="tr">{e(L(x, 'role', lang))}</p><h3>{e(L(x, 'name', lang))}</h3>{f"<p class='tb'>{e(L(x, 'bio', lang))}</p>" if L(x, 'bio', lang) else ''}{links(x)}</article>""" for x in core)
+  <p class="tr">{e(L(x, 'role', lang)) if L(x, 'name', lang) else ("Скоро в команді" if uk else "Joining soon")}</p><h3>{e(L(x, 'name', lang) or L(x, 'role', lang))}</h3>{f"<p class='tb'>{e(L(x, 'bio', lang))}</p>" if L(x, 'bio', lang) else ''}{links(x)}</article>""" for x in core)
     rows = "".join(f"""<article class="tl" id="{x['slug']}"><h3>{e(L(x, 'name', lang))}</h3><p class="tr">{e(L(x, 'role', lang))}</p><p class="tb">{e(L(x, 'projects', lang) or L(x, 'bio', lang))}</p>{links(x)}</article>""" for x in collab)
     arows = "".join(f"""<article class="tl" id="{x['slug']}"><h3>{e(L(x, 'name', lang))}</h3><p class="tr">{len(by_author(x['slug']))} {"тексти" if uk else "pieces"}</p><p class="tb">{e(L(x, 'bio', lang))}</p>{links(x)}</article>""" for x in auth)
 
@@ -1040,6 +1102,37 @@ def page_team(lang):
         return f'<section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{h}</h2></div><div class="{cls}">{inner}</div></section>' if inner else ""
     body = page_head(t["nav"]["team"], lead) + sec("Команда театру" if uk else "Company", cards, "tgrid") + sec("Постійні співпрацівники" if uk else "Collaborators", rows, "tlist") + sec("Автори медіа" if uk else "Contributors", arows, "tlist")
     return head(lang, "team", t["nav"]["team"], lead, (url("team", lang), url("team", other(lang)))) + body + foot(lang)
+
+
+R["thanks"] = ("/dyakuyemo/", "/en/thank-you/")
+
+
+def page_thanks(lang):
+    import json
+    uk = lang == "uk"
+    data = {}
+    for p in PRODUCTIONS:
+        evs = [ev for ev in EVENTS if ev.get("production") == p["slug"] and not ev.get("date_note_uk")]
+        x = {"title": L(p, "title", lang), "url": show_url(p["slug"], lang), "mins": duration_min(p) or 90}
+        if evs:
+            ev = evs[0]
+            st, has_time = ev_start(ev)
+            x.update(start=st.isoformat(), has_time=has_time, venue=L(ev, "venue", lang), city=L(ev, "city", lang),
+                     when=f"{ev['date'].day} {MONTHS[lang][ev['date'].month - 1]}, {DOW[lang][ev['date'].weekday()]}" + (f" · {ev['time']}" if ev.get("time") else ""),
+                     price=ev.get("price") or 0)
+        data[p["slug"]] = x
+    c = SETTINGS["contacts"]
+    lead = ("Оплату отримано. Чекаємо вас на виставі. Квиток і підтвердження прийдуть на пошту, яку ви вказали під час оплати."
+            if uk else "Your payment has been received. We look forward to seeing you. Your ticket and confirmation will arrive at the email you used for payment.")
+    body = page_head("Дякуємо" if uk else "Thank you", lead) + f"""
+<section class="gut max thx"><div id="thx-show" class="tbox" hidden><div class="tbi">
+  <div class="tbw"><p class="tbl">{"Ваша вистава" if uk else "Your performance"}</p><p class="tbd" id="thx-title"></p><p class="tbv" id="thx-when"></p><p class="tbv" id="thx-venue"></p></div>
+  <div class="tbb"><a class="tix big" id="thx-gcal" target="_blank" rel="noopener" href="#">{"Додати в Google Календар" if uk else "Add to Google Calendar"} ↗</a><a class="tbo" id="thx-ics" href="#" download="bentegy.ics">{"Додати в календар (.ics)" if uk else "Add to calendar (.ics)"} ↓</a></div></div></div>
+  <div class="thx-links"><a class="go" href="{c['instagram']}" target="_blank" rel="noopener">Instagram ↗</a><a class="go" href="{url('afisha', lang)}">{T[lang]['all_dates']}</a><a class="go" href="mailto:{c.get('theatre') or c['team']}">{c.get('theatre') or c['team']}</a></div>
+</section>
+<script>window.BENTEGY_SHOWS={json.dumps(data, ensure_ascii=False)};window.BENTEGY_LANG="{lang}";</script>
+<script src="/thanks.js" defer></script>"""
+    return head(lang, "thanks", "Дякуємо" if uk else "Thank you", lead, (url("thanks", lang), url("thanks", other(lang))), noindex=True) + body + foot(lang)
 
 
 GOALS = {
@@ -1093,6 +1186,7 @@ def build():
     css = open(f"{ROOT}/build/fonts.css", encoding="utf-8").read() + open(f"{ROOT}/build/main.css", encoding="utf-8").read()
     open(f"{OUT}/main.css", "w", encoding="utf-8").write(css)
     shutil.copy(f"{ROOT}/build/site.js", f"{OUT}/site.js")
+    shutil.copy(f"{ROOT}/build/thanks.js", f"{OUT}/thanks.js")
     os.makedirs(f"{OUT}/img", exist_ok=True)
     shutil.copy(f"{ROOT}/static/brand/sig-logo.png", f"{OUT}/img/sig-logo.png")  # used by the email signature
     urls = []
@@ -1114,11 +1208,12 @@ def build():
                 write(media_url(m["slug"], lang), page_media(m, lang)); urls.append(media_url(m["slug"], lang))
         if TEAM:
             write(url("team", lang), page_team(lang)); urls.append(url("team", lang))
+        write(url("thanks", lang), page_thanks(lang))  # noindex, kept out of the sitemap
     write("/404.html", head("uk", "home", "404", "404", ("/", "/en/")) +
           '<header class="ph"><div class="wrap"><h1>404</h1><p class="lead mute">Такої сторінки на сайті немає. Перейдіть на <a href="/">головну</a> або до <a href="/afisha/">афіші</a>.</p></div></header>' + foot("uk"))
     open(f"{OUT}/CNAME", "w").write("bentegy.org\n")
     open(f"{OUT}/.nojekyll", "w").close()
-    open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nDisallow: /admin/\nSitemap: {SITE}/sitemap.xml\n")
+    open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /dyakuyemo/\nDisallow: /en/thank-you/\nSitemap: {SITE}/sitemap.xml\n")
     open(f"{OUT}/sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                                           "".join(f"<url><loc>{SITE}{u}</loc></url>" for u in urls) + "</urlset>")
     print(f"built {len(urls)} pages, {len(IMG_DONE)} images, {len(EVENTS)} events")
