@@ -12,3 +12,5 @@ label_en: ""
 ticket_url: https://secure.wayforpay.com/payment/kinets_zminy_1311
 ticket_operator: WayForPay
 status: on_sale
+price: 300
+price_max: 400
