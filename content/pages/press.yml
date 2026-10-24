@@ -23,17 +23,29 @@ logos:
     title_uk: Знак
     title_en: Mark
     bg: light
+  - file: /press/bentegy-znak-chornyi.png
+    title_uk: Знак, чорний
+    title_en: Mark, black
+    bg: light
   - file: /press/bentegy-znak-bilyi.png
-    title_uk: Знак для темного фону
-    title_en: Mark for dark backgrounds
+    title_uk: Знак, білий
+    title_en: Mark, white
     bg: dark
   - file: /press/bentegy-lokap-chornyi.png
-    title_uk: Знак і назва, чорний
-    title_en: Mark and name, black
+    title_uk: Вертикальний логотип, чорний
+    title_en: Vertical logo, black
     bg: light
   - file: /press/bentegy-lokap-bilyi.png
-    title_uk: Знак і назва, білий
-    title_en: Mark and name, white
+    title_uk: Вертикальний логотип, білий
+    title_en: Vertical logo, white
+    bg: dark
+  - file: /press/bentegy-horyzontalnyi-chornyi.png
+    title_uk: Горизонтальний логотип, чорний
+    title_en: Horizontal logo, black
+    bg: light
+  - file: /press/bentegy-horyzontalnyi-bilyi.png
+    title_uk: Горизонтальний логотип, білий
+    title_en: Horizontal logo, white
     bg: dark
   - file: /press/bentegy-napys-chornyi.png
     title_uk: Напис, чорний
