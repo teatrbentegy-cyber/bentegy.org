@@ -942,7 +942,7 @@ def page_press(lang):
     body = page_head(t["nav"]["press"], L(pr, "lead", lang)) + f"""
 <section class="gut max"><div class="cgrid"><div class="cr"><div><small>{'Контакт для преси' if uk else 'Press contact'}</small><p>{'Акредитації, інтервʼю, запити на фото й відео.' if uk else 'Accreditation, interviews, photo and video requests.'}</p></div><a href="mailto:{c['press']}">{c['press']}</a></div></div></section>
 <section class="sec gut max" style="padding-top:clamp(40px,5vw,72px)"><div class="sh"><h2>{'Про театр' if uk else 'About'}</h2></div><div class="bps">{texts}</div></section>
-<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Логотипи' if uk else 'Logos'}</h2><a class="more" href="/press/bentegy-logos.zip" download>{'Усі логотипи .zip' if uk else 'All logos .zip'}</a></div><div class="dl logos">{logos}</div></section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Логотипи' if uk else 'Logos'}</h2><a class="more" href="/press/bentegy-logos.zip" download>{'Повний пакет PNG + SVG .zip' if uk else 'Full package PNG + SVG .zip'}</a></div><div class="dl logos">{logos}</div></section>
 {media_strip([m for m in MEDIA if m["type"] == "release"], lang, "Пресрелізи" if uk else "Press releases", mtype_url("release", lang), "Усі пресрелізи" if uk else "All press releases", top0=True)}
 {cov}{qs}
 """
@@ -1235,9 +1235,7 @@ def build():
     shutil.copytree(f"{ROOT}/static/uploads", f"{OUT}/uploads")
     shutil.copytree(f"{ROOT}/static/press", f"{OUT}/press")
     import zipfile
-    with zipfile.ZipFile(f"{OUT}/press/bentegy-logos.zip", "w", zipfile.ZIP_DEFLATED) as z:
-        for x in PRESS.get("logos", []):
-            z.write(f"{ROOT}/static{x['file']}", os.path.basename(x["file"]))
+    # bentegy-logos.zip: full brand package (PNG + SVG) is kept in static/press
     for m in MEDIA:
         ph = [x["image"] for x in (m.get("photos") or []) if x.get("image")]
         if m.get("type") == "release" and len(ph) > 1:
