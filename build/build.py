@@ -413,8 +413,13 @@ def analytics():
     out = ""
     ga = (SETTINGS.get("ga4") or "").strip()
     if ga:
+        eea = "AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH".split()
         out += (f'\n<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id={e(ga)}"></script>'
-                f"\n<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','{e(ga)}');</script>")
+                "\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
+                f"gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:{eea!r}}});"
+                "gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});"
+                "try{var c=localStorage.getItem('bentegy-consent');if(c)gtag('consent','update',{analytics_storage:c==='yes'?'granted':'denied'});}catch(e){}"
+                f"gtag('js',new Date());gtag('config','{e(ga)}');</script>")
     code = (SETTINGS.get("goatcounter") or "").strip()
     if code:
         out += f'\n<script data-goatcounter="https://{e(code)}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
@@ -495,17 +500,27 @@ def foot(lang):
       <li>{'Код ЄДРПОУ' if lang == 'uk' else 'EDRPOU'} {o['edrpou']}</li>
       <li><a href="{url('org', lang)}">{'Реквізити і документи' if lang == 'uk' else 'Details and documents'}</a></li></ul></div>
   </div>
-  <div class="legal"><span>© {TODAY.year} {t['name']}</span><span>{t['legal']}</span></div>
+  <div class="legal"><span>© {TODAY.year} {t['name']} · <a href="{url('privacy', lang)}">{'Політика конфіденційності' if lang == 'uk' else 'Privacy policy'}</a></span><span>{t['legal']}</span></div>
 </footer>
+{consent_banner(lang)}
 <script src="/site.js" defer></script>
 </body>
 </html>
 """
 
 
-def page_head(title, lead=""):
+def consent_banner(lang):
+    if not (SETTINGS.get("ga4") or "").strip():
+        return ""
+    uk = lang == "uk"
+    return f"""<div class="cookie" id="cookie" hidden role="dialog" aria-label="{'Згода на аналітику' if uk else 'Analytics consent'}"><p>{'Ми рахуємо відвідування через Google Analytics, щоб краще планувати покази. Дані знеособлені.' if uk else 'We count visits with Google Analytics to plan our performances better. The data is anonymised.'} <a href="{url('privacy', lang)}">{'Детальніше' if uk else 'Details'}</a></p>
+<div><button type="button" class="tix" data-consent="yes">{'Погоджуюсь' if uk else 'Accept'}</button><button type="button" class="tbo" data-consent="no">{'Лише необхідне' if uk else 'Essential only'}</button></div></div>"""
+
+
+def page_head(title, lead="", small=False):
     lp = f'<div class="lead"><p>{e(lead)}</p></div>' if lead else ""
-    return f'<header class="ph gut max"><h1>{e(title)}<span class="dot">.</span></h1>{lp}</header>'
+    st = ' style="font-size:clamp(44px,11.6vw,220px)"' if small else ""
+    return f'<header class="ph gut max"><h1{st}>{e(title)}<span class="dot">.</span></h1>{lp}</header>'
 
 
 # ------------------------------------------------------------------ fragments
@@ -851,17 +866,30 @@ def page_support(lang):
   <p>{e(L(sp, 'online_note', lang))}</p></div>
   <div class="act"><a class="tix big" href="{e(sp['online_url'])}" target="_blank" rel="noopener">{'Зробити внесок ↗' if uk else 'Donate ↗'}</a><small>WayForPay</small></div></article>""")
     # 2. bank transfer
-    rows = [(("Отримувач" if uk else "Recipient"), L(b, "recipient", lang)), ("Код ЄДРПОУ" if uk else "EDRPOU", b.get("edrpou", "")),
-            ("Банк" if uk else "Bank", L(b, "bank", lang))]
+    def iban(v):
+        v = (v or "").replace(" ", "")
+        return " ".join(v[i:i + 4] for i in range(0, len(v), 4))
+    rows = [(("Отримувач" if uk else "Beneficiary"), L(b, "recipient", lang)), ("Код ЄДРПОУ" if uk else "EDRPOU", b.get("edrpou", ""))]
     if uk:
-        rows.append(("IBAN (гривня)", b.get("iban_uah", "")))
+        rows += [("IBAN (гривня)", iban(b.get("iban_uah"))), ("Банк", L(b, "bank", lang))]
     else:
-        rows += [("IBAN (USD)", b.get("iban_usd", "")), ("IBAN (EUR)", b.get("iban_eur", "")), ("SWIFT / BIC", b.get("swift", "")), ("IBAN (UAH)", b.get("iban_uah", ""))]
+        rows += [("IBAN (EUR)", iban(b.get("iban_eur"))), ("IBAN (USD)", iban(b.get("iban_usd"))), ("Bank", L(b, "bank", lang)), ("SWIFT / BIC", b.get("swift", "")),
+                 ("Beneficiary address", b.get("address_en", "")), ("IBAN (UAH, transfers within Ukraine)", iban(b.get("iban_uah")))]
     rows.append(("Призначення платежу" if uk else "Payment reference", L(b, "purpose", lang)))
     has_acc = any(b.get(k) for k in ("iban_uah", "iban_usd", "iban_eur"))
     if has_acc:
-        dl = "".join(f"<dt>{a}</dt><dd>{e(v)}</dd>" for a, v in rows if v)
-        foreign = "" if not uk else ("<p class='mu'>Для переказів з-за кордону в доларах чи євро перейдіть на англійську версію сторінки.</p>" if (b.get("iban_usd") or b.get("iban_eur")) else "")
+        dl = ""
+        for i, (a, v) in enumerate(rows):
+            if not v:
+                continue
+            if a.startswith("IBAN"):
+                dl += f'<dt>{a}</dt><dd><span id="iban-{lang}-{i}">{e(v)}</span> {copy_btn(lang, f"iban-{lang}-{i}")}</dd>'
+            else:
+                dl += f"<dt>{a}</dt><dd>{e(v)}</dd>"
+        foreign = "" if not uk else ("<p class='mu'>Для переказів з-за кордону в євро — реквізити SWIFT на <a href='" + url("support", "en") + "'>англійській версії сторінки</a>.</p>" if (b.get("iban_usd") or b.get("iban_eur")) else "")
+        if not uk and b.get("correspondents"):
+            corr = "".join(f"<dt>{e(c.get('bank', ''))}</dt><dd>SWIFT {e(c.get('swift', ''))} · Account {e(str(c.get('account', '')))}</dd>" for c in b["correspondents"])
+            foreign = f'<details class="corr"><summary>Correspondent banks (EUR)</summary><dl class="req tight">{corr}</dl></details>' 
         ways.append(f"""<article class="way"><span class="n">{len(ways) + 1:02d}</span><div><h3>{'Переказ на рахунок' if uk else 'Bank transfer'}</h3>
   <dl class="req tight">{dl}</dl>{foreign}</div><div class="act"></div></article>""")
     if not ways:
@@ -1105,6 +1133,25 @@ def page_team(lang):
 
 
 R["thanks"] = ("/dyakuyemo/", "/en/thank-you/")
+R["privacy"] = ("/pryvatnist/", "/en/privacy/")
+PRIVACY = load(f"{ROOT}/content/pages/privacy.yml") if os.path.exists(f"{ROOT}/content/pages/privacy.yml") else {}
+
+
+def page_privacy(lang):
+    uk = lang == "uk"
+    title = "Політика конфіденційності" if uk else "Privacy policy"
+    lead = L(PRIVACY, "lead", lang)
+    upd = PRIVACY.get("updated")
+    upd_h = f'<p class="mu" style="margin-top:2em;font-size:15px">{"Оновлено" if uk else "Last updated"}: {fdate(upd, lang) if hasattr(upd, "year") else e(str(upd))}</p>' if upd else ""
+    body = page_head("Приватність" if uk else "Privacy", lead, small=uk) + f'<section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="two"><span></span><div class="prose article">{mdh(L(PRIVACY, "body", lang))}{upd_h}</div></div></section>'
+    return head(lang, "privacy", title, lead, (url("privacy", lang), url("privacy", other(lang)))) + body + foot(lang)
+
+
+def page_404():
+    return head("uk", "home", "404", "Сторінку не знайдено / Page not found", ("/", "/en/"), noindex=True) + f"""<header class="ph gut max"><h1>404<span class="dot">.</span></h1>
+<div class="lead"><p>Схоже, адреса цієї сторінки змінилася. Почніть з <a href="/">головної</a> або <a href="/afisha/">афіші</a>.</p></div>
+<div class="lead"><p lang="en">This address has changed. Go to the <a href="/en/">home page</a> or the <a href="/en/schedule/">schedule</a>.</p></div></header>
+<section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="bact"><a class="tix big" href="/afisha/">Афіша</a><a class="go" href="/vystavy/">Вистави</a><a class="go" href="/en/">English</a></div></section>""" + foot("uk")
 
 
 def page_thanks(lang):
@@ -1209,8 +1256,9 @@ def build():
         if TEAM:
             write(url("team", lang), page_team(lang)); urls.append(url("team", lang))
         write(url("thanks", lang), page_thanks(lang))  # noindex, kept out of the sitemap
-    write("/404.html", head("uk", "home", "404", "404", ("/", "/en/")) +
-          '<header class="ph"><div class="wrap"><h1>404</h1><p class="lead mute">Такої сторінки на сайті немає. Перейдіть на <a href="/">головну</a> або до <a href="/afisha/">афіші</a>.</p></div></header>' + foot("uk"))
+        if PRIVACY:
+            write(url("privacy", lang), page_privacy(lang)); urls.append(url("privacy", lang))
+    write("/404.html", page_404())
     open(f"{OUT}/CNAME", "w").write("bentegy.org\n")
     open(f"{OUT}/.nojekyll", "w").close()
     open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /dyakuyemo/\nDisallow: /en/thank-you/\nSitemap: {SITE}/sitemap.xml\n")

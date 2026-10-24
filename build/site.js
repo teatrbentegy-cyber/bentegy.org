@@ -62,3 +62,23 @@ document.addEventListener('click', function (ev) {
     gtag('event', 'social_click', { network: /t\.me/.test(h) ? 'telegram' : 'instagram', link_url: h });
   }
 });
+
+// analytics consent banner
+(function () {
+  var box = document.getElementById('cookie');
+  if (!box) return;
+  var get = function () { try { return localStorage.getItem('bentegy-consent'); } catch (e) { return null; } };
+  var set = function (v) { try { localStorage.setItem('bentegy-consent', v); } catch (e) {} };
+  if (!get()) box.hidden = false;
+  box.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-consent]');
+    if (!b) return;
+    var v = b.getAttribute('data-consent');
+    set(v);
+    if (typeof window.gtag === 'function') gtag('consent', 'update', { analytics_storage: v === 'yes' ? 'granted' : 'denied' });
+    box.hidden = true;
+  });
+  document.querySelectorAll('a[href="#cookie"]').forEach(function (a) {
+    a.addEventListener('click', function (ev) { ev.preventDefault(); box.hidden = false; });
+  });
+})();
