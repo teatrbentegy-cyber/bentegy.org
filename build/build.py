@@ -922,11 +922,6 @@ def page_press(lang):
     texts = f"""<div class="bp"><div class="bh"><h3>{'Коротко' if uk else 'Short'}</h3>{copy_btn(lang, 'bp-short')}</div><div class="prose" id="bp-short"><p>{e(L(pr, 'about_short', lang))}</p></div></div>
 <div class="bp"><div class="bh"><h3>{'Детально' if uk else 'Long'}</h3>{copy_btn(lang, 'bp-long')}</div><div class="prose" id="bp-long">{mdh(L(pr, 'about_long', lang))}</div></div>
 <div class="bp"><div class="bh"><h3>{'Засновник' if uk else 'Founder'}: {e(L(PRODUCER, 'name', lang))}</h3>{copy_btn(lang, 'bp-bio')}</div><div class="prose" id="bp-bio">{mdh(L(PRODUCER, 'bio', lang))}</div></div>"""
-    ph = []
-    for x in pr.get("photos", []):
-        cap = L(x, "caption", lang)
-        ph.append(f"""<figure>{img(x['image'], cap, "(max-width:640px) 100vw, 33vw")}<figcaption><span>{e(cap)}<small>{'Фото' if uk else 'Photo'}: {e(x.get('credit', ''))}</small></span><a href="{e(x['image'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""")
-    full = f'<a class="tix" href="{e(pr["photos_full_url"])}" target="_blank" rel="noopener">{"Усі фото в повній якості ↗" if uk else "All photos, full resolution ↗"}</a>' if pr.get("photos_full_url") else ""
     logos = "".join(f"""<figure class="lg-{x.get('bg', 'light')}"><div class="lgim"><img src="{e(x['file'])}" alt="{e(L(x, 'title', lang))}" loading="lazy"></div><figcaption><span>{e(L(x, 'title', lang))}<small>PNG</small></span><a href="{e(x['file'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""" for x in pr.get("logos", []))
     cov = ""
     if pr.get("coverage"):
@@ -947,8 +942,6 @@ def page_press(lang):
     body = page_head(t["nav"]["press"], L(pr, "lead", lang)) + f"""
 <section class="gut max"><div class="cgrid"><div class="cr"><div><small>{'Контакт для преси' if uk else 'Press contact'}</small><p>{'Акредитації, інтервʼю, запити на фото й відео.' if uk else 'Accreditation, interviews, photo and video requests.'}</p></div><a href="mailto:{c['press']}">{c['press']}</a></div></div></section>
 <section class="sec gut max" style="padding-top:clamp(40px,5vw,72px)"><div class="sh"><h2>{'Про театр' if uk else 'About'}</h2></div><div class="bps">{texts}</div></section>
-<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Фото' if uk else 'Photos'}</h2><a class="more" href="/press/bentegy-photos.zip" download>{'Усі фото .zip' if uk else 'All photos .zip'}</a></div>
-  <div class="dl">{''.join(ph)}</div>{f'<p style="margin-top:24px">{full}</p>' if full else ''}</section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Логотипи' if uk else 'Logos'}</h2><a class="more" href="/press/bentegy-logos.zip" download>{'Усі логотипи .zip' if uk else 'All logos .zip'}</a></div><div class="dl logos">{logos}</div></section>
 {media_strip([m for m in MEDIA if m["type"] == "release"], lang, "Пресрелізи" if uk else "Press releases", mtype_url("release", lang), "Усі пресрелізи" if uk else "All press releases", top0=True)}
 {cov}{qs}
@@ -1055,6 +1048,25 @@ def page_media_index(lang, tp=None):
     return head(lang, "media", title, lead, (path, alt)) + body + foot(lang)
 
 
+
+def photo_pack(m, lang):
+    """Downloadable photos attached to a press release."""
+    uk = lang == "uk"
+    ph = [x for x in (m.get("photos") or []) if x.get("image")]
+    if not ph and not m.get("photos_full_url"):
+        return ""
+    items = []
+    for x in ph:
+        cap = L(x, "caption", lang)
+        cr = x.get("credit", "")
+        items.append(f"""<figure>{img(x['image'], cap or L(m, 'title', lang), "(max-width:640px) 100vw, 33vw")}<figcaption><span>{e(cap)}{f"<small>{'Фото' if uk else 'Photo'}: {e(cr)}</small>" if cr else ''}</span><a href="{e(x['image'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""")
+    links = []
+    if len(ph) > 1:
+        links.append(f'<a class="more" href="/press/{m["slug"]}-foto.zip" download>{"Усі фото .zip" if uk else "All photos .zip"}</a>')
+    full = f'<p style="margin-top:24px"><a class="tix" href="{e(m["photos_full_url"])}" target="_blank" rel="noopener">{"Фото в повній якості ↗" if uk else "Full-resolution photos ↗"}</a></p>' if m.get("photos_full_url") else ""
+    note = f'<p class="dlnote">{"Фото можна вільно використовувати в публікаціях про подію із зазначенням автора." if uk else "Photos are free to use in coverage of the event, with photo credit."}</p>'
+    return f"""<section class="sec gut max" id="foto" style="padding-top:0"><div class="sh"><h2>{'Фото для медіа' if uk else 'Photos for media'}</h2>{''.join(links)}</div>{note}<div class="dl">{''.join(items)}</div>{full}</section>"""
+
 def page_media(m, lang):
     t = T[lang]
     uk = lang == "uk"
@@ -1087,8 +1099,9 @@ def page_media(m, lang):
         city = L(m, "city", lang) or ("Київ" if uk else "Kyiv")
         top = f'<header class="ahead rel gut max"><p class="stamp">{"Пресреліз" if uk else "Press release"}<span>{e(city)}, {fdate(m["date"], lang)}</span></p><h1>{e(title)}</h1></header>'
         aside = f"""<aside class="ameta">{prod}<dl><div><dt>{"Контакт для преси" if uk else "Press contact"}</dt><dd><a href="mailto:{c['press']}">{c['press']}</a></dd></div>
-  <div><dt>{"Фото й логотипи" if uk else "Photos & logos"}</dt><dd><a href="{url('press', lang)}">{"Пресматеріали" if uk else "Press kit"} →</a></dd></div></dl>{copy_btn(lang, 'rel-text')}</aside>"""
-        main = f'<div class="atext gut max">{aside}<article class="article" id="rel-text"><p class="alead">{e(L(m, "lead", lang))}</p>{bodyh}{src}</article></div><div class="gut max">{fig}</div>'
+  {f'<div><dt>{"Фото" if uk else "Photos"}</dt><dd><a href="#foto">{"Фото для медіа" if uk else "Photos for media"} ↓</a></dd></div>' if (m.get("photos") or m.get("photos_full_url")) else ''}
+  <div><dt>{"Логотипи й тексти" if uk else "Logos & texts"}</dt><dd><a href="{url('press', lang)}">{"Пресматеріали" if uk else "Press kit"} →</a></dd></div></dl>{copy_btn(lang, 'rel-text')}</aside>"""
+        main = f'<div class="atext gut max">{aside}<article class="article" id="rel-text"><p class="alead">{e(L(m, "lead", lang))}</p>{bodyh}{src}</article></div>' + (photo_pack(m, lang) if (m.get("photos") or m.get("photos_full_url")) else f'<div class="gut max">{fig}</div>')
         cls = "rd rd-rel"
     else:
         top = f'<header class="ahead news gut max"><p class="nd">{m["date"].day:02d}.{m["date"].month:02d}<small>{m["date"].year}</small></p><div>{kicker}<h1>{e(title)}</h1><p class="alead">{e(L(m, "lead", lang))}</p></div></header>'
@@ -1225,11 +1238,14 @@ def build():
     with zipfile.ZipFile(f"{OUT}/press/bentegy-logos.zip", "w", zipfile.ZIP_DEFLATED) as z:
         for x in PRESS.get("logos", []):
             z.write(f"{ROOT}/static{x['file']}", os.path.basename(x["file"]))
-    with zipfile.ZipFile(f"{OUT}/press/bentegy-photos.zip", "w", zipfile.ZIP_STORED) as z:
-        for x in PRESS.get("photos", []):
-            src = f"{ROOT}/static{x['image']}"
-            if os.path.exists(src):
-                z.write(src, os.path.basename(src))
+    for m in MEDIA:
+        ph = [x["image"] for x in (m.get("photos") or []) if x.get("image")]
+        if m.get("type") == "release" and len(ph) > 1:
+            with zipfile.ZipFile(f"{OUT}/press/{m['slug']}-foto.zip", "w", zipfile.ZIP_STORED) as z:
+                for im in ph:
+                    src = f"{ROOT}/static{im}"
+                    if os.path.exists(src):
+                        z.write(src, os.path.basename(src))
     css = open(f"{ROOT}/build/fonts.css", encoding="utf-8").read() + open(f"{ROOT}/build/main.css", encoding="utf-8").read()
     open(f"{OUT}/main.css", "w", encoding="utf-8").write(css)
     shutil.copy(f"{ROOT}/build/site.js", f"{OUT}/site.js")
