@@ -165,6 +165,16 @@ collections:
       - { name: city_en, label: Місто (EN), widget: string, required: false, default: Kyiv }
       - { name: body_uk, label: Текст (UA), widget: markdown }
       - { name: body_en, label: Текст (EN), widget: markdown, required: false }
+      - name: photos
+        label: "Фото для медіа (лише для пресрелізів): журналісти зможуть завантажити кожне фото й архів .zip"
+        widget: list
+        required: false
+        fields:
+          - { name: image, label: Фото, widget: image }
+          - { name: caption_uk, label: Підпис (UA), widget: string, required: false }
+          - { name: caption_en, label: Підпис (EN), widget: string, required: false }
+          - { name: credit, label: Автор фото, widget: string, required: false }
+      - { name: photos_full_url, label: "Посилання на папку з фото в повній якості (Google Drive), необовʼязково", widget: string, required: false }
       - { name: source_uk, label: "Вперше опубліковано в (UA), напр. «Театральна риболовля»", widget: string, required: false }
       - { name: source_en, label: First published in (EN), widget: string, required: false }
       - { name: source_url, label: Посилання на першу публікацію, widget: string, required: false }
@@ -401,15 +411,6 @@ collections:
           - { name: about_short_en, label: Про театр коротко (EN), widget: text }
           - { name: about_long_uk, label: Про театр детально (UA), widget: markdown }
           - { name: about_long_en, label: Про театр детально (EN), widget: markdown }
-          - { name: photos_full_url, label: "Посилання на папку з фото в повній якості", widget: string, required: false }
-          - name: photos
-            label: Фото для преси
-            widget: list
-            fields:
-              - { name: image, label: Фото, widget: image }
-              - { name: caption_uk, label: Підпис (UA), widget: string }
-              - { name: caption_en, label: Підпис (EN), widget: string }
-              - { name: credit, label: Автор фото, widget: string }
           - name: logos
             label: Логотипи
             widget: list
