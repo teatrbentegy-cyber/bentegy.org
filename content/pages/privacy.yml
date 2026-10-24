@@ -1,0 +1,74 @@
+# Сторінка «Політика конфіденційності» (/pryvatnist/, /en/privacy/)
+updated: 2026-10-24
+lead_uk: Як Театр Бентеги збирає, використовує й захищає дані відвідувачів сайту, глядачів і донорів.
+lead_en: How Bentegy Theatre collects, uses and protects data about website visitors, audiences and donors.
+body_uk: |
+  ## Хто відповідає за дані
+
+  Громадська організація «В РЕСУРСІ» (код ЄДРПОУ 44977435), через яку діє Театр Бентеги. З усіх питань щодо персональних даних пишіть на [theatre@bentegy.org](mailto:theatre@bentegy.org).
+
+  ## Які дані ми отримуємо
+
+  **Статистика відвідувань.** Сайт використовує Google Analytics 4: скільки людей відвідує сторінки, з яких джерел вони приходять, з яких міст і пристроїв, на які кнопки натискають (квитки, донати, пошта, соцмережі). Дані знеособлені: ми бачимо загальну картину, а конкретну людину — ні. Для відвідувачів з Європейського Союзу, Великої Британії та Швейцарії статистика вмикається лише після згоди в банері внизу сторінки. Інші відвідувачі можуть відмовитися в тому самому банері.
+
+  **Квитки й донати.** Оплата відбувається на захищених сторінках WayForPay і Concert.ua. Дані картки обробляють лише ці платіжні сервіси, до нас вони не потрапляють. Від сервісу ми отримуємо імʼя, пошту, телефон і деталі замовлення — щоб пропустити вас на виставу, звʼязатися у разі змін і звітувати перед донорами та грантодавцями.
+
+  **Листи й повідомлення.** Коли ви пишете нам на пошту чи в соцмережі, ми зберігаємо листування, щоб відповісти й продовжити співпрацю.
+
+  **Хостинг.** Сайт розміщено на GitHub Pages. GitHub веде технічні журнали запитів (зокрема IP-адреси) для безпеки сервісу.
+
+  ## Навіщо ці дані
+
+  - продаж квитків і допуск на покази;
+  - обробка благодійних внесків і звітність про них;
+  - відповіді на ваші листи й запити;
+  - розуміння, як люди знаходять театр, і покращення сайту та реклами.
+
+  Дані використовуємо лише для цих цілей і передаємо тільки сервісам, переліченим на цій сторінці.
+
+  ## Файли cookie
+
+  Google Analytics зберігає файли `_ga` і `_ga_*`. Сайт також памʼятає ваш вибір у банері згоди (запис `bentegy-consent` у браузері). [Змінити вибір щодо статистики](#cookie).
+
+  ## Скільки зберігаємо
+
+  Статистика Google Analytics зберігається 14 місяців. Дані про квитки й донати — стільки, скільки вимагає законодавство про бухгалтерський облік і звітність. Листування — доки воно потрібне для співпраці.
+
+  ## Ваші права
+
+  Відповідно до Закону України «Про захист персональних даних» (а для відвідувачів з ЄС — Загального регламенту ЄС про захист даних, GDPR) ви можете дізнатися, які дані про вас ми маємо, виправити чи видалити їх, відкликати згоду або заперечити проти обробки. Напишіть на [theatre@bentegy.org](mailto:theatre@bentegy.org), відповімо протягом 30 днів. Скаргу можна подати Уповноваженому Верховної Ради України з прав людини.
+body_en: |
+  ## Who is responsible
+
+  NGO “V RESURSI” (EDRPOU 44977435), the organisation through which Bentegy Theatre operates. For any question about personal data, write to [theatre@bentegy.org](mailto:theatre@bentegy.org).
+
+  ## What data we receive
+
+  **Visit statistics.** The site uses Google Analytics 4: how many people visit pages, where they come from, which cities and devices they use and which buttons they click (tickets, donations, email, social media). The data is anonymised: we see the overall picture, not individuals. For visitors from the European Union, the United Kingdom and Switzerland, statistics are switched on only after consent in the banner at the bottom of the page. Other visitors can opt out in the same banner.
+
+  **Tickets and donations.** Payments happen on the secure pages of WayForPay and Concert.ua. Card details are processed only by these payment services and never reach us. From the service we receive your name, email, phone and order details — to admit you to the performance, contact you about changes and report to donors and funders.
+
+  **Emails and messages.** When you write to us by email or on social media, we keep the correspondence to reply and continue our cooperation.
+
+  **Hosting.** The site is hosted on GitHub Pages. GitHub keeps technical request logs (including IP addresses) for the security of its service.
+
+  ## Why we use the data
+
+  - selling tickets and admitting audiences;
+  - processing charitable donations and reporting on them;
+  - replying to your emails and requests;
+  - understanding how people find the theatre, and improving the site and our advertising.
+
+  We use the data for these purposes only and share it only with the services listed on this page.
+
+  ## Cookies
+
+  Google Analytics stores the `_ga` and `_ga_*` cookies. The site also remembers your choice in the consent banner (the `bentegy-consent` entry in your browser). [Change your analytics choice](#cookie).
+
+  ## How long we keep data
+
+  Google Analytics statistics are kept for 14 months. Ticket and donation records are kept for as long as accounting and reporting law requires. Correspondence is kept for as long as it is needed for our cooperation.
+
+  ## Your rights
+
+  Under the Law of Ukraine “On Personal Data Protection” (and, for visitors from the EU, the General Data Protection Regulation, GDPR) you can ask which data we hold about you, have it corrected or deleted, withdraw consent or object to processing. Write to [theatre@bentegy.org](mailto:theatre@bentegy.org) and we will reply within 30 days. You can also lodge a complaint with the Ukrainian Parliament Commissioner for Human Rights.

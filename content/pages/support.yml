@@ -56,17 +56,30 @@ free_url_eur: https://secure.wayforpay.com/donate/bentegy_eur
 # Банківські реквізити. Порожні поля на сайті не показуються.
 bank:
   recipient_uk: Громадська організація «В РЕСУРСІ»
-  recipient_en: NGO “In the Resource” (Hromadska orhanizatsiia «V RESURSI»)
+  recipient_en: NGO “V RESURSI” (ГО В РЕСУРСІ)
   edrpou: "44977435"
-  iban_uah: ""
-  bank_uk: ""
-  bank_en: ""
+  iban_uah: UA463052990000026009050555082
+  bank_uk: АТ КБ «ПриватБанк»
+  bank_en: JSC CB “PRIVATBANK”, 1D Hrushevskoho Str., Kyiv, 01001, Ukraine
   iban_usd: ""
-  iban_eur: ""
-  swift: ""
+  iban_eur: UA023052990000026007050675737
+  swift: PBANUA2X
+  address_en: "51937, Ukraine, Dnipropetrovsk region, Kamianske, Heroiv ATO Ave., 7B"
   purpose_uk: Благодійний внесок на статутну діяльність
   purpose_en: Charitable donation for statutory activities
-
+  correspondents:
+    - bank: Commerzbank AG, Frankfurt am Main, Germany
+      swift: COBADEFF
+      account: "400886700401"
+    - bank: J.P. Morgan AG, Frankfurt am Main, Germany
+      swift: CHASDEFX
+      account: "6231605145"
+    - bank: The Bank of New York Mellon, Frankfurt am Main, Germany
+      swift: IRVTDEFX
+      account: "5184099710 (IBAN DE39503303005184099710)"
+    - bank: Citibank Europe PLC, Ireland
+      swift: CITIIE2X
+      account: "0042997188 (IBAN IE96CITI99005142997188)"
 uses_uk:
   - title: Нові вистави
     text: Дослідження, репетиції, сценографія, костюми й світло для прем'єр.
