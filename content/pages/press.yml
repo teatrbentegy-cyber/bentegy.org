@@ -46,6 +46,22 @@ logos:
 
 # Публікації в медіа. Додавайте лише справжні, з посиланням.
 coverage:
+  - outlet: Суспільне Культура
+    title: "Перформативний сектор — найтоксичніший в Україні? Про що говорили незалежні театри з Києва, Львова, Харкова та Луцька"
+    date: "2026-09-15"
+    url: https://suspilne.media/culture/1402828-performativnij-sektor-najtoksicnisij-v-ukraini-pro-so-govorili-nezalezni-teatri-z-kieva-lvova-harkova-ta-lucka/
+  - outlet: Хмарочос
+    title: Театри з чотирьох міст України зберуться у Києві на відкриту зустріч «НАОСЛІП»
+    date: "2026-08-01"
+    url: https://hmarochos.kiev.ua/2026/08/01/teatry-z-chotyroh-mist-ukrayiny-zberutsya-u-kyyevi-na-vidkrytu-zustrich-naoslip/
+  - outlet: The Village Україна
+    title: "Азійське гард-техно та благодійний велозаїзд: плани на вихідні в Києві"
+    date: "2026-08-06"
+    url: https://www.village.com.ua/village/culture/weekend-plans/376135-aziyske-gard-tehno-ta-blagodiyniy-velozayizd-plani-na-vihidni-v-kievi
+  - outlet: The Village Україна
+    title: "«Книжкова країна» на ВДНГ, Vertuha зі стразами та пивний фестиваль: куди піти у Києві на вихідних"
+    date: "2025-09-25"
+    url: https://www.village.com.ua/village/culture/weekend-plans/366977-laquo-knizhkova-krayina-raquo-na-vdng-vertuha-zi-strazami-ta-pivniy-festival-kudi-piti-u-kievi-na-vihidnih
   - outlet: Київ Life
     title: "У Києві покажуть «Коні за вікном» за Матеєм Вішнеком: прем'єра 18 жовтня"
     date: "2026-10-13"
