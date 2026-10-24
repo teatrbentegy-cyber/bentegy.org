@@ -3,33 +3,53 @@ title_uk: The Inferior Play
 title_en: The Inferior Play
 status: repertoire
 order: 5
-genre_uk: Проєкт-дослідження гри
-genre_en: A research project on play
-premiere_uk: Фінальна презентація 23 серпня 2026, Київ
-premiere_en: Final presentation 23 August 2026, Kyiv
-duration_uk: ''
-duration_en: ''
+genre_uk: Перформанс-прогулянка · дослідження гри
+genre_en: Performance walk · a research project on play
+premiere_uk: «Гра на Вершинці» — фінальна презентація 23 серпня 2026, Чоколівка, Київ
+premiere_en: “The Game on Vershynka”, final presentation, 23 August 2026, Chokolivka, Kyiv
+duration_uk: орієнтовно 1,5–2 години, щоразу по-різному
+duration_en: approx. 1.5–2 hours, different each time
 age: ''
 cover: /uploads/inferior-play-1.jpg
-summary_uk: Міждисциплінарне дослідження гри як чуттєвої практики присутності. Замість глядачів — гості-дослідники.
-summary_en: An interdisciplinary study of play as a sensory practice of presence. Instead of spectators, guest researchers.
-description_uk: |
-  Міждисциплінарний проєкт-дослідження гри як чуттєвої практики присутності. Це не вистава в класичному сенсі: замість глядачів тут гості-дослідники, а межа між грою і життям поступово зникає.
+summary_uk: Перформативний проєкт Марічки Гавриш про гру як спосіб бути присутніми одне з одним. Гості самі обирають міру своєї участі.
+summary_en: A performative project by Marichka Havrysh on play as a way of being present with one another. Guests choose how far they take part.
+description_uk: 'The Inferior Play — перформативний проєкт режисерки та перформерки Марічки Гавриш, який досліджує гру як спосіб бути присутніми одне з одним, взаємодіяти й створювати спільний досвід. До гри ми звертаємося тоді, коли шукаємо знання, — і коли у спільноті є рівність, свобода та довіра.
 
-  Проєкт існує у форматі відкритої лабораторії — плейтести, воркшопи, відкриті репетиції, розмови й архів. Гра тут постає як «щеплення від іронії» і вправа на стійкість. Незавершеність work-in-progress — частина задуму.
 
-  Проєкт є переможцем грантової програми Per Forma, яку здійснює платформа Kyiv Contemporary Music Days за підтримки Performing Arts Fund NL та Міністерства освіти, культури та науки Нідерландів для розвитку сектору перформативних мистецтв в Україні.
-description_en: |
-  An interdisciplinary research project on play as a sensory practice of presence. It is not a performance in the classical sense: instead of spectators there are guest researchers, and the line between play and life gradually disappears.
+  Проєкт живе як відкрита лабораторія: плейтести, відкриті репетиції, проміжні ігри, розмови й архів. Між глядачами й діячами — цілий спектр, і кожен гість сам регулює міру своєї участі.
 
-  The project works as an open laboratory: playtests, workshops, open rehearsals, conversations and an archive. Play becomes an “inoculation against irony” and an exercise in resilience. Being a work in progress is part of the idea.
 
-  The project is a winner of the Per Forma grant programme run by Kyiv Contemporary Music Days with the support of Performing Arts Fund NL and the Ministry of Education, Culture and Science of the Netherlands for the development of the performing arts sector in Ukraine.
+  Фінальна презентація «Гра на Вершинці» вперше винесла дослідження з репетиційної зали в місто — на маршрут уздовж прихованої річки Вершинки на Чоколівці. Учасники разом пройшли ігровим маршрутом уздовж води, оживлюючи її присутністю, сміхом і рухом, і пригадали, як це — гратися надворі.
+
+
+  Проєкт реалізовано за підтримки грантової програми Per Forma, яку здійснює платформа Kyiv Contemporary Music Days за підтримки Performing Arts Fund NL та Міністерства освіти, культури та науки Нідерландів для розвитку сектору перформативних мистецтв в Україні.
+
+  '
+description_en: 'The Inferior Play is a performative project by director and performer Marichka Havrysh that explores play as a way of being present with one another, interacting and creating shared experience. We turn to play when we are searching for knowledge, and when a community holds equality, freedom and trust.
+
+
+  The project lives as an open laboratory: playtests, open rehearsals, interim games, conversations and an archive. Between audience and performers lies a whole spectrum, and every guest sets their own degree of participation.
+
+
+  The final presentation, “The Game on Vershynka”, took the research out of the rehearsal room and into the city for the first time, along the hidden Vershynka river in Chokolivka. Participants walked a playful route along the water together, bringing it to life with presence, laughter and movement, and remembering what it feels like to play outdoors.
+
+
+  Supported by the Per Forma grant programme run by Kyiv Contemporary Music Days with the support of Performing Arts Fund NL and the Ministry of Education, Culture and Science of the Netherlands for the development of the performing arts sector in Ukraine.
+
+  '
 credits:
-- role_uk: Режисерка й кураторка
-  role_en: Director and curator
+- role_uk: Авторка ідеї, режисерка й перформерка
+  role_en: Concept, director and performer
   names: Марічка Гавриш
   names_en: Marichka Havrysh
+- role_uk: Сценографка
+  role_en: Set designer
+  names: Єва Жукалюк
+  names_en: Yeva Zhukaliuk
+- role_uk: Перформери
+  role_en: Performers
+  names: Роман Рогоза, Анастасія Лисенок, Оля Галицька, Вікторія Цілуйко
+  names_en: Roman Rohoza, Anastasiia Lysenok, Olia Halytska, Viktoriia Tsiluiko
 - role_uk: Продюсер
   role_en: Producer
   names: Павло Коваль, Театр Бентеги
