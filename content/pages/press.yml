@@ -1,6 +1,6 @@
 # Сторінка «Преса»
-lead_uk: Матеріали для медіа, фестивалів і партнерів. Фото, логотипи й тексти можна вільно використовувати в публікаціях про театр із зазначенням авторів фото.
-lead_en: Materials for media, festivals and partners. Photos, logos and texts are free to use in coverage of the theatre, with photo credits.
+lead_uk: Матеріали для медіа, фестивалів і партнерів. Тексти й логотипи можна вільно використовувати в публікаціях про театр. Фото до кожної події — у її пресрелізі, з можливістю завантажити.
+lead_en: Materials for media, festivals and partners. Texts and logos are free to use in coverage of the theatre. Photos for each event come with its press release, ready to download.
 
 about_short_uk: Бентеги — незалежний документальний і постдраматичний театр у Києві, заснований у 2025 році. Театр працює з інтерв'ю, архівами й особистими свідченнями, а сцену будує через тіло й колективний девайзинг.
 about_short_en: Bentegy is an independent documentary and postdramatic theatre company in Kyiv, founded in 2025. The company works with interviews, archives and personal testimony, and builds its stage language through the body and collective devising.
@@ -18,48 +18,15 @@ about_long_en: |
 
   The company develops international cooperation: a co-production with Qendra Multimedia (Pristina), a residency at the Bekim Fehmiu City Theatre in Prizren, and participation in the European Cultural Foundation’s Culture Helps Solidarity programme. Bentegy also produces young independent teams and student work.
 
-# Посилання на папку з фото в повній якості (Google Drive тощо)
-photos_full_url: ""
-
-photos:
-  - image: /uploads/msid-scene-1.jpg
-    caption_uk: «Між світом і душею»
-    caption_en: Between the World and the Soul
-    credit: Архів театру / Company archive
-  - image: /uploads/msid-hands.jpg
-    caption_uk: «Між світом і душею»
-    caption_en: Between the World and the Soul
-    credit: Архів театру / Company archive
-  - image: /uploads/kinets-zminy-sea.jpg
-    caption_uk: «Кінець зміни»
-    caption_en: End of Shift
-    credit: Архів театру / Company archive
-  - image: /uploads/kinets-zminy-2026-01.jpg
-    caption_uk: «Кінець зміни»
-    caption_en: End of Shift
-    credit: Архів театру / Company archive
-  - image: /uploads/promova-2026-01.jpg
-    caption_uk: «Промова 2.0»
-    caption_en: Promova 2.0
-    credit: Архів театру / Company archive
-  - image: /uploads/inferior-play-1.jpg
-    caption_uk: The Inferior Play
-    caption_en: The Inferior Play
-    credit: Архів театру / Company archive
-  - image: /uploads/naoslip-talk.jpg
-    caption_uk: НАОСЛІП, вечір незалежного театру
-    caption_en: NAOSLIP, an evening of independent theatre
-    credit: Архів театру / Company archive
-  - image: /uploads/pavlo-koval.jpg
-    caption_uk: Павло Коваль, засновник і продюсер
-    caption_en: Pavlo Koval, founder and producer
-    credit: Sergeitsev
-
 logos:
   - file: /press/bentegy-znak.png
     title_uk: Знак
     title_en: Mark
     bg: light
+  - file: /press/bentegy-znak-bilyi.png
+    title_uk: Знак для темного фону
+    title_en: Mark for dark backgrounds
+    bg: dark
   - file: /press/bentegy-lokap-chornyi.png
     title_uk: Знак і назва, чорний
     title_en: Mark and name, black
