@@ -208,8 +208,18 @@ collections:
       - { name: website, label: Сайт / портфоліо (посилання), widget: string, required: false }
       - { name: producer_page, label: Картка веде на сторінку «Продюсер», widget: boolean, default: false, required: false }
 
+  - name: pages
     label: Сторінки
     files:
+      - name: privacy
+        label: Політика конфіденційності
+        file: content/pages/privacy.yml
+        fields:
+          - { name: updated, label: Дата оновлення, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - { name: body_uk, label: Текст (UA), widget: markdown }
+          - { name: body_en, label: Текст (EN), widget: markdown }
       - name: site
         label: Головна і загальні дані
         file: content/site.yml
@@ -250,7 +260,6 @@ collections:
               - { name: nonprofit_en, label: Неприбутковий статус (EN), widget: string }
           - { name: partners, label: Партнери, widget: list, field: { name: name, label: Назва, widget: string } }
           - { name: ga4, label: "Google Analytics 4 — ID потоку (G-XXXXXXX)", widget: string, required: false, hint: "Порожньо — аналітика вимкнена" }
-          - { name: goatcounter, label: "Статистика GoatCounter: код сайту", widget: string, required: false, hint: "Напр. bentegy для bentegy.goatcounter.com. Порожнє — статистику вимкнено" }
       - name: producer
         label: Сторінка «Продюсер»
         file: content/pages/producer.yml
@@ -355,6 +364,15 @@ collections:
               - { name: iban_usd, label: IBAN у доларах, widget: string, required: false }
               - { name: iban_eur, label: IBAN у євро, widget: string, required: false }
               - { name: swift, label: SWIFT / BIC банку, widget: string, required: false }
+              - { name: address_en, label: "Адреса отримувача для SWIFT (EN, як у банку)", widget: string, required: false }
+              - name: correspondents
+                label: Банки-кореспонденти (EUR)
+                widget: list
+                required: false
+                fields:
+                  - { name: bank, label: Банк, widget: string }
+                  - { name: swift, label: SWIFT, widget: string }
+                  - { name: account, label: Рахунок / IBAN, widget: string }
               - { name: purpose_uk, label: Призначення платежу (UA), widget: string }
               - { name: purpose_en, label: Призначення платежу (EN), widget: string }
           - name: uses_uk
