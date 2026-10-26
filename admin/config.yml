@@ -243,6 +243,7 @@ collections:
               - { name: caption_en, label: Підпис (EN), widget: string }
           - { name: tagline_uk, label: Гасло під лого (UA), widget: text }
           - { name: tagline_en, label: Гасло під лого (EN), widget: text }
+          - { name: media_enabled, label: Показувати розділ «Медіа», widget: boolean, default: false, required: false }
           - name: contacts
             label: Контакти
             widget: object
