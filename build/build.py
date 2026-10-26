@@ -71,6 +71,10 @@ for d in load_dir("media"):
     d["type"] = d.get("type") if d.get("type") in ("text", "news", "release") else "text"
     MEDIA.append(d)
 MEDIA.sort(key=lambda d: (d["date"], d["slug"]), reverse=True)
+# Розділ «Медіа» можна тимчасово сховати (site.yml → media_enabled: false): сторінки не збираються, посилання зникають
+MEDIA_ALL = MEDIA
+if SETTINGS.get("media_enabled") is False:
+    MEDIA = []
 GROUP_ORDER = {"team": 0, "collab": 1, "authors": 2}
 # Показуємо лише людей з іменем: порожні ролі без імені виглядали б як заглушки
 TEAM = [d for d in load_dir("team") if d.get("name_uk") or d.get("name_en")]
@@ -753,7 +757,23 @@ def page_producer(lang):
     t = T[lang]
     pr = PRODUCER
     svc = "".join(f"<div><h3>{e(s['title'])}</h3><p>{e(s['text'])}</p></div>" for s in pr.get(f"services_{lang}", []))
-    cases = "".join(f"""<article class="case"><span class="y">{e(c.get('year', ''))}</span><div><h3>{e(L(c, 'title', lang))}</h3><p class="r">{e(L(c, 'role', lang))}</p></div><p>{e(L(c, 'text', lang))}</p></article>""" for c in pr.get("cases", []))
+    uk = lang == "uk"
+    prods = {p["slug"] for p in PRODUCTIONS}
+
+    def case_html(c):
+        ttl = e(L(c, 'title', lang))
+        if c.get("link") in prods:
+            ttl = f'<a href="{url("shows", lang)}{c["link"]}/">{ttl}</a>'
+        return f"""<article class="case"><span class="y">{e(c.get('year', ''))}</span><div><h3>{ttl}</h3><p class="r">{e(L(c, 'role', lang))}</p></div><p>{e(L(c, 'text', lang))}</p></article>"""
+    groups = [("flagship", "Ключові проєкти" if uk else "Key projects"), ("selected", "Вибрані проєкти" if uk else "Selected projects"), ("earlier", "Ранні роботи" if uk else "Earlier work")]
+    cases = ""
+    for gk, gt in groups:
+        items = [c for c in pr.get("cases", []) if (c.get("group") or "selected") == gk]
+        if items:
+            cases += f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{gt}</h2></div>{"".join(case_html(c) for c in items)}</section>'
+    progs = "".join(f"""<article class="case"><span class="y">{e(c.get('year', ''))}</span><div><h3>{e(L(c, 'title', lang))}</h3></div><p>{e(L(c, 'text', lang))}</p></article>""" for c in pr.get("programmes", []))
+    if progs:
+        cases += f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Програми, резиденції, освіта" if uk else "Programmes, residencies, education"}</h2></div>{progs}</section>'
     mail = SETTINGS["contacts"]["producer"]
     name = L(pr, "name", lang)
     body = f"""<header class="ph gut max"><h1>{e(t['nav']['producer'])}<span class="dot">.</span></h1></header>
@@ -763,7 +783,7 @@ def page_producer(lang):
 </div></section>
 <section class="sec gut max"><div class="sh"><h2>{'Біографія' if lang == 'uk' else 'Biography'}</h2></div><div class="two"><span></span><div class="prose">{mdh(L(pr, 'bio', lang))}</div></div></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Що я роблю' if lang == 'uk' else 'What I do'}</h2></div><div class="grid2">{svc}</div></section>
-<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Проєкти' if lang == 'uk' else 'Projects'}</h2></div>{cases}</section>
+{cases}
 {media_strip(by_author("pavlo-koval"), lang, 'Тексти' if lang == 'uk' else 'Writing', mtype_url('text', lang), 'Усі тексти' if lang == 'uk' else 'All texts', top0=True)}
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t['producer_cta']}</h2></div>
   <div class="cgrid" style="border-top:0"><div class="cr"><div><small>{'Пошта продюсера' if lang == 'uk' else 'Producer email'}</small><p>{'Копродукції, гастролі, продюсування молодих команд, партнерства.' if lang == 'uk' else 'Co-productions, touring, producing for young teams, partnerships.'}</p></div><a href="mailto:{mail}">{mail}</a></div></div></section>
