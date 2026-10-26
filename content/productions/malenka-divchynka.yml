@@ -10,7 +10,7 @@ premiere_en: ''
 duration_uk: ''
 duration_en: ''
 age: 16+
-cover: ''
+cover: /uploads/malenka-1.jpg
 summary_uk: Документальна історія про тишу і право нарешті сказати вголос. За реальними свідченнями.
 summary_en: A documentary story about silence and the right to finally speak out. Based on real testimonies.
 description_uk: |
@@ -34,5 +34,8 @@ credits:
   role_en: Producer
   names: Павло Коваль, Театр Бентеги
   names_en: Pavlo Koval, Bentegy Theatre
-gallery: []
+gallery:
+- image: /uploads/malenka-2.jpg
+- image: /uploads/malenka-3.jpg
+- image: /uploads/malenka-4.jpg
 photo_credit: ''
