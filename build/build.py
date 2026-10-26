@@ -72,7 +72,8 @@ for d in load_dir("media"):
     MEDIA.append(d)
 MEDIA.sort(key=lambda d: (d["date"], d["slug"]), reverse=True)
 GROUP_ORDER = {"team": 0, "collab": 1, "authors": 2}
-TEAM = [d for d in load_dir("team") if d.get("name_uk") or d.get("name_en") or d.get("role_uk")]
+# Показуємо лише людей з іменем: порожні ролі без імені виглядали б як заглушки
+TEAM = [d for d in load_dir("team") if d.get("name_uk") or d.get("name_en")]
 TEAM.sort(key=lambda d: (GROUP_ORDER.get(d.get("group") or "team", 3), d.get("order") or 99, d.get("name_uk") or ""))
 TEAM_BY = {d["slug"]: d for d in TEAM}
 
@@ -434,7 +435,8 @@ def extra_links(lang, key):
 def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=False):
     t = T[lang]
     o = other(lang)
-    full = t["name"] if key == "home" and not title else f"{title} — {t['name']}"
+    _tl = L(SETTINGS, 'tagline', lang).split('.')[0]
+    full = f"{t['name']} — {_tl[:1].lower()}{_tl[1:]}" if key == "home" and not title else f"{title} — {t['name']}"
     og_img = SITE + (og or OG_DONE.get(f"bentegy-{lang}", ""))
     nav = nav_links(lang, key)
     return f"""<!doctype html>
@@ -601,6 +603,22 @@ def page_home(lang):
     hmenu = "".join(f'<a href="{url(k, lang)}">{t["nav"][k]}</a>' for k in hv)
     rep = [p for p in PRODUCTIONS if p.get("status") in ("repertoire", "upcoming")][:4]
     pr = PRODUCER
+    uk = lang == "uk"
+    org = SETTINGS["organization"]
+    appr_home = "".join(f"<div class='rw'><h3>{e(L(x, 'title', lang))}</h3><p>{e(L(x, 'text', lang))}</p></div>" for x in ABOUT.get("approach", []))
+    who = f"""
+<section class="sec gut max">
+  <div class="sh"><h2>{'Хто ми' if uk else 'Who we are'}</h2><a class="more" href="{url('about', lang)}">{'Про театр' if uk else 'About us'}</a></div>
+  <div class="two"><span></span><div>
+    <p class="big-lead">{e(L(ABOUT, 'lead', lang))}</p>
+    <p class="prose" style="margin-top:20px;max-width:62ch">{'<b>Місія.</b> ' if uk else '<b>Mission.</b> '}{e(L(ABOUT, 'mission', lang))}</p>
+    <p class="mu" style="margin-top:16px;max-width:62ch;font-size:15px">{e(L(org, 'name', lang))} · {'код ЄДРПОУ' if uk else 'registration code (EDRPOU)'} {org['edrpou']} · {'неприбуткова організація' if uk else 'registered non-profit'} · {e(L(org, 'address', lang))}. <a href="{url('org', lang)}">{'Реквізити і документи' if uk else 'Details and documents'}</a></p>
+  </div></div>
+  <div class="rows" style="margin-top:28px">{appr_home}</div>
+</section>"""
+    tix_note = (f"Театр Бентеги працює як неприбуткова {e(org['name_uk'][:1].lower() + org['name_uk'][1:])}: кошти від квитків і внесків ідуть на статутну діяльність — нові вистави, гонорари команди, покази й освітні програми."
+                if uk else
+                f"Bentegy Theatre operates as the non-profit {e(org['name_en'])}: income from tickets and donations goes to its statutory activities — new productions, fair pay for the team, performances and learning programmes.")
     body = f"""
 <section class="hero" aria-label="{t['name']}">
   {slides}
@@ -609,13 +627,15 @@ def page_home(lang):
   <div class="poster gut">
     <div class="now"><p>{e(L(SETTINGS, 'tagline', lang))}</p>
       <a class="cap" id="cap" href="{e(first.get('link') or url('shows', lang))}">{'На фото' if lang == 'uk' else 'Pictured'}<b>{e(L(first, 'caption', lang))}</b><span class="ticks" aria-hidden="true">{ticks}</span></a></div>
-    <h1 class="word"><span class="vh">{t['name']}</span><span aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></span></h1>
+    <h1 class="vh">{t['name']}</h1><p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
     <nav class="hmenu" aria-label="{t['menu']}" style="--n:{len(hv)}">{hmenu}</nav>
   </div>
 </section>
+{who}
 <section class="sec gut max">
   <div class="sh"><h2>{t['nav']['afisha']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>
   {schedule(EVENTS[:4], lang, group=False)}
+  <p class="mu" style="margin-top:20px;max-width:62ch;font-size:15px">{tix_note}</p>
 </section>
 <section class="sec gut max">
   <div class="sh"><h2>{t['nav']['shows']}</h2><a class="more" href="{url('shows', lang)}">{t['all_shows']}</a></div>
@@ -639,9 +659,9 @@ def page_home(lang):
 
 def page_afisha(lang):
     t = T[lang]
-    intro = ("Усі найближчі покази Театру Бентеги та вистав, які ми продюсуємо. Квитки продаються через різних операторів, кнопка біля кожної дати веде на потрібний сайт."
+    intro = ("Усі найближчі покази Театру Бентеги та вистав, які ми продюсуємо. Квитки продаються через різних операторів, кнопка біля кожної дати веде на потрібний сайт. Кошти від квитків ідуть на статутну діяльність неприбуткової ГО «В РЕСУРСІ»: нові вистави, гонорари команди й покази."
              if lang == "uk" else
-             "All upcoming performances by Bentegy Theatre and the productions we produce. Tickets are sold through different operators; the button next to each date takes you to the right one.")
+             "All upcoming performances by Bentegy Theatre and the productions we produce. Tickets are sold through different operators; the button next to each date takes you to the right one. Ticket income goes to the statutory activities of the non-profit NGO “In the Resource”: new productions, fair pay for the team and performances.")
     body = page_head(t["nav"]["afisha"], intro) + f'<section class="gut max" style="padding-bottom:clamp(40px,6vw,80px)">{schedule(EVENTS, lang)}</section>'
     return head(lang, "afisha", t["nav"]["afisha"], intro, (url("afisha", lang), url("afisha", other(lang))), ld=ld_events(EVENTS, lang) or None) + body + foot(lang)
 
