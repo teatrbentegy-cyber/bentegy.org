@@ -5,8 +5,8 @@ status: upcoming
 order: 3
 genre_uk: Документальна вистава
 genre_en: Documentary performance
-premiere_uk: 12–13 грудня 2026, Київ
-premiere_en: 12–13 December 2026, Kyiv
+premiere_uk: Сезон 2026/27
+premiere_en: Season 2026/27
 duration_uk: ""
 duration_en: ""
 age: ""
@@ -16,11 +16,23 @@ summary_en: A performance about coming home from war, built from in-depth interv
 description_uk: |
   Вистава про повернення з війни, створена на основі глибинних інтервʼю з українськими ветеранами методом колективного девайзингу, з використанням практик Viewpoints і Moment Work.
 
-  Показ у процесі — Призрен (Косово), листопад 2026, у партнерстві з Qendra Multimedia. Прем'єра — Київ, 12–13 грудня 2026.
+  Міжнародна копродукція з Qendra Multimedia (Приштина) за підтримки Європейської культурної фундації в програмі Culture Helps Solidarity. Дати показів зʼявляться в афіші.
 description_en: |
   A performance about coming home from war, built from in-depth interviews with Ukrainian veterans and created through collective devising, using Viewpoints and Moment Work.
 
-  Work-in-progress showing in Prizren, Kosovo, in November 2026, in partnership with Qendra Multimedia. Premiere in Kyiv on 12–13 December 2026.
-credits: []
+  An international co-production with Qendra Multimedia (Pristina), supported by the European Cultural Foundation’s Culture Helps Solidarity programme. Performance dates will be announced in the schedule.
+credits:
+- role_uk: Режисер, драматург, продюсер
+  role_en: Director, playwright, producer
+  names: Павло Коваль
+  names_en: Pavlo Koval
+- role_uk: Копродукція
+  role_en: Co-production
+  names: Театр Бентеги, Qendra Multimedia (Приштина)
+  names_en: Bentegy Theatre, Qendra Multimedia (Pristina)
+- role_uk: Підтримка
+  role_en: Support
+  names: European Cultural Foundation · Culture Helps Solidarity
+  names_en: European Cultural Foundation · Culture Helps Solidarity
 gallery: []
 photo_credit: ""
