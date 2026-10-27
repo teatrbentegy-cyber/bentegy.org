@@ -170,7 +170,7 @@ def visible_nav():
 
 
 # ------------------------------------------------------------------ images
-SIZES = (800, 1600, 2400)
+SIZES = (800, 1200, 1600, 2400)
 IMG_DONE = {}
 
 
@@ -188,6 +188,7 @@ def process_images():
                 break
             r = im if w <= s else im.resize((s, round(h * s / w)), Image.LANCZOS)
             r.save(f"{OUT}/img/{stem}-{s}.jpg", "JPEG", quality=80, optimize=True, progressive=True)
+            r.save(f"{OUT}/img/{stem}-{s}.webp", "WEBP", quality=72, method=6)  # швидкість (PageSpeed): WebP ~30% легший
             made.append((s, r.size))
         IMG_DONE[f"/uploads/{stem}{ext}"] = (stem, made, (w, h))
 
@@ -200,7 +201,9 @@ def img(path, alt="", sizes="100vw", cls="", eager=False):
     mid = made[min(1, len(made) - 1)][0]
     load = 'fetchpriority="high"' if eager else 'loading="lazy" decoding="async"'
     c = f' class="{cls}"' if cls else ""
-    return f'<img{c} src="/img/{stem}-{mid}.jpg" srcset="{srcset}" sizes="{sizes}" width="{w}" height="{h}" alt="{e(alt)}" {load}>'
+    webp = ", ".join(f"/img/{stem}-{s}.webp {sz[0]}w" for s, sz in made)
+    return (f'<picture><source type="image/webp" srcset="{webp}" sizes="{sizes}">'
+            f'<img{c} src="/img/{stem}-{mid}.jpg" srcset="{srcset}" sizes="{sizes}" width="{w}" height="{h}" alt="{e(alt)}" {load}></picture>')
 
 
 def img_url(path, size=1600):
@@ -419,7 +422,8 @@ def analytics():
     ga = (SETTINGS.get("ga4") or "").strip()
     if ga:
         eea = "AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH".split()
-        out += (f'\n<!-- Google tag (gtag.js) -->\n<script async src="https://www.googletagmanager.com/gtag/js?id={e(ga)}"></script>'
+        out += (f'\n<!-- Google tag (gtag.js): вантажимо після завантаження сторінки, щоб не гальмувати показ (PageSpeed) -->'
+                f'\n<script>addEventListener("load",function(){{setTimeout(function(){{var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id={e(ga)}";document.head.appendChild(s)}},1500)}});</script>'
                 "\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
                 f"gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:{eea!r}}});"
                 "gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});"
@@ -434,6 +438,17 @@ def analytics():
 def extra_links(lang, key):
     t = T[lang]
     return "".join(f'<a class="sm" href="{url(k, lang)}"{" aria-current=page" if k == key else ""}>{t["nav"][k]}</a>' for k in ("support", "press", "org", "contact") if k not in visible_nav())
+
+
+def _min_css(css):
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{}:;,>])\s*", r"\1", css)
+    return css.replace(";}", "}").strip()
+
+
+# Увесь CSS вбудовано в <head>: прибирає запит, що блокує показ сторінки (PageSpeed, мобільний)
+CSS_INLINE = _min_css(open(f"{ROOT}/build/fonts.css", encoding="utf-8").read() + open(f"{ROOT}/build/main.css", encoding="utf-8").read() + "picture{display:contents}")
 
 
 def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=False):
@@ -467,7 +482,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <link rel="icon" href="/brand/favicon.png" type="image/png">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
 <link rel="preload" href="/fonts/inter-tight-cyrillic-900-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/main.css">
+<style>{CSS_INLINE}</style>
 </head>
 <body class="{body_cls}">
 <a class="skip" href="#main">{t['skip']}</a>
