@@ -601,6 +601,8 @@ def card(p, lang):
         tag = f'<span class="tag o">{t["produced_tag"]}</span>'
     elif p.get("status") == "development":
         tag = f'<span class="tag o">{"В розробці" if lang == "uk" else "In development"}</span>'
+    elif p.get("status") == "event":
+        tag = f'<span class="tag o">{"Подія" if lang == "uk" else "Event"}{" · " + str(p["year"]) if p.get("year") else ""}</span>'
     elif p.get("status") == "archive":
         tag = f'<span class="tag o">{"Архів" if lang == "uk" else "Archive"}{" · " + str(p["year"]) if p.get("year") else ""}</span>'
     pic = img(p.get("cover"), L(p, "title", lang), "(max-width:760px) 100vw, 58vw") or f'<span class="ty">{e(L(p, "title", lang))}</span>'
@@ -691,6 +693,7 @@ def page_shows(lang):
     prod = [p for p in PRODUCTIONS if p.get("status") == "produced"]
     arch = [p for p in PRODUCTIONS if p.get("status") == "archive"]
     dev = [p for p in PRODUCTIONS if p.get("status") == "development"]
+    evp = [p for p in PRODUCTIONS if p.get("status") == "event"]
     intro = ("Документальні й постдраматичні вистави, що виростають із дослідження: інтервʼю, архівів, особистих історій і роботи з тілом."
              if lang == "uk" else
              "Documentary and postdramatic performances grown out of research: interviews, archives, personal stories and work with the body.")
@@ -699,7 +702,7 @@ def page_shows(lang):
         if not items:
             return ""
         return f'<section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{title}</h2></div><div class="rep">{"".join(card(p, lang) for p in items)}</div></section>'
-    body = page_head(t["nav"]["shows"], intro) + sec(t["repertoire"], rep) + sec(t["produced"], prod) + sec("В розробці" if lang == "uk" else "In development", dev) + sec("Архів" if lang == "uk" else "Archive", arch)
+    body = page_head(t["nav"]["shows"], intro) + sec(t["repertoire"], rep) + sec(t["produced"], prod) + sec("В розробці" if lang == "uk" else "In development", dev) + sec("Події" if lang == "uk" else "Events", evp) + sec("Архів" if lang == "uk" else "Archive", arch)
     return head(lang, "shows", t["nav"]["shows"], intro, (url("shows", lang), url("shows", other(lang)))) + body + foot(lang)
 
 
@@ -713,6 +716,8 @@ def page_show(p, lang):
         kick.append(f'<span class="tag">{t["produced_tag"]}</span>')
     elif p.get("status") == "development":
         kick.append(f'<span class="tag">{"В розробці" if lang == "uk" else "In development"}</span>')
+    elif p.get("status") == "event":
+        kick.append(f'<span class="tag">{"Подія" if lang == "uk" else "Event"}</span>')
     elif p.get("status") == "archive":
         kick.append(f'<span class="tag">{"Архів" if lang == "uk" else "Archive"}{" · " + str(p["year"]) if p.get("year") else ""}</span>')
     if L(p, "genre", lang):
@@ -725,7 +730,8 @@ def page_show(p, lang):
         top = f'<header class="notitle gut max">{kick_h}<h1>{e(title)}</h1><p class="sum">{e(L(p, "summary", lang))}</p></header>'
     nxt = [ev for ev in EVENTS if ev.get("production") == p["slug"] and not ev.get(f"date_note_{lang}")]
     tixbox = ticket_box(nxt[0], p, lang, len(nxt)) if nxt else ""
-    facts = [(t["genre"], L(p, "genre", lang)), (t["premiere"], L(p, "premiere", lang)), (t["duration"], L(p, "duration", lang)), (t["age"], p.get("age") or "")]
+    is_ev = p.get("status") == "event"
+    facts = [(("Формат" if lang == "uk" else "Format") if is_ev else t["genre"], L(p, "genre", lang)), (("Дата і місце" if lang == "uk" else "Date and venue") if is_ev else t["premiere"], L(p, "premiere", lang)), (("Масштаб" if lang == "uk" else "Scale") if is_ev else t["duration"], L(p, "duration", lang)), (t["age"], p.get("age") or "")]
     facts_h = "".join(f"<div><dt>{a}</dt><dd>{e(b)}</dd></div>" for a, b in facts if b)
     evs = [ev for ev in EVENTS if ev.get("production") == p["slug"]]
     credits = "".join(f"<dt>{e(L(c, 'role', lang))}</dt><dd>{e(c.get(f'names_{lang}') or c.get('names', ''))}</dd>" for c in (p.get("credits") or []))
@@ -738,10 +744,10 @@ def page_show(p, lang):
     body = f"""{top}
 {tixbox}
 <div class="gut max"><dl class="facts">{facts_h}</dl></div>
-<section class="sec gut max"><div class="sh"><h2>{'Про виставу' if lang == 'uk' else 'About'}</h2></div>
+<section class="sec gut max"><div class="sh"><h2>{('Про подію' if is_ev else 'Про виставу') if lang == 'uk' else 'About'}</h2></div>
   <div class="two"><span></span><div class="prose">{mdh(L(p, 'description', lang))}</div></div></section>
-<section class="sec gut max" id="dates" style="padding-top:0"><div class="sh"><h2>{t['dates']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>{schedule(evs, lang, group=False)}</section>
-{f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["credits"]}</h2></div><dl class="credits" style="margin-top:28px">{credits}</dl></section>' if credits else ''}
+{'' if is_ev and not evs else f"""<section class="sec gut max" id="dates" style="padding-top:0"><div class="sh"><h2>{t['dates']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>{schedule(evs, lang, group=False)}</section>"""}
+{f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{("Учасники й команда" if lang == "uk" else "Participants and team") if is_ev else t["credits"]}</h2></div><dl class="credits" style="margin-top:28px">{credits}</dl></section>' if credits else ''}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["photos"]}</h2></div><div class="gal">{"".join(gal_items)}</div>{pc}</section>' if gal_items else ''}
 {media_strip([m for m in MEDIA if m.get("production") == p["slug"]], lang, t['nav']['media'], url('media', lang), 'Усе з медіа' if lang == 'uk' else 'All media', top0=True)}
 """
