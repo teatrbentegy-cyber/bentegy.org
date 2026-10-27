@@ -90,10 +90,11 @@ cases:
     title_uk: "НАОСЛІП"
     title_en: "NAOSLIP"
     year: "2026"
+    link: naoslip
     role_uk: "Куратор, продюсер"
     role_en: "Curator, producer"
-    text_uk: "Вечір незалежного театру, що відкрив перший сезон Бентег: ескізи вистав сезону, розмова театрів із Києва, Львова, Харкова й Луцька та відкритий пітчинг для молодих команд. 7 серпня 2026, КультМотив, близько 250 гостей."
-    text_en: "An evening of independent theatre that opened Bentegy’s first season, with sketches of the season’s shows, a conversation between theatres from Kyiv, Lviv, Kharkiv and Lutsk, and an open pitch for young teams. 7 August 2026, KultMotyv, around 250 guests."
+    text_uk: "Вечір незалежного театру, що відкрив перший сезон Бентег: ескізи вистав сезону, розмова театрів із Києва, Львова, Харкова й Луцька та відкритий пітчинг для молодих команд. 7 серпня 2026, КультМотив, понад 250 гостей."
+    text_en: "An evening of independent theatre that opened Bentegy’s first season, with sketches of the season’s shows, a conversation between theatres from Kyiv, Lviv, Kharkiv and Lutsk, and an open pitch for young teams. 7 August 2026, KultMotyv, more than 250 guests."
   - group: selected
     title_uk: "Кінець зміни"
     title_en: "End of Shift"
