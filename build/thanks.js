@@ -38,6 +38,7 @@
     var p = { currency: q.get('currency') || 'UAH', value: amount, items: [{ item_id: slug || 'ticket', item_name: s ? s.title : 'Квиток', price: amount, quantity: 1 }] };
     if (tid) p.transaction_id = tid;
     window.gtag('event', 'purchase', p);
+    if (window.BENTEGY_ADS) window.gtag('event', 'conversion', { send_to: window.BENTEGY_ADS.purchase, value: amount, currency: p.currency, transaction_id: tid });
     sent = true;
     try { sessionStorage.setItem(key, '1'); } catch (e) {}
   }

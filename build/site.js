@@ -58,6 +58,7 @@ document.addEventListener('click', function (ev) {
   } else if (a.getAttribute('data-provider') || /wayforpay\.com\/payment|concert\.ua/.test(h)) {
     var pr = a.getAttribute('data-provider') || (/concert\.ua/.test(h) ? 'concertua' : 'wayforpay');
     gtag('event', 'ticket_click', { provider: pr, show: a.getAttribute('data-show') || '', link_url: h });
+    if (window.BENTEGY_ADS) gtag('event', 'conversion', { send_to: window.BENTEGY_ADS.ticket });
   } else if (/t\.me\//.test(h) || /instagram\.com/.test(h)) {
     gtag('event', 'social_click', { network: /t\.me/.test(h) ? 'telegram' : 'instagram', link_url: h });
   }

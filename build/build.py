@@ -420,6 +420,7 @@ def nav_links(lang, key):
 def analytics():
     out = ""
     ga = (SETTINGS.get("ga4") or "").strip()
+    aw = (SETTINGS.get("google_ads") or "").strip()  # Google Ads (Ad Grants) conversions
     if ga:
         eea = "AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH".split()
         out += (f'\n<!-- Google tag (gtag.js): вантажимо після завантаження сторінки, щоб не гальмувати показ (PageSpeed) -->'
@@ -428,7 +429,9 @@ def analytics():
                 f"gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:{eea!r}}});"
                 "gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});"
                 "try{var c=localStorage.getItem('bentegy-consent');if(c)gtag('consent','update',{analytics_storage:c==='yes'?'granted':'denied'});}catch(e){}"
-                f"gtag('js',new Date());gtag('config','{e(ga)}');</script>")
+                f"gtag('js',new Date());gtag('config','{e(ga)}');"
+                + (f"gtag('config','{e(aw)}');window.BENTEGY_ADS={{purchase:'{e(aw)}/{e(SETTINGS.get('ads_conv_purchase') or '')}',ticket:'{e(aw)}/{e(SETTINGS.get('ads_conv_ticket') or '')}'}};" if aw else "")
+                + "</script>")
     code = (SETTINGS.get("goatcounter") or "").strip()
     if code:
         out += f'\n<script data-goatcounter="https://{e(code)}.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>'
