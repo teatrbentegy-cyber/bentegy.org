@@ -1,16 +1,22 @@
 hero:
-  - image: /uploads/07.jpg
-    caption_uk: Між світом і душею
-    caption_en: Between World and Soul
-  - image: /uploads/kinets-zminy-sea.jpg
+  - image: /uploads/promova-2026-01.jpg
+    caption_uk: Промова 2.0
+    caption_en: The Speech 2.0
+    link: /vystavy/promova/
+  - image: /uploads/kinets-zminy-buckets.jpg
     caption_uk: Кінець зміни
     caption_en: End of Shift
-  - image: /uploads/inferior-play-1.jpg
+    link: /vystavy/kinets-zminy/
+  - image: /uploads/msid-2026-01.jpg
+    caption_uk: Між світом і душею
+    caption_en: Between the World and the Soul
+    link: /vystavy/mizh-svitom-i-dusheyu/
+    pos: 62% 50%
+  - image: /uploads/inferior-play-6.jpg
     caption_uk: The Inferior Play
     caption_en: The Inferior Play
-  - image: /uploads/promova-1.jpg
-    caption_uk: Промова
-    caption_en: The Speech
+    link: /vystavy/the-inferior-play/
+    pos: 42% 50%
 tagline_uk: Незалежний театр у Києві. Вистави, де особисте свідчення зустрічається з реальністю.
 tagline_en: An independent theatre company in Kyiv. Performances where personal testimony meets reality.
 contacts:
