@@ -145,6 +145,15 @@ def show_url(slug, lang):
     return f"{url('shows', lang)}{slug}/"
 
 
+def bi(text, lang):
+    """«Українською / English» → потрібна мовна частина."""
+    t = str(text or "")
+    if " / " in t:
+        a, b = t.split(" / ", 1)
+        return a.strip() if lang == "uk" else b.strip()
+    return t
+
+
 def mdh(text):
     return md.markdown(text or "")
 
@@ -454,6 +463,16 @@ def _min_css(css):
 CSS_INLINE = _min_css(open(f"{ROOT}/build/fonts.css", encoding="utf-8").read() + open(f"{ROOT}/build/main.css", encoding="utf-8").read() + "picture{display:contents}")
 
 
+def short_desc(t, n=158):
+    t = " ".join(str(t or "").split())
+    if len(t) <= n:
+        return t
+    cut = t[:n].rsplit(" ", 1)[0].rstrip(",;:—–- ")
+    if "." in cut[n // 2:]:
+        return cut[:cut.rindex(".") + 1]
+    return cut + "…"
+
+
 def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=False):
     t = T[lang]
     o = other(lang)
@@ -467,14 +486,14 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <meta charset="utf-8">{'<meta name="robots" content="noindex,nofollow">' if noindex else ''}
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>{e(full)}</title>
-<meta name="description" content="{e(desc)}">
+<meta name="description" content="{e(short_desc(desc))}">
 <link rel="canonical" href="{SITE}{paths[0]}">
 <link rel="alternate" hreflang="{lang}" href="{SITE}{paths[0]}">
 <link rel="alternate" hreflang="{o}" href="{SITE}{paths[1]}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{t['name']}">
 <meta property="og:title" content="{e(full)}">
-<meta property="og:description" content="{e(desc)}">
+<meta property="og:description" content="{e(short_desc(desc, 200))}">
 <meta property="og:image" content="{og_img}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -745,7 +764,7 @@ def page_show(p, lang):
         cap = L(g, "caption", lang)
         fc = f"<figcaption>{e(cap)}</figcaption>" if cap else ""
         gal_items.append(f'<figure>{img(g["image"], cap or title, "(max-width:640px) 100vw, 50vw")}{fc}</figure>')
-    pc = f'<p class="credit-line">{"Фото" if lang == "uk" else "Photo"}: {e(p.get("photo_credit"))}</p>' if p.get("photo_credit") else ""
+    pc = f'<p class="credit-line">{"Фото" if lang == "uk" else "Photo"}: {e(bi(p.get("photo_credit"), lang))}</p>' if p.get("photo_credit") else ""
     body = f"""{top}
 {tixbox}
 <div class="gut max"><dl class="facts">{facts_h}</dl></div>
@@ -804,7 +823,7 @@ def page_producer(lang):
     name = L(pr, "name", lang)
     body = f"""<header class="ph gut max"><h1>{e(t['nav']['producer'])}<span class="dot">.</span></h1></header>
 <section class="gut max"><div class="pb">
-  <figure>{img(pr.get('photo'), name, "(max-width:860px) 100vw, 40vw", eager=True)}<figcaption class="credit-line">{e(pr.get('photo_credit', ''))}</figcaption></figure>
+  <figure>{img(pr.get('photo'), name, "(max-width:860px) 100vw, 40vw", eager=True)}<figcaption class="credit-line">{e(bi(pr.get('photo_credit', ''), lang))}</figcaption></figure>
   <div><p class="role">{e(L(pr, 'role', lang))}</p><p class="n">{'<br>'.join(e(x) for x in name.split(' ', 1))}</p><p class="q">{e(L(pr, 'lead', lang))}</p></div>
 </div></section>
 <section class="sec gut max"><div class="sh"><h2>{'Біографія' if lang == 'uk' else 'Biography'}</h2></div><div class="two"><span></span><div class="prose">{mdh(L(pr, 'bio', lang))}</div></div></section>
@@ -823,7 +842,7 @@ def page_about(lang):
     appr = "".join(f"<div class='rw'><h3>{e(L(x, 'title', lang))}</h3><p>{e(L(x, 'text', lang))}</p></div>" for x in a.get("approach", []))
     progs = "".join(f"<article class='prog'><figure>{img(x.get('image'), L(x, 'title', lang), '(max-width:860px) 100vw, 58vw')}</figure><div><h3>{e(L(x, 'title', lang))}</h3><p>{e(L(x, 'text', lang))}</p></div></article>" for x in a.get("programmes", []))
     team = "".join(f"<div class='person'><b>{e(L(x, 'name', lang))}</b><span>{e(L(x, 'role', lang))}</span></div>" for x in a.get("team", []))
-    partners = "".join(f"<span>{e(x)}</span>" for x in SETTINGS.get("partners", []))
+    partners = "".join(f"<span>{e(bi(x, lang))}</span>" for x in SETTINGS.get("partners", []))
     body = page_head(t["nav"]["about"], L(a, "lead", lang)) + f"""
 <section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{'Місія' if lang == 'uk' else 'Mission'}</h2></div><div class="two"><span></span><p class="big-lead">{e(L(a, 'mission', lang))}</p></div></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Підхід' if lang == 'uk' else 'Approach'}</h2></div><div class="rows" style="margin-top:28px">{appr}</div></section>
@@ -866,7 +885,7 @@ def page_org(lang):
     funding = ("Організація існує завдяки грантам, власним надходженням від квитків і партнерствам з майданчиками. Документи організації надаємо на запит."
                if uk else
                "The organisation is funded by grants, box-office income and in-kind partnerships with venues. Organisational documents are available on request.")
-    partners = "".join(f"<span>{e(x)}</span>" for x in SETTINGS.get("partners", []))
+    partners = "".join(f"<span>{e(bi(x, lang))}</span>" for x in SETTINGS.get("partners", []))
     body = page_head(t["nav"]["org"], lead) + f"""
 <section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{'Реквізити' if uk else 'Details'}</h2></div><dl class="req">{dl}</dl></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Мета' if uk else 'Purpose'}</h2></div><div class="two"><span></span><div class="prose"><p>{purpose}</p><p class="mu" style="font-size:15px">{'Статут затверджено рішенням Загальних зборів, протокол № 5 від 1 серпня 2025 року.' if uk else 'Statute approved by the General Meeting, Protocol No. 5 of 1 August 2025. English text is a courtesy translation.'}</p></div></div></section>
@@ -923,7 +942,7 @@ def page_support(lang):
             cards += f"""<div class="tier free"><p class="amt">{'Своя сума' if uk else 'Any amount'}</p><h3>{'Як вам зручно' if uk else 'Your choice'}</h3><p>{'Кожна гривня йде на вистави, команду й покази.' if uk else 'Every euro goes to productions, the team and performances.'}</p>
   <a class="tix" href="{e(free)}" target="_blank" rel="noopener">{'Обрати суму' if uk else 'Choose amount'} ↗</a></div>"""
         alt = (f'<a class="go" href="{url("support", "en")}">Donate in euro from abroad →</a>' if uk and (sp.get("free_url_eur") or any(x.get("url_eur") for x in sp.get("tiers") or []))
-               else f'<a class="go" href="{url("support", "uk")}">Підтримати в гривні →</a>' if not uk and (sp.get("free_url_uah") or any(x.get("url_uah") for x in sp.get("tiers") or [])) else "")
+               else f'<a class="go" href="{url("support", "uk")}">Donate in hryvnia (Ukrainian page) →</a>' if not uk and (sp.get("free_url_uah") or any(x.get("url_uah") for x in sp.get("tiers") or [])) else "")
         tiers_html = f"""<div class="tiers">{cards}</div><p class="tnote">{e(L(sp, 'online_note', lang))} {alt}</p>"""
     if tiers_html:
         ways.append(f"""<article class="way wide"><span class="n">01</span><div><h3>{'Онлайн-донат' if uk else 'Donate online'}</h3>{tiers_html}</div></article>""")
@@ -965,7 +984,7 @@ def page_support(lang):
   <div class="act"><a class="tix big" href="mailto:{mail}?subject={'Підтримка театру' if uk else 'Supporting Bentegy'}">{'Написати' if uk else 'Write to us'}</a></div></article>""")
     uses = "".join(f"<div class='rw'><h3>{e(x['title'])}</h3><p>{e(x['text'])}</p></div>" for x in sp.get(f"uses_{lang}", []))
     parts = "".join(f"<div><h3>{e(x['title'])}</h3><p>{e(x['text'])}</p></div>" for x in sp.get(f"partners_{lang}", []))
-    partners = "".join(f"<span>{e(x)}</span>" for x in SETTINGS.get("partners", []))
+    partners = "".join(f"<span>{e(bi(x, lang))}</span>" for x in SETTINGS.get("partners", []))
     trust = (f"Внески отримує {e(org['name_uk'])}, код ЄДРПОУ {org['edrpou']}. Організація неприбуткова (ознака 0032) і використовує кошти лише на статутну діяльність. Звіт про використання надсилаємо на запит."
              if uk else
              f"Donations are received by {e(org['name_en'])}, EDRPOU {org['edrpou']}, a registered non-profit (code 0032) that uses funds only for its statutory activities. A report on how funds were used is available on request.")
