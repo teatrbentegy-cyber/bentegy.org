@@ -10,7 +10,7 @@ premiere_en: 18 October 2026, Chora Stage
 duration_uk: 85 хвилин, без антракту
 duration_en: 85 minutes, no interval
 age: 16+
-cover: ''
+cover: /uploads/koni-01.jpg
 summary_uk: Вистава-ритуал про жагу до життя. Переможець пітчингу НАОСЛІП за продюсування Театру Бентеги.
 summary_en: A ritual performance about the hunger for life. Winner of the NAOSLIP pitch, produced by Bentegy Theatre.
 description_uk: |
@@ -74,5 +74,14 @@ credits:
   role_en: Producer
   names: Павло Коваль, Театр Бентеги
   names_en: Pavlo Koval, Bentegy Theatre
-gallery: []
-photo_credit: ''
+gallery:
+- image: /uploads/koni-02.jpg
+- image: /uploads/koni-03.jpg
+- image: /uploads/koni-04.jpg
+- image: /uploads/koni-05.jpg
+- image: /uploads/koni-06.jpg
+- image: /uploads/koni-07.jpg
+- image: /uploads/koni-08.jpg
+- image: /uploads/koni-09.jpg
+- image: /uploads/koni-10.jpg
+photo_credit: Нікіта Делюков, Мая Максимова / Nikita Delyukov, Maya Maksimova
