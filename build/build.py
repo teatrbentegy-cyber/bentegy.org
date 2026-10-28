@@ -323,7 +323,7 @@ def ld_org(lang):
         "contactPoint": [{"@type": "ContactPoint", "contactType": ct, "email": em} for ct, em in (("customer support", c.get("theatre")), ("partnerships", c.get("team")), ("press", c.get("press"))) if em],
         "address": {"@type": "PostalAddress", "addressLocality": "Kyiv", "addressCountry": "UA"},
         "foundingDate": "2025", "founder": {"@type": "Person", "name": L(PRODUCER, "name", lang)},
-        "sameAs": [c["instagram"], c["telegram"]],
+        "sameAs": [x for x in (c["instagram"], c["telegram"], c.get("youtube")) if x],
         "parentOrganization": {"@type": "NGO", "name": L(o, "name", lang), "taxID": o["edrpou"]},
     }
 
@@ -504,6 +504,7 @@ def foot(lang):
     c = SETTINGS["contacts"]
     o = SETTINGS["organization"]
     links = "".join(f'<li><a href="{url(k, lang)}">{t["nav"][k]}</a></li>' for k in visible_nav() + [x for x in FOOT if x not in visible_nav()])
+    yt_li = f'<li><a href="{c["youtube"]}">YouTube</a></li>' if c.get("youtube") else ""
     return f"""</main>
 <footer class="ft gut max">
   <p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
@@ -515,7 +516,7 @@ def foot(lang):
       <li><a href="tel:{c['phone'].replace(' ', '')}">{c['phone']}</a></li></ul></div>
     <div><h4>{'Соцмережі' if lang == 'uk' else 'Follow'}</h4><ul>
       <li><a href="{c['instagram']}">Instagram</a></li>
-      <li><a href="{c['telegram']}">Telegram</a></li></ul></div>
+      <li><a href="{c['telegram']}">Telegram</a></li>{yt_li}</ul></div>
     <div><h4>{t['org_h']}</h4><ul>
       <li>{e(L(o, 'name', lang))}</li>
       <li>{'Код ЄДРПОУ' if lang == 'uk' else 'EDRPOU'} {o['edrpou']}</li>
@@ -883,6 +884,7 @@ def page_contact(lang):
         ("Телефон" if uk else "Phone", f"tel:{c['phone'].replace(' ', '')}", c["phone"], ""),
         ("Instagram", c["instagram"], "@teatr.bentegy", "Анонси вистав і квитки." if uk else "Announcements and tickets."),
         ("Telegram", c["telegram"], "@teatr_bentegy", ""),
+        *([("YouTube", c["youtube"], "@BentegyTheatre", "Відео театру." if uk else "Theatre videos.")] if c.get("youtube") else []),
         ("Пресматеріали" if uk else "Press kit", url("press", lang), "bentegy.org" + url("press", lang), "Фото, логотипи, тексти про театр." if uk else "Photos, logos and texts about the theatre."),
     ]
     g = "".join(f"<div class='cr'><div><small>{a}</small>{f'<p>{e(p)}</p>' if p else ''}</div><a href='{h}'>{e(v)}</a></div>" for a, h, v, p in items)
