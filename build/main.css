@@ -517,3 +517,34 @@ details.corr dl{margin-top:12px}
 .req dd .copy{margin-left:10px;padding:6px 10px;font-size:12px;vertical-align:middle}
 
 .dlnote{color:var(--mu);max-width:60ch;margin-top:14px}
+
+/* ---------------- air v2 (жовтень 2026): більше простору між блоками й рядками ---------------- */
+.hero .slide img{object-position:var(--pos,50% 50%)}
+body{line-height:1.72}
+.sec{padding-block:clamp(96px,12vw,184px)}
+.sh{padding-bottom:18px;margin-bottom:0}
+.sh h2{font-size:clamp(44px,7.2vw,120px)}
+.two{margin-top:clamp(36px,4vw,60px);row-gap:20px}
+.prose{line-height:1.78}
+.prose p+p,.prose ul,.prose h2{margin-top:1.35em}
+.prose h2{font:800 clamp(22px,1.8vw,28px)/1.2 var(--f);letter-spacing:-.015em;margin-bottom:.4em}
+.prose ul{padding-left:1.1em}
+.prose li+li{margin-top:.7em}
+.big-lead{line-height:1.24}
+.rep{margin-top:clamp(36px,4vw,60px);row-gap:clamp(56px,6vw,96px)}
+.rep .cap{margin-top:18px;padding-top:16px}
+.rows{margin-top:clamp(28px,3vw,44px)}
+.rows .rw,.cr,.case,.bp,.cov{padding-top:clamp(30px,3vw,44px);padding-bottom:clamp(32px,3.2vw,46px)}
+.credits{margin-top:clamp(28px,3vw,44px)!important}
+.credits dt,.credits dd{padding-top:22px;padding-bottom:22px}
+.gal{margin-top:clamp(36px,4vw,60px);gap:clamp(12px,1.6vw,22px)}
+.facts{margin-top:clamp(20px,2vw,32px)}
+.ph{padding-bottom:clamp(40px,5vw,72px)}
+.ph .lead{margin-top:clamp(28px,3vw,44px)}
+.pb{gap:clamp(32px,5vw,96px)}
+.mu{line-height:1.6}
+.rep .im .ty{color:#3a3a3a}
+.rep .im:has(.ty){background:#0f0f0f;border:1px solid #1f1f1f}
+@media (max-width:760px){.sec{padding-block:clamp(72px,18vw,104px)}.two{margin-top:28px}}
+.hero::after{background:linear-gradient(180deg,rgba(0,0,0,.55) 0,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 36%,rgba(0,0,0,.72) 60%,rgba(0,0,0,.94) 100%)}
+.hero .now p,.hero .cap{text-shadow:0 1px 14px rgba(0,0,0,.7)}

@@ -617,13 +617,14 @@ def page_home(lang):
     o = other(lang)
     hero = SETTINGS.get("hero", [])
     slides = "".join(
-        f'<figure class="slide{" on" if i == 0 else ""}" data-cap="{e(L(s, "caption", lang))}" data-href="{e(s.get("link") or "")}">{img(s["image"], L(s, "caption", lang), "100vw", eager=(i == 0))}</figure>'
+        f'<figure class="slide{" on" if i == 0 else ""}"{f' style="--pos:{e(s["pos"])}"' if s.get("pos") else ""} data-cap="{e(L(s, "caption", lang))}" data-href="{e(s.get("link") or "")}">{img(s["image"], L(s, "caption", lang), "100vw", eager=(i == 0))}</figure>'
         for i, s in enumerate(hero))
     first = hero[0] if hero else {}
     ticks = "".join(f'<i{" class=on" if i == 0 else ""}></i>' for i in range(len(hero))) if len(hero) > 1 else ""
     hv = visible_nav()
     hmenu = "".join(f'<a href="{url(k, lang)}">{t["nav"][k]}</a>' for k in hv)
-    rep = [p for p in PRODUCTIONS if p.get("status") in ("repertoire", "upcoming")][:4]
+    # на головній — лише вистави з фото: репертуар, далі продюсування
+    rep = ([p for p in PRODUCTIONS if p.get("status") in ("repertoire", "upcoming") and p.get("cover")] + [p for p in PRODUCTIONS if p.get("status") == "produced" and p.get("cover")])[:4]
     pr = PRODUCER
     uk = lang == "uk"
     org = SETTINGS["organization"]
