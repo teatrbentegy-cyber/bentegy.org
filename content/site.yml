@@ -3,10 +3,11 @@ hero:
     caption_uk: Промова 2.0
     caption_en: The Speech 2.0
     link: /vystavy/promova/
-  - image: /uploads/kinets-zminy-buckets.jpg
-    caption_uk: Кінець зміни
-    caption_en: End of Shift
-    link: /vystavy/kinets-zminy/
+  - image: /uploads/koni-10.jpg
+    caption_uk: Коні за вікном
+    caption_en: Horses Outside the Window
+    link: /vystavy/koni-za-viknom/
+    pos: 48% 50%
   - image: /uploads/msid-2026-01.jpg
     caption_uk: Між світом і душею
     caption_en: Between the World and the Soul
@@ -17,6 +18,34 @@ hero:
     caption_en: The Inferior Play
     link: /vystavy/the-inferior-play/
     pos: 42% 50%
+  - image: /uploads/kinets-zminy-2026-05.jpg
+    caption_uk: Кінець зміни
+    caption_en: End of Shift
+    link: /vystavy/kinets-zminy/
+  - image: /uploads/promova-3.jpg
+    caption_uk: Промова, 2025
+    caption_en: The Speech, 2025
+    link: /vystavy/promova-2025/
+    pos: 55% 50%
+  - image: /uploads/koni-07.jpg
+    caption_uk: Коні за вікном
+    caption_en: Horses Outside the Window
+    link: /vystavy/koni-za-viknom/
+    pos: 58% 50%
+  - image: /uploads/msid-ladder.jpg
+    caption_uk: Між світом і душею
+    caption_en: Between the World and the Soul
+    link: /vystavy/mizh-svitom-i-dusheyu/
+    pos: 58% 50%
+  - image: /uploads/kinets-zminy-2026-03.jpg
+    caption_uk: Кінець зміни
+    caption_en: End of Shift
+    link: /vystavy/kinets-zminy/
+    pos: 45% 50%
+  - image: /uploads/promova-2026-09.jpg
+    caption_uk: Промова 2.0
+    caption_en: The Speech 2.0
+    link: /vystavy/promova/
 tagline_uk: Незалежний театр у Києві. Вистави, де особисте свідчення зустрічається з реальністю.
 tagline_en: An independent theatre company in Kyiv. Performances where personal testimony meets reality.
 contacts:
