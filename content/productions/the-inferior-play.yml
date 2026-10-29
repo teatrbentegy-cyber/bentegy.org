@@ -3,8 +3,8 @@ title_uk: The Inferior Play
 title_en: The Inferior Play
 status: repertoire
 order: 5
-genre_uk: Перформативний проєкт · дослідження гри
-genre_en: Performative project · a research project on play
+genre_uk: Перформативний проєкт, дослідження гри
+genre_en: Performative project, a study of play
 premiere_uk: «Гра на Вершинці» — фінальна презентація 23 серпня 2026, Чоколівка, Київ
 premiere_en: “The Game on Vershynka”, final presentation, 23 August 2026, Chokolivka, Kyiv
 duration_uk: «Гра на Вершинці» — орієнтовно 1,5–2 години, щоразу по-різному
@@ -13,6 +13,8 @@ age: 12+
 cover: /uploads/inferior-play-1.jpg
 summary_uk: Перформативний проєкт Марічки Гавриш про гру як спосіб бути присутніми одне з одним. Гості самі обирають міру своєї участі.
 summary_en: A performative project by Marichka Havrysh on play as a way of being present with one another. Guests choose how far they take part.
+hook_uk: "Гра, у якій ви самі вирішуєте, наскільки далеко зайти."
+hook_en: "A game where you decide how far to go."
 description_uk: 'The Inferior Play — перформативний проєкт режисерки та перформерки Марічки Гавриш, який досліджує гру як спосіб бути присутніми одне з одним, взаємодіяти й створювати спільний досвід. До гри ми звертаємося тоді, коли шукаємо знання, — і коли у спільноті є рівність, свобода та довіра.
 
 
@@ -56,8 +58,8 @@ credits:
   names_en: Pavlo Koval, Bentegy Theatre
 - role_uk: Підтримка
   role_en: Support
-  names: Per Forma · Kyiv Contemporary Music Days · Performing Arts Fund NL
-  names_en: Per Forma · Kyiv Contemporary Music Days · Performing Arts Fund NL
+  names: Per Forma, Kyiv Contemporary Music Days, Performing Arts Fund NL
+  names_en: Per Forma, Kyiv Contemporary Music Days, Performing Arts Fund NL
 gallery:
 - image: /uploads/inferior-play-2.jpg
 - image: /uploads/inferior-play-3.jpg

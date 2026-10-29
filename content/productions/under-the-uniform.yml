@@ -1,38 +1,60 @@
 slug_hint: under-the-uniform
-title_uk: Under the Uniform
+title_uk: Під уніформою
 title_en: Under the Uniform
 status: upcoming
 order: 3
-genre_uk: Документальна вистава
-genre_en: Documentary performance
-premiere_uk: Сезон 2026/27
-premiere_en: Season 2026/27
+genre_uk: Постдокументальна вистава
+genre_en: Post-documentary performance
+premiere_uk: 12 і 13 грудня 2026, Київ
+premiere_en: 12 and 13 December 2026, Kyiv
 duration_uk: ""
 duration_en: ""
 age: ""
 cover: ""
-summary_uk: Вистава про повернення з війни, створена з глибинних інтервʼю з українськими ветеранами.
-summary_en: A performance about coming home from war, built from in-depth interviews with Ukrainian veterans.
+summary_uk: Вистава з інтерв'ю з ветеранами й військовими про уніформи, які ми носимо, щоб нас прийняли, і про те, що ховаємо під ними.
+summary_en: A performance built from interviews with veterans and service members, about the uniforms we wear to be accepted and what we keep underneath.
+hook_uk: "Шоу з секретом. Залишайтеся до кінця."
+hook_en: "A show with a secret. Stay till the end."
 description_uk: |
-  Вистава про повернення з війни, створена на основі глибинних інтервʼю з українськими ветеранами методом колективного девайзингу, з використанням практик Viewpoints і Moment Work.
+  Уніформу носить кожен. Костюм для роботи, усмішку для родини, роль, з якою всім довкола спокійно. Деякі уніформи пошиті з тканини. Більшість видно лише зсередини.
 
-  Міжнародна копродукція з Qendra Multimedia (Приштина) за підтримки Європейської культурної фундації в програмі Culture Helps Solidarity. Дати показів зʼявляться в афіші.
+  Сьогодні шоу. Ведучий готовий, зал повний, у програмі історії, пісні й той чорний гумор, яким військові діляться тільки між своїми. А наприкінці — секрет.
+
+  «Під уніформою» виросла з інтерв'ю з українськими ветеранами й чинними військовими. Це історія про людей, яких суспільство вшановує як героїв, і про ту їхню частину, яку воно воліє лишати поза увагою: право бути собою і право любити. Те, що відбувається в армії, відбувається всюди. Кожен, хто бодай раз грав роль, щоб його прийняли, впізнає себе десь у цьому залі.
+
+  Вистава створюється методом колективного девайзингу з практиками Viewpoints і Moment Work. Робочу версію команда показує 8 листопада 2026 на Kosovo Theatre Showcase у Призрені після резиденції разом із Qendra Multimedia. Прем'єра — 12 і 13 грудня 2026 у Києві.
+
+  Залишайтеся до кінця.
 description_en: |
-  A performance about coming home from war, built from in-depth interviews with Ukrainian veterans and created through collective devising, using Viewpoints and Moment Work.
+  Everyone wears a uniform. A suit for work, a smile for the family, a role that keeps everyone comfortable. Some uniforms are made of fabric. Most of them are visible only from the inside.
 
-  An international co-production with Qendra Multimedia (Pristina), supported by the European Cultural Foundation’s Culture Helps Solidarity programme. Performance dates will be announced in the schedule.
+  Tonight, there’s a show. The host is ready, the room is full, and the programme promises stories, songs and the kind of dark humour soldiers share only among themselves. At the very end, a secret.
+
+  Under the Uniform grew from interviews with Ukrainian veterans and active service members. It is a story about people society celebrates as heroes, and about the part of them it prefers to leave unseen: their right to be themselves, and to love. What happens in the army happens everywhere else too. Anyone who has ever played a role to be accepted will find themselves somewhere in this room.
+
+  The piece is created through collective devising with Viewpoints and Moment Work. The team shows a work-in-progress at Kosovo Theatre Showcase in Prizren on 8 November 2026, after a residency with Qendra Multimedia. The premiere is in Kyiv on 12 and 13 December 2026.
+
+  Stay till the end.
 credits:
 - role_uk: Режисер, драматург, продюсер
   role_en: Director, playwright, producer
   names: Павло Коваль
   names_en: Pavlo Koval
-- role_uk: Копродукція
-  role_en: Co-production
-  names: Театр Бентеги, Qendra Multimedia (Приштина)
-  names_en: Bentegy Theatre, Qendra Multimedia (Pristina)
-- role_uk: Підтримка
-  role_en: Support
-  names: European Cultural Foundation · Culture Helps Solidarity
-  names_en: European Cultural Foundation · Culture Helps Solidarity
+- role_uk: Продакшн-менеджерка
+  role_en: Production manager
+  names: Анастасія Кушта
+  names_en: Anastasiia Kushta
+- role_uk: Продакшн
+  role_en: Production
+  names: Театр Бентеги, Експериментальний театральний клуб «НАШі»
+  names_en: Bentegy Theatre, NASHi Experimental Theatre Club
+- role_uk: Копродукція й резиденція
+  role_en: Co-production and residency
+  names: Qendra Multimedia (Приштина)
+  names_en: Qendra Multimedia (Pristina)
+- role_uk: Фінансування
+  role_en: Funding
+  names: Фінансується Європейським Союзом. Culture Helps Solidarity (програма ЄС «Креативна Європа», проєкт № 101237762), яку впроваджують European Cultural Foundation, «Інша освіта», zusa і VETERANKA
+  names_en: Funded by the European Union. Culture Helps Solidarity (EU Creative Europe programme, project No. 101237762), implemented by the European Cultural Foundation, Insha Osvita, zusa and VETERANKA
 gallery: []
 photo_credit: ""

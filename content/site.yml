@@ -1,53 +1,52 @@
+# Слайди на головній: лише кадри, яких немає на сторінках вистав (обкладинки й галереї). Фото «Коней за вікном» — до кінця 2026.
 hero:
-  - image: /uploads/promova-2026-01.jpg
-    caption_uk: Промова 2.0
-    caption_en: The Speech 2.0
-    link: /vystavy/promova/
-  - image: /uploads/koni-10.jpg
-    caption_uk: Коні за вікном
-    caption_en: Horses Outside the Window
-    link: /vystavy/koni-za-viknom/
-    pos: 48% 50%
-  - image: /uploads/msid-2026-01.jpg
-    caption_uk: Між світом і душею
-    caption_en: Between the World and the Soul
-    link: /vystavy/mizh-svitom-i-dusheyu/
-    pos: 62% 50%
-  - image: /uploads/inferior-play-6.jpg
-    caption_uk: The Inferior Play
-    caption_en: The Inferior Play
-    link: /vystavy/the-inferior-play/
-    pos: 42% 50%
-  - image: /uploads/kinets-zminy-2026-05.jpg
-    caption_uk: Кінець зміни
-    caption_en: End of Shift
-    link: /vystavy/kinets-zminy/
-  - image: /uploads/promova-3.jpg
-    caption_uk: Промова, 2025
-    caption_en: The Speech, 2025
-    link: /vystavy/promova-2025/
-    pos: 55% 50%
-  - image: /uploads/koni-07.jpg
-    caption_uk: Коні за вікном
-    caption_en: Horses Outside the Window
-    link: /vystavy/koni-za-viknom/
-    pos: 58% 50%
   - image: /uploads/msid-ladder.jpg
     caption_uk: Між світом і душею
     caption_en: Between the World and the Soul
     link: /vystavy/mizh-svitom-i-dusheyu/
     pos: 58% 50%
-  - image: /uploads/kinets-zminy-2026-03.jpg
+  - image: /uploads/koni-10.jpg
+    caption_uk: Коні за вікном
+    caption_en: Horses Outside the Window
+    link: /vystavy/koni-za-viknom/
+    pos: 50% 35%
+  - image: /uploads/kinets-zminy-stage.jpg
     caption_uk: Кінець зміни
     caption_en: End of Shift
     link: /vystavy/kinets-zminy/
-    pos: 45% 50%
+    pos: 50% 50%
   - image: /uploads/promova-2026-09.jpg
     caption_uk: Промова 2.0
     caption_en: The Speech 2.0
     link: /vystavy/promova/
-tagline_uk: Незалежний театр у Києві. Вистави, де особисте свідчення зустрічається з реальністю.
-tagline_en: An independent theatre company in Kyiv. Performances where personal testimony meets reality.
+    pos: 40% 50%
+  - image: /uploads/inferior-play-hero.jpg
+    caption_uk: The Inferior Play
+    caption_en: The Inferior Play
+    link: /vystavy/the-inferior-play/
+    pos: 60% 50%
+  - image: /uploads/msid-scene-2.jpg
+    caption_uk: Між світом і душею
+    caption_en: Between the World and the Soul
+    link: /vystavy/mizh-svitom-i-dusheyu/
+    pos: 50% 50%
+  - image: /uploads/kinets-zminy-dance.jpg
+    caption_uk: Кінець зміни
+    caption_en: End of Shift
+    link: /vystavy/kinets-zminy/
+    pos: 55% 50%
+  - image: /uploads/koni-07.jpg
+    caption_uk: Коні за вікном
+    caption_en: Horses Outside the Window
+    link: /vystavy/koni-za-viknom/
+    pos: 58% 40%
+  - image: /uploads/promova-2025-hero.jpg
+    caption_uk: Промова, 2025
+    caption_en: The Speech, 2025
+    link: /vystavy/promova-2025/
+    pos: 50% 50%
+tagline_uk: Незалежний театр у Києві. Кожна вистава шукає власну форму.
+tagline_en: An independent theatre company in Kyiv. Every production finds its own form.
 contacts:
   theatre: theatre@bentegy.org
   team: team@bentegy.org
@@ -83,4 +82,4 @@ ads_conv_purchase: "dypOCKmbnK0dEJiwx4lF"
 ads_conv_ticket: "jaDICI7Apa0dEJiwx4lF"
 goatcounter: ""
 # Розділ «Медіа» тимчасово прихований, поки його доробляємо. Щоб увімкнути — true.
-media_enabled: false
+media_enabled: true

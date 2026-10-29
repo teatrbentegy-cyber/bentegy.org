@@ -13,6 +13,8 @@ age: 16+
 cover: /uploads/promova-2026-01.jpg
 summary_uk: Троє жінок шукають вихід з бару. Єдина умова простору — сказати промову.
 summary_en: Three women look for a way out of a bar. The space has one condition — deliver a speech.
+hook_uk: "Справжній бар, троє жінок і промова, яку кожна з них носила роками."
+hook_en: "A real bar, three women and the speech each of them has carried for years."
 description_uk: |
   *Ви виглядаєте втомлено.* Знаємо. Ми теж.
 
@@ -62,7 +64,6 @@ gallery:
 - image: /uploads/promova-2026-06.jpg
 - image: /uploads/promova-2026-07.jpg
 - image: /uploads/promova-2026-08.jpg
-- image: /uploads/promova-2026-09.jpg
 - image: /uploads/promova-2026-10.jpg
 - image: /uploads/promova-2026-11.jpg
 - image: /uploads/promova-2026-12.jpg

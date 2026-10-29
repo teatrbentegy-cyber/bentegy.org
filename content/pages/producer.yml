@@ -4,24 +4,16 @@ role_uk: Театральний продюсер, режисер, драмату
 role_en: Theatre producer, director, playwright. Founder of Bentegy Theatre
 photo: /uploads/pavlo-koval.jpg
 photo_credit: "Фото: Sergeitsev / Photo: Sergeitsev"
-lead_uk: Продюсування для мене — повний цикл. Від народження ідеї до звіту після останнього показу.
-lead_en: For me, producing is the full cycle. From the birth of an idea to the report after the final performance.
+lead_uk: Продюсування — повний цикл, від ідеї до звіту після останнього показу.
+lead_en: Producing is the full cycle, from the idea to the report after the final performance.
 bio_uk: |
-  Театральний продюсер, режисер і драматург із Києва. Засновник незалежного Театру Бентеги, який працює в документальних, постдраматичних і фізичних формах та створює вистави в альтернативних і індустріальних просторах міста.
+  Театральний продюсер, режисер і драматург із Києва. Працює в культурі з 2019 року, з 2023-го — у театрі. У 2025 році заснував Театр Бентеги.
 
-  Родом із Камʼянського: перші дві вистави, «Новорічне рандеву» і «Як важко бути актором», випустив там у сімнадцять років. У Києві почав працювати в Експериментальному театральному клубі «НАШі», у 2025 році заснував Театр Бентеги й дебютував виставою «Промова». За кілька років спродюсував і скоординував понад 150 культурних і перформативних подій.
-
-  Як продюсер веде проєкт повністю: концепція, кошторис, команда, майданчик, партнерства, промо, продаж квитків і звітність. Продюсує молоді незалежні команди та студентські роботи й доводить їх до професійної сцени. Як режисер працює з документальним матеріалом, свідченнями й тілом, спирається на метод Тадаші Сузукі, Viewpoints і Moment Work, веде тренінги Viewpoints.
-
-  Продакшн-менеджер KÏ Platforma. Fellow програми ITI Academy Week 2026 Міжнародного театрального інституту. Учасник продюсерської програми фестивалю Sirenos 2026 у Вільнюсі та програми GRADUS II у Пармі й Реджо-Емілії. Випускник Київського національного університету культури і мистецтв (культурологія та івент-менеджмент, 2026).
+  Продюсує вистави Бентег і партнерські постановки, молоді незалежні команди та студентські роботи; працював у міжнародних проєктах із La MaMa ETC, CultureHub і Qendra Multimedia. Як режисер працює з документальним і постдраматичним театром. Продакшн-менеджер KÏ Platforma, фелоу ITI Academy Week 2026.
 bio_en: |
-  Theatre producer, director and playwright based in Kyiv. Founder of the independent Bentegy Theatre, which works in documentary, postdramatic and physical forms and stages its work in alternative and industrial spaces across the city.
+  Theatre producer, director and playwright based in Kyiv. He has worked in culture since 2019 and in theatre since 2023, and founded Bentegy Theatre in 2025.
 
-  He comes from Kamianske, where he made his first two productions at the age of seventeen. In Kyiv he started working at the NASHi Experimental Theatre Club, and in 2025 founded Bentegy Theatre, debuting with The Speech (Promova). He has produced and coordinated more than 150 cultural and performative events.
-
-  As a producer he runs the whole cycle: concept, budget, team, venue, partnerships, promotion, ticketing and reporting. He produces young independent teams and student work and brings it to the professional stage. As a director he works with documentary material, testimony and the body, drawing on Tadashi Suzuki’s method, Viewpoints and Moment Work, and leads Viewpoints training.
-
-  Production manager at KÏ Platforma. Fellow of the International Theatre Institute’s ITI Academy Week 2026. Participant in the producers’ programme of the Sirenos 2026 festival in Vilnius and of GRADUS II in Parma and Reggio Emilia. Graduate of the Kyiv National University of Culture and Arts (Cultural Studies and Event Management, 2026).
+  He produces Bentegy’s work and partner productions, young independent companies and student work, and has worked on international projects with La MaMa ETC, CultureHub and Qendra Multimedia. As a director he works with documentary and postdramatic theatre. Production manager at KÏ Platforma, fellow of ITI Academy Week 2026.
 services_uk:
   - title: Повний продюсерський цикл
     text: Концепція, кошторис, команда, майданчик, графік показів, звітність.
@@ -43,150 +35,82 @@ services_en:
 # Групи проєктів: flagship — ключові, selected — вибрані, earlier — ранні роботи.
 # link — slug вистави на сайті (необовʼязково).
 cases:
-  - group: flagship
+  - group: selected
     title_uk: "Троянські жінки"
     title_en: "Trojan Women"
     year: "2026"
-    role_uk: "Продюсування й продакшн-менеджмент, асистент режисерки"
-    role_en: "Producing and production management, assistant director"
-    text_uk: "Українська адаптація легендарної вистави La MaMa ETC 1974 року, створена Експериментальним театральним клубом «НАШі» разом із The Trojan Women Project (Нью-Йорк). Вистава звучить вигаданою мовою — через інтонацію, голос, тіло й ритм. Прем'єра — 8 травня 2026 на KЇ FEST."
-    text_en: "The Ukrainian adaptation of La MaMa ETC’s legendary 1974 staging, made by the NASHi Experimental Theatre Club with The Trojan Women Project (New York). Performed in an invented language, through intonation, voice, body and rhythm. Premiered on 8 May 2026 at KЇ FEST."
-  - group: flagship
+    role_uk: "Продюсер, асистент режисера"
+    role_en: "Producer, assistant director"
+    text_uk: "Експериментальний театральний клуб «НАШі» разом із The Trojan Women Project / La MaMa ETC (Нью-Йорк). Прем'єра на KÏ FEST 2026."
+    text_en: "NASHi Experimental Theatre Club with The Trojan Women Project / La MaMa ETC (New York). Premiered at KÏ FEST 2026."
+  - group: selected
+    title_uk: "Під уніформою"
+    title_en: "Under the Uniform"
+    year: "2026"
+    role_uk: "Режисер, драматург"
+    role_en: "Director, playwright"
+    link: under-the-uniform
+    text_uk: "Копродукція з Qendra Multimedia (Приштина) за підтримки Culture Helps Solidarity."
+    text_en: "Co-production with Qendra Multimedia (Pristina), supported by Culture Helps Solidarity."
+  - group: selected
     title_uk: "Між світом і душею"
     title_en: "Between the World and the Soul"
     year: "2026"
-    role_uk: "Режисер, автор сценарію, продюсер"
-    role_en: "Director, writer, producer"
+    role_uk: "Режисер, автор тексту"
+    role_en: "Director, writer"
     link: mizh-svitom-i-dusheyu
-    text_uk: "Документальна монодрама про пам'ять, спротив і моральний вибір крізь постать Василя Стуса. Побудована на методі Тадаші Сузукі; мінімальна сценографія створена для фестивалів і гастролей. Прем'єра — 11 червня 2026, Collider, Київ."
-    text_en: "A documentary solo performance on memory, resistance and moral choice through the figure of Vasyl Stus. Built on Tadashi Suzuki’s method, with minimal scenography designed to tour. Premiered on 11 June 2026 at Collider, Kyiv."
-  - group: flagship
-    title_uk: "Під уніформою"
-    title_en: "Under the Uniform"
-    year: "2026–2027"
-    role_uk: "Режисер, драматург, продюсер"
-    role_en: "Director, playwright, producer"
-    link: under-the-uniform
-    text_uk: "Документальна вистава про повернення з війни, створена з глибинних інтерв'ю з українськими ветеранами. Міжнародна копродукція з Qendra Multimedia (Приштина) за підтримки Європейської культурної фундації в програмі Culture Helps Solidarity."
-    text_en: "A documentary performance about coming home from war, built from in-depth interviews with Ukrainian veterans. An international co-production with Qendra Multimedia (Pristina), supported by the European Cultural Foundation’s Culture Helps Solidarity programme."
+    text_uk: "Моновистава за текстами Василя Стуса."
+    text_en: "A solo performance built on the writing of Vasyl Stus."
   - group: selected
-    title_uk: "ПІСЛЯ / AFTER"
-    title_en: "AFTER"
-    year: "2026–2027"
-    role_uk: "Режисер, драматург, продюсер"
-    role_en: "Director, playwright, producer"
-    text_uk: "Майже безсловесна посткатастрофічна музично-театральна вистава на голосі, вокальному ансамблі й знайдених предметах. Проєкт відібрано за міжнародним опенколом Reggio Parma Festival до програми GRADUS II."
-    text_en: "An almost wordless post-catastrophic music-theatre piece built on voice, a vocal ensemble and found objects. Selected through the Reggio Parma Festival international open call for the GRADUS II programme."
-  - group: selected
-    title_uk: "Промова 2.0"
-    title_en: "The Speech 2.0"
-    year: "2026"
-    role_uk: "Режисер, драматург, продюсер"
-    role_en: "Director, playwright, producer"
+    title_uk: "Промова | Промова 2.0"
+    title_en: "The Speech | The Speech 2.0"
+    year: "2025–2026"
+    role_uk: "Режисер, драматург"
+    role_en: "Director, playwright"
     link: promova
-    text_uk: "Нова версія дебютної вистави, створена через девайзинг. Троє жінок шукають вихід з бару, і єдина умова простору — сказати промову. Прем'єра — 22 вересня 2026, Підвал Культури."
-    text_en: "A new version of the debut, created through devising. Three women look for a way out of a bar, and the space has one condition — deliver a speech. Premiered on 22 September 2026 at Pidval Kultury."
+    text_uk: "Дебют Театру Бентеги та його нова версія."
+    text_en: "Bentegy Theatre’s debut and its new version."
   - group: selected
     title_uk: "НАОСЛІП"
     title_en: "NAOSLIP"
     year: "2026"
-    link: naoslip
     role_uk: "Куратор, продюсер"
     role_en: "Curator, producer"
-    text_uk: "Вечір незалежного театру, що відкрив перший сезон Бентег: ескізи вистав сезону, розмова театрів із Києва, Львова, Харкова й Луцька та відкритий пітчинг для молодих команд. 7 серпня 2026, КультМотив, понад 250 гостей."
-    text_en: "An evening of independent theatre that opened Bentegy’s first season, with sketches of the season’s shows, a conversation between theatres from Kyiv, Lviv, Kharkiv and Lutsk, and an open pitch for young teams. 7 August 2026, KultMotyv, more than 250 guests."
+    link: naoslip
+    text_uk: "Вечір незалежного театру, що відкрив перший сезон Бентег."
+    text_en: "The evening of independent theatre that opened Bentegy’s first season."
   - group: selected
-    title_uk: "Кінець зміни"
-    title_en: "End of Shift"
+    title_uk: "Коні за вікном | Кінець зміни | The Inferior Play"
+    title_en: "Horses Outside the Window | End of Shift | The Inferior Play"
     year: "2026"
     role_uk: "Продюсер"
     role_en: "Producer"
-    link: kinets-zminy
-    text_uk: "Фізичний і танцювальний театр про те, як колективний тиск переписує ідентичність. Режисер-хореограф — Владислав Дирда, театральний проєкт «Межа»."
-    text_en: "Physical and dance theatre about how collective pressure rewrites identity. Directed and choreographed by Vladyslav Dyrda, Mezha theatre project."
+    text_uk: "Вистави молодих незалежних команд, які продюсують Бентеги."
+    text_en: "Work by young independent companies produced by Bentegy."
   - group: selected
-    title_uk: "The Inferior Play"
-    title_en: "The Inferior Play"
-    year: "2026"
+    title_uk: "RUBICON | ДІМ"
+    title_en: "RUBICON | HOME"
+    year: "2026–2027"
     role_uk: "Продюсер"
     role_en: "Producer"
-    link: the-inferior-play
-    text_uk: "Перформативний проєкт Марічки Гавриш про гру як практику присутності — відкрита лабораторія з плейтестами й показами, фінальна презентація якої, «Гра на Вершинці», вивела дослідження на маршрут уздовж прихованої річки. За підтримки Per Forma."
-    text_en: "Marichka Havrysh’s performative project on play as a practice of presence — an open laboratory of playtests and showings, whose final presentation, The Game on Vershynka, took the research along a hidden river. Supported by Per Forma."
-  - group: selected
-    title_uk: "Коні за вікном"
-    title_en: "Horses Outside the Window"
-    year: "2026"
-    role_uk: "Продюсер проєкту"
-    role_en: "Project producer"
-    link: koni-za-viknom
-    text_uk: "Вистава-ритуал за п'єсою Матея Вішнека, переможець пітчингу НАОСЛІП. Шлях від студентської роботи до професійної прем'єри в просторі «Хора» за 72 дні."
-    text_en: "A ritual performance after Matei Vișniec, winner of the NAOSLIP pitch. From student work to a professional premiere at Chora Stage in 72 days."
-  - group: selected
-    title_uk: "Маленька дівчинка"
-    title_en: "Little Girl"
-    year: "2026"
-    role_uk: "Продюсер"
-    role_en: "Producer"
-    link: malenka-divchynka
-    text_uk: "Документальна драма про дорослішання в закритих системах і пошук способу говорити про жорстокість із ніжністю."
-    text_en: "A documentary drama about growing up inside closed systems and searching for a way to speak about cruelty with tenderness."
-  - group: selected
-    title_uk: "Промова"
-    title_en: "The Speech"
-    year: "2025"
-    role_uk: "Режисер, драматург, продюсер"
-    role_en: "Director, playwright, producer"
-    link: promova-2025
-    text_uk: "Дебют Театру Бентеги — постдраматична вистава про публічну мову, маніпуляцію й колективне мовчання."
-    text_en: "Bentegy Theatre’s debut, a postdramatic piece on public language, manipulation and collective silence."
+    text_uk: "Anthill Dance Theater (Стокгольм) і вистава режисера Івана Шарана (Львів, 2027)."
+    text_en: "Anthill Dance Theater (Stockholm) and a production by director Ivan Sharan (Lviv, 2027)."
   - group: earlier
-    title_uk: "Книги Якова"
-    title_en: "Books of Jacob"
-    year: "2024"
-    role_uk: "Асоційований продюсер, стейдж-менеджер"
-    role_en: "Associate producer, stage manager"
-    text_uk: "VR-вистава Експериментального театрального клубу «НАШі» спільно з La MaMa ETC і CultureHub (Нью-Йорк) за романом Ольги Токарчук — про Якова Франка й множинну ідентичність. Концепція й VR-дизайн — Кшиштоф Гарбачевський, режисерка української версії — Романа Соутус. Глядачі бачили дві вистави водночас: живу на сцені й віртуальну у VRChat, яка йшла синхронно на сценах семи країн. Київські покази — 6–8 грудня 2024, Центр Леся Курбаса."
-    text_en: "A VR theatre piece by the NASHi Experimental Theatre Club with La MaMa ETC and CultureHub (New York), after Olga Tokarczuk’s novel — on Jacob Frank and multiple identity. Concept and VR design by Krzysztof Garbaczewski, Ukrainian version directed by Romana Soutus. Audiences watched two performances at once: live on stage and virtual in VRChat, running simultaneously on stages in seven countries. Kyiv performances: 6–8 December 2024, Les Kurbas Centre."
-  - group: earlier
-    title_uk: "Дивак"
-    title_en: "Oddball"
+    title_uk: "Книги Якова | Дивак | День народження"
+    title_en: "Books of Jacob | Oddball | Birthday Party"
     year: "2024"
     role_uk: "Асоційований продюсер, асистент режисера"
     role_en: "Associate producer, assistant director"
-    text_uk: "Документальна монодрама Експериментального театрального клубу «НАШі» за реальною історією військовослужбовця ЗСУ — документальний матеріал, фізичний театр і мінімалістична сценографія. Макет сценографії Вероніки Риженко зберігається в колекції Музею театрального, музичного та кіномистецтва України."
-    text_en: "A documentary solo piece by the NASHi Experimental Theatre Club based on the real story of a member of the Ukrainian Armed Forces, combining documentary material, physical theatre and minimal design. Veronika Ryzhenko’s set model is held in the collection of the Museum of Theatre, Music and Cinema of Ukraine."
-  - group: earlier
-    title_uk: "День народження"
-    title_en: "Birthday Party"
-    year: "2024"
-    role_uk: "Асистент режисера, актор"
-    role_en: "Assistant director, actor"
-    text_uk: "Поп-ап вистава Експериментального театрального клубу «НАШі» просто неба в естетиці комедії дель арте — сатира й імпровізація про сучасні політичні наративи."
-    text_en: "A pop-up open-air performance by the NASHi Experimental Theatre Club in the spirit of commedia dell’arte, using satire and improvisation to reflect on contemporary political narratives."
+    text_uk: "Роботи Експериментального театрального клубу «НАШі», зокрема VR-вистава з La MaMa ETC і CultureHub."
+    text_en: "Work at the NASHi Experimental Theatre Club, including a VR piece with La MaMa ETC and CultureHub."
 programmes:
   - year: "2026"
-    title_uk: "GRADUS II"
-    title_en: "GRADUS II"
-    text_uk: "Reggio Parma Festival, Парма і Реджо-Емілія (Італія). Проєкт AFTER відібрано за міжнародним опенколом."
-    text_en: "Reggio Parma Festival, Parma and Reggio Emilia (Italy). AFTER selected through the international open call."
-  - year: "2026"
-    title_uk: "Sirenos 2026"
-    title_en: "Sirenos 2026"
-    text_uk: "Вільнюс. Спеціальна програма для продюсерів від Українського інституту та фестивалю."
-    text_en: "Vilnius. Special producers’ programme designed by the Ukrainian Institute and the festival."
-  - year: "2026"
-    title_uk: "Vanishing Landscape"
-    title_en: "Vanishing Landscape"
-    text_uk: "Мистецька резиденція OASIS у Machaon Art Residency, Гановце (Словаччина). Перформативні практики з місцевою театральною студією."
-    text_en: "OASIS art residency at Machaon Art Residency, Hanovce (Slovakia). Performative practice with a local theatre studio."
-  - year: "2026"
-    title_uk: "ITI Academy Week"
-    title_en: "ITI Academy Week"
-    text_uk: "Fellow програми Міжнародного театрального інституту, Берлін і Хемніц, у межах фестивалю Theater der Welt 2026."
-    text_en: "Fellow of the International Theatre Institute programme, Berlin and Chemnitz, alongside the Theater der Welt 2026 festival."
+    title_uk: "Програми й резиденції"
+    title_en: "Programmes and residencies"
+    text_uk: "ITI Academy Week (Берлін, Хемніц), Sirenos (Вільнюс), Disappearing Landscape (Гановце), GRADUS II (Парма), CREAPOLIS Malta, Kosovo Theatre Showcase (Призрен)."
+    text_en: "ITI Academy Week (Berlin, Chemnitz), Sirenos (Vilnius), Disappearing Landscape (Gánovce), GRADUS II (Parma), CREAPOLIS Malta, Kosovo Theatre Showcase (Prizren)."
   - year: "2026"
     title_uk: "КНУКіМ"
     title_en: "KNUCA"
-    text_uk: "Бакалавр культурології та івент-менеджменту, Київський національний університет культури і мистецтв."
-    text_en: "BA in Cultural Studies and Event Management, Kyiv National University of Culture and Arts."
+    text_uk: "Бакалавр культурології (івент-менеджмент)."
+    text_en: "BA in Cultural Studies (Event Management)."
