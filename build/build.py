@@ -790,7 +790,15 @@ def page_show(p, lang):
 {media_strip([m for m in MEDIA if m.get("production") == p["slug"]], lang, t['nav']['media'], url('media', lang), 'Усе з медіа' if lang == 'uk' else 'All media', top0=True)}
 """
     paths = (show_url(p["slug"], lang), show_url(p["slug"], other(lang)))
-    return head(lang, "shows", title, L(p, "summary", lang), paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang)) + body + foot(lang)
+    uk = lang == "uk"
+    kind = ("подія" if uk else "event") if is_ev else ("вистава" if uk else "performance")
+    seo_title = f"{title}: {kind} {'в Києві' if uk else 'in Kyiv'}" if p.get("status") in ("repertoire", "upcoming", "produced") else title
+    desc = L(p, "summary", lang)
+    up = [x for x in evs if x["date"] >= TODAY]
+    if up:
+        nx = up[0]
+        desc = desc.rstrip(".") + ". " + (f"Найближчий показ — {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}." if uk else f"Next performance: {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}.")
+    return head(lang, "shows", seo_title, desc, paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang)) + body + foot(lang)
 
 
 def ticket_box(ev, p, lang, count):
@@ -857,7 +865,7 @@ def page_about(lang):
     t = T[lang]
     a = ABOUT
     progs = "".join(f"<article class='prog'><figure>{img(x.get('image'), L(x, 'title', lang), '(max-width:860px) 100vw, 58vw')}</figure><div><h3>{e(L(x, 'title', lang))}</h3><p>{e(L(x, 'text', lang))}</p></div></article>" for x in a.get("programmes", []))
-    team = "".join(f"<div class='person'><b>{e(L(x, 'name', lang))}</b><span>{e(L(x, 'role', lang))}</span></div>" for x in a.get("team", []))
+    team = "".join(f"<div class='person'><b>{e(L(x, 'name', lang))}</b><span>{e(L(x, 'role', lang))}</span></div>" for x in ([d for d in TEAM if d.get("group", "team") == "team"] or a.get("team", [])))
     partners = "".join(f"<span>{e(bi(x, lang))}</span>" for x in SETTINGS.get("partners", []))
     body = page_head(t["nav"]["about"], L(a, "lead", lang)) + f"""
 <section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{'Місія' if lang == 'uk' else 'Mission'}</h2></div><div class="two"><span></span><p class="big-lead">{e(L(a, 'mission', lang))}</p></div></section>

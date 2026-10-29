@@ -2,9 +2,9 @@ slug_hint: promova-premiera-2025
 type: release
 date: '2025-09-24'
 title_uk: 'Новий театр у Києві стартує з провокації: прем’єра «Промови»'
-title_en: 'A new theatre in Kyiv opens with a provocation: the premiere of Promova'
+title_en: 'A new theatre in Kyiv opens with a provocation: the premiere of The Speech'
 lead_uk: У столиці з’явився незалежний театр «Бентеги». Його перша прем’єра — «Промова», постмодерністська театральна провокація. Показ — 28 вересня 2025 у Києві.
-lead_en: A new independent theatre, Bentegy, appears in Kyiv. Its first premiere, Promova, is a postmodern theatrical provocation. Performance on 28 September 2025.
+lead_en: A new independent theatre, Bentegy, appears in Kyiv. Its first premiere, The Speech, is a postmodern theatrical provocation. Performance on 28 September 2025.
 cover: /uploads/promova-1.jpg
 production: promova-2025
 body_uk: '## Про театр
@@ -60,26 +60,59 @@ body_uk: '## Про театр
   Показ 28 вересня — копродукція незалежного театру «Бентеги», Експериментального театрального клубу «НАШі» та Community Café.
 
   '
+body_en: |
+  ## About the theatre
+
+  Bentegy is an independent company of young artists making theatre that is alive, honest and raw. Non-academic, but professional. Theatre that looks difficult things straight in the eye.
+
+  The company works at the intersection of the psychological and the social. Its mission is to make productions that make people feel, think and argue. At the centre are themes of trauma, post-truth and personal vulnerability.
+
+  > “We want to speak about the present in a present-day language.”
+
+  ## About the production
+
+  The Speech is an experimental production about silence and voice, about the ability to listen and the fear of being heard. It is built as a provocation that erases the line between stage and audience.
+
+  The Speech asks:
+
+  - Why do we stay silent when we need to speak?
+  - What does silence sound like when it is louder than words?
+  - Is it possible today to tell “the truth” from the stage?
+
+  ## Date and venue
+
+  Premiere: 28 September 2025, 18:30. Kyiv, Community Garden (41 Kyrylivska St.).
+
+  ## The team
+
+  - Director: Pavlo Koval
+  - Cast: Sofiia Baiun, Denys Adamskyi, Ihor Kurylenko
+  - Producer: Romana Isabella Soutus
+  - Stage manager: Sofiia Fornika
+  - Marketing: Anhelina Bocharova
+  - Social media: Danyil Kuzmin
+
+  The performance on 28 September is a co-production of the independent Bentegy Theatre, the NASHi Experimental Theatre Club and Community Café.
 photos:
 - image: /uploads/promova-1.jpg
   caption_uk: «Промова», 2025
-  caption_en: Promova, 2025
+  caption_en: The Speech, 2025
   credit: Архів театру / Company archive
 - image: /uploads/promova-2.jpg
   caption_uk: «Промова», 2025
-  caption_en: Promova, 2025
+  caption_en: The Speech, 2025
   credit: Архів театру / Company archive
 - image: /uploads/promova-3.jpg
   caption_uk: «Промова», 2025
-  caption_en: Promova, 2025
+  caption_en: The Speech, 2025
   credit: Архів театру / Company archive
 - image: /uploads/promova-4.jpg
   caption_uk: «Промова», 2025
-  caption_en: Promova, 2025
+  caption_en: The Speech, 2025
   credit: Архів театру / Company archive
 - image: /uploads/promova-5.jpg
   caption_uk: «Промова», 2025
-  caption_en: Promova, 2025
+  caption_en: The Speech, 2025
   credit: Архів театру / Company archive
 city_uk: Київ
 city_en: Kyiv
