@@ -16,7 +16,7 @@ process:
 - image: /uploads/process-4.jpg
   caption_uk: Робочі нотатки
   caption_en: Working notes
-process_credit: "Фото: архів театру / Photo: company archive"
+process_credit: "Фото: Анастасія Правік / Photo: Anastasiia Pravik"
 programmes:
 - title_uk: НАОСЛІП
   title_en: NAOSLIP
