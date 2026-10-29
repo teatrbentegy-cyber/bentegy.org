@@ -77,6 +77,10 @@ partners:
   - NASHi Experimental Theatre Club
 # Статистика відвідувань GoatCounter: впишіть код сайту (наприклад bentegy), щоб увімкнути
 ga4: "G-34R5G2Q44D"
+# Google Ads (Ad Grants): тег і конверсії (покупка квитка / перехід до оплати). Не видаляти.
+google_ads: "AW-18542090264"
+ads_conv_purchase: "dypOCKmbnK0dEJiwx4lF"
+ads_conv_ticket: "jaDICI7Apa0dEJiwx4lF"
 goatcounter: ""
 # Розділ «Медіа» тимчасово прихований, поки його доробляємо. Щоб увімкнути — true.
 media_enabled: false
