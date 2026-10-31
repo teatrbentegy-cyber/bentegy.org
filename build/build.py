@@ -446,7 +446,7 @@ def analytics():
 
 def extra_links(lang, key):
     t = T[lang]
-    return "".join(f'<a class="sm" href="{url(k, lang)}"{" aria-current=page" if k == key else ""}>{t["nav"][k]}</a>' for k in ("support", "press", "org", "contact") if k not in visible_nav())
+    return "".join(f'<a class="sm" href="{url(k, lang)}"{" aria-current=page" if k == key else ""}>{t["nav"][k]}</a>' for k in ("support", "press", "producer") if k not in visible_nav())
 
 
 def _min_css(css):
