@@ -479,6 +479,11 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
     o = other(lang)
     _tl = L(SETTINGS, 'tagline', lang).split('.')[0]
     full = f"{t['name']} — {_tl[:1].lower()}{_tl[1:]}" if key == "home" and not title else f"{title} — {t['name']}"
+    if len(full) > 65:  # довгі заголовки (пресрелізи, есеї): без назви театру, обрізаємо по слову
+        full = title
+        if len(full) > 65:
+            cut = max(full.rfind(" — ", 0, 65), full.rfind(": ", 0, 65))
+            full = full[:cut] if cut >= 30 else full[:62].rsplit(" ", 1)[0].rstrip(":,—–- ") + "…"
     og_img = SITE + (og or OG_DONE.get(f"bentegy-{lang}", ""))
     nav = nav_links(lang, key)
     return f"""<!doctype html>
@@ -1171,7 +1176,7 @@ def photo_pack(m, lang):
     items = []
     for x in ph:
         cap = L(x, "caption", lang)
-        cr = x.get("credit", "")
+        cr = bi(x.get("credit", ""), lang)
         items.append(f"""<figure>{img(x['image'], cap or L(m, 'title', lang), "(max-width:640px) 100vw, 33vw")}<figcaption><span>{e(cap)}{f"<small>{'Фото' if uk else 'Photo'}: {e(cr)}</small>" if cr else ''}</span><a href="{e(x['image'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""")
     links = []
     if len(ph) > 1:
