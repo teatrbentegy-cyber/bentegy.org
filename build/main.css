@@ -569,3 +569,85 @@ body{line-height:1.72}
 .stats b{display:block;font:800 clamp(30px,3.6vw,56px)/1 var(--f);letter-spacing:-.02em}
 .stats span{display:block;margin-top:10px;font-size:14px;line-height:1.4;color:var(--mu)}
 @media (max-width:860px){.stats{grid-template-columns:1fr 1fr}.stats>div:nth-child(3){border-left:0;padding-left:0;border-top:2px solid #fff}.stats>div:nth-child(4){border-top:2px solid #fff}}
+
+/* ================= v3 (31.10.2026): щільніше, дорожче, з рухом ================= */
+body{line-height:1.6}
+.sec{padding-block:clamp(64px,8vw,128px)}
+.sh h2{font-size:clamp(40px,6.2vw,104px)}
+.two{margin-top:clamp(24px,3vw,44px)}
+.prose{line-height:1.68}
+.rep{row-gap:clamp(40px,4.5vw,72px)}
+.rows .rw,.cr,.case,.bp,.cov{padding-top:clamp(22px,2.2vw,32px);padding-bottom:clamp(24px,2.4vw,34px)}
+.credits dt,.credits dd{padding-top:16px;padding-bottom:16px}
+.ph{padding-bottom:clamp(28px,3.5vw,52px)}
+.grp{padding-block:clamp(48px,6vw,96px)}
+.grp+.grp{padding-top:0}
+
+/* «Вистави»: групи в одному потоці */
+.shgs{padding-bottom:clamp(56px,7vw,112px)}
+.shg+.shg{margin-top:clamp(48px,6vw,88px)}
+.shl{display:flex;justify-content:space-between;align-items:baseline;border-top:2px solid #fff;padding-top:14px}
+.shl h2{font:800 clamp(20px,2.2vw,30px)/1 var(--f);letter-spacing:-.01em;text-transform:uppercase}
+.shl span{font:600 13px/1 var(--f);letter-spacing:.1em;color:var(--mu)}
+.shg .rep{margin-top:clamp(20px,2.4vw,32px)}
+
+/* «Про театр»: подія сезону, команда */
+.feat{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);margin-top:clamp(24px,3vw,40px);text-decoration:none;align-items:end}
+.feat .im{overflow:hidden;aspect-ratio:16/10}
+.feat img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .7s,transform 1.2s cubic-bezier(.16,1,.3,1)}
+.feat:hover img{filter:none;transform:scale(1.03)}
+.feat .k{font:600 12px/1.4 var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--rd)}
+.feat h3{font:900 clamp(34px,4.6vw,72px)/.9 var(--f);letter-spacing:-.04em;text-transform:uppercase;margin:12px 0 16px}
+.feat p{max-width:52ch;line-height:1.6}
+.feat .go{display:inline-block;margin-top:18px;font-weight:600;border-bottom:2px solid #fff;padding-bottom:3px}
+@media (max-width:860px){.feat{grid-template-columns:1fr}}
+.grp .tgrid{grid-template-columns:repeat(5,minmax(0,1fr))}
+@media (max-width:1100px){.grp .tgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:640px){.grp .tgrid{grid-template-columns:1fr 1fr}}
+.sh .more:not(a){color:var(--rd);font:600 13px/1 var(--f);letter-spacing:.08em;text-transform:uppercase;border:0}
+
+/* Футер: розділи двома колонками */
+.ft .cols>div:first-child ul{grid-template-columns:repeat(2,minmax(0,max-content));column-gap:clamp(20px,3vw,48px)}
+
+/* Галереї: однакові пропорції замість хаосу */
+.gal figure img{aspect-ratio:3/2;height:auto}
+.gal figure:nth-child(3n+1) img{aspect-ratio:21/9}
+@media (max-width:640px){.gal figure img,.gal figure:nth-child(3n+1) img{aspect-ratio:3/2}}
+
+/* ---------- рух ---------- */
+@view-transition{navigation:auto}
+#hd{view-transition-name:site-header}
+::view-transition-old(root){animation:vt-out .28s cubic-bezier(.4,0,1,1) both}
+::view-transition-new(root){animation:vt-in .7s cubic-bezier(.16,1,.3,1) both}
+@keyframes vt-out{to{opacity:0;transform:translateY(-8px);filter:blur(6px)}}
+@keyframes vt-in{from{opacity:0;transform:translateY(22px);filter:blur(8px)}}
+
+/* поява блоків під час прокрутки */
+html.rv-on .rv{opacity:0;transform:translateY(32px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1);transition-delay:var(--d,0s)}
+html.rv-on .rv.is-in{opacity:1;transform:none}
+
+/* заголовки: білий → акцентний відблиск, що проходить по тексту */
+.sh h2,.ph h1,.shl h2,.feat h3,.rep .cap h3{background-image:linear-gradient(100deg,#fff 0%,#fff 42%,#ff3b2f 48%,var(--rd) 52%,#fff 60%,#fff 100%);background-size:280% 100%;background-position:0 0;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#fff}
+html.rv-on .is-in .sh h2,html.rv-on .sh.is-in h2,html.rv-on .ph.is-in h1,html.rv-on .shl.is-in h2{animation:sheen 1.9s cubic-bezier(.65,0,.35,1) .15s both}
+@keyframes sheen{from{background-position:100% 0}to{background-position:0 0}}
+.ph h1 .dot,.sh h2 .dot,.word .dot{-webkit-text-fill-color:var(--rd)}
+/* картки: назва переливається в акцент при наведенні */
+.rep .cap h3{transition:background-position 1s cubic-bezier(.16,1,.3,1)}
+.rep .c:hover .cap h3,.feat:hover h3{background-position:100% 0}
+.rep .c:hover .cap h3{background-image:linear-gradient(100deg,#fff 0%,#fff 30%,var(--rd) 70%,var(--rd) 100%);background-size:240% 100%}
+
+/* кнопки: м'який відблиск */
+.tix{background-image:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.18) 50%,transparent 65%);background-size:250% 100%;background-position:150% 0;transition:background-position .9s cubic-bezier(.16,1,.3,1),background-color .3s}
+.tix:hover{background-position:-50% 0}
+
+/* меню: підкреслення, що виростає */
+.hd nav a{position:relative}
+.hd nav a::after{content:"";position:absolute;left:18%;right:18%;bottom:14px;height:2px;background:var(--rd);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.hd nav a:hover::after{transform:scaleX(1)}
+.hd nav a[aria-current=page]::after{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-old(root),::view-transition-new(root){animation:none}
+  html.rv-on .rv{opacity:1;transform:none;transition:none}
+  .sh h2,.ph h1,.shl h2{animation:none!important}
+}

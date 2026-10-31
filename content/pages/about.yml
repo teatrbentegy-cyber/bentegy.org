@@ -1,52 +1,16 @@
 lead_uk: Бентеги — незалежна театральна компанія в Києві, що працює з критично різними формами — від сучасної драматургії до фізичного театру, хореографії, перформансу й ігрових практик. Театр заснований у 2025 році, з 2026-го має власний репертуарний сезон.
 lead_en: Bentegy is an independent theatre company in Kyiv working across sharply different forms, from contemporary drama to physical theatre, choreography, performance and play-based work. Founded in 2025, it has had its own repertoire season since 2026.
-mission_uk: Розвивати культуру й мистецтво в Україні — передусім театр і перформативні мистецтва. Створювати умови для молодих митців і нових культурних практик. Давати молоді простір для неформальної та громадянської освіти й змістовної участі в культурі.
-mission_en: To develop culture and the arts in Ukraine, theatre and the performing arts above all. To create conditions for young artists and new cultural practices. To give young people space for non-formal and civic education and meaningful cultural participation.
-# Фото з процесу: репетиції, читки, підготовка. Показуються на головній і на сторінці «Про театр».
-process:
-- image: /uploads/process-1.jpg
-  caption_uk: Читка тексту, «Між світом і душею»
-  caption_en: Text session, Between the World and the Soul
-- image: /uploads/process-2.jpg
-  caption_uk: Репетиція, «Між світом і душею»
-  caption_en: Rehearsal, Between the World and the Soul
-- image: /uploads/process-3.jpg
-  caption_uk: Пошук мізансцени
-  caption_en: Finding the staging
-- image: /uploads/process-4.jpg
-  caption_uk: Робочі нотатки
-  caption_en: Working notes
-process_credit: "Фото: Анастасія Правік / Photo: Anastasiia Pravik"
-programmes:
-- title_uk: НАОСЛІП
-  title_en: NAOSLIP
-  image: /uploads/naoslip-talk.jpg
-  text_uk: 'Вечір незалежного театру, яким 7 серпня 2026 року Театр Бентеги відкрив свій перший репертуарний сезон у просторі КультМотив. Понад 250 гостей побачили ескізи нових вистав і публічну розмову незалежних театрів із Києва, Харкова, Львова та Луцька — НАШі, Химери, Лава, Гармидер — про умови, в яких працює незалежна сцена. Підґрунтям для розмови стало відкрите опитування «Карта незалежного театру України». Того ж вечора відбувся відкритий пітчинг молодих митців: переможець, «Коні за вікном», вийшов на премʼєру за продюсування Бентег через 72 дні. Партнери: КультМотив, Quests, Distil №9, «Пішли в театр».'
-  text_en: 'An evening of independent theatre with which Bentegy Theatre opened its first repertoire season at KultMotyv on 7 August 2026. Around 250 guests saw sketches of new work and a public conversation between independent theatres from Kyiv, Kharkiv, Lviv and Lutsk — NASHi, Khymery, Lava and Harmyder — about the conditions in which the independent scene works. The conversation drew on the open survey “Map of Independent Theatre in Ukraine”. The same evening hosted an open pitch for young artists: the winner, Horses Outside the Window, premiered 72 days later, produced by Bentegy. Partners: KultMotyv, Quests, Distil No9, Pishly v Teatr.'
-- title_uk: Тренінги для виконавців
-  title_en: Training for performers
-  image: /uploads/kinets-zminy-poles.jpg
-  text_uk: Практичні заняття з ансамблевих методик Viewpoints і Moment Work для акторів, танцівників і студентів.
-  text_en: Practical sessions in Viewpoints and Moment Work for actors, dancers and students.
-- title_uk: Міжнародна співпраця
-  title_en: International cooperation
-  image: /uploads/festival-panel.jpg
-  text_uk: Копродукція з Qendra Multimedia (Приштина), резиденція в Міському театрі ім. Бекіма Фехміу в Призрені. Провідний грантоотримувач консорціуму з чотирьох партнерів у програмі Culture Helps Solidarity Європейської культурної фундації, співфінансованій ЄС.
-  text_en: A co-production with Qendra Multimedia (Pristina) and a residency at the Bekim Fehmiu City Theatre in Prizren. Lead grant holder of a four-partner consortium in the European Cultural Foundation’s Culture Helps Solidarity programme, co-funded by the EU.
-team:
-- name_uk: Павло Коваль
-  name_en: Pavlo Koval
-  role_uk: Засновник, голова правління, продюсер
-  role_en: Founder, Head of the Board, producer
-- name_uk: Анастасія Кушта
-  name_en: Anastasiia Kushta
-  role_uk: Проєктна менеджерка
-  role_en: Project manager
-- name_uk: Дарʼя Кошкіна
-  name_en: Daria Koshkina
-  role_uk: Фінансова менеджерка
-  role_en: Finance manager
-- name_uk: Ніна Смик
-  name_en: Nina Smyk
-  role_uk: Редакторка, секретарка організації
-  role_en: Editor, secretary of the organisation
+mission_uk: Розвивати культуру й мистецтво в Україні — передусім театр і перформативні мистецтва. Створювати умови для молодих митців, нових форм і нових культурних практик.
+mission_en: To develop culture and the arts in Ukraine, theatre and the performing arts above all. To create conditions for young artists, new forms and new cultural practices.
+# Подія сезону — веде на окрему сторінку /vystavy/naoslip/
+naoslip_uk: Вечір незалежного театру, яким Бентеги відкрили свій перший репертуарний сезон. Понад 250 гостей, ескізи нових вистав, розмова театрів із Києва, Харкова, Львова й Луцька та відкритий пітчинг, переможець якого вийшов на прем'єру через 72 дні.
+naoslip_en: The evening of independent theatre that opened Bentegy’s first repertoire season. More than 250 guests, sketches of new work, a conversation between theatres from Kyiv, Kharkiv, Lviv and Lutsk, and an open pitch whose winner premiered 72 days later.
+# Міжнародна співпраця — пріоритет 2027
+intl_uk: |
+  Копродукція «Під уніформою» з Qendra Multimedia (Приштина): резиденція в Призрені й показ на Kosovo Theatre Showcase 2026. Бентеги — провідний грантоотримувач консорціуму з чотирьох партнерів у програмі Culture Helps Solidarity Європейської культурної фундації, співфінансованій ЄС.
+
+  З 2027 року театр — партнер проєкту ALIVE «Креативної Європи»: 9 партнерів із 7 країн, координатор — Aeroplio Topos Allou (Афіни). Наш пріоритет на 2027 рік — гастролі, копродукції й міжнародна дистрибуція українських вистав.
+intl_en: |
+  Under the Uniform is a co-production with Qendra Multimedia (Pristina): a residency in Prizren and a showing at Kosovo Theatre Showcase 2026. Bentegy is lead grant holder of a four-partner consortium in the European Cultural Foundation’s Culture Helps Solidarity programme, co-funded by the EU.
+
+  From 2027 the company is a partner in ALIVE, a Creative Europe cooperation project with 9 partners from 7 countries, led by Aeroplio Topos Allou (Athens). Our priority for 2027 is touring, co-productions and the international distribution of Ukrainian work.

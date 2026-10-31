@@ -40,11 +40,11 @@ hero:
     caption_en: Horses Outside the Window
     link: /vystavy/koni-za-viknom/
     pos: 58% 40%
-  - image: /uploads/promova-2025-hero.jpg
+  - image: /uploads/promova-2025-show.jpg
     caption_uk: Промова, 2025
     caption_en: The Speech, 2025
     link: /vystavy/promova-2025/
-    pos: 50% 50%
+    pos: 50% 42%
 tagline_uk: Незалежний театр у Києві. Кожна вистава шукає власну форму.
 tagline_en: An independent theatre company in Kyiv. Every production finds its own form.
 contacts:
@@ -74,6 +74,9 @@ partners:
   - КультМотив / KultMotyv
   - Chora Stage
   - NASHi Experimental Theatre Club
+  - Veteran Hub
+  - Українські ЛГБТ-військові / Ukrainian LGBT Military
+  - Per Forma
 # Статистика відвідувань GoatCounter: впишіть код сайту (наприклад bentegy), щоб увімкнути
 ga4: "G-34R5G2Q44D"
 # Google Ads (Ad Grants): тег і конверсії (покупка квитка / перехід до оплати). Не видаляти.

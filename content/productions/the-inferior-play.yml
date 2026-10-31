@@ -1,44 +1,33 @@
 slug_hint: the-inferior-play
 title_uk: The Inferior Play
 title_en: The Inferior Play
-status: repertoire
-order: 5
-genre_uk: Перформативний проєкт, дослідження гри
-genre_en: Performative project, a study of play
-premiere_uk: «Гра на Вершинці» — фінальна презентація 23 серпня 2026, Чоколівка, Київ
-premiere_en: “The Game on Vershynka”, final presentation, 23 August 2026, Chokolivka, Kyiv
-duration_uk: «Гра на Вершинці» — орієнтовно 1,5–2 години, щоразу по-різному
-duration_en: “The Game on Vershynka”, approx. 1.5–2 hours, different each time
+status: produced
+order: 6
+year: 2026
+genre_uk: Перформативна лабораторія, робоча версія
+genre_en: Performative laboratory, work in progress
+premiere_uk: Показ робочої версії — 19 березня 2026, Київ
+premiere_en: Work-in-progress showing, 19 March 2026, Kyiv
+duration_uk: ""
+duration_en: ""
 age: 12+
 cover: /uploads/inferior-play-1.jpg
-summary_uk: Перформативний проєкт Марічки Гавриш про гру як спосіб бути присутніми одне з одним. Гості самі обирають міру своєї участі.
-summary_en: A performative project by Marichka Havrysh on play as a way of being present with one another. Guests choose how far they take part.
-hook_uk: "Гра, у якій ви самі вирішуєте, наскільки далеко зайти."
-hook_en: "A game where you decide how far to go."
-description_uk: 'The Inferior Play — перформативний проєкт режисерки та перформерки Марічки Гавриш, який досліджує гру як спосіб бути присутніми одне з одним, взаємодіяти й створювати спільний досвід. До гри ми звертаємося тоді, коли шукаємо знання, — і коли у спільноті є рівність, свобода та довіра.
-
+summary_uk: Перформативна лабораторія Марічки Гавриш про гру як спосіб бути присутніми одне з одним. Плейтести, відкриті репетиції й показ робочої версії.
+summary_en: Marichka Havrysh’s performative laboratory on play as a way of being present with one another. Playtests, open rehearsals and a work-in-progress showing.
+hook_uk: "Лабораторія гри: тіла, пластик і правила, які ще пишуться."
+hook_en: "A laboratory of play: bodies, plastic and rules still being written."
+description_uk: |
+  The Inferior Play — перформативний проєкт режисерки та перформерки Марічки Гавриш, який досліджує гру як спосіб бути присутніми одне з одним, взаємодіяти й створювати спільний досвід. До гри ми звертаємося тоді, коли шукаємо знання, — і коли у спільноті є рівність, свобода та довіра.
 
   Проєкт живе як відкрита лабораторія: плейтести, відкриті репетиції, проміжні ігри, розмови й архів. Між глядачами й діячами — цілий спектр, і кожен гість сам регулює міру своєї участі.
 
-
-  Фінальна презентація «Гра на Вершинці» вперше винесла дослідження з репетиційної зали в місто — на маршрут уздовж прихованої річки Вершинки на Чоколівці. Учасники разом пройшли ігровим маршрутом уздовж води, оживлюючи її присутністю, сміхом і рухом, і пригадали, як це — гратися надворі.
-
-
-  Проєкт реалізовано за підтримки грантової програми Per Forma, яку здійснює платформа Kyiv Contemporary Music Days за підтримки Performing Arts Fund NL та Міністерства освіти, культури та науки Нідерландів для розвитку сектору перформативних мистецтв в Україні.
-
-  '
-description_en: 'The Inferior Play is a performative project by director and performer Marichka Havrysh that explores play as a way of being present with one another, interacting and creating shared experience. We turn to play when we are searching for knowledge, and when a community holds equality, freedom and trust.
-
+  19 березня 2026 року команда показала робочу версію: тіла перформерів і пластикова інсталяція Єви Жукалюк, у якій правила гри народжуються просто на очах у глядачів. Фінальна презентація проєкту — окрема робота, [«Гра на Вершинці»](/vystavy/hra-na-vershyntsi/).
+description_en: |
+  The Inferior Play is a performative project by director and performer Marichka Havrysh that explores play as a way of being present with one another, interacting and creating shared experience. We turn to play when we are searching for knowledge, and when a community holds equality, freedom and trust.
 
   The project lives as an open laboratory: playtests, open rehearsals, interim games, conversations and an archive. Between audience and performers lies a whole spectrum, and every guest sets their own degree of participation.
 
-
-  The final presentation, “The Game on Vershynka”, took the research out of the rehearsal room and into the city for the first time, along the hidden Vershynka river in Chokolivka. Participants walked a playful route along the water together, bringing it to life with presence, laughter and movement, and remembering what it feels like to play outdoors.
-
-
-  Supported by the Per Forma grant programme run by Kyiv Contemporary Music Days with the support of Performing Arts Fund NL and the Ministry of Education, Culture and Science of the Netherlands for the development of the performing arts sector in Ukraine.
-
-  '
+  On 19 March 2026 the team showed a work in progress: the performers’ bodies and Yeva Zhukaliuk’s plastic installation, where the rules of the game are born in front of the audience. The project’s final presentation is a separate work, [The Game on Vershynka](/en/productions/hra-na-vershyntsi/).
 credits:
 - role_uk: Авторка ідеї, режисерка й перформерка
   role_en: Concept, director and performer
@@ -56,29 +45,12 @@ credits:
   role_en: Producer
   names: Павло Коваль, Театр Бентеги
   names_en: Pavlo Koval, Bentegy Theatre
-- role_uk: Підтримка
-  role_en: Support
-  names: Per Forma, Kyiv Contemporary Music Days, Performing Arts Fund NL
-  names_en: Per Forma, Kyiv Contemporary Music Days, Performing Arts Fund NL
 gallery:
-- image: /uploads/inferior-play-2.jpg
-- image: /uploads/inferior-play-3.jpg
 - image: /uploads/inferior-play-4.jpg
+- image: /uploads/inferior-play-3.jpg
 - image: /uploads/inferior-play-5.jpg
-- image: /uploads/inferior-play-6.jpg
 - image: /uploads/inferior-play-7.jpg
-- image: /uploads/inferior-play-8.jpg
-- image: /uploads/inferior-play-9.jpg
-- image: /uploads/inferior-play-10.jpg
 - image: /uploads/inferior-play-11.jpg
-- image: /uploads/inferior-play-12.jpg
-- image: /uploads/inferior-play-13.jpg
-- image: /uploads/vershynka-01.jpg
-- image: /uploads/vershynka-03.jpg
-- image: /uploads/vershynka-05.jpg
-- image: /uploads/vershynka-07.jpg
-- image: /uploads/vershynka-09.jpg
-- image: /uploads/vershynka-10.jpg
-- image: /uploads/vershynka-02.jpg
-- image: /uploads/vershynka-11.jpg
+- image: /uploads/inferior-play-9.jpg
+- image: /uploads/inferior-play-2.jpg
 photo_credit: Анастасія Правік / Anastasiia Pravik

@@ -11,7 +11,7 @@ premiere_en: 28 September 2025, Community Garden, Kyiv
 duration_uk: ''
 duration_en: ''
 age: ''
-cover: /uploads/promova-1.jpg
+cover: /uploads/promova-3.jpg
 summary_uk: Дебютна вистава Театру Бентеги — про мовчання і голос, про здатність почути і страх бути почутим.
 summary_en: Bentegy Theatre’s debut — about silence and voice, the ability to listen and the fear of being heard.
 hook_uk: "Дебют Бентег: провокація, що стирає межу між сценою і залом."
@@ -58,9 +58,8 @@ credits:
   names: Театр Бентеги, Експериментальний театральний клуб «НАШі», Community Café
   names_en: Bentegy Theatre, NASHi Experimental Theatre Club, Community Café
 gallery:
-- image: /uploads/promova-2.jpg
-- image: /uploads/promova-3.jpg
 - image: /uploads/promova-4.jpg
+- image: /uploads/promova-7.jpg
 - image: /uploads/promova-5.jpg
 - image: /uploads/promova-6.jpg
 photo_credit: Анастасія Правік / Anastasiia Pravik

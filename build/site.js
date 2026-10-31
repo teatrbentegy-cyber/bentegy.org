@@ -83,3 +83,28 @@ document.addEventListener('click', function (ev) {
     a.addEventListener('click', function (ev) { ev.preventDefault(); box.hidden = false; });
   });
 })();
+
+// поява блоків і відблиск заголовків під час прокрутки
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var root = document.documentElement;
+  root.classList.add('rv-on');
+  var sel = '.ph, .sh, .shl, .rep .c, .feat, .tc, .it, .case, .mi, .mf, .gal figure, .credits, .facts, .two, .chips, .req, .bin, .stats';
+  var els = document.querySelectorAll(sel);
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+  var groups = new Map();
+  els.forEach(function (el) {
+    if (el.closest('.hero')) return;
+    el.classList.add('rv');
+    var p = el.parentElement, k = groups.get(p) || 0;
+    if (/(^| )(c|tc|it|mi|case)( |$)/.test(el.className) || el.tagName === 'FIGURE') { el.style.setProperty('--d', Math.min(k, 5) * 0.08 + 's'); groups.set(p, k + 1); }
+    io.observe(el);
+  });
+  // все, що вже на екрані, — одразу
+  requestAnimationFrame(function () {
+    els.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('is-in'); });
+  });
+})();

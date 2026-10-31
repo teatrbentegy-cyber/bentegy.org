@@ -40,6 +40,14 @@ credits:
   role_en: Director, playwright, producer
   names: Павло Коваль
   names_en: Pavlo Koval
+- role_uk: Виконавці
+  role_en: Cast
+  names: Костянтин Шахман, Олександр Колотій, Давід Димченко, Олександр Петрина
+  names_en: Kostiantyn Shakhman, Oleksandr Kolotii, David Dymchenko, Oleksandr Petryna
+- role_uk: Стейдж-менеджерка
+  role_en: Stage manager
+  names: Софія Форніка
+  names_en: Sofiia Fornika
 - role_uk: Продакшн-менеджерка
   role_en: Production manager
   names: Анастасія Кушта
@@ -52,6 +60,10 @@ credits:
   role_en: Co-production and residency
   names: Qendra Multimedia (Приштина)
   names_en: Qendra Multimedia (Pristina)
+- role_uk: Партнери
+  role_en: Partners
+  names: Veteran Hub, Українські ЛГБТ-військові
+  names_en: Veteran Hub, Ukrainian LGBT Military
 - role_uk: Фінансування
   role_en: Funding
   names: Фінансується Європейським Союзом. Culture Helps Solidarity (програма ЄС «Креативна Європа», проєкт № 101237762), яку впроваджують European Cultural Foundation, «Інша освіта», zusa і VETERANKA
