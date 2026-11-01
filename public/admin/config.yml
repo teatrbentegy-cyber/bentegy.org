@@ -1,0 +1,441 @@
+# Адмінка сайту bentegy.org (Sveltia CMS)
+backend:
+  name: github
+  repo: teatrbentegy-cyber/bentegy.org
+  branch: main
+  commit_messages:
+    create: "Додано {{collection}}: {{slug}}"
+    update: "Оновлено {{collection}}: {{slug}}"
+    delete: "Видалено {{collection}}: {{slug}}"
+    uploadMedia: "Завантажено фото {{path}}"
+    deleteMedia: "Видалено фото {{path}}"
+
+locale: uk
+site_url: https://bentegy.org
+display_url: https://bentegy.org
+logo_url: /brand/mark.png
+media_folder: static/uploads
+public_folder: /uploads
+slug:
+  encoding: ascii
+  clean_accents: true
+
+collections:
+  # ---------------------------------------------------------------- АФІША
+  - name: events
+    label: Афіша (покази)
+    label_singular: Показ
+    description: Кожен показ — окремий запис. Минулі покази зникають з сайту автоматично.
+    folder: content/events
+    extension: yml
+    format: yaml
+    create: true
+    slug: "{{fields.date}}-{{fields.production}}"
+    summary: "{{date}} · {{production}} · {{city_uk}}"
+    sortable_fields: [date]
+    fields:
+      - { name: production, label: Вистава, widget: relation, collection: productions, search_fields: [title_uk], value_field: "{{slug}}", display_fields: [title_uk] }
+      - { name: date, label: Дата, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+      - { name: time, label: Час (напр. 19:00), widget: string, required: false }
+      - { name: date_note_uk, label: "Замість дати показати текст (UA), напр. «Листопад, дата уточнюється»", widget: string, required: false }
+      - { name: date_note_en, label: "Замість дати показати текст (EN)", widget: string, required: false }
+      - { name: label_uk, label: Позначка (UA), hint: "Прем'єра, Показ у процесі, Гастроль…", widget: string, required: false }
+      - { name: label_en, label: Позначка (EN), widget: string, required: false }
+      - { name: venue_uk, label: Майданчик (UA), widget: string }
+      - { name: venue_en, label: Майданчик (EN), widget: string }
+      - { name: city_uk, label: Місто (UA), widget: string, default: Київ }
+      - { name: city_en, label: Місто (EN), widget: string, default: Kyiv }
+      - name: status
+        label: Статус продажу
+        widget: select
+        default: on_sale
+        options:
+          - { label: Квитки в продажу, value: on_sale }
+          - { label: Продаж скоро, value: soon }
+          - { label: Вхід вільний / реєстрація, value: free }
+          - { label: Квитки продано, value: sold_out }
+      - { name: ticket_url, label: Посилання на квитки, widget: string, required: false, hint: "Повне посилання на сторінку події в квитковому операторі" }
+      - { name: ticket_operator, label: Квитковий оператор, widget: string, required: false, hint: "Concert.ua, Karabas, Kontramarka, Internet-bilet…" }
+      - { name: concert_url, label: "Посилання на Concert.ua (друга кнопка)", widget: string, required: false, hint: "Мітки utm сайт додає сам" }
+      - { name: price, label: "Ціна квитка, грн (лише число, напр. 400)", widget: number, value_type: int, required: false, hint: "Потрібна для Google «Події». Якщо ціни кілька — найменша" }
+      - { name: price_max, label: "Максимальна ціна, грн (якщо є кілька типів квитків)", widget: number, value_type: int, required: false }
+      - { name: sale_start, label: Початок продажу, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD", required: false }
+      - { name: address_uk, label: "Адреса майданчика (UA), якщо її немає в полі «Майданчик»", widget: string, required: false }
+      - { name: address_en, label: Адреса майданчика (EN), widget: string, required: false }
+
+  # ---------------------------------------------------------------- ВИСТАВИ
+  - name: productions
+    label: Вистави
+    label_singular: Вистава
+    folder: content/productions
+    extension: yml
+    format: yaml
+    create: true
+    slug: "{{fields.slug_hint}}"
+    identifier_field: title_uk
+    summary: "{{title_uk}}"
+    sortable_fields: [order, title_uk]
+    fields:
+      - { name: slug_hint, label: "Адреса сторінки латиницею (напр. promova)", widget: string, hint: "Задається один раз при створенні" }
+      - { name: title_uk, label: Назва (UA), widget: string }
+      - { name: title_en, label: Назва (EN), widget: string }
+      - { name: performer_uk, label: "Виконавець для Google (UA), якщо це не Театр Бентеги — напр. театральний проєкт «Межа»", widget: string, required: false }
+      - { name: performer_en, label: Виконавець для Google (EN), widget: string, required: false }
+      - name: status
+        label: Розділ
+        widget: select
+        options:
+          - { label: Репертуар, value: repertoire }
+          - { label: Прем'єра скоро, value: upcoming }
+          - { label: За продюсування Бентег, value: produced }
+          - { label: В розробці, value: development }
+          - { label: Архів, value: archive }
+      - { name: order, label: Порядок у списку, widget: number, value_type: int, default: 10 }
+      - { name: year, label: "Рік (для архіву)", widget: string, required: false }
+      - { name: cover, label: Головне фото (горизонтальне), widget: image, required: false }
+      - { name: summary_uk, label: Коротко, одне речення (UA), widget: text }
+      - { name: summary_en, label: Коротко, одне речення (EN), widget: text }
+      - { name: genre_uk, label: Жанр (UA), widget: string, required: false }
+      - { name: genre_en, label: Жанр (EN), widget: string, required: false }
+      - { name: premiere_uk, label: Прем'єра (UA), widget: string, required: false }
+      - { name: premiere_en, label: Прем'єра (EN), widget: string, required: false }
+      - { name: duration_uk, label: Тривалість (UA), widget: string, required: false }
+      - { name: duration_en, label: Тривалість (EN), widget: string, required: false }
+      - { name: age, label: Вікове обмеження, widget: string, required: false }
+      - { name: description_uk, label: Опис (UA), widget: markdown, required: false }
+      - { name: description_en, label: Опис (EN), widget: markdown, required: false }
+      - name: credits
+        label: Команда
+        widget: list
+        required: false
+        fields:
+          - { name: role_uk, label: Роль (UA), widget: string }
+          - { name: role_en, label: Роль (EN), widget: string }
+          - { name: names, label: Імена (UA), widget: string }
+          - { name: names_en, label: Імена (EN), widget: string, required: false }
+      - name: gallery
+        label: Галерея
+        widget: list
+        required: false
+        fields:
+          - { name: image, label: Фото, widget: image }
+          - { name: caption_uk, label: Підпис (UA), widget: string, required: false }
+          - { name: caption_en, label: Підпис (EN), widget: string, required: false }
+      - { name: photo_credit, label: Автор фото, widget: string, required: false }
+
+  # ---------------------------------------------------------------- СТОРІНКИ
+  # ---------------------------------------------------------------- МЕДІА
+  - name: media
+    label: Медіа (тексти, новини, пресрелізи)
+    label_singular: Матеріал
+    description: "Тексти, новини й пресрелізи. Матеріал зʼявляється на сайті одразу після збереження (якщо не позначено «Чернетка»). Розділ «Медіа» в меню зʼявляється, щойно є перший матеріал."
+    folder: content/media
+    extension: yml
+    format: yaml
+    create: true
+    slug: "{{fields.slug_hint}}"
+    identifier_field: title_uk
+    summary: "{{date}} · {{type}} · {{title_uk}}"
+    sortable_fields: [date, title_uk]
+    fields:
+      - { name: slug_hint, label: "Адреса сторінки латиницею (напр. teatr-bez-zavisy)", widget: string, hint: "Задається один раз при створенні" }
+      - name: type
+        label: Тип
+        widget: select
+        default: text
+        options:
+          - { label: "Текст (критика, есей, рецензія, інтервʼю)", value: text }
+          - { label: Новина, value: news }
+          - { label: Пресреліз, value: release }
+      - { name: rubric_uk, label: "Рубрика (UA), напр. Рецензія, Есей, Інтервʼю", widget: string, required: false, hint: "Лише для текстів. Порожньо — буде «Текст»" }
+      - { name: rubric_en, label: Рубрика (EN), widget: string, required: false }
+      - { name: date, label: Дата, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+      - { name: authors, label: Автори з команди, widget: relation, collection: team, search_fields: [name_uk], value_field: "{{slug}}", display_fields: [name_uk], multiple: true, required: false }
+      - { name: guest_author_uk, label: "Запрошений автор (UA), якщо його немає в «Команді»", widget: string, required: false }
+      - { name: guest_author_en, label: Запрошений автор (EN), widget: string, required: false }
+      - { name: title_uk, label: Заголовок (UA), widget: string }
+      - { name: title_en, label: Заголовок (EN), widget: string, required: false }
+      - { name: lead_uk, label: "Лід (UA): 1–2 речення під заголовком", widget: text }
+      - { name: lead_en, label: Лід (EN), widget: text, required: false }
+      - { name: cover, label: Обкладинка (горизонтальне фото), widget: image, required: false }
+      - { name: cover_caption_uk, label: Підпис до фото (UA), widget: string, required: false }
+      - { name: cover_caption_en, label: Підпис до фото (EN), widget: string, required: false }
+      - { name: production, label: Повʼязана вистава, widget: relation, collection: productions, search_fields: [title_uk], value_field: "{{slug}}", display_fields: [title_uk], required: false, hint: "Матеріал покажеться і на сторінці вистави" }
+      - { name: city_uk, label: "Місто (UA) — для пресрелізів", widget: string, required: false, default: Київ }
+      - { name: city_en, label: Місто (EN), widget: string, required: false, default: Kyiv }
+      - { name: body_uk, label: Текст (UA), widget: markdown }
+      - { name: body_en, label: Текст (EN), widget: markdown, required: false }
+      - name: photos
+        label: "Фото для медіа (лише для пресрелізів): журналісти зможуть завантажити кожне фото й архів .zip"
+        widget: list
+        required: false
+        fields:
+          - { name: image, label: Фото, widget: image }
+          - { name: caption_uk, label: Підпис (UA), widget: string, required: false }
+          - { name: caption_en, label: Підпис (EN), widget: string, required: false }
+          - { name: credit, label: Автор фото, widget: string, required: false }
+      - { name: photos_full_url, label: "Посилання на папку з фото в повній якості (Google Drive), необовʼязково", widget: string, required: false }
+      - { name: source_uk, label: "Вперше опубліковано в (UA), напр. «Театральна риболовля»", widget: string, required: false }
+      - { name: source_en, label: First published in (EN), widget: string, required: false }
+      - { name: source_url, label: Посилання на першу публікацію, widget: string, required: false }
+      - { name: draft, label: Чернетка (не показувати на сайті), widget: boolean, default: false, required: false }
+
+  # ---------------------------------------------------------------- КОМАНДА
+  - name: team
+    label: Команда
+    label_singular: Людина
+    description: "Сторінка «Команда». Зʼявляється в меню, щойно додано першу людину."
+    folder: content/team
+    extension: yml
+    format: yaml
+    create: true
+    slug: "{{fields.slug_hint}}"
+    identifier_field: role_uk
+    summary: "{{group}} · {{role_uk}} · {{name_uk}}"
+    sortable_fields: [order, name_uk]
+    fields:
+      - { name: slug_hint, label: "Адреса латиницею (імʼя-прізвище, напр. anastasiia-kushta)", widget: string, hint: "Для Павла — pavlo-koval" }
+      - { name: name_uk, label: Імʼя та прізвище (UA), widget: string, required: false, hint: "Порожньо — на сайті буде картка ролі з позначкою «Скоро в команді»" }
+      - { name: name_en, label: Імʼя та прізвище (EN), widget: string, required: false }
+      - name: group
+        label: Група
+        widget: select
+        default: team
+        options:
+          - { label: Команда театру, value: team }
+          - { label: Постійні співпрацівники, value: collab }
+          - { label: Автори медіа, value: authors }
+      - { name: order, label: "Порядок (1, 2, 3…)", widget: number, value_type: int, required: false }
+      - { name: role_uk, label: Роль (UA), widget: string }
+      - { name: role_en, label: Роль (EN), widget: string }
+      - { name: photo, label: "Фото (вертикальне 3:4, можна кольорове — на сайті буде ЧБ)", widget: image, required: false }
+      - { name: bio_uk, label: "Біо (UA), 2–3 речення", widget: text, required: false }
+      - { name: bio_en, label: Біо (EN), widget: text, required: false }
+      - { name: projects_uk, label: "Проєкти з театром (UA) — для співпрацівників", widget: string, required: false }
+      - { name: projects_en, label: Проєкти (EN), widget: string, required: false }
+      - { name: email, label: Пошта (за бажанням), widget: string, required: false }
+      - { name: instagram, label: Instagram (посилання), widget: string, required: false }
+      - { name: website, label: Сайт / портфоліо (посилання), widget: string, required: false }
+      - { name: producer_page, label: Картка веде на сторінку «Продюсер», widget: boolean, default: false, required: false }
+
+  - name: pages
+    label: Сторінки
+    files:
+      - name: privacy
+        label: Політика конфіденційності
+        file: content/pages/privacy.yml
+        fields:
+          - { name: updated, label: Дата оновлення, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - { name: body_uk, label: Текст (UA), widget: markdown }
+          - { name: body_en, label: Текст (EN), widget: markdown }
+      - name: site
+        label: Головна і загальні дані
+        file: content/site.yml
+        fields:
+          - name: hero
+            label: Слайди на головній
+            widget: list
+            fields:
+              - { name: image, label: Фото (горизонтальне, найкраще 2400 px і більше), widget: image }
+              - { name: caption_uk, label: Підпис (UA), widget: string }
+              - { name: caption_en, label: Підпис (EN), widget: string }
+          - { name: tagline_uk, label: Гасло під лого (UA), widget: text }
+          - { name: tagline_en, label: Гасло під лого (EN), widget: text }
+          - { name: media_enabled, label: Показувати розділ «Медіа», widget: boolean, default: false, required: false }
+          - name: contacts
+            label: Контакти
+            widget: object
+            fields:
+              - { name: theatre, label: "Головна пошта театру й ГО (офіційне листування)", widget: string }
+              - { name: team, label: "Пошта для співпраці (партнерства, гастролі)", widget: string }
+              - { name: press, label: Пошта для преси, widget: string }
+              - { name: producer, label: Пошта продюсера, widget: string }
+              - { name: phone, label: Телефон, widget: string }
+              - { name: instagram, label: Instagram, widget: string }
+              - { name: telegram, label: Telegram, widget: string }
+          - name: organization
+            label: Реквізити організації
+            widget: object
+            fields:
+              - { name: name_uk, label: Назва (UA), widget: string }
+              - { name: name_en, label: Назва (EN), widget: string }
+              - { name: edrpou, label: Код ЄДРПОУ, widget: string }
+              - { name: registered, label: Дата реєстрації, widget: string }
+              - { name: address_uk, label: Юридична адреса (UA), widget: string }
+              - { name: address_en, label: Юридична адреса (EN), widget: string }
+              - { name: head_uk, label: Керівник (UA), widget: string }
+              - { name: head_en, label: Керівник (EN), widget: string }
+              - { name: nonprofit_uk, label: Неприбутковий статус (UA), widget: string }
+              - { name: nonprofit_en, label: Неприбутковий статус (EN), widget: string }
+          - { name: partners, label: Партнери, widget: list, field: { name: name, label: Назва, widget: string } }
+          - { name: ga4, label: "Google Analytics 4 — ID потоку (G-XXXXXXX)", widget: string, required: false, hint: "Порожньо — аналітика вимкнена" }
+      - name: producer
+        label: Сторінка «Продюсер»
+        file: content/pages/producer.yml
+        fields:
+          - { name: name_uk, label: Імʼя (UA), widget: string }
+          - { name: name_en, label: Імʼя (EN), widget: string }
+          - { name: role_uk, label: Підзаголовок (UA), widget: string }
+          - { name: role_en, label: Підзаголовок (EN), widget: string }
+          - { name: photo, label: Портрет (вертикальний), widget: image }
+          - { name: photo_credit, label: Автор фото, widget: string, required: false }
+          - { name: lead_uk, label: Цитата (UA), widget: text }
+          - { name: lead_en, label: Цитата (EN), widget: text }
+          - { name: bio_uk, label: Біографія (UA), widget: markdown }
+          - { name: bio_en, label: Біографія (EN), widget: markdown }
+          - name: services_uk
+            label: Що я роблю (UA)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: services_en
+            label: Що я роблю (EN)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: cases
+            label: Проєкти
+            widget: list
+            fields:
+              - { name: year, label: Рік, widget: string }
+              - { name: title_uk, label: Назва (UA), widget: string }
+              - { name: title_en, label: Назва (EN), widget: string }
+              - { name: role_uk, label: Роль (UA), widget: string }
+              - { name: role_en, label: Роль (EN), widget: string }
+              - { name: text_uk, label: Опис (UA), widget: text }
+              - { name: text_en, label: Опис (EN), widget: text }
+      - name: about
+        label: Сторінка «Про театр»
+        file: content/pages/about.yml
+        fields:
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - { name: mission_uk, label: Місія (UA), widget: text }
+          - { name: mission_en, label: Місія (EN), widget: text }
+          - name: approach
+            label: Підхід
+            widget: list
+            fields:
+              - { name: title_uk, label: Заголовок (UA), widget: string }
+              - { name: title_en, label: Заголовок (EN), widget: string }
+              - { name: text_uk, label: Текст (UA), widget: text }
+              - { name: text_en, label: Текст (EN), widget: text }
+          - name: programmes
+            label: Освіта і події
+            widget: list
+            fields:
+              - { name: image, label: Фото, widget: image, required: false }
+              - { name: title_uk, label: Заголовок (UA), widget: string }
+              - { name: title_en, label: Заголовок (EN), widget: string }
+              - { name: text_uk, label: Текст (UA), widget: text }
+              - { name: text_en, label: Текст (EN), widget: text }
+          - name: team
+            label: Команда
+            widget: list
+            fields:
+              - { name: name_uk, label: Імʼя (UA), widget: string }
+              - { name: name_en, label: Імʼя (EN), widget: string }
+              - { name: role_uk, label: Роль (UA), widget: string }
+              - { name: role_en, label: Роль (EN), widget: string }
+      - name: support
+        label: Сторінка «Підтримати»
+        file: content/pages/support.yml
+        fields:
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - { name: online_url, label: "Посилання на онлайн-оплату (WayForPay)", widget: string, required: false, hint: "Поки порожнє — кнопки оплати на сайті немає" }
+          - name: tiers
+            label: Рівні донатів
+            widget: list
+            hint: Рівень зʼявляється на сайті, щойно додано посилання WayForPay (гривневе — на українській сторінці, єврове — на англійській)
+            fields:
+              - { name: amount_uah, label: Сума в гривнях, widget: number, value_type: int }
+              - { name: amount_eur, label: Сума в євро, widget: number, value_type: int }
+              - { name: title_uk, label: Назва (UA), widget: string }
+              - { name: title_en, label: Назва (EN), widget: string }
+              - { name: text_uk, label: Опис (UA), widget: text }
+              - { name: text_en, label: Опис (EN), widget: text }
+              - { name: url_uah, label: Посилання WayForPay (гривня), widget: string, required: false }
+              - { name: url_eur, label: Посилання WayForPay (євро), widget: string, required: false }
+          - { name: free_url_uah, label: "Посилання «Своя сума» (гривня)", widget: string, required: false }
+          - { name: free_url_eur, label: "Посилання «Своя сума» (євро)", widget: string, required: false }
+          - { name: online_note_uk, label: Примітка до оплати (UA), widget: text, required: false }
+          - { name: online_note_en, label: Примітка до оплати (EN), widget: text, required: false }
+          - name: bank
+            label: Банківські реквізити
+            widget: object
+            hint: Порожні поля на сайті не показуються
+            fields:
+              - { name: recipient_uk, label: Отримувач (UA), widget: string }
+              - { name: recipient_en, label: Отримувач (EN), widget: string }
+              - { name: edrpou, label: Код ЄДРПОУ, widget: string }
+              - { name: bank_uk, label: Банк (UA), widget: string, required: false }
+              - { name: bank_en, label: Банк (EN), widget: string, required: false }
+              - { name: iban_uah, label: IBAN у гривні, widget: string, required: false }
+              - { name: iban_usd, label: IBAN у доларах, widget: string, required: false }
+              - { name: iban_eur, label: IBAN у євро, widget: string, required: false }
+              - { name: swift, label: SWIFT / BIC банку, widget: string, required: false }
+              - { name: address_en, label: "Адреса отримувача для SWIFT (EN, як у банку)", widget: string, required: false }
+              - name: correspondents
+                label: Банки-кореспонденти (EUR)
+                widget: list
+                required: false
+                fields:
+                  - { name: bank, label: Банк, widget: string }
+                  - { name: swift, label: SWIFT, widget: string }
+                  - { name: account, label: Рахунок / IBAN, widget: string }
+              - { name: purpose_uk, label: Призначення платежу (UA), widget: string }
+              - { name: purpose_en, label: Призначення платежу (EN), widget: string }
+          - name: uses_uk
+            label: На що йдуть кошти (UA)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: uses_en
+            label: На що йдуть кошти (EN)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: partners_uk
+            label: Формати партнерства (UA)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+          - name: partners_en
+            label: Формати партнерства (EN)
+            widget: list
+            fields: [{ name: title, label: Заголовок, widget: string }, { name: text, label: Текст, widget: text }]
+      - name: press
+        label: Сторінка «Преса»
+        file: content/pages/press.yml
+        fields:
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - { name: about_short_uk, label: Про театр коротко (UA), widget: text }
+          - { name: about_short_en, label: Про театр коротко (EN), widget: text }
+          - { name: about_long_uk, label: Про театр детально (UA), widget: markdown }
+          - { name: about_long_en, label: Про театр детально (EN), widget: markdown }
+          - name: logos
+            label: Логотипи
+            widget: list
+            fields:
+              - { name: file, label: Файл PNG, widget: image }
+              - { name: title_uk, label: Назва (UA), widget: string }
+              - { name: title_en, label: Назва (EN), widget: string }
+              - { name: bg, label: Фон превʼю, widget: select, options: [{ label: Світлий, value: light }, { label: Темний, value: dark }], default: light }
+          - name: coverage
+            label: Публікації в медіа
+            widget: list
+            required: false
+            fields:
+              - { name: outlet, label: Видання, widget: string }
+              - { name: title, label: Заголовок, widget: string }
+              - { name: date, label: Дата, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+              - { name: url, label: Посилання, widget: string }
+          - name: quotes
+            label: Цитати з рецензій
+            widget: list
+            required: false
+            fields:
+              - { name: text_uk, label: Цитата (UA), widget: text }
+              - { name: text_en, label: Цитата (EN), widget: text, required: false }
+              - { name: author, label: Автор, widget: string, required: false }
+              - { name: outlet, label: Видання, widget: string, required: false }
+              - { name: url, label: Посилання, widget: string, required: false }

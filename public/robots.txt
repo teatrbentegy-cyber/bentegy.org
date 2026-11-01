@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /dyakuyemo/
+Disallow: /en/thank-you/
+Sitemap: https://bentegy.org/sitemap.xml

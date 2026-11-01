@@ -5,6 +5,7 @@ import datetime as dt
 import glob
 import html
 import os
+import urllib.parse
 import re
 import shutil
 
@@ -193,8 +194,8 @@ def process_images():
             if s > w and made:
                 break
             r = im if w <= s else im.resize((s, round(h * s / w)), Image.LANCZOS)
-            r.save(f"{OUT}/img/{stem}-{s}.jpg", "JPEG", quality=80, optimize=True, progressive=True)
-            r.save(f"{OUT}/img/{stem}-{s}.webp", "WEBP", quality=72, method=6)  # швидкість (PageSpeed): WebP ~30% легший
+            r.save(f"{OUT}/img/{stem}-{s}.jpg", "JPEG", quality=85, optimize=True, progressive=True)
+            r.save(f"{OUT}/img/{stem}-{s}.webp", "WEBP", quality=80, method=6)  # швидкість (PageSpeed): WebP ~30% легший
             made.append((s, r.size))
         IMG_DONE[f"/uploads/{stem}{ext}"] = (stem, made, (w, h))
 
@@ -511,7 +512,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <body class="{body_cls}">
 <a class="skip" href="#main">{t['skip']}</a>
 <header class="hd" id="hd"><div class="in gut max">
-  <a class="mk" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark.png" alt="" width="40" height="39"></a>
+  <a class="mk" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="40" height="39"></a>
   <nav aria-label="{t['menu']}">{nav}</nav>
   <a class="sup" href="{url('support', lang)}"{" aria-current=page" if key == 'support' else ""}>{t['nav']['support']}</a>
   <a class="lg" href="{paths[1]}" hreflang="{o}" lang="{o}">{t['other']}</a>
@@ -602,8 +603,8 @@ def event_row(ev, lang, show_title=True):
     title = L(p, "title", lang) or L(ev, "title", lang)
     tt = f'<a href="{show_url(p["slug"], lang)}">{e(title)}</a>' if p else e(title)
     lab = f'<span class="lab">{e(L(ev, "label", lang))}</span>' if L(ev, "label", lang) else ""
-    return f"""<article class="it">{date_block(ev, lang)}
-  <div>{lab}<h3>{tt}</h3></div>
+    return f"""<article class="it"><div class="dcol">{date_block(ev, lang)}{lab}</div>
+  <div><h3>{tt}</h3></div>
   <div class="w"><b>{e(L(ev, 'venue', lang))}</b>{e(L(ev, 'city', lang))}</div>
   <div class="act">{cta(ev, lang)}</div></article>"""
 
@@ -685,7 +686,7 @@ def page_home(lang):
     body = f"""
 <section class="hero" aria-label="{t['name']}">
   {slides}
-  <div class="top gut"><a class="mkb" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark.png" alt="" width="56" height="55"></a>
+  <div class="top gut"><a class="mkb" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="56" height="55"></a>
     <a class="lg" href="{url('home', o)}" hreflang="{o}" lang="{o}">{t['other']}</a><a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a></div>
   <div class="poster gut">
     <div class="now"><p>{e(L(SETTINGS, 'tagline', lang))}</p>
@@ -981,9 +982,9 @@ def page_contact(lang):
         *([("YouTube", c["youtube"], "@BentegyTheatre", "Відео театру." if uk else "Theatre videos.")] if c.get("youtube") else []),
         ("Пресматеріали" if uk else "Press kit", url("press", lang), "bentegy.org" + url("press", lang), "Фото, логотипи, тексти про театр." if uk else "Photos, logos and texts about the theatre."),
     ]
-    g = "".join(f"<div class='cr'><div><small>{a}</small>{f'<p>{e(p)}</p>' if p else ''}</div><a href='{h}'>{e(v)}</a></div>" for a, h, v, p in items)
+    g = "".join(f"<div class='cr'><small>{a}</small><a href='{h}'>{e(v)}</a><p>{e(p)}</p></div>" for a, h, v, p in items)
     lead = "Пишіть нам щодо співпраці, гастролей, продюсування чи медіа. Відповідаємо українською та англійською." if uk else "Write to us about cooperation, touring, producing or media. We reply in English and Ukrainian."
-    body = page_head(t["nav"]["contact"], lead) + f'<section class="gut max"><div class="cgrid">{g}</div></section>'
+    body = page_head(t["nav"]["contact"], lead) + f'<section class="gut max" style="padding-bottom:clamp(48px,6vw,96px)"><div class="cgrid cmp">{g}</div></section>'
     return head(lang, "contact", t["nav"]["contact"], lead, (url("contact", lang), url("contact", other(lang)))) + body + foot(lang)
 
 
@@ -1251,7 +1252,9 @@ def page_media(m, lang):
   {f'<div><dt>{"Автор" if uk else "Author"}</dt><dd>{au}</dd></div>' if au else ''}
   <div><dt>{"Дата" if uk else "Date"}</dt><dd>{fdate(m['date'], lang)}</dd></div>
   <div><dt>{"Читання" if uk else "Reading"}</dt><dd>{read_min(m, lang)}</dd></div></dl>{prod}</aside>"""
-        top = f'<header class="ahead gut max">{kicker}<h1>{e(title)}</h1><p class="alead">{e(L(m, "lead", lang))}</p>{f"<p class=aby>{au}</p>" if au else ""}</header>'
+        _b = (L(m, "body", lang) or "").lstrip(" >*_#\n")
+        _fl = urllib.parse.quote(_b[:1] or "А")
+        top = f'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&display=swap&text={_fl}"><header class="ahead gut max">{kicker}<h1>{e(title)}</h1><p class="alead">{e(L(m, "lead", lang))}</p>{f"<p class=aby>{au}</p>" if au else ""}</header>'
         main = f'<div class="gut max">{fig}</div><div class="atext gut max">{aside}<article class="article">{bodyh}{src}</article></div>'
         cls = "rd rd-text"
     elif tp == "release":

@@ -1,40 +1,40 @@
 # Слайди на головній: лише кадри, яких немає на сторінках вистав (обкладинки й галереї). Фото «Коней за вікном» — до кінця 2026.
 hero:
-  - image: /uploads/msid-ladder.jpg
+  - image: /uploads/msid-show-1.jpg
     caption_uk: Між світом і душею
     caption_en: Between the World and the Soul
     link: /vystavy/mizh-svitom-i-dusheyu/
-    pos: 58% 50%
+    pos: 45% 50%
   - image: /uploads/koni-10.jpg
     caption_uk: Коні за вікном
     caption_en: Horses Outside the Window
     link: /vystavy/koni-za-viknom/
     pos: 50% 35%
-  - image: /uploads/kinets-zminy-stage.jpg
+  - image: /uploads/kinets-zminy-show-1.jpg
     caption_uk: Кінець зміни
     caption_en: End of Shift
     link: /vystavy/kinets-zminy/
-    pos: 50% 50%
+    pos: 35% 45%
   - image: /uploads/promova-2026-09.jpg
     caption_uk: Промова 2.0
     caption_en: The Speech 2.0
     link: /vystavy/promova/
     pos: 40% 50%
-  - image: /uploads/inferior-play-hero.jpg
+  - image: /uploads/inferior-play-wip-2.jpg
     caption_uk: The Inferior Play
     caption_en: The Inferior Play
     link: /vystavy/the-inferior-play/
-    pos: 60% 50%
-  - image: /uploads/msid-scene-2.jpg
+    pos: 55% 50%
+  - image: /uploads/msid-show-2.jpg
     caption_uk: Між світом і душею
     caption_en: Between the World and the Soul
     link: /vystavy/mizh-svitom-i-dusheyu/
-    pos: 50% 50%
-  - image: /uploads/kinets-zminy-dance.jpg
+    pos: 72% 50%
+  - image: /uploads/kinets-zminy-show-2.jpg
     caption_uk: Кінець зміни
     caption_en: End of Shift
     link: /vystavy/kinets-zminy/
-    pos: 55% 50%
+    pos: 65% 40%
   - image: /uploads/koni-07.jpg
     caption_uk: Коні за вікном
     caption_en: Horses Outside the Window
@@ -76,6 +76,9 @@ partners:
   - NASHi Experimental Theatre Club
   - Українські ЛГБТ-військові (Veteran Hub) / Ukrainian LGBT Military (Veteran Hub)
   - Per Forma
+  - Creative Europe | ALIVE / Creative Europe | ALIVE
+  - Aeroplio Topos Allou (Афіни) / Aeroplio Topos Allou (Athens)
+  - ITI Germany
 # Статистика відвідувань GoatCounter: впишіть код сайту (наприклад bentegy), щоб увімкнути
 ga4: "G-34R5G2Q44D"
 # Google Ads (Ad Grants): тег і конверсії (покупка квитка / перехід до оплати). Не видаляти.
