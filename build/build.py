@@ -512,7 +512,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <body class="{body_cls}">
 <a class="skip" href="#main">{t['skip']}</a>
 <header class="hd" id="hd"><div class="in gut max">
-  <a class="mk" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="40" height="39"></a>
+  <a class="mk" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="40" height="39"><span class="wm">{'Театр Бентеги' if lang == 'uk' else 'Bentegy Theatre'}</span></a>
   <nav aria-label="{t['menu']}">{nav}</nav>
   <a class="sup" href="{url('support', lang)}"{" aria-current=page" if key == 'support' else ""}>{t['nav']['support']}</a>
   <a class="lg" href="{paths[1]}" hreflang="{o}" lang="{o}">{t['other']}</a>
@@ -677,7 +677,6 @@ def page_home(lang):
   <div class="two"><span></span><div>
     <p class="big-lead">{e(L(ABOUT, 'lead', lang))}</p>
     <p class="prose" style="margin-top:20px;max-width:62ch">{'<b>Місія.</b> ' if uk else '<b>Mission.</b> '}{e(L(ABOUT, 'mission', lang))}</p>
-    <p class="mu" style="margin-top:16px;max-width:62ch;font-size:15px">{e(L(org, 'name', lang))} | {'код ЄДРПОУ' if uk else 'registration code (EDRPOU)'} {org['edrpou']} | {'неприбуткова організація' if uk else 'registered non-profit'} | {e(L(org, 'address', lang))}. <a href="{url('about', lang) + '#organisation'}">{'Реквізити і документи' if uk else 'Details and documents'}</a></p>
   </div></div>
 </section>"""
     tix_note = (f"Театр Бентеги працює як неприбуткова {e(org['name_uk'][:1].lower() + org['name_uk'][1:])}: кошти від квитків і внесків ідуть на статутну діяльність — нові вистави, гонорари команди, покази й гастролі."
@@ -823,40 +822,52 @@ def ticket_box(ev, p, lang, count):
 def page_producer(lang):
     t = T[lang]
     pr = PRODUCER
-    svc = "".join(f"<div><h3>{e(s['title'])}</h3><p>{e(s['text'])}</p></div>" for s in pr.get(f"services_{lang}", []))
     uk = lang == "uk"
     prods = {p["slug"] for p in PRODUCTIONS}
 
-    def case_html(c):
-        ttl = e(L(c, 'title', lang))
+    def tl(c):
+        ttl = e(L(c, 'title', lang) or c.get('title', ''))
         if c.get("link") in prods:
-            ttl = f'<a href="{url("shows", lang)}{c["link"]}/">{ttl}</a>'
-        return f"""<article class="case"><span class="y">{e(c.get('year', ''))}</span><div><h3>{ttl}</h3><p class="r">{e(L(c, 'role', lang))}</p></div><p>{e(L(c, 'text', lang))}</p></article>"""
-    groups = [("flagship", "Ключові проєкти" if uk else "Key projects"), ("selected", "Вибрані проєкти" if uk else "Selected projects"), ("earlier", "Ранні роботи" if uk else "Earlier work")]
-    cases = ""
-    for gk, gt in groups:
-        items = [c for c in pr.get("cases", []) if (c.get("group") or "selected") == gk]
-        if items:
-            cases += f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{gt}</h2></div>{"".join(case_html(c) for c in items)}</section>'
-    progs = "".join(f"""<article class="case"><span class="y">{e(c.get('year', ''))}</span><div><h3>{e(L(c, 'title', lang))}</h3></div><p>{e(L(c, 'text', lang))}</p></article>""" for c in pr.get("programmes", []))
-    if progs:
-        cases += f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Програми, резиденції, освіта" if uk else "Programmes, residencies, education"}</h2></div>{progs}</section>'
-    mail = SETTINGS["contacts"]["producer"]
+            ttl = f'<a href="{show_url(c["link"], lang)}">{ttl}</a>'
+        return ttl
+
+    def sec(title, inner, extra=""):
+        return f'<section class="sec gut max grp"><div class="sh"><h2>{title}</h2>{extra}</div>{inner}</section>'
+
+    def dl(rows):
+        return '<dl class="fdl">' + "".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in rows) + "</dl>"
     name = L(pr, "name", lang)
-    st_items = "".join(f'<div><b>{e(x.get("n") or x.get("n_" + lang) or "")}</b><span>{e(x.get(lang, ""))}</span></div>' for x in pr.get("stats", []))
-    stats = f'<section class="gut max"><div class="stats">{st_items}</div></section>' if st_items else ""
-    body = f"""<header class="ph gut max"><h1>{e(t['nav']['producer'])}<span class="dot">.</span></h1></header>
-<section class="gut max"><div class="pb">
+    src = L(pr, "lead_source", lang)
+    if src and pr.get("lead_link"):
+        src = f'<a href="{media_url(pr["lead_link"], lang)}">{e(src)}</a>'
+    else:
+        src = e(src)
+    st_items = "".join(f'<div><b>{e(x["n"])}</b><span>{e(x.get(lang, ""))}</span></div>' for x in pr.get("stats", []))
+    now = "".join(f'<li><span>{e(x["year"])}</span>{e(x.get(lang, ""))}</li>' for x in pr.get("now", []))
+    vis = "".join(f'<div><h3>{e(v["title"])}</h3><p>{e(v["text"])}</p></div>' for v in pr.get(f"vision_{lang}", []))
+    sysl = "".join(f"<li><span>{i:02d}</span>{e(x)}</li>" for i, x in enumerate(pr.get(f"system_{lang}", []), 1))
+    prin = "".join(f"<li>{e(x)}</li>" for x in pr.get(f"principles_{lang}", []))
+    flags = "".join(f"""<article class="flag"><div class="fh"><span class="y">{e(f.get('year', ''))}</span><h3>{tl(f)}</h3></div><div class="fb"><p>{e(L(f, 'text', lang))}</p>{dl(f.get('facts_' + lang, []))}</div></article>""" for f in pr.get("flagships", []))
+    cases = "".join(f"""<article class="case"><span class="y">{e(c.get('year', ''))}</span><div><h3>{tl(c)}</h3><p class="r">{e(L(c, 'role', lang))}</p></div><p>{e(L(c, 'text', lang))}</p></article>""" for c in pr.get("cases", []))
+    progs = "".join(f"""<li><span>{e(c.get('year', ''))}</span><b>{e(L(c, 'title', lang) or c.get('title', ''))}</b><em>{e(L(c, 'text', lang))}</em></li>""" for c in pr.get("programmes", []))
+    voices = "".join(f"""<blockquote><p>{e(L(v, 'text', lang))}</p><footer><b>{e(v['author'])}</b>{e(L(v, 'role', lang))}</footer></blockquote>""" for v in pr.get("voices", []))
+    mail = SETTINGS["contacts"]["producer"]
+    body = f"""<section class="gut max pf-top"><div class="pb">
   <figure>{img(pr.get('photo'), name, "(max-width:860px) 100vw, 40vw", eager=True)}<figcaption class="credit-line">{e(bi(pr.get('photo_credit', ''), lang))}</figcaption></figure>
-  <div><p class="role">{e(L(pr, 'role', lang))}</p><p class="n">{'<br>'.join(e(x) for x in name.split(' ', 1))}</p><p class="q">{e(L(pr, 'lead', lang))}</p>{f'<p class="qs">{e(L(pr, "lead_source", lang))}</p>' if L(pr, 'lead_source', lang) else ''}</div>
+  <div><p class="role">{e(L(pr, 'role', lang))}</p><h1 class="n">{'<br>'.join(e(x) for x in name.split(' ', 1))}</h1><blockquote class="q">{e(L(pr, 'lead', lang))}</blockquote><p class="qs">{src}</p></div>
 </div></section>
-{stats}
-<section class="sec gut max"><div class="sh"><h2>{'Біографія' if lang == 'uk' else 'Biography'}</h2></div><div class="two"><span></span><div class="prose">{mdh(L(pr, 'bio', lang))}</div></div></section>
-<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Що я роблю' if lang == 'uk' else 'What I do'}</h2></div><div class="grid2">{svc}</div></section>
-{cases}
-{media_strip(by_author("pavlo-koval"), lang, 'Тексти' if lang == 'uk' else 'Writing', mtype_url('text', lang), 'Усі тексти' if lang == 'uk' else 'All texts', top0=True)}
-<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t['producer_cta']}</h2></div>
-  <div class="cgrid" style="border-top:0"><div class="cr"><div><small>{'Пошта продюсера' if lang == 'uk' else 'Producer email'}</small><p>{'Копродукції, гастролі, продюсування молодих команд, партнерства.' if lang == 'uk' else 'Co-productions, touring, producing for young teams, partnerships.'}</p></div><a href="mailto:{mail}">{mail}</a></div></div></section>
+<section class="gut max"><div class="stats">{st_items}</div></section>
+{sec('Профіль' if uk else 'Profile', f'<div class="two"><ul class="now">{now}</ul><div class="prose">{mdh(L(pr, "bio", lang))}</div></div>')}
+{sec('Метод' if uk else 'Method', f'<p class="kk">{"A | Що я ставлю" if uk else "A | What I stage"}</p><div class="vis">{vis}</div><p class="kk">{"B | Як це доходить до глядача" if uk else "B | How it reaches an audience"}</p><ol class="sysl">{sysl}</ol><p class="kk">{"Принципи" if uk else "Principles"}</p><ol class="prin">{prin}</ol>')}
+{sec('Ключові роботи' if uk else 'Flagship work', flags)}
+{sec('Будувати сцену' if uk else 'Building a scene', f'<div class="two"><span></span><div><div class="prose">{mdh(L(pr, "scene", lang))}</div>{dl(pr.get("scene_facts_" + lang, []))}</div></div>')}
+{sec('Продюсування й копродукції' if uk else 'Producing and co-productions', cases)}
+{sec('Програми, резиденції, гранти' if uk else 'Programmes, residencies, grants', f'<ul class="progl">{progs}</ul>')}
+{sec('Голоси' if uk else 'Voices', f'<div class="voices">{voices}</div>', f'<span class="more">{e(L(pr, "voices_note", lang))}</span>')}
+{media_strip(by_author("pavlo-koval"), lang, 'Тексти' if uk else 'Writing', mtype_url('text', lang), 'Усі тексти' if uk else 'All texts', top0=True)}
+<section class="sec gut max grp"><div class="sh"><h2>{'Працюймо разом' if uk else "Let's work together"}</h2></div>
+  <div class="cgrid cmp"><div class="cr"><small>{'Продюсер' if uk else 'Producer'}</small><a href="mailto:{mail}">{mail}</a><p>{'Копродукції, гастролі, продюсування молодих команд, партнерства.' if uk else 'Co-productions, touring, producing young companies, partnerships.'}</p></div>
+  <div class="cr"><small>Telegram</small><a href="https://t.me/teatr_bentegy">@teatr_bentegy</a><p></p></div></div></section>
 """
     return head(lang, "producer", name, L(pr, "lead", lang), (url("producer", lang), url("producer", other(lang))), og=img_url(pr.get("photo"))) + body + foot(lang)
 

@@ -90,7 +90,7 @@ document.addEventListener('click', function (ev) {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var root = document.documentElement;
   root.classList.add('rv-on');
-  var sel = '.ph, .sh, .shl, .rep .c, .feat, .tc, .it, .case, .mi, .mf, .gal figure, .credits, .facts, .two, .chips, .req, .bin, .stats';
+  var sel = '.rep .c, .gal figure';
   var els = document.querySelectorAll(sel);
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });

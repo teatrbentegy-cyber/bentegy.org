@@ -669,3 +669,131 @@ html.rv-on .sh.rv.is-in::after,html.rv-on .shl.rv.is-in::after{transform:scaleX(
 
 /* есеї: буквиця як у старій книжці */
 .rd-text .article>p:first-child::first-letter{float:left;font:italic 600 6.2em/.82 "Cormorant Garamond",Georgia,"Times New Roman",serif;color:var(--rd);margin:.05em .14em 0 0;padding:.06em .16em .04em .1em;border:1px solid rgba(255,255,255,.4);background:radial-gradient(circle at 30% 30%,rgba(179,18,12,.16),transparent 70%)}
+/* portfolio v5 (1.11) */
+.pf-top{padding-top:clamp(40px,6vw,96px)}
+.pb h1.n{font:900 clamp(60px,9.5vw,170px)/.8 var(--f);letter-spacing:-.055em;text-transform:uppercase}
+.pb blockquote.q{font:600 clamp(20px,2vw,30px)/1.3 var(--f);letter-spacing:-.015em;margin:40px 0 0;max-width:30ch;border-left:2px solid var(--rd);padding-left:22px}
+.pb .qs a{color:inherit;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.3)}
+.pb .qs a:hover{border-color:#fff}
+.now{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.25)}
+.now li{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12);font:500 14px/1.45 var(--f);color:#d6d6d6}
+.now li span{color:var(--mu);font-variant-numeric:tabular-nums}
+.kk{font:600 12px/1 var(--f);letter-spacing:.12em;text-transform:uppercase;color:var(--mu);margin:clamp(36px,4vw,56px) 0 18px}
+.kk:first-of-type{margin-top:28px}
+.vis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.25)}
+.vis>div{padding:22px 22px 4px 0}
+.vis>div+div{padding-left:22px;border-left:1px solid rgba(255,255,255,.12)}
+.vis h3{font:800 clamp(20px,1.7vw,26px)/1 var(--f);letter-spacing:-.02em;text-transform:uppercase;margin-bottom:12px}
+.vis p{color:#cfcfcf;font-size:15px;line-height:1.55}
+.sysl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:1px solid rgba(255,255,255,.25)}
+.sysl li{padding:16px 16px 16px 0;border-bottom:1px solid rgba(255,255,255,.12);font:600 16px/1.3 var(--f)}
+.sysl li span{display:block;color:var(--rd);font:600 12px/1 var(--f);letter-spacing:.1em;margin-bottom:8px}
+.prin{list-style:none;margin:0;padding:0;counter-reset:p}
+.prin li{font:600 clamp(18px,1.6vw,24px)/1.35 var(--f);letter-spacing:-.01em;padding:14px 0;border-top:1px solid rgba(255,255,255,.12);max-width:52ch}
+.flag{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(24px,4vw,72px);border-top:1px solid rgba(255,255,255,.25);padding:clamp(28px,3vw,44px) 0}
+.flag .y{display:block;color:var(--mu);font:600 13px/1 var(--f);letter-spacing:.1em;margin-bottom:14px;font-variant-numeric:tabular-nums}
+.flag h3{font:900 clamp(30px,3.6vw,58px)/.92 var(--f);letter-spacing:-.04em;text-transform:uppercase}
+.flag h3 a{color:inherit;text-decoration:none}
+.flag h3 a:hover{color:var(--rd)}
+.flag .fb>p{color:#d6d6d6;line-height:1.65;max-width:62ch}
+.fdl{display:grid;grid-template-columns:150px 1fr;margin:24px 0 0;border-top:1px solid rgba(255,255,255,.12)}
+.fdl dt,.fdl dd{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.12);margin:0;font-size:14px;line-height:1.45}
+.fdl dt{color:var(--mu);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:11.5px;padding-top:12px}
+.progl{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.25)}
+.progl li{display:grid;grid-template-columns:90px minmax(0,.9fr) minmax(0,1.4fr);gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);align-items:baseline}
+.progl span{color:var(--mu);font-variant-numeric:tabular-nums;font-size:14px}
+.progl b{font:800 clamp(18px,1.6vw,24px)/1.1 var(--f);letter-spacing:-.02em;text-transform:uppercase}
+.progl em{font-style:normal;color:#cfcfcf;font-size:15px;line-height:1.5}
+.voices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(20px,3vw,48px);margin-top:28px}
+.voices blockquote{margin:0;border-top:1px solid rgba(255,255,255,.25);padding-top:22px}
+.voices p{font:600 clamp(19px,1.7vw,26px)/1.3 var(--f);letter-spacing:-.015em}
+.voices p::before{content:"“"}.voices p::after{content:"”"}
+.voices footer{margin-top:18px;font-size:13px;color:var(--mu);line-height:1.5}
+.voices footer b{display:block;color:#fff;font-weight:700}
+@media (max-width:900px){.vis,.sysl{grid-template-columns:repeat(2,minmax(0,1fr))}.vis>div:nth-child(3){padding-left:0;border-left:0}.flag{grid-template-columns:1fr}.voices{grid-template-columns:1fr}.progl li{grid-template-columns:60px 1fr}.progl em{grid-column:2}}
+@media (max-width:560px){.vis{grid-template-columns:1fr}.vis>div+div{padding-left:0;border-left:0}.fdl{grid-template-columns:1fr}.fdl dt{border-bottom:0;padding-bottom:0}}
+/* ===== v5 audit (1.11): тиша замість ефектів ===== */
+/* 1. мобільна афіша */
+@media (max-width:860px){.it{grid-template-columns:1fr!important;gap:10px}.it h3{white-space:normal}.it .act{align-items:flex-start}}
+@media (min-width:861px) and (max-width:1100px){.it{grid-template-columns:150px minmax(0,1fr) 220px 160px}}
+/* 2. трекінг */
+.word{letter-spacing:-.035em;word-spacing:.05em}
+.ph h1,.cover h1,.notitle h1,.bin h2{letter-spacing:-.04em;word-spacing:.04em}
+.sh h2,.shl h2,.it h3,.rep h3,.case h3,.way h3,.rows h3,.prog h3,.feat h3,.tc h3,.tl h3,.grid2 h3,.person b,.flag h3{letter-spacing:-.025em;word-spacing:.08em}
+.mi h3,.mf h2,.ahead h1{letter-spacing:-.02em}
+/* 3. рух: лише короткий кросфейд сторінок і тиха поява фото */
+::view-transition-old(root){animation:vt-o .18s linear both}
+::view-transition-new(root){animation:vt-i .24s linear both}
+@keyframes vt-o{to{opacity:0}}@keyframes vt-i{from{opacity:0}}
+::view-transition-old(site-header),::view-transition-new(site-header){animation:none}
+html.rv-on .rv{opacity:1!important;transform:none!important;transition:none!important;filter:none!important}
+html.rv-on .sh.rv h2,html.rv-on .ph.rv h1,html.rv-on .shl.rv h2{clip-path:none!important;transform:none!important;transition:none!important}
+html.rv-on .sh.rv::after,html.rv-on .shl.rv::after,.sh::after,.shl::after{display:none!important}
+html.rv-on .rep .c.rv .im img,html.rv-on .gal figure.rv img{opacity:0;transition:opacity .7s ease}
+html.rv-on .rep .c.rv.is-in .im img,html.rv-on .gal figure.rv.is-in img{opacity:1}
+.tix,.btn{background-image:none!important}
+.tix::before,.tix::after,.btn::before,.btn::after{display:none!important}
+.hero .slide{transition:opacity 1s ease}
+.hero .slide img,.hero .slide.on img{transform:none!important;transition:none!important}
+/* 5. лінії: 1px, без клітинок */
+.hd{border-bottom:1px solid #262626}
+.hd .mk,.hd nav a,.hd .lg,.hd .sup{border-right:0!important}
+.hd .mk{gap:14px}
+.hd .wm{font:700 17px/1 var(--f);letter-spacing:-.01em;white-space:nowrap}
+.hd nav{justify-content:flex-end;gap:clamp(18px,2.2vw,34px);padding-right:clamp(18px,2.2vw,34px)}
+.hd nav a{flex:none;padding:0;font:500 15px/1 var(--f);color:#9a9a9a;transition:color .15s}
+.hd nav a:hover,.hd nav a[aria-current=page]{background:none!important;color:#fff}
+.hd nav a::after{display:none!important}
+.hd .sup,.hd .lg{color:#9a9a9a;font-weight:500;padding:0 14px}
+.hd .sup:hover,.hd .sup[aria-current=page],.hd .lg:hover{background:none!important;color:#fff}
+@media (max-width:1060px){.burger summary{border-left:0}}
+@media (max-width:420px){.hd .wm{display:none}}
+.sh,.ph h1,.cover h1,.word,.month,.bin,.shl{border-width:1px!important}
+.it,.credits dt,.credits dd,.rows .rw,.cr,.case,.bp,.cov,.way,.goals li,.req dt,.req dd{border-bottom-width:1px!important;border-bottom-color:#262626!important}
+.facts,.credits,.req,.stats,.tiers,.people,.grid2,.cgrid,.hmenu{border-width:1px!important}
+.facts div,.ft .cols>div+div,.stats>div+div,.person+.person,.grid2>div{border-left:0!important;border-right:0!important}
+.sh+.credits,.sh+.req,.sh+.cgrid{border-top:0!important}
+.hmenu a{border:0!important}.hmenu{border-left:0!important;border-right:0!important;border-color:#262626!important}
+.hmenu a:hover{background:none!important;color:#fff}
+/* 6. ієрархія: секційні H2 тихіші */
+.sh h2{font-size:clamp(28px,3vw,46px)!important;font-weight:800;line-height:1}
+.shl h2{font-size:clamp(28px,3vw,46px)!important}
+.mi h3,.mf h2,.mr h3{text-transform:none;font-weight:700;line-height:1.08}
+/* 7. бейджі → метадані, заглушка → типографічна картка */
+.rep .tag,.rep .tag.o,.tag.o{background:none!important;border:0!important;padding:0!important;color:#8c8c8c;font:500 13px/1.3 var(--f);letter-spacing:.02em;text-transform:none}
+.rep .im:has(.ty){background:#0b0b0b url(/brand/mark-solid.png) center/64px no-repeat;outline:1px solid #262626;outline-offset:-1px}
+.rep .im:has(.ty)::after{content:none}
+.rep .im .ty{display:none}
+.ghost{border:0!important;background:none!important;color:#8c8c8c!important;padding-left:0!important}
+/* 8. картки: підписи вирівняні */
+.rep{align-items:start}
+.rep .cap span{text-align:left}
+/* 9. CTA */
+.tix{min-height:48px;padding:0 24px;font:600 15px/1 var(--f)}
+.it .act small{display:none}
+.tiers{background:none!important;border:0!important;gap:0!important}
+.tier{border:0!important;border-bottom:1px solid #262626!important;background:none!important}
+/* 10. буквиця: стримана, без рамки */
+.rd-text .article>p:first-child::first-letter{border:0!important;background:none!important;padding:0!important;font-size:5.4em;line-height:.8;margin:.06em .1em 0 0;color:#fff}
+/* 11. червоний лише для квитків, донату й «Прем'єра» */
+.ph h1 .dot{display:none}
+.case .y,.flag .y,.sysl li span,.md,.mk,.tc .tr,.lab,.month span{color:#8c8c8c}
+.dcol .lab{color:var(--rd)}
+a:hover{text-decoration-color:currentColor}
+/* 12. cookie — тонка смуга */
+.cookie{left:0!important;right:0!important;bottom:0!important;max-width:none!important;margin:0!important;border:0!important;border-top:1px solid #262626!important;padding:14px clamp(16px,2.5vw,36px)!important;background:rgba(0,0,0,.92)!important;backdrop-filter:blur(8px)}
+.cookie p{font-size:13px!important;max-width:none!important}.cookie button{padding:10px 14px!important;font-size:13px!important}
+/* 13. партнери — список без рамок */
+.chips{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 clamp(20px,3vw,48px)!important;border-top:1px solid #262626}
+.chips span{border:0!important;border-bottom:1px solid #262626!important;padding:16px 0!important;font:600 clamp(16px,1.3vw,19px)/1.3 var(--f)!important}
+@media (max-width:760px){.chips{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.chips{grid-template-columns:1fr}}
+/* hero: підпис тихий */
+.hero .cap{font-size:13px}.hero .cap b{font:600 17px/1.2 var(--f)!important;letter-spacing:0!important;margin-top:4px}
+
+.rep .c:nth-child(n){grid-column:span 6}
+.rep .im{aspect-ratio:3/2!important}
+.rep .im img{height:100%;object-fit:cover}
+.rep .cap{border-top-width:1px}
+@media (max-width:760px){.rep .c:nth-child(n){grid-column:1/-1}}
+@media (max-width:760px){.sh{flex-wrap:wrap;gap:8px 16px}.sh .more{white-space:normal;max-width:100%}}
