@@ -11,7 +11,7 @@ premiere_en: 7 August 2026, KultMotyv, Kyiv
 duration_uk: 16:00–23:00, дві сцени, понад 250 гостей
 duration_en: 4 pm to 11 pm, two stages, more than 250 guests
 age: ''
-cover: /uploads/naoslip-crowd.jpg
+cover: /uploads/naoslip-p01.jpg
 summary_uk: Вечір, яким Театр Бентеги відкрив свій перший сезон. Незалежні театри з чотирьох міст уперше зібралися за одним столом.
 summary_en: The evening that opened Bentegy Theatre’s first season. Independent theatres from four cities met at one table for the first time.
 hook_uk: "П'ять театрів, чотири міста, один стіл і понад 250 гостей."
@@ -88,14 +88,11 @@ credits:
   names: КультМотив, Quests, Distil №9, «Пішли в театр»
   names_en: KultMotyv, Quests, Distil No. 9, Pishly v teatr
 gallery:
-- image: /uploads/naoslip-3.jpg
-- image: /uploads/naoslip-4.jpg
-- image: /uploads/naoslip-5.jpg
-- image: /uploads/naoslip-6.jpg
-- image: /uploads/naoslip-7.jpg
-- image: /uploads/naoslip-8.jpg
-- image: /uploads/naoslip-9.jpg
-- image: /uploads/naoslip-10.jpg
-- image: /uploads/naoslip-11.jpg
-- image: /uploads/naoslip-2.jpg
+- image: /uploads/naoslip-p03.jpg
+- image: /uploads/naoslip-p06.jpg
+- image: /uploads/naoslip-p07.jpg
+- image: /uploads/naoslip-p02.jpg
+- image: /uploads/naoslip-p08.jpg
+- image: /uploads/naoslip-p05.jpg
+- image: /uploads/naoslip-p04.jpg
 photo_credit: Анастасія Правік / Anastasiia Pravik

@@ -821,3 +821,4 @@ a:hover{text-decoration-color:currentColor}
 .rep .cap{border-top-width:1px}
 @media (max-width:760px){.rep .c:nth-child(n){grid-column:1/-1}}
 @media (max-width:760px){.sh{flex-wrap:wrap;gap:8px 16px}.sh .more{white-space:normal;max-width:100%}}
+.gal figure.v:not(:nth-child(3n+1)) img{aspect-ratio:4/5}

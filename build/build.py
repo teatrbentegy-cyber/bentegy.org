@@ -776,7 +776,9 @@ def page_show(p, lang):
     for g in (p.get("gallery") or []):
         cap = L(g, "caption", lang)
         fc = f"<figcaption>{e(cap)}</figcaption>" if cap else ""
-        gal_items.append(f'<figure>{img(g["image"], cap or title, "(max-width:640px) 100vw, 50vw")}{fc}</figure>')
+        _d = IMG_DONE.get(g["image"])
+        _v = ' class="v"' if _d and _d[2][1] > _d[2][0] else ''
+        gal_items.append(f'<figure{_v}>{img(g["image"], cap or title, "(max-width:640px) 100vw, 50vw")}{fc}</figure>')
     pc = f'<p class="credit-line">{"Фото" if lang == "uk" else "Photo"}: {e(bi(p.get("photo_credit"), lang))}</p>' if p.get("photo_credit") else ""
     body = f"""{top}
 {tixbox}
