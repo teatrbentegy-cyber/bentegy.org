@@ -5,46 +5,46 @@ hero:
     caption_en: Between the World and the Soul
     link: /vystavy/mizh-svitom-i-dusheyu/
     pos: 45% 50%
+  - image: /uploads/kinets-zminy-sea.jpg
+    caption_uk: Кінець зміни
+    caption_en: End of Shift
+    link: /vystavy/kinets-zminy/
+    pos: 50% 40%
+  - image: /uploads/promova-2026-13.jpg
+    caption_uk: Промова 2.0
+    caption_en: The Speech 2.0
+    link: /vystavy/promova/
+    pos: 45% 40%
   - image: /uploads/koni-10.jpg
     caption_uk: Коні за вікном
     caption_en: Horses Outside the Window
     link: /vystavy/koni-za-viknom/
     pos: 50% 35%
-  - image: /uploads/kinets-zminy-show-1.jpg
-    caption_uk: Кінець зміни
-    caption_en: End of Shift
-    link: /vystavy/kinets-zminy/
-    pos: 35% 45%
-  - image: /uploads/promova-2026-09.jpg
-    caption_uk: Промова 2.0
-    caption_en: The Speech 2.0
-    link: /vystavy/promova/
-    pos: 40% 50%
   - image: /uploads/inferior-play-wip-2.jpg
     caption_uk: The Inferior Play
     caption_en: The Inferior Play
     link: /vystavy/the-inferior-play/
     pos: 55% 50%
+  - image: /uploads/kinets-zminy-hands.jpg
+    caption_uk: Кінець зміни
+    caption_en: End of Shift
+    link: /vystavy/kinets-zminy/
+    pos: 45% 50%
   - image: /uploads/msid-show-2.jpg
     caption_uk: Між світом і душею
     caption_en: Between the World and the Soul
     link: /vystavy/mizh-svitom-i-dusheyu/
     pos: 72% 50%
-  - image: /uploads/kinets-zminy-show-2.jpg
-    caption_uk: Кінець зміни
-    caption_en: End of Shift
-    link: /vystavy/kinets-zminy/
-    pos: 65% 40%
+  - image: /uploads/promova-2026-11.jpg
+    caption_uk: Промова 2.0
+    caption_en: The Speech 2.0
+    link: /vystavy/promova/
+    pos: 50% 45%
   - image: /uploads/koni-07.jpg
     caption_uk: Коні за вікном
     caption_en: Horses Outside the Window
     link: /vystavy/koni-za-viknom/
     pos: 58% 40%
-  - image: /uploads/promova-2025-show.jpg
-    caption_uk: Промова, 2025
-    caption_en: The Speech, 2025
-    link: /vystavy/promova-2025/
-    pos: 50% 42%
 tagline_uk: Незалежний театр у Києві. Кожна вистава шукає власну форму.
 tagline_en: An independent theatre company in Kyiv. Every production finds its own form.
 contacts:
