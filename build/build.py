@@ -78,6 +78,15 @@ if SETTINGS.get("media_enabled") is False:
     MEDIA = []
 GROUP_ORDER = {"team": 0, "collab": 1, "authors": 2}
 # Показуємо лише людей з іменем: порожні ролі без імені виглядали б як заглушки
+PROCESS = []
+for d in load_dir("process"):
+    if d.get("draft") or not d.get("date"):
+        continue
+    if isinstance(d["date"], str):
+        d["date"] = dt.date.fromisoformat(d["date"][:10])
+    PROCESS.append(d)
+PROCESS.sort(key=lambda d: (d["date"], d["slug"]), reverse=True)
+
 TEAM = [d for d in load_dir("team") if d.get("name_uk") or d.get("name_en")]
 TEAM.sort(key=lambda d: (GROUP_ORDER.get(d.get("group") or "team", 3), d.get("order") or 99, d.get("name_uk") or ""))
 TEAM_BY = {d["slug"]: d for d in TEAM}
@@ -106,6 +115,7 @@ R = {  # routes: key -> (uk, en)
     "press": ("/presa/", "/en/press/"),
     "media": ("/media/", "/en/media/"),
     "team": ("/komanda/", "/en/team/"),
+    "process": ("/protses/", "/en/process/"),
 }
 MTYPE = {  # media type -> (uk path, en path, uk label, en label, uk singular, en singular)
     "text": ("teksty", "texts", "Критичні тексти та есеї", "Essays and criticism", "Текст", "Essay"),
@@ -113,17 +123,17 @@ MTYPE = {  # media type -> (uk path, en path, uk label, en label, uk singular, e
     "release": ("presrelizy", "press-releases", "Пресрелізи", "Press releases", "Пресреліз", "Press release"),
     "news": ("novyny", "news", "Новини", "News", "Новина", "News"),
 }
-NAV = ["afisha", "shows", "media", "about", "contact"]
+NAV = ["afisha", "shows", "process", "media", "about", "contact"]
 FOOT = ["support", "press", "producer"]
 T = {
-    "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти", support="Підтримати", press="Преса", media="Медіа", team="Команда"),
+    "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", process="Процес", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти", support="Підтримати", press="Преса", media="Медіа", team="Команда"),
                tickets="Квитки", menu="Меню", skip="До змісту", other="EN", soon="Продаж скоро", free="Вхід вільний", sold="Квитки продано",
                all_dates="Уся афіша", all_shows="Усі вистави", next="Найближчі покази", repertoire="Репертуар", produced="Продюсування",
                upcoming_tag="Прем'єра скоро", produced_tag="За продюсування Бентег", nodates="Нові дати зʼявляться найближчим часом. Стежте за анонсами в Instagram і Telegram.",
                genre="Жанр", premiere="Прем'єра", duration="Тривалість", age="Вік", credits="Команда", dates="Дати показів", photos="Фото",
                producer_cta="Співпраця з продюсером", about_producer="Засновник і продюсер", read_more="Детальніше", time="Час",
                legal="Діє через Громадську організацію «В РЕСУРСІ» | код ЄДРПОУ 44977435", sections="Розділи", connect="Звʼязок", org_h="Організація"),
-    "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", press="Press", media="Media", team="Team"),
+    "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", process="Process", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", press="Press", media="Media", team="Team"),
                tickets="Tickets", menu="Menu", skip="Skip to content", other="UA", soon="On sale soon", free="Free entry", sold="Sold out",
                all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Produced by Bentegy",
                upcoming_tag="Premiering soon", produced_tag="Produced by Bentegy", nodates="New dates will be announced soon. Follow us on Instagram and Telegram.",
@@ -657,6 +667,61 @@ def process_strip(lang, top0=False):
   <div class="proc">{figs}</div>{f'<p class="credit-line">{e(cr)}</p>' if cr else ''}</section>"""
 
 
+def process_card(n, lang):
+    p = BY_SLUG.get(n.get("production"), {})
+    d = n["date"]
+    meta = " | ".join(x for x in (L(n, "kind", lang), f"{d.day:02d}.{d.month:02d}.{d.year}", L(n, "place", lang)) if x)
+    title = L(p, "title", lang) or L(n, "title", lang)
+    href = show_url(p["slug"], lang) if p else url("process", lang)
+    pic = img(n.get("image"), title, "(max-width:760px) 100vw, 33vw") or '<span class="pmk"><img src="/brand/mark-solid.png" alt="" width="80" height="78"></span>'
+    return f'<a class="pc" href="{href}"><div class="im">{pic}</div><p class="mono">{e(meta)}</p><h3>{e(title)}</h3><p>{e(L(n, "text", lang))}</p></a>'
+
+
+def process_block(items, lang, home=False):
+    if not items:
+        return ""
+    uk = lang == "uk"
+    more = f'<a class="more" href="{url("process", lang)}">{"Увесь процес" if uk else "All process notes"}</a>' if home else ""
+    title = ("Зараз у процесі" if uk else "In process now") if home else ("Нотатки" if uk else "Notes")
+    return f'<section class="sec gut max"><div class="sh"><h2>{title}</h2>{more}</div><div class="proc3">{"".join(process_card(n, lang) for n in items)}</div></section>'
+
+
+def series_block(lang):
+    p = BY_SLUG.get("naoslip")
+    if not p:
+        return ""
+    uk = lang == "uk"
+    return f"""<section class="sec gut max"><div class="sh"><h2>{'Серія' if uk else 'Series'}</h2><a class="more" href="{show_url('naoslip', lang)}">{'Про НАОСЛІП' if uk else 'About NAOSLIP'}</a></div>
+  <a class="series" href="{show_url('naoslip', lang)}"><div class="im">{img(p.get('cover'), L(p, 'title', lang), "(max-width:860px) 100vw, 58vw")}</div>
+  <div><p class="mono">{'Вечір незалежного театру | 07.08.2026 | КультМотив, Київ' if uk else 'An evening of independent theatre | 07.08.2026 | KultMotyv, Kyiv'}</p><h3>{e(L(p, 'title', lang))}</h3><p>{e(L(p, 'summary', lang))}</p></div></a></section>"""
+
+
+def people_block(lang):
+    core = [x for x in TEAM if (x.get("group") or "team") == "team" and x.get("photo")]
+    if not core:
+        return ""
+    uk = lang == "uk"
+    cards = "".join(f'<a class="pp" href="{url("about", lang)}#{x["slug"]}">{img(x.get("photo"), L(x, "name", lang), "(max-width:760px) 50vw, 20vw")}<b>{e(L(x, "name", lang))}</b><span class="mono">{e(L(x, "role", lang))}</span></a>' for x in core)
+    return f'<section class="sec gut max"><div class="sh"><h2>{"Люди" if uk else "People"}</h2><a class="more" href="{url("about", lang)}#team">{"Команда" if uk else "Team"}</a></div><div class="people5">{cards}</div></section>'
+
+
+def partners_block(lang):
+    ps = SETTINGS.get("partners", [])
+    if not ps:
+        return ""
+    uk = lang == "uk"
+    return f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Партнери" if uk else "Partners"}</h2></div><div class="plist">{"".join(f"<span>{e(bi(x, lang))}</span>" for x in ps)}</div></section>'
+
+
+def page_process(lang):
+    uk = lang == "uk"
+    lead = ("Що відбувається всередині театру: репетиції, резиденції, нові версії вистав і проєкти в розробці." if uk
+            else "What is happening inside the theatre: rehearsals, residencies, new versions of productions and work in development.")
+    title = T[lang]["nav"]["process"]
+    body = page_head(title, lead) + f'<section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="proc3">{"".join(process_card(n, lang) for n in PROCESS)}</div></section>'
+    return head(lang, "process", title, lead, (url("process", lang), url("process", other(lang)))) + body + foot(lang)
+
+
 def page_home(lang):
     t = T[lang]
     o = other(lang)
@@ -678,7 +743,6 @@ def page_home(lang):
   <div class="sh"><h2>{'Хто ми' if uk else 'Who we are'}</h2><a class="more" href="{url('about', lang)}">{'Про театр' if uk else 'About us'}</a></div>
   <div class="two"><span></span><div>
     <p class="big-lead">{e(L(ABOUT, 'lead', lang))}</p>
-    <p class="prose" style="margin-top:20px;max-width:62ch">{'<b>Місія.</b> ' if uk else '<b>Mission.</b> '}{e(L(ABOUT, 'mission', lang))}</p>
   </div></div>
 </section>"""
     tix_note = (f"Театр Бентеги працює як неприбуткова {e(org['name_uk'][:1].lower() + org['name_uk'][1:])}: кошти від квитків і внесків ідуть на статутну діяльність — нові вистави, гонорари команди, покази й гастролі."
@@ -696,17 +760,20 @@ def page_home(lang):
     <nav class="hmenu" aria-label="{t['menu']}" style="--n:{len(hv)}">{hmenu}</nav>
   </div>
 </section>
-{who}
 <section class="sec gut max">
   <div class="sh"><h2>{t['nav']['afisha']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>
   {schedule(EVENTS[:5], lang, group=False)}
-  <p class="mu" style="margin-top:20px;max-width:62ch;font-size:15px">{tix_note}</p>
 </section>
+{process_block(PROCESS[:3], lang, home=True)}
 <section class="sec gut max">
   <div class="sh"><h2>{t['nav']['shows']}</h2><a class="more" href="{url('shows', lang)}">{t['all_shows']}</a></div>
   <div class="rep">{''.join(card(p, lang) for p in rep)}</div>
 </section>
+{series_block(lang)}
+{people_block(lang)}
+{who}
 {media_strip(([m for m in MEDIA if m["type"] in ("text", "article")] + [m for m in MEDIA if m["type"] not in ("text", "article")])[:3], lang, t['nav']['media'], url('media', lang), 'Усе з медіа' if lang == 'uk' else 'All media') if MEDIA else ''}
+{partners_block(lang)}
 <section class="band gut max"><div class="bin">
   <h2>{'Ваш вихід' if lang == 'uk' else 'Your cue'}<span class="dot">.</span></h2>
   <div><p>{'Кожна прем’єра Бентег починається задовго до першого глядача — з людей, які повірили в неї раніше за всіх. Ваш внесок стає репетиціями, світлом і новою виставою в Києві.' if lang == 'uk' else 'Every Bentegy premiere begins long before the first audience, with the people who believed in it first. Your gift becomes rehearsals, light on stage and a new production in Kyiv.'}</p>
@@ -1432,7 +1499,7 @@ def build():
     for lang in ("uk", "en"):
         for key, fn in (("home", page_home), ("afisha", page_afisha), ("shows", page_shows), ("producer", page_producer),
                         ("about", page_about), ("contact", page_contact),
-                        ("support", page_support), ("press", page_press)):
+                        ("support", page_support), ("press", page_press), ("process", page_process)):
             write(url(key, lang), fn(lang))
             urls.append(url(key, lang))
         for p in PRODUCTIONS:

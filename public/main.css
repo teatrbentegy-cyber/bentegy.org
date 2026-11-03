@@ -22,6 +22,8 @@
 @font-face{font-family:"Inter Tight";font-weight:900;font-display:swap;src:url(/fonts/inter-tight-cyrillic-ext-900-normal.woff2) format("woff2");unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F}
 @font-face{font-family:"Inter Tight";font-weight:900;font-display:swap;src:url(/fonts/inter-tight-latin-900-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 @font-face{font-family:"Inter Tight";font-weight:900;font-display:swap;src:url(/fonts/inter-tight-latin-ext-900-normal.woff2) format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+@font-face{font-family:"Plex Mono";font-weight:400;font-display:swap;src:url(/fonts/plex-mono-cyrillic-400.woff2) format("woff2");unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:"Plex Mono";font-weight:400;font-display:swap;src:url(/fonts/plex-mono-latin-400.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 /* Bentegy — "Cinema × Poster", all-dark.
    Full-bleed black-and-white stage photography carrying poster-scale grotesque type;
    white rules as structure; red #730302 only for tickets and one accent dot. */
@@ -822,3 +824,32 @@ a:hover{text-decoration-color:currentColor}
 @media (max-width:760px){.rep .c:nth-child(n){grid-column:1/-1}}
 @media (max-width:760px){.sh{flex-wrap:wrap;gap:8px 16px}.sh .more{white-space:normal;max-width:100%}}
 .gal figure.v:not(:nth-child(3n+1)) img{aspect-ratio:4/5}
+
+/* ================= листопад 2026: процес, люди, серія ================= */
+.mono,.it .d small,.it .lab{font-family:"Plex Mono",ui-monospace,monospace!important;font-weight:400!important;font-size:12px!important;line-height:1.45!important;letter-spacing:.06em!important;text-transform:uppercase}
+.mono{color:var(--mu)}
+.proc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px);margin-top:clamp(28px,3vw,40px)}
+.pc{display:block;text-decoration:none}
+.pc .im{aspect-ratio:4/3;overflow:hidden;background:var(--soft);position:relative}
+.pc .im img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+.pc:hover .im img{filter:none}
+.pc .pmk{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0f0f}
+.pc .pmk img{width:72px;height:auto;filter:none}
+.pc .mono{margin:16px 0 10px;color:#bdbdbd}
+.pc h3{font:900 clamp(22px,2vw,30px)/.95 var(--f);letter-spacing:-.04em;text-transform:uppercase}
+.pc:hover h3{text-decoration:underline;text-decoration-thickness:3px;text-decoration-color:var(--rd);text-underline-offset:6px}
+.pc p:last-child{margin-top:10px;color:#cfcfcf;font-size:16px;line-height:1.55}
+.series{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(24px,4vw,64px);align-items:end;margin-top:clamp(28px,3vw,40px);text-decoration:none}
+.series .im{overflow:hidden;aspect-ratio:16/10}
+.series img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .6s}
+.series:hover img{filter:none}
+.series h3{font:900 clamp(48px,6vw,104px)/.86 var(--f);letter-spacing:-.05em;text-transform:uppercase;margin:12px 0 18px}
+.series p:last-child{color:#e6e6e6;max-width:42ch}
+.people5{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.6vw,22px);margin-top:clamp(28px,3vw,40px)}
+.pp{display:block;text-decoration:none}
+.pp img{width:100%;aspect-ratio:3/4;object-fit:cover;filter:grayscale(1);transition:filter .6s}
+.pp:hover img{filter:none}
+.pp b{display:block;margin-top:12px;font:900 clamp(18px,1.5vw,22px)/1 var(--f);letter-spacing:-.03em;text-transform:uppercase}
+.pp .mono{display:block;margin-top:8px}
+.plist{display:flex;flex-wrap:wrap;gap:10px 36px;margin-top:28px;font:600 16px/1.3 var(--f);color:#e6e6e6}
+@media (max-width:860px){.proc3,.series{grid-template-columns:1fr}.people5{grid-template-columns:1fr 1fr}}
