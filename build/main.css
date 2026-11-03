@@ -563,3 +563,8 @@ html.rv-on .rep .c.rv.is-in .im img,html.rv-on .gal figure.rv.is-in img{opacity:
 .hero .poster{row-gap:28px}
 .hero .poster .word{margin:0}
 @media (max-width:860px){.it{grid-template-columns:92px minmax(0,1fr);column-gap:16px}.it .d small{white-space:nowrap;font-size:11px}}
+/* галерея: природні пропорції, без дірок */
+.gal{display:block;columns:2;column-gap:12px}
+.gal figure{break-inside:avoid;margin:0 0 12px}
+.gal img,.gal figure.v img{aspect-ratio:auto;height:auto}
+@media (max-width:640px){.gal{columns:1}}
