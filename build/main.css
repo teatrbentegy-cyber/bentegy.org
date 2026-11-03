@@ -800,7 +800,7 @@ a:hover{text-decoration-color:currentColor}
 .gal figure.v:not(:nth-child(3n+1)) img{aspect-ratio:4/5}
 
 /* ================= листопад 2026: процес, люди, серія ================= */
-.mono,.it .d small,.it .lab{font-family:"Plex Mono",ui-monospace,monospace!important;font-weight:400!important;font-size:12px!important;line-height:1.45!important;letter-spacing:.06em!important;text-transform:uppercase}
+.mono{font:600 12px/1.45 var(--f);letter-spacing:.08em;text-transform:uppercase}
 .mono{color:var(--mu)}
 .proc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2vw,28px);margin-top:clamp(28px,3vw,40px)}
 .pc{display:block;text-decoration:none}
