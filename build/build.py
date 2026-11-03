@@ -591,6 +591,8 @@ def cta(ev, lang):
             return f'<a class="tix" href="{e(ev["ticket_url"])}" target="_blank" rel="noopener">{"Реєстрація" if lang == "uk" else "Register"}</a>'
         return f'<span class="ghost">{t["free"]}</span>'
     if st == "info":
+        if ev.get("info_url"):
+            return f'<a class="tbo" href="{e(ev["info_url"])}" target="_blank" rel="noopener">{e(L(ev, "cta_note", lang))}</a>'
         return f'<span class="ghost">{e(L(ev, "cta_note", lang))}</span>'
     if ev.get("ticket_url"):
         op = f'<small>{e(ev["ticket_operator"])}</small>' if ev.get("ticket_operator") else ""
