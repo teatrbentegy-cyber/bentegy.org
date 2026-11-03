@@ -863,3 +863,5 @@ a:hover{text-decoration-color:currentColor}
 .it .act .tix{background:transparent;border:2px solid var(--r);color:#fff}
 .it .act .tix:hover{background:var(--r)}
 .it .act small{display:none}
+.cover .ink{z-index:1}.cover::after{z-index:2}.cover .in{z-index:3}
+.cover.ink-on img{filter:grayscale(1) contrast(1.06)!important}
