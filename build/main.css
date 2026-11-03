@@ -4,13 +4,13 @@
 :root{
   --bg:#0a0a0a; --fg:#f3f2ee; --mu:#8e8b85; --line:#2a2a2a; --rule:#f3f2ee; --soft:#141414;
   --red:#c3140d; --red-h:#a3100a;
-  --fd:"Fixel Display","Fixel Text","Helvetica Neue",Arial,sans-serif;
+  --fd:"Zakon",Georgia,"Times New Roman",serif;
   --f:"Fixel Text","Helvetica Neue",Arial,sans-serif;
   --fm:"Plex Mono",ui-monospace,Menlo,monospace;
   --fs:"Zakon",Georgia,"Times New Roman",serif;
   --head:64px;
-  --t-display:clamp(56px,11vw,200px);
-  --t-h2:clamp(28px,3.4vw,52px);
+  --t-display:clamp(48px,7.4vw,128px);
+  --t-h2:clamp(28px,2.9vw,46px);
   --t-lead:clamp(20px,1.8vw,28px);
   color-scheme:dark;
 }
@@ -535,3 +535,31 @@ html.rv-on .rep .c.rv.is-in .im img,html.rv-on .gal figure.rv.is-in img{opacity:
 .it .d small{white-space:nowrap}
 @media (max-width:860px){.it .dcol{grid-row:1 / span 3}.it .d small{white-space:normal}}
 .burger .panel .row a.tix{min-height:0;min-width:0;padding:22px 12px}
+
+/* ===== баланс (3.11): заголовки — Zakon, без капсу; рукописний логотип задає тон ===== */
+.burger .panel a,.sh h2,.two>h3,.ph h1,.it h3,.rep .im .ty,.rep h3,.shl h2,.arow b,.cover h1,.notitle h1,.pitch a,.ahead h1,.aprod b,.article h2,.feat h3,.tc h3,.rows h3,.grid2 h3,.way h3,.bin h2,.bh h3,.pb .n,.pb h1.n,.vis h3,.flag h3,.case h3,.progl b,.tbd{font-weight:400!important;text-transform:none!important;letter-spacing:-.01em!important}
+.ph h1,.cover h1,.notitle h1,.ahead h1,.pb h1.n,.bin h2{line-height:.98}
+.sh h2,.shl h2,.it h3,.rep h3,.case h3,.flag h3,.way h3{line-height:1.05}
+.it .d,.stats b,.tier .amt,.tbp,.ahead.news .nd,.tc .ini{font-family:var(--f)!important;font-weight:500!important;letter-spacing:-.02em}
+.it .d{font-size:clamp(24px,2vw,32px)}
+.it h3{font-size:clamp(26px,2.5vw,40px)}
+.rep h3{font-size:clamp(26px,2.4vw,38px)}
+.burger .panel a{font-size:clamp(34px,9vw,52px)}
+.ahead h1{max-width:20ch;font-size:clamp(40px,5.6vw,96px)}
+.ahead.rel h1{font-size:clamp(32px,3.8vw,64px);line-height:1.05}
+/* логотип */
+.hd .brand img{width:auto;height:34px}
+.home .hero .word{border-top:0;padding-top:0;margin:8px 0 0;line-height:0}
+.hero .word img{width:clamp(220px,34vw,560px);height:auto}
+.hero .word{white-space:normal;overflow:visible}
+.ft .word{line-height:0;padding:clamp(32px,4vw,56px) 0 clamp(24px,3vw,40px)}
+.ft .word img{width:clamp(200px,28vw,440px);height:auto}
+.hero .poster{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:12px 40px}
+.hero .poster .now{grid-column:1/-1;order:2;margin:0}
+.hero .poster .word{order:1;grid-column:1}
+.hero .poster .sur{order:3;grid-column:1/-1}
+.hd .brand img{height:44px}
+@media (max-width:1060px){.hd .brand img{height:38px}}
+.hero .poster{row-gap:28px}
+.hero .poster .word{margin:0}
+@media (max-width:860px){.it{grid-template-columns:92px minmax(0,1fr);column-gap:16px}.it .d small{white-space:nowrap;font-size:11px}}

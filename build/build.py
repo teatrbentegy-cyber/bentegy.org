@@ -513,7 +513,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <body class="{body_cls}">
 <a class="skip" href="#main">{t['skip']}</a>
 <header class="hd" id="hd"><div class="in gut max">
-  <a class="brand" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="40" height="39"><span class="wm">{'Театр Бентеги' if lang == 'uk' else 'Bentegy Theatre'}</span></a>
+  <a class="brand" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/lockup-h.png" alt="{t['name']}" width="480" height="213"></a>
   <nav aria-label="{t['menu']}">{nav}</nav>
   <a class="sup" href="{url('support', lang)}"{" aria-current=page" if key == 'support' else ""}>{t['nav']['support']}</a>
   <span class="lg"><b>{'UA' if lang == 'uk' else 'EN'}</b> / <a href="{paths[1]}" hreflang="{o}" lang="{o}">{'EN' if lang == 'uk' else 'UA'}</a></span>
@@ -533,7 +533,7 @@ def foot(lang):
     yt_li = f'<li><a href="{c["youtube"]}">YouTube</a></li>' if c.get("youtube") else ""
     return f"""</main>
 <footer class="ft gut max">
-  <p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
+  <p class="word"><img src="/brand/wordmark.png" alt="{t['name']}" width="1600" height="630" loading="lazy"></p>
   <div class="cols">
     <div><h4>{t['sections']}</h4><ul>{links}</ul></div>
     <div><h4>{t['connect']}</h4><ul>
@@ -686,7 +686,7 @@ def page_home(lang):
   <div class="poster gut max">
     <div class="now"><p>{e(L(SETTINGS, 'tagline', lang))}</p>
       <a class="cap" id="cap" href="{e(first.get('link') or url('shows', lang))}">{'На фото' if uk else 'Pictured'} | <b>{e(L(first, 'caption', lang))}</b></a></div>
-    <h1 class="vh">{t['name']}</h1><p class="word" aria-hidden="true">{'Бентеги' if uk else 'Bentegy'}<span class="dot">.</span></p>
+    <h1 class="word"><img src="/brand/wordmark-teatr.png" alt="{t['name']}" width="1600" height="943"></h1>
     {sur}
   </div>
 </section>
