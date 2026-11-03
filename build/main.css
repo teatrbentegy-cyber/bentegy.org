@@ -568,3 +568,6 @@ html.rv-on .rep .c.rv.is-in .im img,html.rv-on .gal figure.rv.is-in img{opacity:
 .gal figure{break-inside:avoid;margin:0 0 12px}
 .gal img,.gal figure.v img{aspect-ratio:auto;height:auto}
 @media (max-width:640px){.gal{columns:1}}
+/* усі фото — ч/б; колір проявляється при наведенні */
+.gal img,.article img,.dl img{filter:grayscale(1) contrast(1.05);transition:filter .4s ease}
+@media (hover:hover){.gal figure:hover img,.dl figure:hover img{filter:none}}
