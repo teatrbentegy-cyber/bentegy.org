@@ -108,3 +108,69 @@ document.addEventListener('click', function (ev) {
     els.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < innerHeight && r.bottom > 0) el.classList.add('is-in'); });
   });
 })();
+
+// колір проступає плямами, як фарба з лінориту: ч/б → колір при наведенні (на телефоні — коли фото на екрані)
+(function () {
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var NS = 'http://www.w3.org/2000/svg';
+  var sel = '.rep .im, .gal figure, .pc .im, .pp, .series .im, .feat .im, .mf .im, .tc .im, .mn .im, .proc figure, .prog';
+  var hover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+  var uid = 0;
+  function setup(box) {
+    var im = box.querySelector('img');
+    if (!im || box.__ink) return null;
+    var r = im.getBoundingClientRect();
+    var br = box.getBoundingClientRect();
+    if (!r.width || !r.height) return null;
+    var w = Math.round(r.width), h = Math.round(r.height), id = 'ink' + (++uid);
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('class', 'ink'); svg.setAttribute('viewBox', '0 0 ' + w + ' ' + h); svg.setAttribute('aria-hidden', 'true');
+    svg.style.left = (r.left - br.left) + 'px'; svg.style.top = (r.top - br.top) + 'px';
+    svg.style.width = w + 'px'; svg.style.height = h + 'px';
+    var seed = Math.floor(Math.random() * 90) + 1;
+    svg.innerHTML = '<defs><filter id="' + id + 'f" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="' + (12 / Math.max(w, 300)).toFixed(4) + '" numOctaves="3" seed="' + seed + '" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="' + Math.round(Math.max(w, h) * 0.08) + '" xChannelSelector="R" yChannelSelector="G"/></filter>' +
+      '<mask id="' + id + 'm" maskUnits="userSpaceOnUse" x="0" y="0" width="' + w + '" height="' + h + '"><g filter="url(#' + id + 'f)" fill="#fff"></g></mask></defs>' +
+      '<image href="' + (im.currentSrc || im.src) + '" x="0" y="0" width="' + w + '" height="' + h + '" preserveAspectRatio="xMidYMid slice" mask="url(#' + id + 'm)"/>';
+    var g = svg.querySelector('g');
+    var blobs = [], n = 7 + Math.floor(Math.random() * 6), D = Math.hypot(w, h);
+    for (var i = 0; i < n; i++) {
+      var c = document.createElementNS(NS, 'circle');
+      c.setAttribute('cx', Math.random() * w); c.setAttribute('cy', Math.random() * h); c.setAttribute('r', 0);
+      g.appendChild(c);
+      blobs.push({ c: c, delay: Math.random() * 1.1, speed: D * (0.12 + Math.random() * 0.16), max: D * (0.3 + Math.random() * 0.3), r: 0 });
+    }
+    if (getComputedStyle(box).position === 'static') box.style.position = 'relative';
+    box.appendChild(svg); box.classList.add('ink-on');
+    var st = { t: 0, dir: 0, raf: 0, last: 0 };
+    function frame(ts) {
+      var dt = st.last ? (ts - st.last) / 1000 : 0; st.last = ts;
+      st.t = Math.max(0, st.t + dt * (st.dir > 0 ? 1 : -1.6));
+      var alive = false;
+      blobs.forEach(function (b) {
+        var k = Math.max(0, st.t - b.delay);
+        b.r = Math.min(b.max, k * b.speed); b.c.setAttribute('r', b.r.toFixed(1));
+        if (st.dir > 0 ? b.r < b.max : b.r > 0) alive = true;
+      });
+      if (alive) st.raf = requestAnimationFrame(frame); else { st.raf = 0; st.last = 0; }
+    }
+    box.__ink = function (dir) { st.dir = dir; if (!st.raf) { st.last = 0; st.raf = requestAnimationFrame(frame); } };
+    return box.__ink;
+  }
+  var boxes = document.querySelectorAll(sel);
+  if (hover) {
+    boxes.forEach(function (box) {
+      var host = box.closest('a') || box;
+      host.addEventListener('mouseenter', function () { var f = box.__ink || setup(box); if (f) f(1); });
+      host.addEventListener('mouseleave', function () { if (box.__ink) box.__ink(-1); });
+    });
+  } else if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        var box = en.target;
+        if (en.isIntersecting && en.intersectionRatio > 0.55) { var f = box.__ink || setup(box); if (f) f(1); }
+        else if (!en.isIntersecting && box.__ink) box.__ink(-1);
+      });
+    }, { threshold: [0, 0.6] });
+    boxes.forEach(function (b) { io.observe(b); });
+  }
+})();

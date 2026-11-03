@@ -827,3 +827,9 @@ a:hover{text-decoration-color:currentColor}
 .pp .mono{display:block;margin-top:8px}
 .plist{display:flex;flex-wrap:wrap;gap:10px 36px;margin-top:28px;font:600 16px/1.3 var(--f);color:#e6e6e6}
 @media (max-width:860px){.proc3,.series{grid-template-columns:1fr}.people5{grid-template-columns:1fr 1fr}}
+/* колір плямами: ч/б фото лишається ч/б, кольоровий шар проступає поверх */
+.ink{position:absolute;pointer-events:none;z-index:1}
+.ink-on img,.ink-on:hover img,a:hover .ink-on img,.rep .c:hover .ink-on img,.mf:hover .ink-on img,.feat:hover .ink-on img,.pc:hover .ink-on img,.pp:hover.ink-on img,.series:hover .ink-on img,.gal figure.ink-on:hover img{filter:grayscale(1) contrast(1.05)!important;transform:none!important}
+/* одна обробка кольору для всіх фото: приглушена насиченість, теплий нейтральний тон */
+.ink{filter:saturate(.5) sepia(.14) contrast(1.06) brightness(.97)}
+.gal img{filter:grayscale(1) contrast(1.05)}
