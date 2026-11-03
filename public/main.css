@@ -857,3 +857,9 @@ a:hover{text-decoration-color:currentColor}
 /* одна обробка кольору для всіх фото: приглушена насиченість, теплий нейтральний тон */
 .ink{filter:saturate(.5) sepia(.14) contrast(1.06) brightness(.97)}
 .gal img{filter:grayscale(1) contrast(1.05)}
+/* перший екран: слово «Бентеги» менше, головне — фото */
+.hero .word{font-size:clamp(56px,11vw,220px)}
+/* квитки в рядках афіші: тонка червона рамка, заливка при наведенні; суцільна кнопка — лише в шапці */
+.it .act .tix{background:transparent;border:2px solid var(--r);color:#fff}
+.it .act .tix:hover{background:var(--r)}
+.it .act small{display:none}
