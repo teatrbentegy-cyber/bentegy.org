@@ -113,7 +113,7 @@ document.addEventListener('click', function (ev) {
 (function () {
   if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var NS = 'http://www.w3.org/2000/svg';
-  var sel = '.cover, .rep .im, .gal figure, .pc .im, .pp, .series .im, .feat .im, .mf .im, .tc .im, .mn .im, .proc figure, .prog';
+  var sel = '.cover, .rep .im, .pw .im, .gal figure, .pc .im, .pp, .series .im, .feat .im, .mf .im, .tc .im, .mn .im, .proc figure, .prog';
   var hover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
   var uid = 0;
   function setup(box) {

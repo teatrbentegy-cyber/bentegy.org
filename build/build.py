@@ -915,57 +915,80 @@ def ticket_box(ev, p, lang, count):
   {price}<div class="tbb">{''.join(btns)}{more}</div></div></section>"""
 
 
+PF_WORKS = [
+    ("mizh-svitom-i-dusheyu", "2026", "Режисер, автор сценарію", "Director, scriptwriter"),
+    ("under-the-uniform", "2026", "Режисер, драматург", "Director, playwright"),
+    ("promova", "2026", "Режисер", "Director"),
+    (None, "2026", "Продюсер, продакшн-менеджер", "Producer, production manager", "Троянські жінки", "Trojan Women", "Експериментальний театральний клуб «НАШі» | La MaMa ETC", "NASHi Experimental Theatre Club | La MaMa ETC"),
+    ("naoslip", "2026", "Куратор, продюсер", "Curator, producer"),
+    ("koni-za-viknom", "2026", "Продюсер", "Producer"),
+    ("kinets-zminy", "2026", "Продюсер", "Producer"),
+    ("the-inferior-play", "2026", "Продюсер", "Producer"),
+    (None, "2026", "Продюсер компанії", "Company producer", "RUBICON", "RUBICON", "Anthill Dance Theater, Стокгольм", "Anthill Dance Theater, Stockholm"),
+    ("promova-2025", "2025", "Режисер", "Director"),
+]
+
+
 def page_producer(lang):
-    t = T[lang]
     pr = PRODUCER
     uk = lang == "uk"
-    prods = {p["slug"] for p in PRODUCTIONS}
+    name = L(pr, "name", lang)
+    mail = SETTINGS["contacts"]["producer"]
 
-    def tl(c):
-        ttl = e(L(c, 'title', lang) or c.get('title', ''))
-        if c.get("link") in prods:
-            ttl = f'<a href="{show_url(c["link"], lang)}">{ttl}</a>'
-        return ttl
+    def work(w):
+        slug, yr = w[0], w[1]
+        role = w[2] if uk else w[3]
+        if slug and slug in BY_SLUG:
+            p = BY_SLUG[slug]
+            title, href = L(p, "title", lang), show_url(slug, lang)
+            pic = img(p.get("cover"), title, "(max-width:760px) 100vw, 33vw")
+            note = ""
+        else:
+            title, href, pic = (w[4] if uk else w[5]), None, ""
+            note = w[6] if uk else w[7]
+        im = pic or f'<span class="mk">{e(title)}</span>'
+        inner = f'<div class="im">{im}</div><p class="m">{e(yr)} | {e(role)}</p><h3>{e(title)}</h3>' + (f'<p class="nt">{e(note)}</p>' if note else "")
+        return f'<a class="w" href="{href}">{inner}</a>' if href else f'<div class="w">{inner}</div>'
+
+    def wrow(w):
+        slug, yr = w[0], w[1]
+        role = w[2] if uk else w[3]
+        if slug and slug in BY_SLUG:
+            p = BY_SLUG[slug]
+            t = f'<a href="{show_url(slug, lang)}">{e(L(p, "title", lang))}</a>'
+            nt = ((("Прем’єра " if uk else "Premiere ") + L(p, "premiere", lang)) if p.get("status") == "upcoming" and L(p, "premiere", lang) else "")
+        else:
+            t, nt = e(w[4] if uk else w[5]), (w[6] if uk else w[7])
+        return f'<li><span>{e(yr)}</span><b>{t}</b><em>{e(role)}{(" | " + e(nt)) if nt else ""}</em></li>'
+
+    def rows(items):
+        return "".join(f'<li><span>{e(y)}</span><b>{e(t)}</b><em>{e(d)}</em></li>' for y, t, d in items)
+    now = []
+    for x in pr.get("now", []):
+        t, _, d = x.get(lang, "").partition(" | ")
+        now.append((x["year"], t, d))
+    now.sort(key=lambda r: r[0], reverse=True)
+    progs = [(c.get("year", ""), L(c, "title", lang) or c.get("title", ""), L(c, "text", lang)) for c in pr.get("programmes", [])]
+    vis = "".join(f'<div><h3>{e(v["title"])}</h3><p>{e(v["text"])}</p></div>' for v in pr.get(f"vision_{lang}", []))
+    prin = "".join(f"<li>{e(x)}</li>" for x in pr.get(f"principles_{lang}", []))
+    voices = "".join(f"""<blockquote><p>{e(L(v, 'text', lang))}</p><footer><b>{e(v['author'])}</b>{e(L(v, 'role', lang))}</footer></blockquote>""" for v in pr.get("voices", []))
 
     def sec(title, inner, extra=""):
         return f'<section class="sec gut max grp"><div class="sh"><h2>{title}</h2>{extra}</div>{inner}</section>'
-
-    def dl(rows):
-        return '<dl class="fdl">' + "".join(f"<dt>{e(k)}</dt><dd>{e(v)}</dd>" for k, v in rows) + "</dl>"
-    name = L(pr, "name", lang)
-    src = L(pr, "lead_source", lang)
-    if src and pr.get("lead_link"):
-        src = f'<a href="{media_url(pr["lead_link"], lang)}">{e(src)}</a>'
-    else:
-        src = e(src)
-    st_items = "".join(f'<div><b>{e(x["n"])}</b><span>{e(x.get(lang, ""))}</span></div>' for x in pr.get("stats", []))
-    now = "".join(f'<li><span>{e(x["year"])}</span>{e(x.get(lang, ""))}</li>' for x in pr.get("now", []))
-    vis = "".join(f'<div><h3>{e(v["title"])}</h3><p>{e(v["text"])}</p></div>' for v in pr.get(f"vision_{lang}", []))
-    sysl = "".join(f"<li><span>{i:02d}</span>{e(x)}</li>" for i, x in enumerate(pr.get(f"system_{lang}", []), 1))
-    prin = "".join(f"<li>{e(x)}</li>" for x in pr.get(f"principles_{lang}", []))
-    flags = "".join(f"""<article class="flag"><div class="fh"><span class="y">{e(f.get('year', ''))}</span><h3>{tl(f)}</h3></div><div class="fb"><p>{e(L(f, 'text', lang))}</p>{dl(f.get('facts_' + lang, []))}</div></article>""" for f in pr.get("flagships", []))
-    cases = "".join(f"""<article class="case"><span class="y">{e(c.get('year', ''))}</span><div><h3>{tl(c)}</h3><p class="r">{e(L(c, 'role', lang))}</p></div><p>{e(L(c, 'text', lang))}</p></article>""" for c in pr.get("cases", []))
-    progs = "".join(f"""<li><span>{e(c.get('year', ''))}</span><b>{e(L(c, 'title', lang) or c.get('title', ''))}</b><em>{e(L(c, 'text', lang))}</em></li>""" for c in pr.get("programmes", []))
-    voices = "".join(f"""<blockquote><p>{e(L(v, 'text', lang))}</p><footer><b>{e(v['author'])}</b>{e(L(v, 'role', lang))}</footer></blockquote>""" for v in pr.get("voices", []))
-    mail = SETTINGS["contacts"]["producer"]
-    body = f"""<section class="gut max pf-top"><div class="pb">
-  <figure>{img(pr.get('photo'), name, "(max-width:860px) 100vw, 40vw", eager=True)}<figcaption class="credit-line">{e(bi(pr.get('photo_credit', ''), lang))}</figcaption></figure>
-  <div><p class="role">{e(L(pr, 'role', lang))}</p><h1 class="n">{'<br>'.join(e(x) for x in name.split(' ', 1))}</h1><blockquote class="q">{e(L(pr, 'lead', lang))}</blockquote><p class="qs">{src}</p></div>
-</div></section>
-<section class="gut max"><div class="stats">{st_items}</div></section>
-{sec('Профіль' if uk else 'Profile', f'<div class="two"><ul class="now">{now}</ul><div class="prose">{mdh(L(pr, "bio", lang))}</div></div>')}
-{sec('Метод' if uk else 'Method', f'<p class="kk">{"A | Що я ставлю" if uk else "A | What I stage"}</p><div class="vis">{vis}</div><p class="kk">{"B | Як це доходить до глядача" if uk else "B | How it reaches an audience"}</p><ol class="sysl">{sysl}</ol><p class="kk">{"Принципи" if uk else "Principles"}</p><ol class="prin">{prin}</ol>')}
-{sec('Ключові роботи' if uk else 'Flagship work', flags)}
-{sec('Будувати сцену' if uk else 'Building a scene', f'<div class="two"><span></span><div><div class="prose">{mdh(L(pr, "scene", lang))}</div>{dl(pr.get("scene_facts_" + lang, []))}</div></div>')}
-{sec('Продюсування й копродукції' if uk else 'Producing and co-productions', cases)}
-{sec('Програми, резиденції, гранти' if uk else 'Programmes, residencies, grants', f'<ul class="progl">{progs}</ul>')}
+    body = f"""<section class="gut max pf2">
+  <figure class="pp">{img(pr.get('photo'), name, "(max-width:860px) 100vw, 42vw", eager=True)}</figure>
+  <div class="tx"><p class="role">{e(L(pr, 'role', lang))}</p><h1>{'<br>'.join(e(x) for x in name.split(' ', 1))}</h1>
+  <div class="bio">{mdh(L(pr, "bio", lang))}</div>
+  <p class="ct"><a class="tbo" href="mailto:{mail}">{mail}</a><a class="tbo" href="https://t.me/teatr_bentegy" target="_blank" rel="noopener">Telegram</a></p>
+  <p class="credit-line">{e(bi(pr.get('photo_credit', ''), lang))}</p></div>
+</section>
+{sec('Роботи' if uk else 'Work', f'<div class="pw">{"".join(work(w) for w in PF_WORKS if w[0] and w[0] != "promova-2025" and BY_SLUG.get(w[0], {}).get("cover"))}</div><ul class="pwl">{"".join(wrow(w) for w in PF_WORKS if not (w[0] and w[0] != "promova-2025" and BY_SLUG.get(w[0], {}).get("cover")))}</ul>')}
+{sec('Практика' if uk else 'Practice', f'<div class="vis">{vis}</div><ol class="prin pf2p">{prin}</ol>')}
+{sec('Біографія' if uk else 'Biography', f'<div class="pcv"><div><p class="kk">{"Позиції" if uk else "Roles"}</p><ul>{rows(now)}</ul></div><div><p class="kk">{"Програми, резиденції, освіта" if uk else "Programmes, residencies, education"}</p><ul>{rows(progs)}</ul></div></div>')}
 {sec('Голоси' if uk else 'Voices', f'<div class="voices">{voices}</div>', f'<span class="more">{e(L(pr, "voices_note", lang))}</span>')}
 {media_strip(by_author("pavlo-koval"), lang, 'Тексти' if uk else 'Writing', mtype_url('text', lang), 'Усі тексти' if uk else 'All texts', top0=True)}
-<section class="sec gut max grp"><div class="sh"><h2>{'Працюймо разом' if uk else "Let's work together"}</h2></div>
-  <div class="cgrid cmp"><div class="cr"><small>{'Продюсер' if uk else 'Producer'}</small><a href="mailto:{mail}">{mail}</a><p>{'Копродукції, гастролі, продюсування молодих команд, партнерства.' if uk else 'Co-productions, touring, producing young companies, partnerships.'}</p></div>
-  <div class="cr"><small>Telegram</small><a href="https://t.me/teatr_bentegy">@teatr_bentegy</a><p></p></div></div></section>
 """
-    return head(lang, "producer", name, L(pr, "lead", lang), (url("producer", lang), url("producer", other(lang))), og=img_url(pr.get("photo"))) + body + foot(lang)
+    return head(lang, "producer", name, L(pr, "bio", lang)[:160], (url("producer", lang), url("producer", other(lang))), og=img_url(pr.get("photo"))) + body + foot(lang)
 
 
 def team_cards(lang):
