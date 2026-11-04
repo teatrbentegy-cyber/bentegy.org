@@ -831,7 +831,8 @@ def page_show(p, lang):
     kick_h = f'<p class="kick">{"".join(kick)}</p>' if kick else ""
     cover = p.get("cover")
     if cover and cover in IMG_DONE:
-        top = f'<section class="cover">{img(cover, title, "100vw", eager=True)}<div class="in gut max">{kick_h}<h1>{e(title)}</h1><p class="sum">{e(L(p, "summary", lang))}</p></div></section>'
+        cp = f' style="--cp:{e(p["cover_pos"])}"' if p.get("cover_pos") else ""
+        top = f'<section class="cover"{cp}>{img(cover, title, "100vw", eager=True)}<div class="in gut max">{kick_h}<h1>{e(title)}</h1><p class="sum">{e(L(p, "summary", lang))}</p></div></section>'
     else:
         top = f'<header class="notitle gut max">{kick_h}<h1>{e(title)}</h1><p class="sum">{e(L(p, "summary", lang))}</p></header>'
     nxt = [ev for ev in EVENTS if ev.get("production") == p["slug"] and not ev.get(f"date_note_{lang}")]

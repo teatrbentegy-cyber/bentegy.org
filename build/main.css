@@ -841,3 +841,4 @@ a:hover{text-decoration-color:currentColor}
 .it .act small{display:none}
 .cover .ink{z-index:1}.cover::after{z-index:2}.cover .in{z-index:3}
 .cover.ink-on img{filter:grayscale(1) contrast(1.06)!important}
+.cover img{object-position:var(--cp,50% 50%)}
