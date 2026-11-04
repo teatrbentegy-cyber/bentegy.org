@@ -5,6 +5,7 @@ import datetime as dt
 import glob
 import html
 import os
+import sys
 import urllib.parse
 import re
 import shutil
@@ -136,16 +137,26 @@ T = {
     "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", process="Process", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", press="Press", media="Media", team="Team"),
                tickets="Tickets", menu="Menu", skip="Skip to content", other="UA", soon="On sale soon", free="Free entry", sold="Sold out",
                all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Produced by Bentegy",
-               upcoming_tag="Premiering soon", produced_tag="Produced by Bentegy", nodates="New dates will be announced soon. Follow us on Instagram and Telegram.",
-               genre="Form", premiere="Premiere", duration="Running time", age="Age", credits="Credits", dates="Dates", photos="Photos",
+               upcoming_tag="Premiering soon", produced_tag="Bentegy production", nodates="New dates will be announced soon. Follow us on Instagram and Telegram.",
+               genre="Form", premiere="Premiere", duration="Running time", age="Age rating", credits="Credits", dates="Dates", photos="Photos",
                producer_cta="Work with the producer", about_producer="Founder and producer", read_more="Read more", time="Time",
                legal="Operated by NGO “In the Resource” | EDRPOU 44977435", sections="Sections", connect="Contact", org_h="Organisation"),
 }
 
 
+_FALLBACK_WARNED = set()
+
+
 def L(d, key, lang):
     """Localised field with fallback to the other language."""
-    v = d.get(f"{key}_{lang}") or d.get(f"{key}_{'en' if lang == 'uk' else 'uk'}") or ""
+    v = d.get(f"{key}_{lang}")
+    if not v:
+        v = d.get(f"{key}_{'en' if lang == 'uk' else 'uk'}") or ""
+        if v and lang == "en" and key in ("body", "description", "lead", "title", "summary"):
+            k = (d.get("slug") or id(d), key)
+            if k not in _FALLBACK_WARNED:
+                _FALLBACK_WARNED.add(k)
+                print(f"warning: no {key}_en for {d.get('slug') or '?'}; the English page falls back to Ukrainian", file=sys.stderr)
     return v
 
 
@@ -155,6 +166,16 @@ def url(key, lang):
 
 def show_url(slug, lang):
     return f"{url('shows', lang)}{slug}/"
+
+
+def loc_href(u, lang):
+    """Map an internal Ukrainian path (e.g. /vystavy/slug/) to its English equivalent on /en/ pages."""
+    if lang == "uk" or not u or not u.startswith("/") or u.startswith("/en/"):
+        return u
+    for uk_path, en_path in sorted(R.values(), key=lambda x: -len(x[0])):
+        if uk_path != "/" and u.startswith(uk_path):
+            return en_path + u[len(uk_path):]
+    return url("home", lang) if u == "/" else u
 
 
 def bi(text, lang):
@@ -335,7 +356,7 @@ def ld_org(lang):
         "@context": "https://schema.org", "@type": "TheaterGroup",
         "name": T[lang]["name"], "alternateName": ["Театр Бентеги", "Bentegy Theatre", "Бентеги"],
         "url": SITE + url("home", lang), "logo": SITE + "/press/bentegy-znak.png",
-        "image": SITE + OG_DONE.get(f"bentegy-{lang}", ""), "description": L(SETTINGS, "tagline", lang),
+        "image": SITE + OG_DONE.get(f"bentegy-{lang}", ""), "description": L(SETTINGS, "tagline", lang) if lang == "uk" else L(ABOUT, "lead", lang),
         "email": c.get("theatre") or c["team"], "telephone": c["phone"].replace(" ", ""),
         "contactPoint": [{"@type": "ContactPoint", "contactType": ct, "email": em} for ct, em in (("customer support", c.get("theatre")), ("partnerships", c.get("team")), ("press", c.get("press"))) if em],
         "address": {"@type": "PostalAddress", "addressLocality": "Kyiv", "addressCountry": "UA"},
@@ -363,7 +384,7 @@ def ev_start(ev):
     if ev.get("time"):
         try:
             hh, mm = [int(x) for x in str(ev["time"]).split(":")[:2]]
-            return dt.datetime(ev["date"].year, ev["date"].month, ev["date"].day, hh, mm, tzinfo=ZoneInfo("Europe/Kyiv")), True
+            return dt.datetime(ev["date"].year, ev["date"].month, ev["date"].day, hh, mm, tzinfo=ZoneInfo(ev.get("timezone") or "Europe/Kyiv")), True
         except ValueError:
             pass
     return ev["date"], False
@@ -376,6 +397,8 @@ def duration_min(p):
 
 def venue_parts(ev, lang):
     v = L(ev, "venue", lang)
+    if ev.get("street_address") is False:  # venue line has no street (e.g. "Theatre, Gallery"): keep it whole as the place name
+        return v.strip(), ""
     name, _, street = v.partition(",")
     return name.strip(), (L(ev, "address", lang) or street).strip()
 
@@ -397,7 +420,7 @@ def ld_event(ev, lang):
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "location": {"@type": "Place", "name": vname or L(ev, "venue", lang),
-                     "address": {"@type": "PostalAddress", **({"streetAddress": street} if street else {}), "addressLocality": L(ev, "city", lang), "addressCountry": "UA"}},
+                     "address": {"@type": "PostalAddress", **({"streetAddress": street} if street else {}), "addressLocality": L(ev, "city", lang), "addressCountry": ev.get("country") or "UA"}},
         "organizer": theatre, "performer": perf,
         "description": L(p, "summary", lang),
         "inLanguage": lang,
@@ -440,7 +463,7 @@ def analytics():
     aw = (SETTINGS.get("google_ads") or "").strip()  # Google Ads (Ad Grants) conversions
     if ga:
         eea = "AT BE BG HR CY CZ DK EE FI FR DE GR HU IE IT LV LT LU MT NL PL PT RO SK SI ES SE IS LI NO GB CH".split()
-        out += (f'\n<!-- Google tag (gtag.js): вантажимо після завантаження сторінки, щоб не гальмувати показ (PageSpeed) -->'
+        out += (f'\n<!-- Google tag (gtag.js): loaded after page load so it does not delay rendering (PageSpeed) -->'
                 f'\n<script>addEventListener("load",function(){{setTimeout(function(){{var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id={e(ga)}";document.head.appendChild(s)}},1500)}});</script>'
                 "\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
                 f"gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:{eea!r}}});"
@@ -547,7 +570,7 @@ def foot(lang):
     <div><h4>{t['sections']}</h4><ul>{links}</ul></div>
     <div><h4>{t['connect']}</h4><ul>
       <li><small>{'Театр' if lang == 'uk' else 'Theatre'}</small><a href="mailto:{c.get('theatre') or c['team']}">{c.get('theatre') or c['team']}</a></li>
-      <li><small>{'Співпраця й команда' if lang == 'uk' else 'Collaboration and team'}</small><a href="mailto:{c['team']}">{c['team']}</a></li>
+      <li><small>{'Співпраця й команда' if lang == 'uk' else 'Partnerships'}</small><a href="mailto:{c['team']}">{c['team']}</a></li>
       <li><small>{'Преса' if lang == 'uk' else 'Press'}</small><a href="mailto:{c['press']}">{c['press']}</a></li>
       <li><small>{'Продюсер' if lang == 'uk' else 'Producer'}</small><a href="mailto:{c['producer']}">{c['producer']}</a></li>
       <li><small>{'Телефон' if lang == 'uk' else 'Phone'}</small><a href="tel:{c['phone'].replace(' ', '')}">{c['phone']}</a></li></ul></div>
@@ -572,7 +595,7 @@ def consent_banner(lang):
     if not (SETTINGS.get("ga4") or "").strip():
         return ""
     uk = lang == "uk"
-    return f"""<div class="cookie" id="cookie" hidden role="dialog" aria-label="{'Згода на аналітику' if uk else 'Analytics consent'}"><p>{'Ми рахуємо відвідування через Google Analytics, щоб краще планувати покази. Дані знеособлені.' if uk else 'We count visits with Google Analytics to plan our performances better. The data is anonymised.'} <a href="{url('privacy', lang)}">{'Детальніше' if uk else 'Details'}</a></p>
+    return f"""<div class="cookie" id="cookie" hidden role="dialog" aria-label="{'Згода на аналітику' if uk else 'Analytics consent'}"><p>{'Ми рахуємо відвідування через Google Analytics, щоб краще планувати покази. Дані знеособлені.' if uk else 'We count visits with Google Analytics to plan our performances better. We only see aggregated statistics.'} <a href="{url('privacy', lang)}">{'Детальніше' if uk else 'Details'}</a></p>
 <div><button type="button" class="tix" data-consent="yes">{'Погоджуюсь' if uk else 'Accept'}</button><button type="button" class="tbo" data-consent="no">{'Лише необхідне' if uk else 'Essential only'}</button></div></div>"""
 
 
@@ -661,7 +684,7 @@ def process_strip(lang, top0=False):
     figs = "".join(f'<figure>{img(x["image"], L(x, "caption", lang), "(max-width:760px) 50vw, 25vw")}<figcaption>{e(L(x, "caption", lang))}</figcaption></figure>' for x in items)
     cr = bi(ABOUT.get("process_credit", ""), lang)
     st = ' style="padding-top:0"' if top0 else ''
-    intro = ("Репетиції, читки, пошук мізансцени: як вистави Бентег стають виставами." if uk else "Rehearsals, text sessions, finding the staging: how Bentegy productions take shape.")
+    intro = ("Репетиції, читки, пошук мізансцени: як вистави Бентег стають виставами." if uk else "Rehearsals, table reads, blocking: how Bentegy productions take shape.")
     return f"""<section class="sec gut max"{st}><div class="sh"><h2>{'Процес' if uk else 'Process'}</h2></div>
   <p class="mu" style="max-width:62ch;margin-top:18px">{intro}</p>
   <div class="proc">{figs}</div>{f'<p class="credit-line">{e(cr)}</p>' if cr else ''}</section>"""
@@ -682,7 +705,7 @@ def process_block(items, lang, home=False):
         return ""
     uk = lang == "uk"
     more = f'<a class="more" href="{url("process", lang)}">{"Увесь процес" if uk else "All process notes"}</a>' if home else ""
-    title = ("Зараз у процесі" if uk else "In process now") if home else ("Нотатки" if uk else "Notes")
+    title = ("Зараз у процесі" if uk else "Work in progress") if home else ("Нотатки" if uk else "Notes")
     return f'<section class="sec gut max"><div class="sh"><h2>{title}</h2>{more}</div><div class="proc3">{"".join(process_card(n, lang) for n in items)}</div></section>'
 
 
@@ -727,7 +750,7 @@ def page_home(lang):
     o = other(lang)
     hero = SETTINGS.get("hero", [])
     slides = "".join(
-        f'<figure class="slide{" on" if i == 0 else ""}"{f' style="--pos:{e(s["pos"])}"' if s.get("pos") else ""} data-cap="{e(L(s, "caption", lang))}" data-href="{e(s.get("link") or "")}">{img(s["image"], L(s, "caption", lang), "100vw", eager=(i == 0))}</figure>'
+        f'<figure class="slide{" on" if i == 0 else ""}"{f' style="--pos:{e(s["pos"])}"' if s.get("pos") else ""} data-cap="{e(L(s, "caption", lang))}" data-href="{e(loc_href(s.get("link") or "", lang))}">{img(s["image"], L(s, "caption", lang), "100vw", eager=(i == 0))}</figure>'
         for i, s in enumerate(hero))
     first = hero[0] if hero else {}
     ticks = "".join(f'<i{" class=on" if i == 0 else ""}></i>' for i in range(len(hero))) if len(hero) > 1 else ""
@@ -747,7 +770,7 @@ def page_home(lang):
 </section>"""
     tix_note = (f"Театр Бентеги працює як неприбуткова {e(org['name_uk'][:1].lower() + org['name_uk'][1:])}: кошти від квитків і внесків ідуть на статутну діяльність — нові вистави, гонорари команди, покази й гастролі."
                 if uk else
-                f"Bentegy Theatre operates as the non-profit {e(org['name_en'])}: income from tickets and donations goes to its statutory activities — new productions, fair pay for the team, performances and touring.")
+                "Bentegy Theatre operates through the non-profit In the Resource NGO: income from tickets and donations supports its statutory work: new productions, fair pay for the team, performances and touring.")
     body = f"""
 <section class="hero" aria-label="{t['name']}">
   {slides}
@@ -755,7 +778,7 @@ def page_home(lang):
     <a class="lg" href="{url('home', o)}" hreflang="{o}" lang="{o}">{t['other']}</a><a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a></div>
   <div class="poster gut">
     <div class="now"><p>{e(L(SETTINGS, 'tagline', lang))}</p>
-      <a class="cap" id="cap" href="{e(first.get('link') or url('shows', lang))}">{'На фото' if lang == 'uk' else 'Pictured'}<b>{e(L(first, 'caption', lang))}</b><span class="ticks" aria-hidden="true">{ticks}</span></a></div>
+      <a class="cap" id="cap" href="{e(loc_href(first.get('link') or '', lang) or url('shows', lang))}">{'На фото' if lang == 'uk' else 'Pictured'}<b>{e(L(first, 'caption', lang))}</b><span class="ticks" aria-hidden="true">{ticks}</span></a></div>
     <h1 class="vh">{t['name']}</h1><p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
     <nav class="hmenu" aria-label="{t['menu']}" style="--n:{len(hv)}">{hmenu}</nav>
   </div>
@@ -781,14 +804,14 @@ def page_home(lang):
     <a class="go" href="{url('contact', lang)}">{'Стати партнером' if lang == 'uk' else 'Become a partner'}</a></div></div>
 </div></section>
 """
-    return head(lang, "home", "", L(SETTINGS, "tagline", lang), (url("home", lang), url("home", o)), "home", ld=[ld_org(lang)] + ld_events(EVENTS, lang)) + body + foot(lang)
+    return head(lang, "home", "", L(SETTINGS, "tagline", lang) if uk else L(ABOUT, "lead", lang), (url("home", lang), url("home", o)), "home", ld=[ld_org(lang)] + ld_events(EVENTS, lang)) + body + foot(lang)
 
 
 def page_afisha(lang):
     t = T[lang]
     intro = ("Усі найближчі покази Театру Бентеги та вистав, які ми продюсуємо. Квитки продаються через різних операторів, кнопка біля кожної дати веде на потрібний сайт. Кошти від квитків ідуть на статутну діяльність неприбуткової ГО «В РЕСУРСІ»: нові вистави, гонорари команди й покази."
              if lang == "uk" else
-             "All upcoming performances by Bentegy Theatre and the productions we produce. Tickets are sold through different operators; the button next to each date takes you to the right one. Ticket income goes to the statutory activities of the non-profit NGO “In the Resource”: new productions, fair pay for the team and performances.")
+             "All upcoming performances by Bentegy Theatre and the productions we produce. Tickets are sold through different operators; the button next to each date takes you to the right one. Ticket income supports the work of our non-profit, In the Resource: new productions, fair pay for the team, and performances.")
     body = page_head(t["nav"]["afisha"], intro) + f'<section class="gut max" style="padding-bottom:clamp(40px,6vw,80px)">{schedule(EVENTS, lang)}</section>'
     return head(lang, "afisha", t["nav"]["afisha"], intro, (url("afisha", lang), url("afisha", other(lang))), ld=ld_events(EVENTS, lang) or None) + body + foot(lang)
 
@@ -802,7 +825,7 @@ def page_shows(lang):
     evp = [p for p in PRODUCTIONS if p.get("status") == "event"]
     intro = ("Вистави, які ми створюємо й продюсуємо. Кожна шукає власну форму: моновистава в стилі фізичного театру, вечір у справжньому барі, танець без жодного слова, ритуал, гра."
              if lang == "uk" else
-             "Productions we make and produce. Each one finds its own form: a physical-theatre solo, an evening in a real bar, dance without a single word, a ritual, a game.")
+             "Productions we make and produce. Each one finds its own form: a physical-theatre solo, an evening in a working bar, wordless dance, a ritual, a game.")
 
     def sec(title, items):
         if not items:
@@ -838,7 +861,7 @@ def page_show(p, lang):
     nxt = [ev for ev in EVENTS if ev.get("production") == p["slug"] and not ev.get(f"date_note_{lang}")]
     tixbox = ticket_box(nxt[0], p, lang, len(nxt)) if nxt else ""
     is_ev = p.get("status") == "event"
-    facts = [(("Формат" if lang == "uk" else "Format") if is_ev else t["genre"], L(p, "genre", lang)), (("Дата і місце" if lang == "uk" else "Date and venue") if is_ev else t["premiere"], L(p, "premiere", lang)), (("Масштаб" if lang == "uk" else "Scale") if is_ev else t["duration"], L(p, "duration", lang)), (t["age"], p.get("age") or "")]
+    facts = [(("Формат" if lang == "uk" else "Format") if is_ev else t["genre"], L(p, "genre", lang)), (("Дата і місце" if lang == "uk" else "Date and venue") if is_ev else t["premiere"], L(p, "premiere", lang)), (("Масштаб" if lang == "uk" else "At a glance") if is_ev else t["duration"], L(p, "duration", lang)), (t["age"], p.get("age") or "")]
     facts_h = "".join(f"<div><dt>{a}</dt><dd>{e(b)}</dd></div>" for a, b in facts if b)
     evs = [ev for ev in EVENTS if ev.get("production") == p["slug"]]
     credits = "".join(f"<dt>{e(L(c, 'role', lang))}</dt><dd>{e(c.get(f'names_{lang}') or c.get('names', ''))}</dd>" for c in (p.get("credits") or []))
@@ -862,7 +885,7 @@ def page_show(p, lang):
 """
     paths = (show_url(p["slug"], lang), show_url(p["slug"], other(lang)))
     uk = lang == "uk"
-    kind = ("подія" if uk else "event") if is_ev else ("вистава" if uk else "performance")
+    kind = p.get(f"seo_kind_{lang}") or (("подія" if uk else "event") if is_ev else ("вистава" if uk else "performance"))
     seo_title = f"{title}: {kind} {'в Києві' if uk else 'in Kyiv'}" if p.get("status") in ("repertoire", "upcoming", "produced") else title
     desc = L(p, "summary", lang)
     up = [x for x in evs if x["date"] >= TODAY]
@@ -877,7 +900,8 @@ def ticket_box(ev, p, lang, count):
     d = ev["date"]
     tm = f" | {ev['time']}" if ev.get("time") else ""
     when = f"{d.day} {MONTHS[lang][d.month - 1]}, {DOW[lang][d.weekday()]}{tm}"
-    price = f'<p class="tbp">{ev["price"]}{"–" + str(ev["price_max"]) if ev.get("price_max") else ""} ₴</p>' if ev.get("price") else ""
+    _pr = f'{ev.get("price")}{"–" + str(ev["price_max"]) if ev.get("price_max") else ""}'
+    price = (f'<p class="tbp">{_pr} ₴</p>' if uk else f'<p class="tbp">UAH {_pr}</p>') if ev.get("price") else ""
     btns = []
     if ev.get("ticket_url") and ev.get("status") != "sold_out":
         btns.append(f'<a class="tix big" href="{e(ev["ticket_url"])}" target="_blank" rel="noopener" data-provider="{provider(ev["ticket_url"])}" data-show="{p["slug"]}">{"Оплатити через WayForPay" if uk and provider(ev["ticket_url"]) == "wayforpay" else "Pay with WayForPay" if provider(ev["ticket_url"]) == "wayforpay" else T[lang]["tickets"]}</a>')
@@ -966,7 +990,7 @@ def org_block(lang):
     regs = f"{reg.day} {MONTHS[lang][reg.month - 1]} {reg.year}" + (" року" if uk else "")
     mail = SETTINGS["contacts"].get("theatre") or SETTINGS["contacts"]["team"]
     rows = [
-        ("Повна назва" if uk else "Legal name", e(L(o, "name", lang)) + (f" ({e(o['name_en'])})" if uk else f" ({e(o['name_uk'])})")),
+        ("Повна назва" if uk else "Legal name", e(L(o, "name", lang)) + (f" ({e(o['name_en'])})" if uk else f' (“V RESURSI”; in Ukrainian: <span lang="uk">{e(o["name_uk"])}</span>)')),
         ("Код ЄДРПОУ" if uk else "EDRPOU (registration code)", e(str(o["edrpou"]))),
         ("Зареєстровано" if uk else "Registered", e(regs)),
         ("Юридична адреса" if uk else "Registered address", e(L(o, "address", lang))),
@@ -977,7 +1001,7 @@ def org_block(lang):
     dl = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in rows)
     lead = ("Театр Бентеги діє через молодіжну громадську організацію «В РЕСУРСІ» — неприбуткову, позапартійну й незалежну. Організація існує завдяки грантам, квиткам, внескам і партнерствам; документи надаємо на запит."
             if uk else
-            "Bentegy Theatre operates through the youth public association NGO “In the Resource”: non-profit, non-partisan and independent. It is funded by grants, ticket income, donations and partnerships; documents are available on request.")
+            "Bentegy Theatre operates through the youth NGO In the Resource: non-profit, non-partisan and independent. It is funded by grants, ticket income, donations and partnerships; documents are available on request.")
     return f"""<section class="sec gut max grp" id="organisation"><div class="sh"><h2>{'Організація' if uk else 'Organisation'}</h2></div>
   <div class="two"><span></span><div><p class="prose">{lead}</p><dl class="req" style="margin-top:24px">{dl}</dl></div></div></section>"""
 
@@ -1033,7 +1057,7 @@ def page_org(lang):
     goals = "".join(f"<li>{e(g)}</li>" for g in GOALS[lang])
     lead = ("Театр Бентеги діє через молодіжну громадську організацію «В РЕСУРСІ». Організація неприбуткова, позапартійна і незалежна, внесена до Реєстру неприбуткових установ та організацій."
             if uk else
-            "Bentegy Theatre operates through the youth public association NGO “In the Resource”. It is non-profit, non-partisan and independent, and is listed in the Register of Non-Profit Institutions of the State Tax Service of Ukraine.")
+            "Bentegy Theatre operates through the youth NGO In the Resource. It is non-profit, non-partisan and independent, and is listed in the Register of Non-Profit Institutions of the State Tax Service of Ukraine.")
     purpose = ("Розбудова активного громадянського суспільства; всебічний розвиток культури й мистецтва в Україні; підтримка театрального, музичного, літературного, візуального й перформативного мистецтва; формування нових культурних практик та інституцій; розвиток неформальної та громадянської освіти, самовизначення й самореалізація молоді, її змістовне дозвілля."
                if uk else
                "Building an active civil society; the comprehensive development of culture and the arts in Ukraine; supporting theatre, music, literary, visual and performing arts; contributing to new cultural practices and institutions; developing non-formal and civic education and the self-realisation and meaningful leisure of young people.")
@@ -1056,7 +1080,7 @@ def page_contact(lang):
     uk = lang == "uk"
     items = [
         ("Театр і організація" if uk else "Theatre & organisation", f"mailto:{c.get('theatre') or c['team']}", c.get("theatre") or c["team"], "Офіційне листування, державні органи, грантодавці, договори й реквізити." if uk else "Official correspondence, public bodies, funders, contracts and legal details."),
-        ("Співпраця" if uk else "Partnerships", f"mailto:{c['team']}", c["team"], "Партнерства, гастролі, продюсування молодих команд, меценатство." if uk else "Partnerships, touring, producing for young teams, patronage."),
+        ("Співпраця" if uk else "Partnerships", f"mailto:{c['team']}", c["team"], "Партнерства, гастролі, продюсування молодих команд, меценатство." if uk else "Partnerships, touring, producing for emerging companies, patronage."),
         ("Медіа та преса" if uk else "Media & press", f"mailto:{c['press']}", c["press"], "Акредитації, інтервʼю, пресматеріали й фото." if uk else "Accreditation, interviews, press kits and photos."),
         ("Продюсер" if uk else "Producer", f"mailto:{c['producer']}", c["producer"], "Павло Коваль, засновник і продюсер. Для прямого звернення." if uk else "Pavlo Koval, founder and producer. For direct enquiries."),
         ("Телефон" if uk else "Phone", f"tel:{c['phone'].replace(' ', '')}", c["phone"], ""),
@@ -1066,7 +1090,7 @@ def page_contact(lang):
         ("Пресматеріали" if uk else "Press kit", url("press", lang), "bentegy.org" + url("press", lang), "Фото, логотипи, тексти про театр." if uk else "Photos, logos and texts about the theatre."),
     ]
     g = "".join(f"<div class='cr'><small>{a}</small><a href='{h}'>{e(v)}</a><p>{e(p)}</p></div>" for a, h, v, p in items)
-    lead = "Пишіть нам щодо співпраці, гастролей, продюсування чи медіа. Відповідаємо українською та англійською." if uk else "Write to us about cooperation, touring, producing or media. We reply in English and Ukrainian."
+    lead = "Пишіть нам щодо співпраці, гастролей, продюсування чи медіа. Відповідаємо українською та англійською." if uk else "Get in touch about collaborations, touring, producing or press. We reply in English and Ukrainian."
     body = page_head(t["nav"]["contact"], lead) + f'<section class="gut max" style="padding-bottom:clamp(48px,6vw,96px)"><div class="cgrid cmp">{g}</div></section>'
     return head(lang, "contact", t["nav"]["contact"], lead, (url("contact", lang), url("contact", other(lang)))) + body + foot(lang)
 
@@ -1091,7 +1115,7 @@ def page_support(lang):
     free = sp.get(f"free_url_{cur}")
     tiers_html = ""
     if tiers or free:
-        cards = "".join(f"""<div class="tier"><p class="amt">{'{:,}'.format(int(x.get(f'amount_{cur}') or 0)).replace(',', ' ')} {sym}</p><h3>{e(L(x, 'title', lang))}</h3><p>{e(L(x, 'text', lang))}</p>
+        cards = "".join(f"""<div class="tier"><p class="amt">{'' if uk else sym}{'{:,}'.format(int(x.get(f'amount_{cur}') or 0)).replace(',', ' ')}{' ' + sym if uk else ''}</p><h3>{e(L(x, 'title', lang))}</h3><p>{e(L(x, 'text', lang))}</p>
   <a class="tix" href="{e(x[f'url_{cur}'])}" target="_blank" rel="noopener">{'Підтримати' if uk else 'Donate'}</a></div>""" for x in tiers)
         if free:
             cards += f"""<div class="tier free"><p class="amt">{'Своя сума' if uk else 'Any amount'}</p><h3>{'Як вам зручно' if uk else 'Your choice'}</h3><p>{'Кожна гривня йде на вистави, команду й покази.' if uk else 'Every euro goes to productions, the team and performances.'}</p>
@@ -1174,7 +1198,7 @@ def page_press(lang):
                 ds = f"{dd.day:02d}.{dd.month:02d}.{dd.year}"
             except ValueError:
                 ds = d
-            items.append(f"""<a class="cov" href="{e(x['url'])}" target="_blank" rel="noopener"><span class="d">{ds}</span><b>{e(x.get('outlet', ''))}</b><span class="t">{e(x.get('title', ''))}</span><span class="ar">→</span></a>""")
+            items.append(f"""<a class="cov" href="{e(x['url'])}" target="_blank" rel="noopener"><span class="d">{ds}</span><b>{e(x.get(f'outlet_{lang}') or x.get('outlet', ''))}</b><span class="t">{e(x.get(f'title_{lang}') or x.get('title', ''))}</span><span class="ar">→</span></a>""")
         cov = f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Публікації" if uk else "Coverage"}</h2></div>{"".join(items)}</section>'
     qs = ""
     if pr.get("quotes"):
@@ -1274,7 +1298,10 @@ def page_media_index(lang, tp=None):
     uk = lang == "uk"
     items = [m for m in MEDIA if not tp or m["type"] == tp]
     lead = ("Критичні тексти й есеї команди та запрошених авторів, вагомі публікації про театр і наші пресрелізи."
-            if uk else "Essays and criticism by our team and guest authors, key coverage of the company and our press releases.")
+            if uk else {"text": "Essays and criticism by our team and guest authors.",
+                        "article": "Key coverage of Bentegy productions in the media.",
+                        "release": "Press releases on premieres, tours and events, with photos for media.",
+                        "news": "News from the company."}.get(tp, "Essays and criticism by our team and guest authors, key coverage of the company and our press releases."))
     tabs = [(None, "Усе" if uk else "All", url("media", lang))] + [(k, MTYPE[k][2 if uk else 3], mtype_url(k, lang)) for k in MTYPE if any(m["type"] == k for m in MEDIA)]
     tabs_h = "".join(f'<a href="{h}"{" aria-current=page" if k == tp else ""}>{e(n)}<sup>{len([m for m in MEDIA if not k or m["type"] == k])}</sup></a>' for k, n, h in tabs)
     fi = next((m for m in items if m["type"] == "text"), None) or next((m for m in items if m["type"] != "article"), None)
@@ -1449,13 +1476,13 @@ GOALS = {
            "Організація освітніх і культурних заходів: лекцій, тренінгів, майстер-класів, відкритих дискусій, читань.",
            "Розвиток критичного мислення, інклюзивності та міждисциплінарної співпраці в культурі й мистецтві.",
            "Сприятливе середовище для співпраці культурних і громадських організацій, держави, бізнесу та міжнародних партнерів."],
-    "en": ["Promoting culture and theatre, performing, music, visual, film, literary and multidisciplinary art in Ukraine.",
+    "en": ["Promoting culture and the theatre, performing, musical, visual, film, literary and multidisciplinary arts in Ukraine.",
            "Creating conditions for young artists and people in the cultural, creative and educational sectors.",
            "Supporting and running cultural, artistic and educational projects, festivals, residencies, workshops and laboratories.",
            "Supporting the creation of individual and collective works of art, including theatre productions.",
-           "Organising educational and cultural events: lectures, trainings, master classes, open discussions, readings.",
+           "Organising educational and cultural events: lectures, training sessions, masterclasses, open discussions, readings.",
            "Fostering critical thinking, inclusiveness and interdisciplinary cooperation in culture and the arts.",
-           "Building an environment for cooperation between cultural and civil society organisations, the state, business and international partners."],
+           "Building a supportive environment for cooperation between cultural and civil society organisations, the state, business and international partners."],
 }
 
 

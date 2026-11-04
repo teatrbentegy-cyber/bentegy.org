@@ -5,9 +5,9 @@ role_en: Theatre producer | director | playwright
 photo: /uploads/pavlo-koval.jpg
 photo_credit: "Фото: Sergeitsev / Photo: Sergeitsev"
 lead_uk: Я знаю, скільки коштує не бути обʼєктом. Я вже рахував цю ціну в бюджеті.
-lead_en: I know what it costs not to be treated as an object. I have already counted that price in the budget.
+lead_en: I know what it costs not to be an object. I have already counted that cost in a budget.
 lead_source_uk: З есею «Що ми скажемо світові після того, як він почув про нашу війну», 2026
-lead_source_en: From the essay “What Will We Tell the World After It Has Heard About Our War”, 2026
+lead_source_en: From the essay “What Will We Tell the World Now That It Has Heard About Our War”, 2026
 lead_link: shcho-my-skazhemo-svitovi
 stats:
   - n: "250+"
@@ -15,7 +15,7 @@ stats:
     en: events since 2019
   - n: "15"
     uk: проєктів паралельно на піку
-    en: projects in parallel at peak
+    en: projects running in parallel at peak
   - n: "€65K"
     uk: найбільший реалізований бюджет
     en: largest budget delivered
@@ -25,14 +25,14 @@ stats:
 bio_uk: |
   Театральний продюсер, режисер і драматург із Києва, засновник незалежного Театру Бентеги. Як митець працює з документом, свідченням і тілом у постдраматичних формах. Як продюсер будує незалежну сцену Києва: випускає власні роботи, міжнародні копродукції та вистави молодих команд, тримаючи обидві ролі водночас.
 bio_en: |
-  Theatre producer, director and playwright based in Kyiv, founder of the independent Bentegy Theatre. As an artist he works with document, testimony and the body in postdramatic forms. As a producer he builds Kyiv’s independent scene: his own work, international co-productions and work by young companies, holding both roles at once.
+  Theatre producer, director and playwright based in Kyiv, founder of Bentegy Theatre, an independent company. As an artist he works with documents, testimony and the body in postdramatic forms. As a producer he helps build Kyiv’s independent scene, bringing out his own work, international co-productions and work by emerging companies, and holding both roles at once.
 now:
   - year: "2025"
     uk: Театр Бентеги | засновник, продюсер
     en: Bentegy Theatre | founder, producer
   - year: "2023"
     uk: ГО «В РЕСУРСІ» | голова правління
-    en: NGO “In the Resource” | chair of the board
+    en: NGO “In the Resource” | Chair of the Board
   - year: "2024"
     uk: Експериментальний театральний клуб «НАШі» | продюсер, продакшн-менеджер
     en: NASHi Experimental Theatre Club | producer, production manager
@@ -55,7 +55,7 @@ vision_en:
   - title: Document
     text: Interviews, letters, archives, personal testimony — the material the text grows from.
   - title: Body
-    text: Tadashi Suzuki’s method, Viewpoints and Moment Work — the ensemble’s shared language.
+    text: The Suzuki Method, Viewpoints and Moment Work — the ensemble’s shared language.
   - title: Process
     text: Collective devising. The performance is built in rehearsal with the performers.
   - title: Space
@@ -67,15 +67,15 @@ principles_uk:
   - Усе, що ми будуємо, повертається до Києва.
   - Після кожної прем'єри — розмова з глядачами й анкета зворотного звʼязку.
 principles_en:
-  - The same fee for every co-production member, whatever their country.
-  - What we build returns to Kyiv.
+  - Equal fees for everyone in a co-production, whatever country they come from.
+  - Everything we build comes back to Kyiv.
   - Every premiere is followed by an audience talk and a feedback survey.
 flagships:
   - title_uk: Троянські жінки
     title_en: Trojan Women
     year: "2026"
     text_uk: Українська адаптація легендарної вистави La MaMa ETC 1974 року. Вистава говорить вигаданою мовою — інтонацією, голосом, тілом і ритмом, — тож війну, вигнання й колективне горе зрозуміло без перекладу.
-    text_en: A Ukrainian adaptation of La MaMa ETC’s legendary 1974 production. The performance speaks an invented language — through intonation, voice, body and rhythm — so that war, exile and collective grief are understood without translation.
+    text_en: A Ukrainian adaptation of La MaMa ETC’s legendary 1974 production. The performance speaks an invented language — through intonation, voice, body and rhythm — so war, exile and collective grief need no translation.
     facts_uk:
       - ["Роль", "Продюсер, продакшн-менеджер, асистент режисера"]
       - ["Продакшн", "Експериментальний театральний клуб «НАШі», Київ"]
@@ -87,13 +87,13 @@ flagships:
       - ["Production", "NASHi Experimental Theatre Club, Kyiv"]
       - ["Partners", "The Trojan Women Project | La MaMa ETC (New York)"]
       - ["Premiere", "8 May 2026, KÏ FEST, Kyiv"]
-      - ["Scale", "UAH 3.3M (€65,000)"]
+      - ["Budget", "UAH 3.3M (€65,000)"]
   - title_uk: Між світом і душею
     title_en: Between the World and the Soul
     year: "2026"
     link: mizh-svitom-i-dusheyu
     text_uk: Документальна моновистава про памʼять, опір і моральний вибір через постать поета й дисидента Василя Стуса. Текст зібрано з його поезії, листів і автобіографічної прози; пластична партитура — за методом Тадаші Судзукі; мінімальна сценографія створена для гастролей.
-    text_en: A documentary monodrama on memory, resistance and moral choice through the figure of poet and dissident Vasyl Stus. The text is built from his poetry, letters and autobiographical prose; the physical score from Tadashi Suzuki’s method; the minimal set is designed to tour.
+    text_en: A documentary solo performance about memory, resistance and moral choice through the figure of poet and dissident Vasyl Stus. The text draws on his poetry, letters and autobiographical prose; the physical score on the Suzuki Method; the minimal set is built to tour.
     facts_uk:
       - ["Роль", "Режисер, автор сценарію, продюсер"]
       - ["Продакшн", "Театр Бентеги"]
@@ -120,12 +120,12 @@ flagships:
       - ["Role", "Director, playwright, producer"]
       - ["Co-production", "Ukraine — Kosovo, Qendra Multimedia (Pristina)"]
       - ["Grant", "Culture Helps Solidarity, European Cultural Foundation — €30,000"]
-      - ["Partner", "Ukrainian LGBT Military"]
+      - ["Partner", "Ukrainian LGBT Military for Equal Rights"]
       - ["Premiere", "12–13 December 2026, Kyiv. Work-in-progress at Kosovo Theatre Showcase, Prizren"]
 scene_uk: |
   Театр Бентеги — незалежний театр у Києві, заснований 2025 року. Працює з різними жанрами й форматами, з 2026-го має власний репертуарний сезон і діє через ГО «В РЕСУРСІ». Моя робота тут — будувати спільноту, підтримувати незалежних митців і розвивати незалежну сцену Києва.
 scene_en: |
-  An independent theatre in Kyiv, founded in 2025. It works across genres and formats, has run its own repertoire season since 2026 and operates through the NGO “In the Resource”. My work here is community building, support for independent artists and the growth of Kyiv’s independent scene.
+  Bentegy Theatre is an independent theatre company in Kyiv, founded in 2025. It works across genres and formats, has run its own repertory season since 2026 and operates through the NGO In the Resource. My work here is community building, support for independent artists and the growth of Kyiv’s independent scene.
 scene_facts_uk:
   - ["Роль", "Засновник, куратор, продюсер"]
   - ["Модель", "Мінімум грошей, максимум бартеру: майданчик, бар, транспорт і друк — через партнерства"]
@@ -135,7 +135,7 @@ scene_facts_en:
   - ["Role", "Founder, curator, producer"]
   - ["Model", "Minimum cash, maximum barter: venue, bar, transport and print — through partnerships"]
   - ["Research", "Map of Independent Theatre in Ukraine, 2026"]
-  - ["Creative Europe", "Partner of the ALIVE consortium: 9 organisations from 7 countries, 2027–2029, led by Aeroplio Topos Allou (Athens). Score 94/100"]
+  - ["Creative Europe", "Partner in the ALIVE consortium: 9 organisations from 7 countries, 2027–2029, led by Aeroplio Topos Allou (Athens). Score 94/100"]
 cases:
   - title_uk: НАОСЛІП
     title_en: NAOSLIP
@@ -144,7 +144,7 @@ cases:
     role_uk: Куратор, продюсер
     role_en: Curator, producer
     text_uk: "Вечір незалежного театру, що відкрив перший сезон Бентег: перша публічна розмова пʼяти незалежних театрів із Києва, Львова, Харкова й Луцька та відкритий пітчинг молодих команд. 250+ гостей, половина — поза театральною професією."
-    text_en: "The evening of independent theatre that opened Bentegy’s first season: the first public conversation between five independent theatres from Kyiv, Lviv, Kharkiv and Lutsk, and an open pitch for young companies. 250+ guests, half of them from outside the profession."
+    text_en: "The evening of independent theatre that opened Bentegy’s first season: the first public conversation between five independent theatres from Kyiv, Lviv, Kharkiv and Lutsk, and an open pitch for emerging companies. 250+ guests, half of them from outside the profession."
   - title_uk: Коні за вікном
     title_en: Horses Outside the Window
     year: "2026"
@@ -152,21 +152,21 @@ cases:
     role_uk: Продюсер проєкту
     role_en: Project producer
     text_uk: "72 дні від студентської роботи до професійної прем'єри. Переможець пітчингу НАОСЛІП із майстерні Н. К. Долі (КНУТКіТ ім. Карпенка-Карого), режисер Євген Щербань. Прем'єра — 18 жовтня 2026, Chora Stage."
-    text_en: "72 days from a student work to a professional premiere. Winner of the NAOSLIP pitch from N. K. Dolia’s studio (Karpenko-Karyi University), directed by Yevhen Shcherban. Premiered 18 October 2026 at Chora Stage."
+    text_en: "72 days from student project to professional premiere. NAOSLIP pitch winner from Nataliia Dolia’s studio (Karpenko-Karyi University), directed by Yevhen Shcherban. Premiered 18 October 2026 at Chora Stage."
   - title_uk: RUBICON
     title_en: RUBICON
     year: "2026–2027"
     role_uk: Продюсер компанії та її вистав
     role_en: Producer of the company and its shows
     text_uk: "Імерсивна хореографічна вистава Anthill Dance Theater (хореографка Інна Матюшина, Стокгольм). Копродукція з Театром Бентеги; маршрут Гетеборг — Вільнюс — Львів, гастролі 2027 року в плануванні."
-    text_en: "An immersive choreographic performance by Anthill Dance Theater (choreographer Inna Matiushyna, Stockholm). Co-produced with Bentegy Theatre; route Gothenburg — Vilnius — Lviv, a 2027 tour in planning."
+    text_en: "An immersive choreographic performance by Anthill Dance Theater (choreographer Inna Matiushyna, Stockholm). Co-produced with Bentegy Theatre; touring route Gothenburg–Vilnius–Lviv; a 2027 tour is being planned."
   - title_uk: Кінець зміни | The Inferior Play | Промова
     title_en: End of Shift | The Inferior Play | The Speech
     year: "2025–2026"
     role_uk: Продюсер; режисер «Промови»
     role_en: Producer; director of The Speech
     text_uk: Вистави молодих команд, які продюсують Бентеги, і дебют самого театру.
-    text_en: Work by young companies produced by Bentegy, and the theatre’s own debut.
+    text_en: Work by emerging companies produced by Bentegy, and the company’s own debut.
 programmes:
   - year: "2026"
     title: ITI Academy Week
@@ -192,7 +192,7 @@ programmes:
     title_uk: Тисячовесна
     title_en: Tysiachovesna
     text_uk: Вистава «ДІМ» | продюсер
-    text_en: HOME | producer
+    text_en: DIM (Home) | producer
   - year: "2026"
     title_uk: КНУКіМ
     title_en: KNUCA

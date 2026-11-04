@@ -1,9 +1,9 @@
 # Сторінка «Преса»
 lead_uk: Матеріали для медіа, фестивалів і партнерів. Тексти й логотипи можна вільно використовувати в публікаціях про театр. Фото до конкретної вистави чи події надсилаємо за запитом на press@bentegy.org.
-lead_en: Materials for media, festivals and partners. Texts and logos are free to use in coverage of the theatre. Photos of a specific production or event are available on request at press@bentegy.org.
+lead_en: Materials for media, festivals and partners. Texts and logos are free to use in coverage of the company. Photos of a specific production or event are available on request at press@bentegy.org.
 
 about_short_uk: Бентеги — незалежна театральна компанія в Києві, заснована у 2025 році. Театр працює з критично різними формами — від сучасної драматургії до фізичного театру, хореографії, перформансу й ігрових практик — і продюсує молоді незалежні команди.
-about_short_en: Bentegy is an independent theatre company in Kyiv, founded in 2025. It works across sharply different forms, from contemporary drama to physical theatre, choreography, performance and play-based work, and produces young independent companies.
+about_short_en: Bentegy is an independent theatre company in Kyiv, founded in 2025. It works across a wide range of forms, from contemporary drama to physical theatre, choreography, performance and play-based work, and produces work by emerging independent companies.
 
 about_long_uk: |
   Бентеги — незалежна театральна компанія в Києві. Театр заснував продюсер і режисер Павло Коваль у 2025 році; з 2026 року Бентеги мають власний репертуарний сезон, який відкрив вечір незалежного театру НАОСЛІП.
@@ -12,11 +12,11 @@ about_long_uk: |
 
   Театр розвиває міжнародну співпрацю: копродукція з Qendra Multimedia (Приштина), резиденція в Призрені та показ на Kosovo Theatre Showcase, участь у програмі Culture Helps Solidarity Європейської культурної фундації. Бентеги також продюсують молоді незалежні команди та студентські роботи й доводять їх до професійної сцени.
 about_long_en: |
-  Bentegy is an independent theatre company in Kyiv. It was founded by producer and director Pavlo Koval in 2025; since 2026 it has had its own repertoire season, opened by NAOSLIP, an evening of independent theatre.
+  Bentegy is an independent theatre company in Kyiv. It was founded by producer and director Pavlo Koval in 2025; since 2026 it has run its own repertory season, which opened with NAOSLIP, an evening of independent theatre.
 
   Every Bentegy production looks for its own form. The repertoire and produced work include the solo performance Between the World and the Soul, The Speech 2.0, staged in a real working bar, the physical and dance theatre piece End of Shift, the ritual performance Horses Outside the Window after Matei Vișniec, and The Inferior Play, a performative study of play. Guest directors, choreographers, performers and designers make the work; the ensembles share a language of physical training, Viewpoints and Moment Work.
 
-  The company develops international cooperation: a co-production with Qendra Multimedia (Pristina), a residency in Prizren and a showing at Kosovo Theatre Showcase, and participation in the European Cultural Foundation’s Culture Helps Solidarity programme. Bentegy also produces young independent companies and student work and brings it to the professional stage.
+  The company works internationally: a co-production with Qendra Multimedia (Pristina), a residency in Prizren and a showing at Kosovo Theatre Showcase, and participation in the European Cultural Foundation’s Culture Helps Solidarity programme. Bentegy also produces emerging companies and student work, taking it to the professional stage.
 
 logos:
   - file: /press/bentegy-znak.png
@@ -59,30 +59,43 @@ logos:
 # Публікації в медіа. Додавайте лише справжні, з посиланням.
 coverage:
   - outlet: Суспільне Культура
+    outlet_en: Suspilne Culture
     title: "Перформативний сектор — найтоксичніший в Україні? Про що говорили незалежні театри з Києва, Львова, Харкова та Луцька"
+    title_en: "Is the performing arts sector the most toxic in Ukraine? Independent theatres from Kyiv, Lviv, Kharkiv and Lutsk talk (in Ukrainian)"
     date: "2026-09-15"
     url: https://suspilne.media/culture/1402828-performativnij-sektor-najtoksicnisij-v-ukraini-pro-so-govorili-nezalezni-teatri-z-kieva-lvova-harkova-ta-lucka/
   - outlet: Хмарочос
+    outlet_en: Hmarochos
     title: Театри з чотирьох міст України зберуться у Києві на відкриту зустріч «НАОСЛІП»
+    title_en: "Theatres from four Ukrainian cities to meet in Kyiv for NAOSLIP, an open gathering (in Ukrainian)"
     date: "2026-08-01"
     url: https://hmarochos.kiev.ua/2026/08/01/teatry-z-chotyroh-mist-ukrayiny-zberutsya-u-kyyevi-na-vidkrytu-zustrich-naoslip/
   - outlet: The Village Україна
+    outlet_en: The Village Ukraine
     title: "Азійське гард-техно та благодійний велозаїзд: плани на вихідні в Києві"
+    title_en: "Asian hard techno and a charity bike ride: weekend plans in Kyiv (in Ukrainian)"
     date: "2026-08-06"
     url: https://www.village.com.ua/village/culture/weekend-plans/376135-aziyske-gard-tehno-ta-blagodiyniy-velozayizd-plani-na-vihidni-v-kievi
   - outlet: The Village Україна
+    outlet_en: The Village Ukraine
+    title_en: "Book Country at VDNH, Vertuha with rhinestones and a beer festival: where to go in Kyiv this weekend (in Ukrainian)"
     title: "«Книжкова країна» на ВДНГ, Vertuha зі стразами та пивний фестиваль: куди піти у Києві на вихідних"
     date: "2025-09-25"
     url: https://www.village.com.ua/village/culture/weekend-plans/366977-laquo-knizhkova-krayina-raquo-na-vdng-vertuha-zi-strazami-ta-pivniy-festival-kudi-piti-u-kievi-na-vihidnih
   - outlet: Київ Life
+    outlet_en: Kyiv Life
+    title_en: "Horses Outside the Window after Matei Vișniec premieres in Kyiv on 18 October (in Ukrainian)"
     title: "У Києві покажуть «Коні за вікном» за Матеєм Вішнеком: прем'єра 18 жовтня"
     date: "2026-10-13"
     url: https://life.kyiv.ua/news/u-kyievi-pokazhut-koni-za-viknom-za-mateiem-vishnekom-premiera-18-zhovtnia
   - outlet: Kyiv.news
+    title_en: "Karpenko-Karyi University students bring Vișniec’s Horses Outside the Window to Chora on 18 October (in Ukrainian)"
     title: Студенти КНУТКіТ покажуть «Коней за вікном» Вішнєка в «Хорі» 18 жовтня
     date: "2026-10-14"
     url: https://kyiv.news/showbiz/koni-za-viknom-vishniek-premiera-khora/
   - outlet: Київ Life
+    outlet_en: Kyiv Life
+    title_en: "Collider in Kyiv to host Between the World and the Soul, a solo performance using the Suzuki Method (in Ukrainian)"
     title: У київському Collider покажуть моновиставу «Між Світом і Душею» за методом Тадаші Сузукі
     date: "2026-06-05"
     url: https://life.kyiv.ua/news/u-kyivskomu-collider-pokazhut-monovystavu-mizh-svitom-i-dusheiu-za-metodom-tadas

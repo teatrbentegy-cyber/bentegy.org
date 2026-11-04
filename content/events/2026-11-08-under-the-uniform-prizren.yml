@@ -7,11 +7,15 @@ venue_uk: Міський театр ім. Бекіма Фехміу, галер�
 venue_en: Bekim Fehmiu City Theatre, Gallery
 city_uk: Призрен, Косово
 city_en: Prizren, Kosovo
+# Kosovo: country code and time zone for structured data (CET, +01:00 in November); the venue line has no street address
+country: XK
+timezone: Europe/Belgrade
+street_address: false
 label_uk: Kosovo Theatre Showcase 2026 | робоча версія
 label_en: Kosovo Theatre Showcase 2026 | work in progress
 ticket_url: ""
 ticket_operator: ""
 status: info
 cta_note_uk: Про шоукейс
-cta_note_en: About the Showcase
+cta_note_en: About the showcase
 info_url: "https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en"

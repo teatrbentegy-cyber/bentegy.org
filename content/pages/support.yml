@@ -1,11 +1,11 @@
 # Сторінка «Підтримати театр»
 lead_uk: Бентеги — незалежний театр. Кожен внесок стає новою виставою, чесним гонораром для команди й показом для глядачів.
-lead_en: Bentegy is an independent theatre company in Kyiv, making new work and keeping audiences together through the war. Every contribution becomes a new production, fair pay for the team and a performance for the audience.
+lead_en: Bentegy is an independent theatre company in Kyiv. Every contribution becomes a new production, fair pay for the team and a performance for the audience.
 
 # Онлайн-внесок карткою (WayForPay). Коли буде посилання на платіжну сторінку — вставте його сюди.
 online_url: ""
 online_note_uk: 'Оплата через WayForPay: Visa, Mastercard, Apple Pay, Google Pay. Внесок отримує ГО «В РЕСУРСІ» як благодійну пожертву на статутну діяльність.'
-online_note_en: 'Secure payment via WayForPay: Visa and Mastercard from any country, Apple Pay, Google Pay. Donations go to NGO “In the Resource” as a charitable gift for its statutory activities.'
+online_note_en: 'Secure payment via WayForPay: Visa and Mastercard from any country, Apple Pay, Google Pay. Donations go to NGO “In the Resource” as a charitable donation towards its statutory work.'
 
 # Рівні донатів. Посилання — з кабінету WayForPay (Платіжні кнопки). Рівень зʼявляється на сайті, щойно додано посилання:
 # гривневе — на українській сторінці, єврове — на англійській.
@@ -13,17 +13,17 @@ tiers:
   - amount_uah: 300
     amount_eur: 10
     title_uk: Третій дзвінок
-    title_en: Third bell
+    title_en: Curtain up
     text_uk: Маленький жест, з якого починається вечір. Він допомагає комусь опинитися в залі.
-    text_en: The small gesture that opens the evening. It helps someone take a seat in the hall.
+    text_en: The small gesture that starts the evening. It helps someone take their seat.
     url_uah: https://secure.wayforpay.com/donate/bentegy_uah
     url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 800
     amount_eur: 20
     title_uk: Вихід на сцену
-    title_en: Stepping on stage
+    title_en: Entrance
     text_uk: Підтримка людей, які щовечора виходять до вас.
-    text_en: Support for the people who step out to meet you every night.
+    text_en: Support for the people who step out on stage for you, night after night.
     url_uah: https://secure.wayforpay.com/donate/bentegy_uah
     url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 1500
@@ -31,7 +31,7 @@ tiers:
     title_uk: Світло рампи
     title_en: Footlights
     text_uk: Те, що робить виставу видимою.
-    text_en: What makes the performance visible.
+    text_en: The light that lets you see the performance.
     url_uah: https://secure.wayforpay.com/donate/bentegy_uah
     url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 5000
@@ -56,7 +56,7 @@ free_url_eur: https://secure.wayforpay.com/donate/bentegy_eur
 # Банківські реквізити. Порожні поля на сайті не показуються.
 bank:
   recipient_uk: Громадська організація «В РЕСУРСІ»
-  recipient_en: NGO “V RESURSI” (ГО В РЕСУРСІ)
+  recipient_en: NGO “V RESURSI” (In the Resource)
   edrpou: "44977435"
   iban_uah: UA463052990000026009050555082
   bank_uk: АТ КБ «ПриватБанк»
@@ -97,11 +97,11 @@ uses_en:
   - title: The team
     text: Fees for performers, directors, choreographers and designers.
   - title: Performances
-    text: Venue hire, technical equipment and transport for the sets.
+    text: Venue hire, technical equipment and set transport.
   - title: Touring
     text: Festival appearances in Ukraine and abroad.
-  - title: Learning
-    text: Training, open pitches and producing support for young teams.
+  - title: Professional development
+    text: Training, open pitches and producing support for emerging companies.
 
 partners_uk:
   - title: Партнер сезону
@@ -114,7 +114,7 @@ partners_uk:
     text: Особиста підтримка театру з подякою на сайті та в програмках, якщо ви цього бажаєте.
 partners_en:
   - title: Season partner
-    text: Support for the repertoire season, with your brand in every announcement and at every performance.
+    text: Support for the season, with your brand in every announcement and at every performance.
   - title: Production partner
     text: A contribution to a specific premiere or tour.
   - title: In-kind support
