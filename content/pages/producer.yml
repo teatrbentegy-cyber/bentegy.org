@@ -108,20 +108,20 @@ flagships:
     title_en: Under the Uniform
     year: "2026–2027"
     link: under-the-uniform
-    text_uk: Постдокументальна вистава, створена з інтервʼю з ветеранами, зокрема ЛГБТК+ ветеранами ЗСУ, які повертаються з війни з ідентичностями, що їх суспільство досі вважає вразливими. Травмочутлива практика в правозахисній рамці.
-    text_en: A post-documentary performance built from interviews with veterans, including LGBTQ+ veterans of the Ukrainian Armed Forces, returning from war with identities society still treats as vulnerable. Developed through trauma-informed practice, within an explicit human-rights framework.
+    text_uk: Постдокументальна вистава про людей, яких ми бачимо в уніформі, і про те, що лишається під нею. В основі — інтерв'ю з військовими й ветеранами, переосмислені художньо.
+    text_en: A post-documentary performance about the people we see in uniform, and about what remains beneath it. Based on interviews with soldiers and veterans, reimagined as fiction.
     facts_uk:
       - ["Роль", "Режисер, драматург, продюсер"]
       - ["Копродукція", "Україна — Косово, Qendra Multimedia (Приштина)"]
       - ["Грант", "Culture Helps Solidarity, European Cultural Foundation — €30 000"]
-      - ["Партнер", "Українські ЛГБТ-військові"]
-      - ["Прем'єра", "11 грудня 2026, Київ. Робоча версія — Kosovo Theatre Showcase, Призрен"]
+      - ["Партнери", "театральний клуб «НАШі», Veteran Hub, Qendra Multimedia"]
+      - ["Прем'єра", "11 грудня 2026, Київ"]
     facts_en:
       - ["Role", "Director, playwright, producer"]
       - ["Co-production", "Ukraine — Kosovo, Qendra Multimedia (Pristina)"]
       - ["Grant", "Culture Helps Solidarity, European Cultural Foundation — €30,000"]
-      - ["Partner", "Ukrainian LGBT Military for Equal Rights"]
-      - ["Premiere", "11 December 2026, Kyiv. Work-in-progress at Kosovo Theatre Showcase, Prizren"]
+      - ["Partners", "NASHi Theatre Club, Veteran Hub, Qendra Multimedia"]
+      - ["Premiere", "11 December 2026, Kyiv"]
 scene_uk: |
   Театр Бентеги — незалежний театр у Києві, заснований 2025 року. Працює з різними жанрами й форматами, з 2026-го має власний репертуарний сезон і діє через ГО «В РЕСУРСІ». Моя робота тут — будувати спільноту, підтримувати незалежних митців і розвивати незалежну сцену Києва.
 scene_en: |

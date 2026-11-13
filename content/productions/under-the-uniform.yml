@@ -4,46 +4,42 @@ title_en: Under the Uniform
 status: upcoming
 order: 3
 genre_uk: Постдокументальна вистава
-genre_en: Post-documentary performance
-premiere_uk: 11 грудня 2026, Київ
-premiere_en: 11 December 2026, Kyiv
-duration_uk: ""
-duration_en: ""
-age: ""
+genre_en: A post-documentary performance
+premiere_uk: 11 грудня 2026, клуб К41, Київ
+premiere_en: 11 December 2026, K41 club, Kyiv
+duration_uk: Близько 1 год 30 хв з перервою (15 хв) | українською, частково англійською
+duration_en: Approx. 1 h 30 min with a 15-min interval | in Ukrainian, partly in English
+age: 18+
 cover: ""
-summary_uk: Вистава з інтерв'ю з ветеранами й військовими про уніформи, які ми носимо, щоб нас прийняли, і про те, що ховаємо під ними.
-summary_en: A performance built from interviews with veterans and service members, about the uniforms we wear to be accepted and what we keep underneath.
-hook_uk: "Шоу з секретом. Залишайтеся до кінця."
-hook_en: "A show with a secret. Stay until the end."
+summary_uk: Вистава про людей, яких ми бачимо в уніформі, і про те, що лишається під нею.
+summary_en: A performance about the people we see in uniform, and about what remains beneath it.
+hook_uk: "Секрет буде. Питання тільки в тому, чий."
+hook_en: "There will be a secret. The only question is whose."
 description_uk: |
-  Уніформу носить кожен. Костюм для роботи, усмішку для родини, роль, з якою всім довкола спокійно. Деякі уніформи пошиті з тканини. Більшість видно лише зсередини.
+  Сьогодні у програмі шоу з секретом. У ведучого десяток голосів, власні правила вечора й обіцянка розкрити секрет наприкінці.
 
-  Сьогодні шоу. Ведучий готовий, зал повний, у програмі історії, пісні й той чорний гумор, яким військові діляться тільки між своїми. А наприкінці — секрет.
+  Секрет буде. Питання тільки в тому, чий.
 
-  «Під уніформою» виросла з інтерв'ю з українськими ветеранами й чинними військовими. Це історія про людей, яких суспільство вшановує як героїв, і про ту їхню частину, яку воно воліє лишати поза увагою: право бути собою і право любити. Те, що відбувається в армії, відбувається всюди. Кожен, хто бодай раз грав роль, щоб його прийняли, впізнає себе десь у цьому залі.
+  Вистава про людей, яких ми бачимо в уніформі, і про те, що лишається під нею. В основі вистави — інтерв'ю з військовими й ветеранами, переосмислені художньо: на сцені вигадані герої, а в них живе справжній досвід. Це смішна, ніжна й чесна історія про дружбу, повернення додому і любов, для якої досі шукають місце.
 
-  Вистава створюється методом колективного девайзингу з практиками Viewpoints і Moment Work. Робочу версію команда показала 8 листопада 2026 на Kosovo Theatre Showcase у Призрені після резиденції разом із Qendra Multimedia. Прем'єра — 11 грудня 2026 у Києві.
-
-  Залишайтеся до кінця.
+  Те, що відбувається у війську, відбувається і поза ним.
 description_en: |
-  Everyone wears a uniform. A suit for work, a smile for the family, a role that keeps everyone comfortable. Some uniforms are made of fabric. Most of them are visible only from the inside.
+  Tonight's programme: a show with a secret. The host has a dozen voices, his own rules for the evening and a promise to reveal the secret at the end.
 
-  Tonight, there’s a show. The host is ready, the room is full, and the programme promises stories, songs and the kind of dark humour soldiers share only among themselves. At the very end, a secret.
+  There will be a secret. The only question is whose.
 
-  Under the Uniform grew from interviews with Ukrainian veterans and serving military personnel. It is a story about people society celebrates as heroes, and about the part of them it prefers to leave unseen: their right to be themselves, and to love. What happens in the army happens everywhere else too. Anyone who has ever played a role to be accepted will find themselves somewhere in this room.
+  A performance about the people we see in uniform, and about what remains beneath it. It is based on interviews with soldiers and veterans, reimagined as fiction: the characters on stage are invented, and real experience lives in them. A funny, tender and honest story about friendship, coming home, and a love still searching for its place.
 
-  The piece is devised collectively, using Viewpoints and Moment Work. The team presented a work-in-progress showing at Kosovo Theatre Showcase in Prizren on 8 November 2026, after a residency with Qendra Multimedia. The premiere is in Kyiv on 11 December 2026.
-
-  Stay until the end.
+  What happens in the army happens beyond it too.
 credits:
-- role_uk: Режисер, драматург, продюсер
-  role_en: Director, playwright, producer
+- role_uk: Драматургія і режисура
+  role_en: Written and directed by
   names: Павло Коваль
   names_en: Pavlo Koval
-- role_uk: Виконавці
+- role_uk: На сцені
   role_en: Cast
-  names: Костянтин Шахман, Олександр Колотій, Давід Димченко, Олександр Петрина
-  names_en: Kostiantyn Shakhman, Oleksandr Kolotii, David Dymchenko, Oleksandr Petryna
+  names: Костя Шахман, Сашко Петрина, Давід Димченко, Сашко Колотій
+  names_en: Kostia Shakhman, Sashko Petryna, David Dymchenko, Sashko Kolotii
 - role_uk: Стейдж-менеджерка
   role_en: Stage manager
   names: Софія Форніка
@@ -54,16 +50,12 @@ credits:
   names_en: Anastasiia Kushta
 - role_uk: Продакшн
   role_en: Production
-  names: Театр Бентеги, Експериментальний театральний клуб «НАШі»
-  names_en: Bentegy Theatre, NASHi Experimental Theatre Club
-- role_uk: Копродукція й резиденція
-  role_en: Co-production and residency
-  names: Qendra Multimedia (Приштина)
-  names_en: Qendra Multimedia (Pristina)
-- role_uk: Партнер
-  role_en: Partner
-  names: Українські ЛГБТ-військові (Veteran Hub)
-  names_en: Ukrainian LGBT Military for Equal Rights (Veteran Hub)
+  names: Театр Бентеги
+  names_en: Bentegy Theatre
+- role_uk: Партнери
+  role_en: Partners
+  names: театральний клуб «НАШі», Veteran Hub, Qendra Multimedia (Приштина)
+  names_en: NASHi Theatre Club, Veteran Hub, Qendra Multimedia (Pristina)
 - role_uk: Фінансування
   role_en: Funding
   names: Фінансується Європейським Союзом. Culture Helps Solidarity (програма ЄС «Креативна Європа», проєкт № 101237762), яку впроваджують European Cultural Foundation, «Інша освіта», zusa і VETERANKA

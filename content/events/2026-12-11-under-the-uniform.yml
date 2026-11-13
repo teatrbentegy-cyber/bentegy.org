@@ -3,12 +3,12 @@ date: 2026-12-11
 time: ""
 date_note_uk: ""
 date_note_en: ""
-venue_uk: Майданчик оголосимо згодом
-venue_en: Venue to be announced
+venue_uk: Клуб К41, вул. Кирилівська, 41
+venue_en: K41 club, 41 Kyrylivska St.
 city_uk: Київ
 city_en: Kyiv
 label_uk: Прем'єра
 label_en: Premiere
-ticket_url: ""
-ticket_operator: ""
-status: soon
+ticket_url: https://secure.wayforpay.com/payment/under_the_uniform
+ticket_operator: WayForPay
+status: on_sale
