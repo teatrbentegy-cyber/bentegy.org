@@ -10,7 +10,7 @@ premiere_en: 11 December 2026, Kyiv
 duration_uk: Близько 1 год 30 хв з перервою (15 хв) | українською, частково англійською
 duration_en: Approx. 1 h 30 min with a 15-min interval | in Ukrainian, partly in English
 age: 18+
-cover: ""
+cover: /uploads/utu-prizren-01.jpg
 summary_uk: Вистава про людей, яких ми бачимо в уніформі, і про те, що лишається під нею.
 summary_en: A performance about the people we see in uniform, and about what remains beneath it.
 hook_uk: "Секрет буде. Питання тільки в тому, чий."
@@ -52,13 +52,53 @@ credits:
   role_en: Production
   names: Театр Бентеги
   names_en: Bentegy Theatre
+- role_uk: Копродукція й резиденція
+  role_en: Co-production and residency
+  names: Qendra Multimedia (Приштина)
+  names_en: Qendra Multimedia (Pristina)
 - role_uk: Партнери
   role_en: Partners
-  names: Експериментальний театральний клуб «НАШі», ГО «Українські ЛГБТ-військові за рівні права», Qendra Multimedia (Приштина)
-  names_en: NASHi Experimental Theatre Club, NGO Ukrainian LGBT Military for Equal Rights, Qendra Multimedia (Pristina)
+  names: Експериментальний театральний клуб «НАШі», ГО «Українські ЛГБТ-військові за рівні права»
+  names_en: NASHi Experimental Theatre Club, NGO Ukrainian LGBT Military for Equal Rights
 - role_uk: Фінансування
   role_en: Funding
   names: Фінансується Європейським Союзом. Culture Helps Solidarity (програма ЄС «Креативна Європа», проєкт № 101237762), яку впроваджують European Cultural Foundation, «Інша освіта», zusa і VETERANKA
   names_en: Funded by the European Union. Culture Helps Solidarity (EU Creative Europe programme, project No. 101237762), implemented by the European Cultural Foundation, Insha Osvita, zusa and VETERANKA
-gallery: []
-photo_credit: ""
+history_uk: |
+  **Як усе почалося.** Поверхом нижче від репетиційної зали Бентег працював Veterans Hub. Спільна кава, довгі вечори й особисті історії стали початком цієї вистави. Останнім поштовхом був мюзикл «Nkoli» на фестивалі Theater der Welt у Німеччині — вистава, яка говорить про любов і гідність водночас голосно, смішно й точно. Команда записала інтерв'ю з військовими й ветеранами і зібрала з їхніх історій художній світ.
+
+  **Призрен, листопад 2026.** Першу версію команда створила в резиденції з Qendra Multimedia і показала 8 листопада на [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) у галереї Міського театру ім. Бекіма Фехміу: соло для Сашка Петрини, ведучий на відео — Костя Шахман. Після показу — розмова з глядачами. Паралельно з репетиціями команда працювала над повною версією п'єси разом із драматургом Qendra.
+
+  **Київ, грудень 2026.** 11 грудня вистава вперше звучить у Києві в повному складі.
+history_en: |
+  **How it began.** One floor below Bentegy's rehearsal room was Veterans Hub. Shared coffee, long evenings and personal stories became the start of this performance. The final push came from the musical Nkoli at Theater der Welt in Germany, a show that speaks about love and dignity loudly, funnily and precisely at once. The team recorded interviews with soldiers and veterans and built a fictional world from their stories.
+
+  **Prizren, November 2026.** The first version was created during a residency with Qendra Multimedia and shown on 8 November at [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) in the gallery of the Bekim Fehmiu City Theatre: a solo for Sashko Petryna, with Kostia Shakhman as the host on video, followed by a conversation with the audience. Alongside rehearsals, the team worked on the full version of the play with Qendra's dramaturg.
+
+  **Kyiv, December 2026.** On 11 December the full company performs it in Kyiv for the first time.
+quotes:
+  - text_uk: "Для мене «Під уніформою» — про ідентичність: як ми проживаємо власний досвід і шукаємо йому місце в тому, ким ми є. Частину цього досвіду ми не обирали, і все одно маємо з ним примиритися."
+    text_en: "To me, it is about identity and the struggle to navigate our experiences and make sense of how they fit into our sense of self. Some of these experiences are things we never chose, yet we still have to find a way to reconcile them with who we are."
+    author: Florida Kastrati
+    role_uk: Qendra Multimedia, після показу в Призрені
+    role_en: Qendra Multimedia, after the showing in Prizren
+gallery:
+  - image: /uploads/utu-prizren-02.jpg
+    caption_uk: Сашко Петрина. Робоча версія, Призрен
+    caption_en: Sashko Petryna. Work in progress, Prizren
+  - image: /uploads/utu-prizren-03.jpg
+    caption_uk: Ведучий на відео — Костя Шахман
+    caption_en: Kostia Shakhman as the host on video
+  - image: /uploads/utu-prizren-04.jpg
+    caption_uk: Kosovo Theatre Showcase 2026, галерея Міського театру ім. Бекіма Фехміу
+    caption_en: Kosovo Theatre Showcase 2026, Bekim Fehmiu City Theatre gallery
+  - image: /uploads/utu-prizren-07.jpg
+    caption_uk: Оплески після показу
+    caption_en: Applause after the showing
+  - image: /uploads/utu-prizren-05.jpg
+    caption_uk: Команда після показу
+    caption_en: The team after the showing
+  - image: /uploads/utu-prizren-06.jpg
+    caption_uk: Розмова з глядачами
+    caption_en: Conversation with the audience
+photo_credit: Esad Duraki | Kosovo Theatre Showcase 2026

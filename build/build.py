@@ -894,6 +894,8 @@ def page_show(p, lang):
 <div class="gut max"><dl class="facts">{facts_h}</dl></div>
 <section class="sec gut max"><div class="sh"><h2>{('Про подію' if is_ev else 'Про виставу') if lang == 'uk' else 'About'}</h2></div>
   <div class="two"><span></span><div class="prose">{mdh(L(p, 'description', lang))}</div></div></section>
+{f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Історія проєкту" if lang == "uk" else "The story so far"}</h2></div><div class="two"><span></span><div class="prose">{mdh(L(p, "history", lang))}</div></div></section>' if L(p, "history", lang) else ''}
+{show_quotes(p, lang)}
 {'' if not evs and p.get('status') not in ('repertoire', 'upcoming') else f"""<section class="sec gut max" id="dates" style="padding-top:0"><div class="sh"><h2>{t['dates']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>{schedule(evs, lang, group=False)}</section>"""}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{("Учасники й команда" if lang == "uk" else "Participants and team") if is_ev else t["credits"]}</h2></div><dl class="credits" style="margin-top:28px">{credits}</dl></section>' if credits else ''}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["photos"]}</h2></div><div class="gal">{"".join(gal_items)}</div>{pc}</section>' if gal_items else ''}
@@ -909,6 +911,14 @@ def page_show(p, lang):
         nx = up[0]
         desc = desc.rstrip(".") + ". " + (f"Найближчий показ — {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}." if uk else f"Next performance: {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}.")
     return head(lang, "shows", seo_title, desc, paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang)) + body + foot(lang)
+
+
+def show_quotes(p, lang):
+    qs = p.get("quotes") or []
+    if not qs:
+        return ""
+    items = "".join(f"""<blockquote><p>{e(L(x, 'text', lang))}</p><footer>{e(x.get('author', ''))}{(', ' + e(L(x, 'role', lang))) if L(x, 'role', lang) else ''}</footer></blockquote>""" for x in qs)
+    return f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Відгуки" if lang == "uk" else "Responses"}</h2></div><div class="quotes">{items}</div></section>'
 
 
 def ticket_box(ev, p, lang, count):
@@ -998,7 +1008,7 @@ def page_producer(lang):
   <p class="ct"><a class="tbo" href="mailto:{mail}">{mail}</a><a class="tbo" href="https://t.me/teatr_bentegy" target="_blank" rel="noopener">Telegram</a></p>
   <p class="credit-line">{e(bi(pr.get('photo_credit', ''), lang))}</p></div>
 </section>
-{sec('Роботи' if uk else 'Work', f'<div class="pw">{"".join(work(w) for w in PF_WORKS if w[0] and w[0] != "promova-2025" and BY_SLUG.get(w[0], {}).get("cover"))}</div><ul class="pwl">{"".join(wrow(w) for w in PF_WORKS if not (w[0] and w[0] != "promova-2025" and BY_SLUG.get(w[0], {}).get("cover")))}</ul>')}
+{sec('Роботи' if uk else 'Work', f'<div class="pw">{"".join(work(w) for w in PF_WORKS if w[0] and w[0] not in ("promova-2025", "the-inferior-play") and BY_SLUG.get(w[0], {}).get("cover"))}</div><ul class="pwl">{"".join(wrow(w) for w in PF_WORKS if not (w[0] and w[0] not in ("promova-2025", "the-inferior-play") and BY_SLUG.get(w[0], {}).get("cover")))}</ul>')}
 {sec('Практика' if uk else 'Practice', f'<div class="vis">{vis}</div><ol class="prin pf2p">{prin}</ol>')}
 {sec('Біографія' if uk else 'Biography', f'<div class="pcv"><div><p class="kk">{"Позиції" if uk else "Roles"}</p><ul>{rows(now)}</ul></div><div><p class="kk">{"Програми, резиденції, освіта" if uk else "Programmes, residencies, education"}</p><ul>{rows(progs)}</ul></div></div>')}
 {sec('Голоси' if uk else 'Voices', f'<div class="voices">{voices}</div>', f'<span class="more">{e(L(pr, "voices_note", lang))}</span>')}

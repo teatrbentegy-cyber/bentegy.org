@@ -114,6 +114,18 @@ collections:
       - { name: age, label: Вікове обмеження, widget: string, required: false }
       - { name: description_uk, label: Опис (UA), widget: markdown, required: false }
       - { name: description_en, label: Опис (EN), widget: markdown, required: false }
+      - { name: history_uk, label: "Історія проєкту (UA): як вистава народжувалась, резиденції, робочі покази", widget: markdown, required: false }
+      - { name: history_en, label: Історія проєкту (EN), widget: markdown, required: false }
+      - name: quotes
+        label: Відгуки
+        widget: list
+        required: false
+        fields:
+          - { name: text_uk, label: Відгук (UA), widget: text }
+          - { name: text_en, label: Відгук (EN), widget: text, required: false }
+          - { name: author, label: Автор, widget: string }
+          - { name: role_uk, label: "Хто це / де (UA)", widget: string, required: false }
+          - { name: role_en, label: "Хто це / де (EN)", widget: string, required: false }
       - name: credits
         label: Команда
         widget: list
