@@ -544,7 +544,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <meta property="og:locale" content="{'uk_UA' if lang == 'uk' else 'en_GB'}">
 <meta name="twitter:card" content="summary_large_image">{ld_tag(ld)}
 <meta name="theme-color" content="#000000">
-<link rel="icon" href="/brand/favicon.png" type="image/png">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/brand/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
 <link rel="preload" href="/fonts/inter-tight-cyrillic-900-normal.woff2" as="font" type="font/woff2" crossorigin>
 <style>{CSS_INLINE}</style>
@@ -1557,6 +1557,7 @@ def build():
     shutil.copytree(f"{ROOT}/admin", f"{OUT}/admin")
     shutil.copytree(f"{ROOT}/static/uploads", f"{OUT}/uploads")
     shutil.copytree(f"{ROOT}/static/press", f"{OUT}/press")
+    shutil.copy(f"{ROOT}/static/favicon.ico", f"{OUT}/favicon.ico")
     import zipfile
     # bentegy-logos.zip: full brand package (PNG + SVG) is kept in static/press
     for m in MEDIA:
