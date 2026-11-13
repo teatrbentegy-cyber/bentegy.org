@@ -22,7 +22,7 @@ tiers:
     amount_eur: 20
     title_uk: Вихід на сцену
     title_en: Entrance
-    text_uk: Підтримка людей, які щовечора виходять до вас.
+    text_uk: Підтримка людей, які виходять до вас на сцену.
     text_en: Support for the people who step out on stage for you, night after night.
     url_uah: https://secure.wayforpay.com/donate/bentegy_uah
     url_eur: https://secure.wayforpay.com/donate/bentegy_eur
@@ -89,8 +89,8 @@ uses_uk:
     text: Оренда майданчиків, техніка, перевезення декорацій.
   - title: Гастролі
     text: Участь у фестивалях в Україні та за кордоном.
-  - title: Освіта
-    text: Тренінги, відкриті пітчинги й продюсерська підтримка молодих команд.
+  - title: Молоді команди
+    text: Відкриті пітчинги й продюсерська підтримка нових незалежних команд.
 uses_en:
   - title: New productions
     text: Research, rehearsals, set, costumes and lighting for premieres.
@@ -100,12 +100,12 @@ uses_en:
     text: Venue hire, technical equipment and set transport.
   - title: Touring
     text: Festival appearances in Ukraine and abroad.
-  - title: Professional development
-    text: Training, open pitches and producing support for emerging companies.
+  - title: Emerging companies
+    text: Open pitches and producing support for new independent companies.
 
 partners_uk:
   - title: Партнер сезону
-    text: Підтримка репертуарного сезону з присутністю бренду в усіх анонсах і на покажах.
+    text: Підтримка репертуарного сезону з присутністю бренду в усіх анонсах і на показах.
   - title: Партнер вистави
     text: Внесок у конкретну прем'єру чи гастроль.
   - title: Підтримка в натуральній формі

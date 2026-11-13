@@ -391,7 +391,14 @@ def ev_start(ev):
 
 
 def duration_min(p):
-    nums = [int(x) for x in re.findall(r"\d+", p.get("duration_uk") or p.get("duration_en") or "")]
+    """Running time in minutes from "1 год 30 хв" / "55–65 хв" / "1 h 30 min"; interval notes and non-time numbers are ignored."""
+    s = (p.get("duration_uk") or p.get("duration_en") or "").split("|")[0]
+    s = re.split(r"з перерв|with an? \d*-?\s*min interval|with an interval|\(", s)[0]
+    h = re.search(r"(\d+)\s*(?:год|h\b)", s)
+    m = re.findall(r"(\d+)\s*(?:хв|min)", s)
+    if h or m:
+        return (int(h.group(1)) * 60 if h else 0) + (max(int(x) for x in m) if m else 0)
+    nums = [int(x) for x in re.findall(r"\d+(?=[–-]\d+\s*(?:хв|min))", s)]
     return max(nums) if nums else 0
 
 
@@ -595,7 +602,7 @@ def consent_banner(lang):
     if not (SETTINGS.get("ga4") or "").strip():
         return ""
     uk = lang == "uk"
-    return f"""<div class="cookie" id="cookie" hidden role="dialog" aria-label="{'Згода на аналітику' if uk else 'Analytics consent'}"><p>{'Ми рахуємо відвідування через Google Analytics, щоб краще планувати покази. Дані знеособлені.' if uk else 'We count visits with Google Analytics to plan our performances better. We only see aggregated statistics.'} <a href="{url('privacy', lang)}">{'Детальніше' if uk else 'Details'}</a></p>
+    return f"""<div class="cookie" id="cookie" hidden role="dialog" aria-label="{'Згода на аналітику' if uk else 'Analytics consent'}"><p>{'Ми рахуємо відвідування через Google Analytics і вимірюємо ефективність реклами через Google Ads, щоб краще планувати покази. Дані знеособлені.' if uk else 'We count visits with Google Analytics and measure our ads with Google Ads to plan our performances better. We only see aggregated statistics.'} <a href="{url('privacy', lang)}">{'Детальніше' if uk else 'Details'}</a></p>
 <div><button type="button" class="tix" data-consent="yes">{'Погоджуюсь' if uk else 'Accept'}</button><button type="button" class="tbo" data-consent="no">{'Лише необхідне' if uk else 'Essential only'}</button></div></div>"""
 
 
@@ -657,11 +664,20 @@ def schedule(events, lang, group=True):
     return "\n".join(out)
 
 
+def upcoming_tag(p, lang):
+    """"Прем'єра 11 грудня" once a date is set, otherwise the generic "Прем'єра скоро"."""
+    nxt = [ev for ev in EVENTS if ev.get("production") == p.get("slug")]
+    if nxt:
+        d = nxt[0]["date"]
+        return (f"Прем'єра {d.day} {MONTHS['uk'][d.month - 1]}" if lang == "uk" else f"Premiere {d.day} {MONTHS['en'][d.month - 1]}")
+    return T[lang]["upcoming_tag"]
+
+
 def card(p, lang):
     t = T[lang]
     tag = ""
     if p.get("status") == "upcoming":
-        tag = f'<span class="tag">{t["upcoming_tag"]}</span>'
+        tag = f'<span class="tag">{upcoming_tag(p, lang)}</span>'
     elif p.get("status") == "produced":
         tag = f'<span class="tag o">{t["produced_tag"]}</span>'
     elif p.get("status") == "development":
@@ -804,7 +820,7 @@ def page_home(lang):
     <a class="go" href="{url('contact', lang)}">{'Стати партнером' if lang == 'uk' else 'Become a partner'}</a></div></div>
 </div></section>
 """
-    return head(lang, "home", "", L(SETTINGS, "tagline", lang) if uk else L(ABOUT, "lead", lang), (url("home", lang), url("home", o)), "home", ld=[ld_org(lang)] + ld_events(EVENTS, lang)) + body + foot(lang)
+    return head(lang, "home", "", L(ABOUT, "lead", lang), (url("home", lang), url("home", o)), "home", ld=[ld_org(lang)] + ld_events(EVENTS, lang)) + body + foot(lang)
 
 
 def page_afisha(lang):
@@ -823,9 +839,9 @@ def page_shows(lang):
     arch = [p for p in PRODUCTIONS if p.get("status") == "archive"]
     dev = [p for p in PRODUCTIONS if p.get("status") == "development"]
     evp = [p for p in PRODUCTIONS if p.get("status") == "event"]
-    intro = ("Вистави, які ми створюємо й продюсуємо. Кожна шукає власну форму: моновистава в стилі фізичного театру, вечір у справжньому барі, танець без жодного слова, ритуал, гра."
+    intro = ("Вистави, які ми створюємо й продюсуємо: моновистава в стилі фізичного театру, вечір у справжньому барі, танець без жодного слова, ритуал, гра."
              if lang == "uk" else
-             "Productions we make and produce. Each one finds its own form: a physical-theatre solo, an evening in a working bar, wordless dance, a ritual, a game.")
+             "Productions we make and produce: a physical-theatre solo, an evening in a working bar, wordless dance, a ritual, a game.")
 
     def sec(title, items):
         if not items:
@@ -840,7 +856,7 @@ def page_show(p, lang):
     title = L(p, "title", lang)
     kick = []
     if p.get("status") == "upcoming":
-        kick.append(f'<span class="tag">{t["upcoming_tag"]}</span>')
+        kick.append(f'<span class="tag">{upcoming_tag(p, lang)}</span>')
     elif p.get("status") == "produced":
         kick.append(f'<span class="tag">{t["produced_tag"]}</span>')
     elif p.get("status") == "development":
@@ -1320,7 +1336,10 @@ def page_media_index(lang, tp=None):
     t = T[lang]
     uk = lang == "uk"
     items = [m for m in MEDIA if not tp or m["type"] == tp]
-    lead = ("Критичні тексти й есеї команди та запрошених авторів, вагомі публікації про театр і наші пресрелізи."
+    lead = ({"text": "Критичні тексти й есеї команди та запрошених авторів.",
+             "article": "Вагомі публікації про вистави й події Бентег у медіа.",
+             "release": "Пресрелізи про прем'єри, гастролі й події, з фото для медіа.",
+             "news": "Новини компанії."}.get(tp, "Критичні тексти й есеї команди та запрошених авторів, вагомі публікації про театр і наші пресрелізи.")
             if uk else {"text": "Essays and criticism by our team and guest authors.",
                         "article": "Key coverage of Bentegy productions in the media.",
                         "release": "Press releases on premieres, tours and events, with photos for media.",
@@ -1385,9 +1404,7 @@ def page_media(m, lang):
   {f'<div><dt>{"Автор" if uk else "Author"}</dt><dd>{au}</dd></div>' if au else ''}
   <div><dt>{"Дата" if uk else "Date"}</dt><dd>{fdate(m['date'], lang)}</dd></div>
   <div><dt>{"Читання" if uk else "Reading"}</dt><dd>{read_min(m, lang)}</dd></div></dl>{prod}</aside>"""
-        _b = (L(m, "body", lang) or "").lstrip(" >*_#\n")
-        _fl = urllib.parse.quote(_b[:1] or "А")
-        top = f'<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,600&display=swap&text={_fl}"><header class="ahead gut max">{kicker}<h1>{e(title)}</h1><p class="alead">{e(L(m, "lead", lang))}</p>{f"<p class=aby>{au}</p>" if au else ""}</header>'
+        top = f'<header class="ahead gut max">{kicker}<h1>{e(title)}</h1><p class="alead">{e(L(m, "lead", lang))}</p>{f"<p class=aby>{au}</p>" if au else ""}</header>'
         main = f'<div class="gut max">{fig}</div><div class="atext gut max">{aside}<article class="article">{bodyh}{src}</article></div>'
         cls = "rd rd-text"
     elif tp == "release":

@@ -1,5 +1,5 @@
 # Сторінка «Політика конфіденційності» (/pryvatnist/, /en/privacy/)
-updated: 2026-10-24
+updated: 2026-11-13
 lead_uk: Як Театр Бентеги збирає, використовує й захищає дані відвідувачів сайту, глядачів і донорів.
 lead_en: How Bentegy Theatre collects, uses and protects data about website visitors, audiences and donors.
 body_uk: |
@@ -10,6 +10,8 @@ body_uk: |
   ## Які дані ми отримуємо
 
   **Статистика відвідувань.** Сайт використовує Google Analytics 4: скільки людей відвідує сторінки, з яких джерел вони приходять, з яких міст і пристроїв, на які кнопки натискають (квитки, донати, пошта, соцмережі). Дані знеособлені: ми бачимо загальну картину, а конкретну людину — ні. Для відвідувачів з Європейського Союзу, Великої Британії та Швейцарії статистика вмикається лише після згоди в банері внизу сторінки. Інші відвідувачі можуть відмовитися в тому самому банері.
+
+  **Реклама.** Ми показуємо оголошення в Google через Google Ads і рахуємо, скільки людей після них переходять до квитків. Рекламні файли cookie вимкнені: Google Ads отримує лише знеособлені сигнали про переходи, без профілювання відвідувачів.
 
   **Квитки й донати.** Оплата відбувається на захищених сторінках WayForPay і Concert.ua. Дані картки обробляють лише ці платіжні сервіси, до нас вони не потрапляють. Від сервісу ми отримуємо імʼя, пошту, телефон і деталі замовлення — щоб пропустити вас на виставу, звʼязатися у разі змін і звітувати перед донорами та грантодавцями.
 
@@ -45,6 +47,8 @@ body_en: |
   ## What data we receive
 
   **Visit statistics.** The site uses Google Analytics 4: how many people visit pages, where they come from, which cities and devices they use and which buttons they click (tickets, donations, email, social media). We only see aggregated statistics, never individual visitors. For visitors from the European Union, the United Kingdom and Switzerland, analytics are only switched on once you consent in the banner at the bottom of the page. Other visitors can opt out in the same banner.
+
+  **Advertising.** We run ads on Google through Google Ads and count how many people go on to the ticket pages. Advertising cookies are switched off: Google Ads receives only anonymised conversion signals, with no visitor profiling.
 
   **Tickets and donations.** Payments are made on the secure pages of WayForPay and Concert.ua. Card details are processed only by these payment services and never reach us. From the service we receive your name, email, phone and order details — to admit you to the performance, contact you about changes and report to donors and funders.
 

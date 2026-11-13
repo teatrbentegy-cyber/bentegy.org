@@ -692,7 +692,6 @@ html.rv-on .sh.rv.is-in::after,html.rv-on .shl.rv.is-in::after{transform:scaleX(
 @media (max-width:760px){.cmp .cr{grid-template-columns:1fr;gap:4px}}
 
 /* есеї: буквиця як у старій книжці */
-.rd-text .article>p:first-child::first-letter{float:left;font:italic 600 6.2em/.82 "Cormorant Garamond",Georgia,"Times New Roman",serif;color:var(--rd);margin:.05em .14em 0 0;padding:.06em .16em .04em .1em;border:1px solid rgba(255,255,255,.4);background:radial-gradient(circle at 30% 30%,rgba(179,18,12,.16),transparent 70%)}
 /* portfolio v5 (1.11) */
 .pf-top{padding-top:clamp(40px,6vw,96px)}
 .pb h1.n{font:900 clamp(60px,9.5vw,170px)/.8 var(--f);letter-spacing:-.055em;text-transform:uppercase}
@@ -905,3 +904,4 @@ a:hover{text-decoration-color:currentColor}
 .pwl b a{color:#fff;text-decoration:none}.pwl b a:hover{color:var(--r)}
 .pwl em{font-style:normal;font-size:14px;color:rgba(255,255,255,.6)}
 @media (max-width:760px){.pwl li{grid-template-columns:64px 1fr}.pwl em{grid-column:2}}
+code{font-family:inherit;font-size:inherit}

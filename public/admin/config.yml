@@ -62,6 +62,12 @@ collections:
       - { name: sale_start, label: Початок продажу, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD", required: false }
       - { name: address_uk, label: "Адреса майданчика (UA), якщо її немає в полі «Майданчик»", widget: string, required: false }
       - { name: address_en, label: Адреса майданчика (EN), widget: string, required: false }
+      - { name: info_url, label: "Посилання «Детальніше» (коли квитків немає, напр. сторінка фестивалю)", widget: string, required: false }
+      - { name: cta_note_uk, label: Текст кнопки «Детальніше» (UA), widget: string, required: false }
+      - { name: cta_note_en, label: Текст кнопки «Детальніше» (EN), widget: string, required: false }
+      - { name: country, label: "Код країни для Google (порожньо = Україна; Косово — XK)", widget: string, required: false }
+      - { name: timezone, label: "Часовий пояс, якщо не Київ (напр. Europe/Belgrade)", widget: string, required: false }
+      - { name: street_address, label: "Майданчик містить вулицю (для Google)", widget: boolean, required: false, default: true }
 
   # ---------------------------------------------------------------- ВИСТАВИ
   - name: productions
@@ -93,8 +99,12 @@ collections:
       - { name: order, label: Порядок у списку, widget: number, value_type: int, default: 10 }
       - { name: year, label: "Рік (для архіву)", widget: string, required: false }
       - { name: cover, label: Головне фото (горизонтальне), widget: image, required: false }
+      - { name: cover_pos, label: "Кадрування обкладинки, напр. 50% 80% (вниз) або 50% 20% (вгору)", widget: string, required: false }
       - { name: summary_uk, label: Коротко, одне речення (UA), widget: text }
       - { name: summary_en, label: Коротко, одне речення (EN), widget: text }
+      - { name: hook_uk, label: "Гачок, одна фраза (UA)", widget: string, required: false }
+      - { name: hook_en, label: "Гачок, одна фраза (EN)", widget: string, required: false }
+      - { name: seo_kind_en, label: "Тип для заголовка в Google (EN), напр. performance walk", widget: string, required: false }
       - { name: genre_uk, label: Жанр (UA), widget: string, required: false }
       - { name: genre_en, label: Жанр (EN), widget: string, required: false }
       - { name: premiere_uk, label: Прем'єра (UA), widget: string, required: false }
@@ -124,6 +134,29 @@ collections:
       - { name: photo_credit, label: Автор фото, widget: string, required: false }
 
   # ---------------------------------------------------------------- СТОРІНКИ
+  # ---------------------------------------------------------------- ПРОЦЕС
+  - name: process
+    label: Процес
+    label_singular: Запис процесу
+    description: Короткі записи з життя вистав — резиденції, репетиції, нові версії. Найсвіжіші показуються на головній.
+    folder: content/process
+    extension: yml
+    format: yaml
+    create: true
+    slug: "{{fields.date}}-{{fields.production}}"
+    summary: "{{date}} | {{kind_uk}} | {{production}}"
+    sortable_fields: [date]
+    fields:
+      - { name: date, label: Дата, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD" }
+      - { name: production, label: Вистава, widget: relation, collection: productions, search_fields: [title_uk], value_field: "{{slug}}", display_fields: [title_uk], required: false }
+      - { name: kind_uk, label: "Що це (UA), напр. Резиденція, Репетиція, Нова версія", widget: string }
+      - { name: kind_en, label: Що це (EN), widget: string }
+      - { name: place_uk, label: Місце (UA), widget: string, required: false }
+      - { name: place_en, label: Місце (EN), widget: string, required: false }
+      - { name: text_uk, label: "Текст (UA), 1–2 речення", widget: text }
+      - { name: text_en, label: Текст (EN), widget: text }
+      - { name: image, label: Фото, widget: image, required: false }
+
   # ---------------------------------------------------------------- МЕДІА
   - name: media
     label: Медіа (тексти, новини, пресрелізи)
@@ -178,6 +211,10 @@ collections:
       - { name: source_uk, label: "Вперше опубліковано в (UA), напр. «Театральна риболовля»", widget: string, required: false }
       - { name: source_en, label: First published in (EN), widget: string, required: false }
       - { name: source_url, label: Посилання на першу публікацію, widget: string, required: false }
+      - { name: outlet_uk, label: "Видання (UA) — для публікацій у медіа", widget: string, required: false }
+      - { name: outlet_en, label: Видання (EN), widget: string, required: false }
+      - { name: url, label: "Посилання на публікацію у видання", widget: string, required: false }
+      - { name: hidden, label: Сховати з сайту, widget: boolean, default: false, required: false }
       - { name: draft, label: Чернетка (не показувати на сайті), widget: boolean, default: false, required: false }
 
   # ---------------------------------------------------------------- КОМАНДА
