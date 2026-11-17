@@ -917,7 +917,12 @@ def show_quotes(p, lang):
     qs = p.get("quotes") or []
     if not qs:
         return ""
-    items = "".join(f"""<blockquote><p>{e(L(x, 'text', lang))}</p><footer>{e(x.get('author', ''))}{(', ' + e(L(x, 'role', lang))) if L(x, 'role', lang) else ''}</footer></blockquote>""" for x in qs)
+    def role(x):
+        r = e(L(x, 'role', lang))
+        if r and x.get('url'):
+            r = f'<a href="{e(x["url"])}" target="_blank" rel="noopener">{r}</a>'
+        return (', ' + r) if r else ''
+    items = "".join(f"""<blockquote><p>{e(L(x, 'text', lang))}</p><footer>{e(x.get('author', ''))}{role(x)}</footer></blockquote>""" for x in qs)
     return f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Відгуки" if lang == "uk" else "Responses"}</h2></div><div class="quotes">{items}</div></section>'
 
 

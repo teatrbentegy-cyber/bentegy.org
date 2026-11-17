@@ -333,6 +333,7 @@ a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
 .quotes blockquote{margin:0;border-left:6px solid var(--r);padding-left:20px}
 .quotes p{font:700 clamp(22px,2.2vw,32px)/1.2 var(--f);letter-spacing:-.02em}
 .quotes footer{margin-top:14px;color:var(--mu);font-size:15px}
+.quotes footer a{color:inherit;text-decoration:underline;text-underline-offset:3px}
 @media (max-width:760px){.quotes{grid-template-columns:1fr}}
 
 

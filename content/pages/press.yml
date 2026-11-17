@@ -58,6 +58,12 @@ logos:
 
 # Публікації в медіа. Додавайте лише справжні, з посиланням.
 coverage:
+  - outlet: Theater der Zeit
+    outlet_en: Theater der Zeit
+    title: "Sieh hin und liebe: огляд Kosovo Theatre Showcase у Призрені, зокрема робочої версії «Під уніформою» (німецькою)"
+    title_en: "Sieh hin und liebe: a report from Kosovo Theatre Showcase in Prizren, including the work-in-progress of Under the Uniform (in German)"
+    date: "2026-11-12"
+    url: https://tdz.de/artikel/kosovo-theatre-showcase-prizren
   - outlet: Суспільне Культура
     outlet_en: Suspilne Culture
     title: "Перформативний сектор — найтоксичніший в Україні? Про що говорили незалежні театри з Києва, Львова, Харкова та Луцька"

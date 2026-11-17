@@ -126,6 +126,7 @@ collections:
           - { name: author, label: Автор, widget: string }
           - { name: role_uk, label: "Хто це / де (UA)", widget: string, required: false }
           - { name: role_en, label: "Хто це / де (EN)", widget: string, required: false }
+          - { name: url, label: "Посилання на джерело", widget: string, required: false }
       - name: credits
         label: Команда
         widget: list
