@@ -7,30 +7,38 @@ genre_uk: Постдокументальна вистава
 genre_en: A post-documentary performance
 premiere_uk: 11 грудня 2026, Київ
 premiere_en: 11 December 2026, Kyiv
-duration_uk: Близько 1 год 30 хв з перервою (15 хв) | українською, частково англійською
-duration_en: Approx. 1 h 30 min with a 15-min interval | in Ukrainian, partly in English
+duration_uk: "Близько 1 год 30 хв: два шоу з перервою (15 хв) | українською, частково англійською"
+duration_en: "Approx. 1 h 30 min: two shows with a 15-min interval | in Ukrainian, partly in English"
 age: 18+
 cover: /uploads/utu-prizren-01.jpg
-summary_uk: "Вистава про ЛГБТК+ військових і ветеранів: про людей, яких ми бачимо в уніформі, і про те, що лишається під нею."
-summary_en: "A performance about LGBTQ+ soldiers and veterans: the people we see in uniform, and what remains beneath it."
-hook_uk: "Секрет буде. Питання тільки в тому, чий."
-hook_en: "There will be a secret. The only question is whose."
+summary_uk: "Один вечір, два шоу: те, яке мало статися, і те, яке сталося насправді. Яке з них яке — вирішує кожен."
+summary_en: "One evening, two shows: the one that was supposed to happen and the one that actually did. Which is which, everyone decides for themselves."
+hook_uk: "Один вечір, два шоу. Яке з них сталося насправді — вирішує кожен."
+hook_en: "One evening, two shows. Which one really happened is for you to decide."
 description_uk: |
-  Сьогодні у програмі шоу з секретом. У ведучого десяток голосів, власні правила вечора й обіцянка розкрити секрет наприкінці.
+  Цю країну захищають люди, яких вона бачить лише у формі.
 
-  Секрет буде. Питання тільки в тому, чий.
+  У формі ти герой. Без неї починаються питання: хто ти, з ким живеш, кого любиш і чому про це мовчиш. Тож одну форму міняють на іншу: костюм, роль, жарт, зручну для всіх версію себе. Цю маску носять так довго, що вона починає відгукуватися на твоє ім'я.
 
-  Вистава про людей, яких ми бачимо в уніформі, і про те, що лишається під нею. В основі вистави — інтерв'ю з ЛГБТК+ військовими й ветеранами, переосмислені художньо: на сцені вигадані герої, а в них живе справжній досвід. Це смішна, ніжна й чесна історія про дружбу, повернення додому і право любити.
+  «Під уніформою» — вистава про момент, коли маска вже не тримається. Четверо чоловіків, шоу без світла й одне питання: ким ти лишаєшся, коли тебе ніхто не бачить, і чи наважишся бути ним при світлі.
 
-  Те, що відбувається у війську, відбувається і поза ним.
+  **За один вечір ми покажемо вам два шоу: те, яке мало статися, і те, яке сталося насправді. Яке з них яке — вирішує кожен.**
+
+  Вистава виросла з інтерв'ю з ветеранами, ветеранками й чинними військовими. Серед них — представники ЛГБТК+ спільноти, і саме їхній досвід стоїть у центрі історії. Герої вигадані, досвід справжній.
+
+  У статуті прописано навіть п'ятдесят сантиметрів між ліжками в казармі. Для двох чоловіків, які люблять одне одного, графи в законі досі немає — тому один герой каже про іншого: «Мені ніхто не скаже, де він. Я йому — ніхто». Половину вечора зала сміється; потім вистава забирає цей сміх назад.
 description_en: |
-  Tonight's programme: a show with a secret. The host has a dozen voices, his own rules for the evening and a promise to reveal the secret at the end.
+  This country is defended by people it sees only in uniform.
 
-  There will be a secret. The only question is whose.
+  In uniform, you are a hero. Without it, the questions begin: who you are, who you live with, who you love, and why you keep quiet about it. So one uniform is swapped for another: a costume, a role, a joke, a version of yourself that suits everyone. The mask is worn for so long that it starts answering to your name.
 
-  A performance about the people we see in uniform, and about what remains beneath it. It is based on interviews with LGBTQ+ soldiers and veterans, reimagined as fiction: the characters on stage are invented, and real experience lives in them. A funny, tender and honest story about friendship, coming home and the right to love.
+  Under the Uniform is about the moment the mask stops holding. Four men, a show with the lights out and one question: who are you when no one can see you, and will you dare to be that person in the light?
 
-  What happens in the army happens beyond it too.
+  **In one evening we show you two shows: the one that was supposed to happen and the one that actually happened. Which is which, everyone decides for themselves.**
+
+  The performance grew out of interviews with veterans, women and men, and with serving soldiers. Some of them are LGBTQ+, and their experience is at the heart of the story. The characters are invented; the experience is real.
+
+  Military regulations specify even the fifty centimetres between beds in a barracks. For two men who love each other, the law still has no line at all, so one character says of the other: “No one will tell me where he is. I'm nobody to him.” For half the evening the audience laughs; then the performance takes that laughter back.
 credits:
 - role_uk: Драматургія і режисура
   role_en: Written and directed by
@@ -65,17 +73,17 @@ credits:
   names: Фінансується Європейським Союзом. Culture Helps Solidarity (програма ЄС «Креативна Європа», проєкт № 101237762), яку впроваджують European Cultural Foundation, «Інша освіта», zusa і VETERANKA
   names_en: Funded by the European Union. Culture Helps Solidarity (EU Creative Europe programme, project No. 101237762), implemented by the European Cultural Foundation, Insha Osvita, zusa and VETERANKA
 history_uk: |
-  **Як усе почалося.** Поверхом нижче від простору театру «НАШі», де працюють Бентеги, розташований Veterans Hub ГО «Українські ЛГБТ-військові за рівні права». Звідти почалося знайомство з людьми, чиї історії лягли в основу вистави. Ще одним поштовхом став мюзикл «Nkoli» на фестивалі Theater der Welt у Німеччині. Команда записала інтерв'ю з ЛГБТК+ військовими й ветеранами і зібрала з них художню історію.
+  **Як усе почалося.** Поверхом нижче від простору театру «НАШі», де працюють Бентеги, розташований Veterans Hub ГО «Українські ЛГБТ-військові за рівні права». Звідти почалося знайомство з людьми, чиї історії лягли в основу вистави. Ще одним поштовхом став мюзикл «Nkoli» на фестивалі Theater der Welt у Німеччині. Команда записала інтерв'ю з ветеранами, ветеранками й чинними військовими, серед них — представники ЛГБТК+ спільноти, і зібрала з них художню історію.
 
   **Призрен, листопад 2026.** Першу версію команда створила в резиденції з Qendra Multimedia і показала 8 листопада на [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) у галереї Міського театру ім. Бекіма Фехміу: соло для Сашка Петрини, ведучий на відео — Костя Шахман. Після показу — розмова з глядачами. Паралельно з репетиціями команда працювала над повною версією п'єси разом із драматургом Qendra.
 
-  **Київ, грудень 2026.** 11 грудня вистава вперше звучить у Києві в повному складі.
+  **Київ, грудень 2026.** 11 грудня — київська прем'єра копродукції Україна — Косово, вперше в повному складі.
 history_en: |
-  **How it began.** One floor below the NASHi theatre space, where Bentegy works, is the Veterans Hub of the NGO Ukrainian LGBT Military for Equal Rights. That is where the team met the people whose stories the performance is built on. Another push came from the musical Nkoli at Theater der Welt in Germany. The team recorded interviews with LGBTQ+ soldiers and veterans and turned them into a fictional story.
+  **How it began.** One floor below the NASHi theatre space, where Bentegy works, is the Veterans Hub of the NGO Ukrainian LGBT Military for Equal Rights. That is where the team met the people whose stories the performance is built on. Another push came from the musical Nkoli at Theater der Welt in Germany. The team recorded interviews with veterans, women and men, and with serving soldiers, among them members of the LGBTQ+ community, and turned them into a fictional story.
 
   **Prizren, November 2026.** The first version was created during a residency with Qendra Multimedia and shown on 8 November at [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) in the gallery of the Bekim Fehmiu City Theatre: a solo for Sashko Petryna, with Kostia Shakhman as the host on video, followed by a conversation with the audience. Alongside rehearsals, the team worked on the full version of the play with Qendra's dramaturg.
 
-  **Kyiv, December 2026.** On 11 December the full company performs it in Kyiv for the first time.
+  **Kyiv, December 2026.** On 11 December, the Kyiv premiere of this Ukraine–Kosovo co-production, with the full company together for the first time.
 quotes:
   - text_uk: "Перформер Сашко Петрина досліджує, що лишається за кадром публічного визнання військової служби: право бути собою й любити поза уніформою."
     text_en: "Performer Sashko Petryna explores what the public recognition of military service blanks out: the right to be yourself and to love beyond the uniform."
