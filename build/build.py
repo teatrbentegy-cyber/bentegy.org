@@ -911,6 +911,7 @@ def page_show(p, lang):
 {show_quotes(p, lang)}
 {'' if not evs and p.get('status') not in ('repertoire', 'upcoming') else f"""<section class="sec gut max" id="dates" style="padding-top:0"><div class="sh"><h2>{t['dates']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>{schedule(evs, lang, group=False)}</section>"""}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{("Учасники й команда" if lang == "uk" else "Participants and team") if is_ev else t["credits"]}</h2></div><dl class="credits" style="margin-top:28px">{credits}</dl></section>' if credits else ''}
+{funding_box(p, lang)}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["photos"]}</h2></div><div class="gal">{"".join(gal_items)}</div>{pc}</section>' if gal_items else ''}
 {media_strip([m for m in MEDIA if m.get("production") == p["slug"]], lang, t['nav']['media'], url('media', lang), 'Усе з медіа' if lang == 'uk' else 'All media', top0=True)}
 {presenters_box(p, lang)}
@@ -943,6 +944,23 @@ def support_box(p, lang):
     return f"""<section class="sbox gut max" aria-label="{e(L(sb, 'title', lang))}"><div class="sbi">
   <div><h2 class="sbt">{e(L(sb, 'title', lang))}</h2><p class="sbx">{e(L(sb, 'text', lang))}</p><p class="sbn">{e(L(sb, 'note', lang))}</p></div>
   <div class="sbb"><a class="tix big" href="{e(u)}" target="_blank" rel="noopener">{e(L(sb, 'button', lang))}</a>{alt_h}</div></div></section>"""
+
+
+def funding_box(p, lang):
+    fd = p.get("funding") or {}
+    logos = fd.get("logos") or []
+    if not logos:
+        return ""
+    def one(x):
+        h = int(x.get("h") or 48)
+        return f'<img src="{e(x["file"])}" alt="{e(x.get("alt", ""))}" style="--h:{h}px" loading="lazy" decoding="async">'
+    eu = "".join(one(x) for x in logos if x.get("eu"))
+    rest = "".join(one(x) for x in logos if not x.get("eu"))
+    plate = f'<div class="fpl">{f"<div class=fpe>{eu}</div>" if eu else ""}<div class="fpo">{rest}</div></div>'
+    txt = f'<p class="fdt">{e(L(fd, "text", lang))}</p>' if L(fd, "text", lang) else ""
+    dis = f'<p class="fdd">{e(L(fd, "disclaimer", lang))}</p>' if L(fd, "disclaimer", lang) else ""
+    return f"""<section class="sec gut max fund" id="funding" style="padding-top:0"><div class="sh"><h2>{e(L(fd, 'title', lang) or ('Фінансування' if lang == 'uk' else 'Funding'))}</h2></div>
+  {plate}{dis}{txt}</section>"""
 
 
 def presenters_box(p, lang):
@@ -1601,7 +1619,7 @@ def build():
     os.makedirs(OUT)
     process_images()
     make_og_images()
-    for d in ("fonts", "brand"):
+    for d in ("fonts", "brand", "funders"):
         shutil.copytree(f"{ROOT}/static/{d}", f"{OUT}/{d}")
     shutil.copytree(f"{ROOT}/admin", f"{OUT}/admin")
     shutil.copytree(f"{ROOT}/static/uploads", f"{OUT}/uploads")

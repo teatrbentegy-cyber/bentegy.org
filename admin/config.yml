@@ -164,6 +164,27 @@ collections:
           - { name: rows_en, label: "Рядки [назва, значення]", widget: list, required: false, field: { name: row, label: Рядок, widget: list } }
           - { name: note_en, label: Примітка (EN), widget: string, required: false }
           - { name: email, label: Контакт, widget: string, required: false }
+      - name: funding
+        label: "Фінансування: логотипи грантодавців і застереження ЄС (після команди)"
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title_uk, label: Заголовок (UA), widget: string, required: false }
+          - { name: title_en, label: Заголовок (EN), widget: string, required: false }
+          - name: logos
+            label: "Логотипи (на білій плашці; емблема ЄС першою і найбільшою)"
+            widget: list
+            required: false
+            fields:
+              - { name: file, label: "Файл (/funders/…)", widget: string }
+              - { name: alt, label: Назва для alt, widget: string }
+              - { name: h, label: "Висота, px", widget: number, value_type: int, required: false }
+              - { name: eu, label: Емблема ЄС, widget: boolean, required: false }
+          - { name: disclaimer_uk, label: Застереження ЄС (UA), widget: text, required: false }
+          - { name: disclaimer_en, label: Застереження ЄС (EN), widget: text, required: false }
+          - { name: text_uk, label: Про програму (UA), widget: text, required: false }
+          - { name: text_en, label: Про програму (EN), widget: text, required: false }
       - name: credits
         label: Команда
         widget: list

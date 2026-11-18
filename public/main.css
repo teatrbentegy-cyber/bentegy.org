@@ -917,3 +917,16 @@ code{font-family:inherit;font-size:inherit}
 .prc a{border-bottom:2px solid #fff;text-decoration:none;padding-bottom:2px}
 @media (max-width:860px){.sbi{grid-template-columns:1fr;align-items:start}}
 
+/* funding: EU emblem and Culture Helps Solidarity consortium logos on a white plate (logo guidelines require their original colours) */
+.fpl{display:flex;align-items:center;gap:clamp(24px,3.4vw,52px);background:#fff;margin-top:28px;padding:clamp(22px,2.6vw,34px) clamp(22px,3vw,44px);flex-wrap:wrap}
+.fpl img{display:block;height:var(--h);width:auto;max-width:100%}
+.fpe{padding-right:clamp(24px,3.4vw,52px);border-right:1px solid #d6d6d6}
+.fpo{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:clamp(22px,3vw,44px);flex:1 1 auto}
+.fdd,.fdt{max-width:86ch;margin-top:18px;font:500 14px/1.55 var(--f);color:var(--mu)}
+.fdd{color:#fff;margin-top:22px}
+@media (max-width:760px){
+  .fpl{flex-direction:column;align-items:flex-start;gap:22px}
+  .fpe{padding:0 0 22px;border-right:0;border-bottom:1px solid #d6d6d6;width:100%}
+  .fpl img{height:calc(var(--h)*.78)}
+  .fpo{gap:20px 28px;justify-content:flex-start}
+}

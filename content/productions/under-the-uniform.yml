@@ -68,10 +68,20 @@ credits:
   role_en: Partners
   names: Експериментальний театральний клуб «НАШі», ГО «Українські ЛГБТ-військові за рівні права»
   names_en: NASHi Experimental Theatre Club, NGO Ukrainian LGBT Military for Equal Rights
-- role_uk: Фінансування
-  role_en: Funding
-  names: Фінансується Європейським Союзом. Culture Helps Solidarity (програма ЄС «Креативна Європа», проєкт № 101237762), яку впроваджують European Cultural Foundation, «Інша освіта», zusa і VETERANKA
-  names_en: Funded by the European Union. Culture Helps Solidarity (EU Creative Europe programme, project No. 101237762), implemented by the European Cultural Foundation, Insha Osvita, zusa and VETERANKA
+funding:
+  title_uk: Фінансування
+  title_en: Funding
+  logos:
+    - { file: /funders/eu.png, alt: "Co-funded by the European Union", h: 64, eu: true }
+    - { file: /funders/chs.png, alt: "Culture Helps Solidarity / Культура допомагає: Солідарність", h: 58 }
+    - { file: /funders/ecf.png, alt: "European Cultural Foundation", h: 56 }
+    - { file: /funders/io.png, alt: "Інша освіта / Insha Osvita", h: 52 }
+    - { file: /funders/zusa.png, alt: "zusa", h: 56 }
+    - { file: /funders/veteranka.png, alt: "VETERANKA", h: 34 }
+  disclaimer_uk: "Фінансується Європейським Союзом. Однак висловлені погляди та думки належать лише автору(-ам) і не обов'язково відображають погляди Європейського Союзу або Європейського виконавчого агентства з питань освіти та культури (EACEA). Ні Європейський Союз, ні орган, що надає фінансування, не несуть за них відповідальності."
+  disclaimer_en: "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Education and Culture Executive Agency (EACEA). Neither the European Union nor the granting authority can be held responsible for them."
+  text_uk: "«Під уніформою» співфінансовано в межах проєкту Culture Helps Solidarity / Культура допомагає: Солідарність за підтримки програми ЄС «Креативна Європа» (проєкт № 101237762). Проєкт впроваджує консорціум на чолі з European Cultural Foundation (Амстердам) разом з «Іншою освітою» (Київ), zusa (Берлін) і Жіночим ветеранським рухом VETERANKA."
+  text_en: "Under the Uniform is co-financed by the project Culture Helps Solidarity / Культура допомагає: Солідарність, with support from the EU Creative Europe programme (project No. 101237762). Culture Helps Solidarity is implemented by a consortium led by the European Cultural Foundation (Amsterdam) with Insha Osvita (Kyiv), zusa (Berlin) and Veteranka, the Female Veterans Movement."
 history_uk: |
   **Як усе почалося.** Поверхом нижче від простору театру «НАШі», де працюють Бентеги, розташований Veterans Hub ГО «Українські ЛГБТ-військові за рівні права». Звідти почалося знайомство з людьми, чиї історії лягли в основу вистави. Ще одним поштовхом став мюзикл «Nkoli» на фестивалі Theater der Welt у Німеччині. Команда записала інтерв'ю з ветеранами, ветеранками й чинними військовими, серед них — представники ЛГБТК+ спільноти, і зібрала з них художню історію.
 
