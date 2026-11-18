@@ -169,6 +169,7 @@ collections:
       - { name: text_uk, label: "Текст (UA), 1–2 речення", widget: text }
       - { name: text_en, label: Текст (EN), widget: text }
       - { name: image, label: Фото, widget: image, required: false }
+      - { name: image_credit, label: "Автор фото", widget: string, required: false }
 
   # ---------------------------------------------------------------- МЕДІА
   - name: media

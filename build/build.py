@@ -709,7 +709,8 @@ def process_strip(lang, top0=False):
 def process_card(n, lang):
     p = BY_SLUG.get(n.get("production"), {})
     d = n["date"]
-    meta = " | ".join(x for x in (L(n, "kind", lang), f"{d.day:02d}.{d.month:02d}.{d.year}", L(n, "place", lang)) if x)
+    pcr = (("фото " if lang == "uk" else "photo ") + n["image_credit"]) if n.get("image") and n.get("image_credit") else ""
+    meta = " | ".join(x for x in (L(n, "kind", lang), f"{d.day:02d}.{d.month:02d}.{d.year}", L(n, "place", lang), pcr) if x)
     title = L(p, "title", lang) or L(n, "title", lang)
     href = show_url(p["slug"], lang) if p else url("process", lang)
     pic = img(n.get("image"), title, "(max-width:760px) 100vw, 33vw") or '<span class="pmk"><img src="/brand/mark-solid.png" alt="" width="80" height="78"></span>'

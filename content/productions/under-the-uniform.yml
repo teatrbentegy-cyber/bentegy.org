@@ -107,6 +107,30 @@ quotes:
     role_uk: Qendra Multimedia, після показу в Призрені
     role_en: Qendra Multimedia, after the showing in Prizren
 gallery:
+  - image: /uploads/utu-rehearsal-16.jpg
+    caption_uk: Репетиції
+    caption_en: Rehearsals
+  - image: /uploads/utu-rehearsal-11.jpg
+    caption_uk: Читка
+    caption_en: Read-through
+  - image: /uploads/utu-rehearsal-18.jpg
+    caption_uk: Репетиції
+    caption_en: Rehearsals
+  - image: /uploads/utu-rehearsal-08.jpg
+    caption_uk: Читка
+    caption_en: Read-through
+  - image: /uploads/utu-rehearsal-03.jpg
+    caption_uk: Репетиції
+    caption_en: Rehearsals
+  - image: /uploads/utu-rehearsal-14.jpg
+    caption_uk: Репетиції
+    caption_en: Rehearsals
+  - image: /uploads/utu-rehearsal-10.jpg
+    caption_uk: Робота над текстом
+    caption_en: Working on the text
+  - image: /uploads/utu-rehearsal-07.jpg
+    caption_uk: Робота над текстом
+    caption_en: Working on the text
   - image: /uploads/utu-prizren-02.jpg
     caption_uk: Сашко Петрина. Робоча версія, Призрен
     caption_en: Sashko Petryna. Work in progress, Prizren
@@ -125,4 +149,4 @@ gallery:
   - image: /uploads/utu-prizren-08.jpg
     caption_uk: Аурела Кадріу (Qendra Multimedia) на обговоренні
     caption_en: Aurela Kadriu (Qendra Multimedia) at the discussion
-photo_credit: Esad Duraki | Kosovo Theatre Showcase 2026
+photo_credit: "Varvara Barbados (репетиції) | Esad Duraki, Kosovo Theatre Showcase 2026 (Призрен) / Varvara Barbados (rehearsals) | Esad Duraki, Kosovo Theatre Showcase 2026 (Prizren)"
