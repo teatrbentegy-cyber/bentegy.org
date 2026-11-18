@@ -14,3 +14,7 @@ ticket_operator: WayForPay
 status: on_sale
 price: 500
 price_max: 700
+# Ціна по датах (так само налаштовано у WayForPay): 500 — ранні до 18.11, 600 — 19–25.11, 700 — з 26.11
+price_steps:
+  - { from: 2026-11-19, price: 600 }
+  - { from: 2026-11-26, price: 700 }

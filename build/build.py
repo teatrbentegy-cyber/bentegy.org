@@ -45,6 +45,14 @@ for p in sorted(glob.glob(f"{ROOT}/content/events/*.yml")):
         continue
     if isinstance(d["date"], str):
         d["date"] = dt.date.fromisoformat(d["date"])
+    # price steps (early bird etc.): the step whose date has come sets the current price; the daily build switches it
+    for st in sorted(d.get("price_steps") or [], key=lambda x: str(x.get("from"))):
+        f = st.get("from")
+        f = dt.date.fromisoformat(f) if isinstance(f, str) else f
+        if f and f <= TODAY and st.get("price"):
+            d["price"] = st["price"]
+    if d.get("price") and d.get("price_max") and int(d["price"]) >= int(d["price_max"]):
+        d.pop("price_max")
     if d["date"] >= TODAY or d.get("date_note_uk"):
         EVENTS.append(d)
 EVENTS.sort(key=lambda d: (d["date"], str(d.get("time") or "")))

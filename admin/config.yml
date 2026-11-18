@@ -59,6 +59,14 @@ collections:
       - { name: concert_url, label: "Посилання на Concert.ua (друга кнопка)", widget: string, required: false, hint: "Мітки utm сайт додає сам" }
       - { name: price, label: "Ціна квитка, грн (лише число, напр. 400)", widget: number, value_type: int, required: false, hint: "Потрібна для Google «Події». Якщо ціни кілька — найменша" }
       - { name: price_max, label: "Максимальна ціна, грн (якщо є кілька типів квитків)", widget: number, value_type: int, required: false }
+      - name: price_steps
+        label: "Зміна ціни по датах (як у WayForPay)"
+        widget: list
+        required: false
+        hint: "З указаної дати поточною стає ця ціна; сайт перемикає її сам щоранку"
+        fields:
+          - { name: from, label: "З дати", widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+          - { name: price, label: "Ціна, грн", widget: number, value_type: int }
       - { name: sale_start, label: Початок продажу, widget: datetime, time_format: false, date_format: "YYYY-MM-DD", format: "YYYY-MM-DD", required: false }
       - { name: address_uk, label: "Адреса майданчика (UA), якщо її немає в полі «Майданчик»", widget: string, required: false }
       - { name: address_en, label: Адреса майданчика (EN), widget: string, required: false }
