@@ -55,6 +55,7 @@ document.addEventListener('click', function (ev) {
     gtag('event', 'email_click', { address: addr.split('@')[0], email: addr });
   } else if (/wayforpay\.com\/donate/.test(h)) {
     gtag('event', 'donate_click', { link_url: h });
+    if (window.BENTEGY_ADS && window.BENTEGY_ADS.donate) gtag('event', 'conversion', { send_to: window.BENTEGY_ADS.donate });
   } else if (a.getAttribute('data-provider') || /wayforpay\.com\/payment|concert\.ua/.test(h)) {
     var pr = a.getAttribute('data-provider') || (/concert\.ua/.test(h) ? 'concertua' : 'wayforpay');
     gtag('event', 'ticket_click', { provider: pr, show: a.getAttribute('data-show') || '', link_url: h });
@@ -76,7 +77,8 @@ document.addEventListener('click', function (ev) {
     if (!b) return;
     var v = b.getAttribute('data-consent');
     set(v);
-    if (typeof window.gtag === 'function') gtag('consent', 'update', { analytics_storage: v === 'yes' ? 'granted' : 'denied' });
+    var g = v === 'yes' ? 'granted' : 'denied';
+    if (typeof window.gtag === 'function') gtag('consent', 'update', { analytics_storage: g, ad_storage: g, ad_user_data: g });
     box.hidden = true;
   });
   document.querySelectorAll('a[href="#cookie"]').forEach(function (a) {

@@ -474,10 +474,11 @@ def analytics():
                 f'\n<script>addEventListener("load",function(){{setTimeout(function(){{var s=document.createElement("script");s.async=1;s.src="https://www.googletagmanager.com/gtag/js?id={e(ga)}";document.head.appendChild(s)}},1500)}});</script>'
                 "\n<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}"
                 f"gtag('consent','default',{{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',region:{eea!r}}});"
-                "gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'granted'});"
-                "try{var c=localStorage.getItem('bentegy-consent');if(c)gtag('consent','update',{analytics_storage:c==='yes'?'granted':'denied'});}catch(e){}"
+                # Outside the EEA/UK/CH: measurement on by default (visitor can switch it off in the banner). Ad personalisation is never enabled.
+                "gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'denied',analytics_storage:'granted'});"
+                "try{var c=localStorage.getItem('bentegy-consent');if(c){var g=c==='yes'?'granted':'denied';gtag('consent','update',{analytics_storage:g,ad_storage:g,ad_user_data:g});}}catch(e){}"
                 f"gtag('js',new Date());gtag('config','{e(ga)}');"
-                + (f"gtag('config','{e(aw)}');window.BENTEGY_ADS={{purchase:'{e(aw)}/{e(SETTINGS.get('ads_conv_purchase') or '')}',ticket:'{e(aw)}/{e(SETTINGS.get('ads_conv_ticket') or '')}'}};" if aw else "")
+                + (f"gtag('config','{e(aw)}');window.BENTEGY_ADS={{purchase:'{e(aw)}/{e(SETTINGS.get('ads_conv_purchase') or '')}',ticket:'{e(aw)}/{e(SETTINGS.get('ads_conv_ticket') or '')}'{(",donate:'" + e(aw) + "/" + e(SETTINGS.get('ads_conv_donate')) + "'") if SETTINGS.get('ads_conv_donate') else ''}}};" if aw else "")
                 + "</script>")
     code = (SETTINGS.get("goatcounter") or "").strip()
     if code:
