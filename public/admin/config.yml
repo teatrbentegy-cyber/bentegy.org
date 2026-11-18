@@ -173,7 +173,7 @@ collections:
           - { name: title_uk, label: Заголовок (UA), widget: string, required: false }
           - { name: title_en, label: Заголовок (EN), widget: string, required: false }
           - name: logos
-            label: "Логотипи (на білій плашці; емблема ЄС першою і найбільшою)"
+            label: "Логотипи (світлі версії для чорного фону; емблема ЄС першою і найбільшою)"
             widget: list
             required: false
             fields:
