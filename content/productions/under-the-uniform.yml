@@ -150,3 +150,31 @@ gallery:
     caption_uk: Аурела Кадріу (Qendra Multimedia) на обговоренні
     caption_en: Aurela Kadriu (Qendra Multimedia) at the discussion
 photo_credit: "Varvara Barbados (репетиції) | Esad Duraki, Kosovo Theatre Showcase 2026 (Призрен) / Varvara Barbados (rehearsals) | Esad Duraki, Kosovo Theatre Showcase 2026 (Prizren)"
+
+# Блок збору на прем'єру (з'являється одразу після опису вистави)
+support_box:
+  title_uk: Допоможіть прем'єрі відбутися
+  title_en: Help this premiere happen
+  text_uk: "«Під уніформою» виходить у Києві 11 грудня 2026 року. Ваш внесок покриває оренду майданчика, сценографію, друк і промо, щоб ця історія дійшла до якомога більшої кількості людей."
+  text_en: "Under the Uniform opens in Kyiv on 11 December 2026. Your contribution covers venue hire, the set, print and outreach, so that this story reaches as many people as possible."
+  button_uk: Підтримати прем'єру
+  button_en: Support the premiere
+  url_uk: https://secure.wayforpay.com/donate/bentegy_uah
+  url_en: https://secure.wayforpay.com/donate/bentegy_eur
+  note_uk: "Безпечна оплата через WayForPay: Visa, Mastercard, Apple Pay, Google Pay. Внесок отримує ГО «В РЕСУРСІ» як благодійну пожертву."
+  note_en: "Secure payment via WayForPay: Visa, Mastercard, Apple Pay, Google Pay. Donations go to NGO “In the Resource” as a charitable donation."
+  alt_uk: Реквізити для переказу
+  alt_en: Bank transfer details
+
+# Блок для кураторів і фестивалів (лише англійська сторінка, внизу)
+presenters:
+  title_en: For presenters and festivals
+  text_en: Under the Uniform is available for touring from 2027.
+  rows_en:
+    - ["Company on tour", "4 performers, director and stage manager"]
+    - ["Running time", "Approx. 1 h 30 min: two shows with a 15-min interval"]
+    - ["Language", "Ukrainian and English. A bilingual touring version with English surtitles for the Ukrainian parts, as shown in Prizren"]
+    - ["First shown", "Kosovo Theatre Showcase 2026, Prizren (work in progress)"]
+    - ["Co-production", "Bentegy Theatre (Kyiv) and Qendra Multimedia (Pristina)"]
+  note_en: Technical rider and video on request.
+  email: pavlo@bentegy.org

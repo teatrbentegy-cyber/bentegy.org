@@ -127,6 +127,35 @@ collections:
           - { name: role_uk, label: "Хто це / де (UA)", widget: string, required: false }
           - { name: role_en, label: "Хто це / де (EN)", widget: string, required: false }
           - { name: url, label: "Посилання на джерело", widget: string, required: false }
+      - name: support_box
+        label: "Блок збору (після опису)"
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title_uk, label: Заголовок (UA), widget: string, required: false }
+          - { name: title_en, label: Заголовок (EN), widget: string, required: false }
+          - { name: text_uk, label: Текст (UA), widget: text, required: false }
+          - { name: text_en, label: Текст (EN), widget: text, required: false }
+          - { name: button_uk, label: Кнопка (UA), widget: string, required: false }
+          - { name: button_en, label: Кнопка (EN), widget: string, required: false }
+          - { name: url_uk, label: "Посилання WayForPay donate (UA, гривні)", widget: string, required: false }
+          - { name: url_en, label: "Посилання WayForPay donate (EN, євро)", widget: string, required: false }
+          - { name: note_uk, label: Дрібний рядок (UA), widget: string, required: false }
+          - { name: note_en, label: Дрібний рядок (EN), widget: string, required: false }
+          - { name: alt_uk, label: "Друге посилання → сторінка «Підтримати» (UA)", widget: string, required: false }
+          - { name: alt_en, label: "Друге посилання → Support page (EN)", widget: string, required: false }
+      - name: presenters
+        label: "Блок для кураторів і фестивалів (EN, внизу сторінки)"
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - { name: title_en, label: Заголовок (EN), widget: string, required: false }
+          - { name: text_en, label: Текст (EN), widget: string, required: false }
+          - { name: rows_en, label: "Рядки [назва, значення]", widget: list, required: false, field: { name: row, label: Рядок, widget: list } }
+          - { name: note_en, label: Примітка (EN), widget: string, required: false }
+          - { name: email, label: Контакт, widget: string, required: false }
       - name: credits
         label: Команда
         widget: list

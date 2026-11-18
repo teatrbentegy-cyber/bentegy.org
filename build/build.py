@@ -512,8 +512,10 @@ def short_desc(t, n=158):
     return cut + "…"
 
 
-def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=False):
+def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=False, tix=None):
     t = T[lang]
+    # header «Квитки»: on a show page with tickets on sale it leads straight to the ticket page (counted as ticket_click)
+    tix_a = f'<a class="tix" href="{e(tix["ticket_url"])}" target="_blank" rel="noopener" data-provider="{provider(tix["ticket_url"])}" data-show="{e(tix.get("production") or "")}">{t["tickets"]}</a>' if tix else f'<a class="tix" href="{url("afisha", lang)}">{t["tickets"]}</a>'
     o = other(lang)
     _tl = L(SETTINGS, 'tagline', lang).split('.')[0]
     full = f"{t['name']} — {_tl[:1].lower()}{_tl[1:]}" if key == "home" and not title else f"{title} — {t['name']}"
@@ -558,8 +560,8 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
   <a class="sup" href="{url('support', lang)}"{" aria-current=page" if key == 'support' else ""}>{t['nav']['support']}</a>
   <a class="lg" href="{paths[1]}" hreflang="{o}" lang="{o}">{t['other']}</a>
   <details class="burger"><summary>{t['menu']}</summary><div class="panel">{nav}{extra_links(lang, key)}
-    <div class="row"><a href="{paths[1]}" hreflang="{o}" lang="{o}">{'English' if lang == 'uk' else 'Українська'}</a><a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a></div></div></details>
-  <a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a>
+    <div class="row"><a href="{paths[1]}" hreflang="{o}" lang="{o}">{'English' if lang == 'uk' else 'Українська'}</a>{tix_a}</div></div></details>
+  {tix_a}
 </div></header>
 <main id="main">
 """
@@ -896,12 +898,14 @@ def page_show(p, lang):
 <div class="gut max"><dl class="facts">{facts_h}</dl></div>
 <section class="sec gut max"><div class="sh"><h2>{('Про подію' if is_ev else 'Про виставу') if lang == 'uk' else 'About'}</h2></div>
   <div class="two"><span></span><div class="prose">{mdh(L(p, 'description', lang))}</div></div></section>
+{support_box(p, lang)}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Історія проєкту" if lang == "uk" else "The story so far"}</h2></div><div class="two"><span></span><div class="prose">{mdh(L(p, "history", lang))}</div></div></section>' if L(p, "history", lang) else ''}
 {show_quotes(p, lang)}
 {'' if not evs and p.get('status') not in ('repertoire', 'upcoming') else f"""<section class="sec gut max" id="dates" style="padding-top:0"><div class="sh"><h2>{t['dates']}</h2><a class="more" href="{url('afisha', lang)}">{t['all_dates']}</a></div>{schedule(evs, lang, group=False)}</section>"""}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{("Учасники й команда" if lang == "uk" else "Participants and team") if is_ev else t["credits"]}</h2></div><dl class="credits" style="margin-top:28px">{credits}</dl></section>' if credits else ''}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{t["photos"]}</h2></div><div class="gal">{"".join(gal_items)}</div>{pc}</section>' if gal_items else ''}
 {media_strip([m for m in MEDIA if m.get("production") == p["slug"]], lang, t['nav']['media'], url('media', lang), 'Усе з медіа' if lang == 'uk' else 'All media', top0=True)}
+{presenters_box(p, lang)}
 """
     paths = (show_url(p["slug"], lang), show_url(p["slug"], other(lang)))
     uk = lang == "uk"
@@ -909,10 +913,40 @@ def page_show(p, lang):
     seo_title = f"{title}: {kind} {'в Києві' if uk else 'in Kyiv'}" if p.get("status") in ("repertoire", "upcoming", "produced") else title
     desc = L(p, "summary", lang)
     up = [x for x in evs if x["date"] >= TODAY]
-    if up:
+    if up and p.get("status") == "upcoming":
+        nx = up[0]
+        when = f"{nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}"
+        seo_title = f"{title}: {'прем' + chr(39) + 'єра' if uk else 'premiere'} {when}"
+        desc = (f"Прем'єра — {when}. " if uk else f"Premiere: {when}. ") + desc
+    elif up:
         nx = up[0]
         desc = desc.rstrip(".") + ". " + (f"Найближчий показ — {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}." if uk else f"Next performance: {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}.")
-    return head(lang, "shows", seo_title, desc, paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang)) + body + foot(lang)
+    sale = [x for x in up if x.get("ticket_url") and (x.get("status") or "soon") not in ("sold_out", "free", "info")]
+    return head(lang, "shows", seo_title, desc, paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang), tix=sale[0] if sale else None) + body + foot(lang)
+
+
+def support_box(p, lang):
+    sb = p.get("support_box") or {}
+    u = sb.get(f"url_{lang}")
+    if not sb or not u:
+        return ""
+    alt = L(sb, "alt", lang)
+    alt_h = f'<a class="go" href="{url("support", lang)}">{e(alt)} →</a>' if alt else ""
+    return f"""<section class="sbox gut max" aria-label="{e(L(sb, 'title', lang))}"><div class="sbi">
+  <div><h2 class="sbt">{e(L(sb, 'title', lang))}</h2><p class="sbx">{e(L(sb, 'text', lang))}</p><p class="sbn">{e(L(sb, 'note', lang))}</p></div>
+  <div class="sbb"><a class="tix big" href="{e(u)}" target="_blank" rel="noopener">{e(L(sb, 'button', lang))}</a>{alt_h}</div></div></section>"""
+
+
+def presenters_box(p, lang):
+    pr = p.get("presenters") or {}
+    if not pr or not L(pr, "title", lang) or (lang == "uk" and not pr.get("title_uk")):
+        return ""
+    rows = "".join(f"<dt>{e(a)}</dt><dd>{e(b)}</dd>" for a, b in (pr.get(f"rows_{lang}") or []))
+    mail = pr.get("email", "")
+    contact = f'<p class="prc">{"Contact" if lang == "en" else "Контакт"}: <a href="mailto:{e(mail)}">{e(mail)}</a></p>' if mail else ""
+    note = f'<p class="sbn">{e(L(pr, "note", lang))}</p>' if L(pr, "note", lang) else ""
+    return f"""<section class="sec gut max" id="presenters"><div class="sh"><h2>{e(L(pr, 'title', lang))}</h2></div>
+  <p class="sbx" style="margin-top:22px">{e(L(pr, 'text', lang))}</p><dl class="credits" style="margin-top:22px">{rows}</dl>{contact}{note}</section>"""
 
 
 def show_quotes(p, lang):

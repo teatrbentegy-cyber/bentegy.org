@@ -906,3 +906,14 @@ a:hover{text-decoration-color:currentColor}
 .pwl em{font-style:normal;font-size:14px;color:rgba(255,255,255,.6)}
 @media (max-width:760px){.pwl li{grid-template-columns:64px 1fr}.pwl em{grid-column:2}}
 code{font-family:inherit;font-size:inherit}
+/* блок збору на прем'єру */
+.sbox{margin-top:clamp(8px,2vw,24px)}
+.sbi{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(20px,3vw,48px);align-items:end;border-top:3px solid var(--r);border-bottom:1px solid #333;padding:clamp(22px,2.6vw,36px) 0}
+.sbt{font:900 clamp(26px,3.2vw,48px)/.95 var(--f);letter-spacing:-.04em;text-transform:uppercase}
+.sbx{margin-top:14px;max-width:62ch;color:#e6e6e6;font-size:17px;line-height:1.55}
+.sbn{margin-top:12px;max-width:62ch;color:#9a9a9a;font-size:13px;line-height:1.5}
+.sbb{display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+.prc{margin-top:22px;font-size:17px}
+.prc a{border-bottom:2px solid #fff;text-decoration:none;padding-bottom:2px}
+@media (max-width:860px){.sbi{grid-template-columns:1fr;align-items:start}}
+
