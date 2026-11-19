@@ -89,3 +89,12 @@ ads_conv_donate: "Eq5jCMeY-LodEJiwx4lF"
 goatcounter: ""
 # Розділ «Медіа» тимчасово прихований, поки його доробляємо. Щоб увімкнути — true.
 media_enabled: true
+# Короткі посилання для соцмереж: bentegy.org/<ключ> веде на сторінку з міткою джерела (видно в Google Analytics).
+# to — куди веде; source/medium/content — звідки людина прийшла. Нові посилання додавати за зразком.
+short_links:
+  ig: {to: /vystavy/under-the-uniform/, source: instagram, medium: social, content: bio}
+  story: {to: /vystavy/under-the-uniform/, source: instagram, medium: social, content: stories}
+  ad: {to: /vystavy/under-the-uniform/, source: instagram, medium: paid}
+  tg: {to: /vystavy/under-the-uniform/, source: telegram, medium: social}
+  mail: {to: /vystavy/under-the-uniform/, source: email, medium: email}
+short_links_campaign: utu-premiere

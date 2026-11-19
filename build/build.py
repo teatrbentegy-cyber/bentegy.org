@@ -1160,6 +1160,22 @@ def redirect_page(lang, to):
     return f"""<!doctype html><html lang="{lang}"><head><meta charset="utf-8"><meta name="robots" content="noindex"><link rel="canonical" href="{SITE}{to}"><meta http-equiv="refresh" content="0;url={to}"><title>Bentegy</title></head><body><a href="{to}">{to}</a></body></html>"""
 
 
+def short_link_page(key, cfg):
+    """bentegy.org/<key>/ -> target page with UTM tags; noindex, kept out of the sitemap."""
+    from urllib.parse import urlencode
+    q = {"utm_source": cfg.get("source") or key, "utm_medium": cfg.get("medium") or "link",
+         "utm_campaign": cfg.get("campaign") or SETTINGS.get("short_links_campaign") or key}
+    if cfg.get("content"):
+        q["utm_content"] = cfg["content"]
+    clean = cfg.get("to") or "/"
+    to = clean + ("&" if "?" in clean else "?") + urlencode(q)
+    a = to.replace("&", "&amp;")
+    return (f"""<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="robots" content="noindex">"""
+            f"""<link rel="canonical" href="{SITE}{clean}"><meta http-equiv="refresh" content="0;url={a}">"""
+            f"""<script>location.replace({json.dumps(to)})</script><title>Театр Бентеги</title></head>"""
+            f"""<body><a href="{a}">bentegy.org{clean}</a></body></html>""")
+
+
 def page_org(lang):
     t = T[lang]
     o = SETTINGS["organization"]
@@ -1676,6 +1692,8 @@ def build():
         write(url("thanks", lang), page_thanks(lang))  # noindex, kept out of the sitemap
         if PRIVACY:
             write(url("privacy", lang), page_privacy(lang)); urls.append(url("privacy", lang))
+    for key, cfg in (SETTINGS.get("short_links") or {}).items():  # noindex, kept out of the sitemap
+        write(f"/{key}/", short_link_page(key, cfg or {}))
     write("/404.html", page_404())
     open(f"{OUT}/CNAME", "w").write("bentegy.org\n")
     open(f"{OUT}/.nojekyll", "w").close()
