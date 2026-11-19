@@ -520,6 +520,17 @@ def short_desc(t, n=158):
     return cut + "…"
 
 
+def lang_switch(lang, other_href):
+    """Always-visible UA/EN toggle: the current language is highlighted, the other one links to this page's translation."""
+    items = []
+    for code, label, name in (("uk", "UA", "Українська"), ("en", "EN", "English")):
+        if code == lang:
+            items.append(f'<span class="on" aria-current="true" lang="{code}">{label}</span>')
+        else:
+            items.append(f'<a href="{e(other_href)}" hreflang="{code}" lang="{code}" title="{name}">{label}</a>')
+    return f'<div class="lsw" role="group" aria-label="Мова / Language">{"".join(items)}</div>'
+
+
 def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=False, tix=None):
     t = T[lang]
     # header «Квитки»: on a show page with tickets on sale it leads straight to the ticket page (counted as ticket_click)
@@ -566,7 +577,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
   <a class="mk" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="40" height="39"><span class="wm">{'Театр Бентеги' if lang == 'uk' else 'Bentegy Theatre'}</span></a>
   <nav aria-label="{t['menu']}">{nav}</nav>
   <a class="sup" href="{url('support', lang)}"{" aria-current=page" if key == 'support' else ""}>{t['nav']['support']}</a>
-  <a class="lg" href="{paths[1]}" hreflang="{o}" lang="{o}">{t['other']}</a>
+  {lang_switch(lang, paths[1])}
   <details class="burger"><summary>{t['menu']}</summary><div class="panel">{nav}{extra_links(lang, key)}
     <div class="row"><a href="{paths[1]}" hreflang="{o}" lang="{o}">{'English' if lang == 'uk' else 'Українська'}</a>{tix_a}</div></div></details>
   {tix_a}
@@ -803,7 +814,7 @@ def page_home(lang):
 <section class="hero" aria-label="{t['name']}">
   {slides}
   <div class="top gut"><a class="mkb" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="56" height="55"></a>
-    <a class="lg" href="{url('home', o)}" hreflang="{o}" lang="{o}">{t['other']}</a><a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a></div>
+    {lang_switch(lang, url('home', o))}<a class="tix" href="{url('afisha', lang)}">{t['tickets']}</a></div>
   <div class="poster gut">
     <div class="now"><p>{e(L(SETTINGS, 'tagline', lang))}</p>
       <a class="cap" id="cap" href="{e(loc_href(first.get('link') or '', lang) or url('shows', lang))}">{'На фото' if lang == 'uk' else 'Pictured'}<b>{e(L(first, 'caption', lang))}</b><span class="ticks" aria-hidden="true">{ticks}</span></a></div>

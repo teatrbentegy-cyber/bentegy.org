@@ -906,3 +906,18 @@ code{font-family:inherit;font-size:inherit}
   .fpl img{height:calc(var(--h)*.78)}
   .fpo{gap:20px 28px;justify-content:flex-start}
 }
+/* language switch: always-visible UA/EN toggle in the header and on the home hero */
+.lsw{display:flex;align-items:stretch;align-self:center;flex:none;height:32px;margin:0 14px 0 4px;border:1px solid #fff}
+.lsw>*{display:flex;align-items:center;justify-content:center;min-width:40px;padding:0 10px;font:700 13px/1 var(--f);letter-spacing:.06em;text-decoration:none;color:#fff;transition:background .15s}
+.lsw .on{background:#fff;color:#000}
+.lsw a:hover{background:#333}
+.hero .top .lsw{height:46px;margin:0}
+.hero .top .lsw>*{min-width:46px}
+@media (max-width:1060px){
+  .hd .lsw{margin-left:auto;margin-right:6px}
+  .burger{margin-left:0}
+}
+@media (max-width:420px){
+  .hd .lsw>*{min-width:36px;padding:0 8px}
+  .burger summary{padding:0 12px}
+}
