@@ -945,3 +945,11 @@ code{font-family:inherit;font-size:inherit}
   .hd .lsw>*{min-width:36px;padding:0 8px}
   .burger summary{padding:0 12px}
 }
+/* text pages: photos inside the article (![caption](/uploads/…) on its own line; two lines in one paragraph sit side by side) */
+.article .afigs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:2em 0}
+.article .afigs.one{grid-template-columns:1fr}
+.article .afigs.pt{max-width:540px}
+.article .afig{margin:0}
+.article .afig img{display:block;width:100%;height:auto;margin:0}
+.article .afig figcaption{font-size:13px;line-height:1.45;color:var(--mu);margin-top:8px}
+@media (max-width:560px){.article .afigs{grid-template-columns:1fr}}

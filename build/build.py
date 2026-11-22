@@ -1484,6 +1484,30 @@ def photo_pack(m, lang):
     note = f'<p class="dlnote">{"Фото можна вільно використовувати в публікаціях про подію із зазначенням автора." if uk else "Photos are free to use in coverage of the event, with photo credit."}</p>'
     return f"""<section class="sec gut max" id="foto" style="padding-top:0"><div class="sh"><h2>{'Фото для медіа' if uk else 'Photos for media'}</h2>{''.join(links)}</div>{note}<div class="dl">{''.join(items)}</div>{full}</section>"""
 
+FIG_RE = re.compile(r"^!\[([^\]]*)\]\((/uploads/[^)\s]+)\)\s*$")
+
+
+def md_figs(text):
+    """Text pages: a paragraph made only of ![caption](/uploads/x.jpg) lines becomes a responsive figure (two or more lines: side by side)."""
+    out = []
+    for block in re.split(r"\n\s*\n", text or ""):
+        lines = [x.strip() for x in block.strip().splitlines() if x.strip()]
+        ms = [FIG_RE.match(x) for x in lines]
+        if not lines or not all(ms) or not all(m_.group(2) in IMG_DONE for m_ in ms):
+            out.append(block)
+            continue
+        many = len(ms) > 1
+        figs = []
+        for m_ in ms:
+            cap, path = m_.group(1), m_.group(2)
+            sz = "(max-width:560px) 100vw, (max-width:860px) 50vw, 360px" if many else "(max-width:860px) 100vw, 720px"
+            figs.append(f'<figure class="afig">{img(path, cap, sz)}<figcaption>{e(cap)}</figcaption></figure>')
+        w, h = IMG_DONE[ms[0].group(2)][2]
+        cls = "afigs" + ("" if many else " one" + (" pt" if h > w else ""))
+        out.append(f'<div class="{cls}">{"".join(figs)}</div>')
+    return "\n\n".join(out)
+
+
 def page_media(m, lang):
     t = T[lang]
     uk = lang == "uk"
@@ -1498,7 +1522,7 @@ def page_media(m, lang):
     if m.get("source_url") or L(m, "source", lang):
         nm = e(L(m, "source", lang) or m.get("source_url"))
         src = f'<p class="src">{"Вперше опубліковано" if uk else "First published in"}: ' + (f'<a href="{e(m["source_url"])}" target="_blank" rel="noopener">{nm}</a>' if m.get("source_url") else nm) + "</p>"
-    bodyh = mdh(L(m, "body", lang))
+    bodyh = mdh(md_figs(L(m, "body", lang)))
     prod = f'<a class="aprod" href="{show_url(p["slug"], lang)}">{img(p.get("cover"), L(p, "title", lang), "320px")}<span>{"Вистава" if uk else "Production"}<b>{e(L(p, "title", lang))}</b></span></a>' if p else ""
     related = [x for x in MEDIA if x["slug"] != m["slug"] and (x["type"] == tp or x.get("production") == m.get("production"))][:3]
     more = media_strip(related, lang, "Ще в медіа" if uk else "More", url("media", lang), "Усе з медіа" if uk else "All media")
