@@ -176,3 +176,19 @@ document.addEventListener('click', function (ev) {
     boxes.forEach(function (b) { io.observe(b); });
   }
 })();
+
+// text pages: silent clips play only while they are on screen; with reduced motion they get controls instead
+(function () {
+  var vids = [].slice.call(document.querySelectorAll('video[data-inview]'));
+  if (!vids.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { vids.forEach(function (v) { v.controls = true; }); return; }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (en) {
+      var v = en.target;
+      if (en.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; }); }
+      else v.pause();
+    });
+  }, { threshold: 0.25 });
+  vids.forEach(function (v) { io.observe(v); });
+})();

@@ -1487,22 +1487,31 @@ def photo_pack(m, lang):
 FIG_RE = re.compile(r"^!\[([^\]]*)\]\((/uploads/[^)\s]+)\)\s*$")
 
 
+def poster_of(path):
+    return path[:-4] + ".jpg" if path.endswith(".mp4") else path
+
+
 def md_figs(text):
     """Text pages: a paragraph made only of ![caption](/uploads/x.jpg) lines becomes a responsive figure (two or more lines: side by side)."""
     out = []
     for block in re.split(r"\n\s*\n", text or ""):
         lines = [x.strip() for x in block.strip().splitlines() if x.strip()]
         ms = [FIG_RE.match(x) for x in lines]
-        if not lines or not all(ms) or not all(m_.group(2) in IMG_DONE for m_ in ms):
+        if not lines or not all(ms) or not all(poster_of(m_.group(2)) in IMG_DONE for m_ in ms):
             out.append(block)
             continue
         many = len(ms) > 1
         figs = []
         for m_ in ms:
             cap, path = m_.group(1), m_.group(2)
-            sz = "(max-width:560px) 100vw, (max-width:860px) 50vw, 360px" if many else "(max-width:860px) 100vw, 720px"
-            figs.append(f'<figure class="afig">{img(path, cap, sz)}<figcaption>{e(cap)}</figcaption></figure>')
-        w, h = IMG_DONE[ms[0].group(2)][2]
+            if path.endswith(".mp4"):  # silent looping clip: plays while on screen (site.js), poster = same name .jpg
+                pw, ph = IMG_DONE[poster_of(path)][2]
+                media = f'<video src="{e(path)}" poster="{img_url(poster_of(path), 800)}" width="{pw}" height="{ph}" muted loop playsinline preload="none" data-inview aria-label="{e(cap)}"></video>'
+            else:
+                sz = "(max-width:560px) 100vw, (max-width:860px) 50vw, 360px" if many else "(max-width:860px) 100vw, 720px"
+                media = img(path, cap, sz)
+            figs.append(f'<figure class="afig">{media}<figcaption>{e(cap)}</figcaption></figure>')
+        w, h = IMG_DONE[poster_of(ms[0].group(2))][2]
         cls = "afigs" + ("" if many else " one" + (" pt" if h > w else ""))
         out.append(f'<div class="{cls}">{"".join(figs)}</div>')
     return "\n\n".join(out)

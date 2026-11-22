@@ -953,3 +953,4 @@ code{font-family:inherit;font-size:inherit}
 .article .afig img{display:block;width:100%;height:auto;margin:0}
 .article .afig figcaption{font-size:13px;line-height:1.45;color:var(--mu);margin-top:8px}
 @media (max-width:560px){.article .afigs{grid-template-columns:1fr}}
+.article .afig video{display:block;width:100%;height:auto;background:#111}
