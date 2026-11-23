@@ -2,4 +2,6 @@ User-agent: *
 Disallow: /admin/
 Disallow: /dyakuyemo/
 Disallow: /en/thank-you/
+Disallow: /dyakuyemo-za-vnesok/
+Disallow: /en/thank-you-donation/
 Sitemap: https://bentegy.org/sitemap.xml

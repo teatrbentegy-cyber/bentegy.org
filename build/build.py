@@ -520,7 +520,7 @@ def analytics():
                 "gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'denied',analytics_storage:'granted'});"
                 "try{var c=localStorage.getItem('bentegy-consent');if(c){var g=c==='yes'?'granted':'denied';gtag('consent','update',{analytics_storage:g,ad_storage:g,ad_user_data:g});}}catch(e){}"
                 f"gtag('js',new Date());gtag('config','{e(ga)}');"
-                + (f"gtag('config','{e(aw)}');window.BENTEGY_ADS={{purchase:'{e(aw)}/{e(SETTINGS.get('ads_conv_purchase') or '')}',ticket:'{e(aw)}/{e(SETTINGS.get('ads_conv_ticket') or '')}'{(",donate:'" + e(aw) + "/" + e(SETTINGS.get('ads_conv_donate')) + "'") if SETTINGS.get('ads_conv_donate') else ''}}};" if aw else "")
+                + (f"gtag('config','{e(aw)}');window.BENTEGY_ADS={{purchase:'{e(aw)}/{e(SETTINGS.get('ads_conv_purchase') or '')}',ticket:'{e(aw)}/{e(SETTINGS.get('ads_conv_ticket') or '')}'{(",donate:'" + e(aw) + "/" + e(SETTINGS.get('ads_conv_donate')) + "'") if SETTINGS.get('ads_conv_donate') else ''}{(",donation:'" + e(aw) + "/" + e(SETTINGS.get('ads_conv_donation')) + "'") if SETTINGS.get('ads_conv_donation') else ''}}};" if aw else "")
                 + "</script>")
     code = (SETTINGS.get("goatcounter") or "").strip()
     if code:
@@ -1292,6 +1292,17 @@ def copy_btn(lang, target):
     return f'<button type="button" class="copy" data-copy="{target}" data-done="{"Скопійовано" if lang == "uk" else "Copied"}">{"Скопіювати" if lang == "uk" else "Copy"}</button>'
 
 
+def support_goal(lang):
+    """The goal on top of «Підтримати» (support.yml → goal_production / goal_until): (production, its support_box, still live?).
+    The donation thank-you page reads the same goal, so the two texts stay in step."""
+    gp = BY_SLUG.get(SUPPORT.get("goal_production") or "")
+    until = SUPPORT.get("goal_until")
+    if isinstance(until, str):
+        until = dt.date.fromisoformat(until[:10])
+    sb = (gp or {}).get("support_box") or {}
+    return gp, sb, bool(gp and sb.get(f"url_{lang}") and (not until or TODAY <= until))
+
+
 def page_support(lang):
     t = T[lang]
     uk = lang == "uk"
@@ -1306,12 +1317,7 @@ def page_support(lang):
         n = "{:,}".format(int(v or 0)).replace(",", " ")
         return f"{n} {sym}" if uk else f"{sym}{n}"
     # 1. one goal on top: the premiere we raise money for now (support.yml → goal_production / goal_until), then a general donation
-    gp = BY_SLUG.get(sp.get("goal_production") or "")
-    until = sp.get("goal_until")
-    if isinstance(until, str):
-        until = dt.date.fromisoformat(until[:10])
-    sb = (gp or {}).get("support_box") or {}
-    live = bool(gp and sb.get(f"url_{lang}") and (not until or TODAY <= until))
+    gp, sb, live = support_goal(lang)
     free = sp.get(f"free_url_{cur}")
     if live:
         g_url, g_btn = sb[f"url_{lang}"], L(sb, "button", lang)
@@ -1720,6 +1726,38 @@ def page_thanks(lang):
     return head(lang, "thanks", "Дякуємо" if uk else "Thank you", lead, (url("thanks", lang), url("thanks", other(lang))), noindex=True) + body + foot(lang)
 
 
+R["thanks_donation"] = ("/dyakuyemo-za-vnesok/", "/en/thank-you-donation/")
+
+
+def page_thanks_donation(lang):
+    """After a WayForPay donation (WayForPay returns here with ?cur=UAH|EUR): thanks, where the gift goes, the show page, socials.
+    /thanks-donation.js sends GA4 "donation" and the Ads conversion once per order. noindex, kept out of the sitemap and menus."""
+    uk = lang == "uk"
+    c = SETTINGS["contacts"]
+    gp, sb, live = support_goal(lang)
+    show = gp or BY_SLUG.get("under-the-uniform")
+    lead = ("Внесок отримано. Він стає репетиціями, світлом і гонорарами для людей, які створюють вистави. Підтвердження оплати WayForPay надішле на вашу пошту."
+            if uk else "Your gift has arrived. It becomes rehearsals, light on stage and fair pay for the people who make the work. WayForPay will email you a payment confirmation.")
+    if live:
+        g_h, g_x = L(gp, "title", lang), L(sb, "text", lang)
+        g_img = img(gp.get("cover"), L(gp, "title", lang), "(max-width:760px) 100vw, 40vw")
+    else:
+        g_h = "Нові вистави" if uk else "New productions"
+        g_x = "Кожна гривня йде на вистави, команду й покази." if uk else "Every euro goes to productions, the team and performances."
+        g_img = img((SETTINGS.get("hero") or [{}])[0].get("image"), T[lang]["name"], "(max-width:760px) 100vw, 40vw")
+    btn = (f'<a class="tix big" href="{show_url(show["slug"], lang)}">{("До вистави «" + L(show, "title", lang) + "»") if uk else ("Go to " + L(show, "title", lang))}</a>' if show else "")
+    socials = "".join(f'<a class="go" href="{e(c[k])}" target="_blank" rel="noopener">{n}</a>' for k, n in (("instagram", "Instagram"), ("telegram", "Telegram")) if c.get(k))
+    body = page_head("Дякуємо" if uk else "Thank you", lead) + f"""
+<section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="goal">
+  <div class="im">{g_img}</div>
+  <div><p class="k">{"Ваш внесок іде на" if uk else "Your gift goes to"}</p><h2>{e(g_h)}</h2><p class="x">{e(g_x)}</p>
+    <div class="bb">{btn}</div>
+    <p class="n">{"Стежте за роботою команди:" if uk else "Follow the team at work:"}</p><div class="bb" style="margin-top:14px">{socials}</div></div></div></section>
+<script src="/thanks-donation.js" defer></script>"""
+    return head(lang, "thanks_donation", "Дякуємо за внесок" if uk else "Thank you for your gift", lead,
+                (url("thanks_donation", lang), url("thanks_donation", other(lang))), noindex=True) + body + foot(lang)
+
+
 GOALS = {
     "uk": ["Сприяння розвитку культури, театрального, перформативного, музичного, візуального, кіно-, літературного й мультидисциплінарного мистецтва в Україні.",
            "Створення умов для розвитку молодих митців і представників культурного, креативного та освітнього секторів.",
@@ -1774,6 +1812,7 @@ def build():
     open(f"{OUT}/main.css", "w", encoding="utf-8").write(css)
     shutil.copy(f"{ROOT}/build/site.js", f"{OUT}/site.js")
     shutil.copy(f"{ROOT}/build/thanks.js", f"{OUT}/thanks.js")
+    shutil.copy(f"{ROOT}/build/thanks-donation.js", f"{OUT}/thanks-donation.js")
     os.makedirs(f"{OUT}/img", exist_ok=True)
     shutil.copy(f"{ROOT}/static/brand/sig-logo.png", f"{OUT}/img/sig-logo.png")  # used by the email signature
     urls = []
@@ -1800,6 +1839,7 @@ def build():
         write(url("team", lang), redirect_page(lang, url("about", lang) + "#team"))
         write(url("org", lang), redirect_page(lang, url("about", lang) + "#organisation"))
         write(url("thanks", lang), page_thanks(lang))  # noindex, kept out of the sitemap
+        write(url("thanks_donation", lang), page_thanks_donation(lang))  # noindex, kept out of the sitemap
         if PRIVACY:
             write(url("privacy", lang), page_privacy(lang)); urls.append(url("privacy", lang))
     for key, cfg in (SETTINGS.get("short_links") or {}).items():  # noindex, kept out of the sitemap
@@ -1807,7 +1847,7 @@ def build():
     write("/404.html", page_404())
     open(f"{OUT}/CNAME", "w").write("bentegy.org\n")
     open(f"{OUT}/.nojekyll", "w").close()
-    open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /dyakuyemo/\nDisallow: /en/thank-you/\nSitemap: {SITE}/sitemap.xml\n")
+    open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /dyakuyemo/\nDisallow: /en/thank-you/\nDisallow: /dyakuyemo-za-vnesok/\nDisallow: /en/thank-you-donation/\nSitemap: {SITE}/sitemap.xml\n")
     open(f"{OUT}/sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                                           "".join(f"<url><loc>{SITE}{u}</loc></url>" for u in urls) + "</urlset>")
     print(f"built {len(urls)} pages, {len(IMG_DONE)} images, {len(EVENTS)} events")

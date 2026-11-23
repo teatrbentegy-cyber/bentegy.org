@@ -86,6 +86,8 @@ google_ads: "AW-18542090264"
 ads_conv_purchase: "dypOCKmbnK0dEJiwx4lF"
 ads_conv_ticket: "jaDICI7Apa0dEJiwx4lF"
 ads_conv_donate: "Eq5jCMeY-LodEJiwx4lF"
+# Конверсія «Внесок (сторінка подяки)»: мітку впише гілка техпитань після створення конверсії в Google Ads
+ads_conv_donation: ""
 goatcounter: ""
 # Розділ «Медіа» тимчасово прихований, поки його доробляємо. Щоб увімкнути — true.
 media_enabled: true
