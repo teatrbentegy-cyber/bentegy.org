@@ -274,7 +274,7 @@ a{color:inherit;text-underline-offset:4px;text-decoration-thickness:1px}
 .ft .cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-top:2px solid #fff;border-bottom:2px solid #fff}
 .ft .cols>div{padding:22px 20px 26px 0}
 .ft .cols>div+div{border-left:2px solid #fff;padding-left:20px}
-.ft h4{font:600 12px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:14px}
+.ft h2{font:600 12px/1 var(--f);letter-spacing:.1em;text-transform:uppercase;color:var(--mu);margin-bottom:14px}
 .ft ul{list-style:none;display:grid;gap:8px;font-size:15px}
 .ft a{text-decoration:none}
 .ft a:hover{text-decoration:underline;text-decoration-color:var(--rd)}
@@ -584,7 +584,7 @@ body{line-height:1.72}
 .ft .cols>div{padding-top:20px;padding-bottom:22px}
 .ft ul{gap:7px;line-height:1.3;font-size:14px}
 .ft li small{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:2px}
-.ft h4{margin-bottom:12px}
+.ft h2{margin-bottom:12px}
 .ft .word{font-size:clamp(56px,12vw,220px)}
 .ft .legal{padding-block:14px calc(18px + env(safe-area-inset-bottom,0px))}
 .pb .qs{font-size:13px;color:var(--mu);margin-top:12px;max-width:52ch}

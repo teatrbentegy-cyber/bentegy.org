@@ -374,6 +374,27 @@ def ld_org(lang):
     }
 
 
+def ld_article(m, lang):
+    tp = m.get("type")
+    authors = [{"@type": "Person", "name": person_name(a, lang)} for a in (m.get("authors") or [])]
+    if L(m, "guest_author", lang):
+        authors.append({"@type": "Person", "name": L(m, "guest_author", lang)})
+    d = {
+        "@context": "https://schema.org", "@type": "NewsArticle" if tp in ("news", "release") else "Article",
+        "headline": L(m, "title", lang), "description": short_desc(L(m, "lead", lang), 200),
+        "inLanguage": lang, "datePublished": m["date"].isoformat(),
+        "mainEntityOfPage": SITE + media_url(m["slug"], lang),
+        "publisher": {"@type": "TheaterGroup", "name": T[lang]["name"], "url": SITE + url("home", lang), "logo": {"@type": "ImageObject", "url": SITE + "/press/bentegy-znak.png"}},
+    }
+    if m.get("cover"):
+        d["image"] = SITE + img_url(m["cover"])
+    if authors:
+        d["author"] = authors[0] if len(authors) == 1 else authors
+    else:
+        d["author"] = {"@type": "Organization", "name": T[lang]["name"]}
+    return d
+
+
 def concert_url(ev):
     u = (ev.get("concert_url") or "").strip()
     if not u:
@@ -575,7 +596,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <a class="skip" href="#main">{t['skip']}</a>
 <header class="hd" id="hd"><div class="in gut max">
   <a class="mk" href="{url('home', lang)}" aria-label="{t['name']}"><img src="/brand/mark-solid.png" alt="" width="40" height="39"><span class="wm">{'Театр Бентеги' if lang == 'uk' else 'Bentegy Theatre'}</span></a>
-  <nav aria-label="{t['menu']}">{nav}</nav>
+  <nav aria-label="{'Головне меню' if lang == 'uk' else 'Main menu'}">{nav}</nav>
   <a class="sup" href="{url('support', lang)}"{" aria-current=page" if key == 'support' else ""}>{t['nav']['support']}</a>
   {lang_switch(lang, paths[1])}
   <details class="burger"><summary>{t['menu']}</summary><div class="panel">{nav}{extra_links(lang, key)}
@@ -596,17 +617,17 @@ def foot(lang):
 <footer class="ft gut max">
   <p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
   <div class="cols">
-    <div><h4>{t['sections']}</h4><ul>{links}</ul></div>
-    <div><h4>{t['connect']}</h4><ul>
+    <div><h2>{t['sections']}</h2><ul>{links}</ul></div>
+    <div><h2>{t['connect']}</h2><ul>
       <li><small>{'Театр' if lang == 'uk' else 'Theatre'}</small><a href="mailto:{c.get('theatre') or c['team']}">{c.get('theatre') or c['team']}</a></li>
       <li><small>{'Співпраця й команда' if lang == 'uk' else 'Partnerships'}</small><a href="mailto:{c['team']}">{c['team']}</a></li>
       <li><small>{'Преса' if lang == 'uk' else 'Press'}</small><a href="mailto:{c['press']}">{c['press']}</a></li>
       <li><small>{'Продюсер' if lang == 'uk' else 'Producer'}</small><a href="mailto:{c['producer']}">{c['producer']}</a></li>
       <li><small>{'Телефон' if lang == 'uk' else 'Phone'}</small><a href="tel:{c['phone'].replace(' ', '')}">{c['phone']}</a></li></ul></div>
-    <div><h4>{'Соцмережі' if lang == 'uk' else 'Follow'}</h4><ul>
+    <div><h2>{'Соцмережі' if lang == 'uk' else 'Follow'}</h2><ul>
       <li><a href="{c['instagram']}">Instagram</a></li>
       <li><a href="{c['telegram']}">Telegram</a></li>{yt_li}</ul></div>
-    <div><h4>{t['org_h']}</h4><ul>
+    <div><h2>{t['org_h']}</h2><ul>
       <li>{e(L(o, 'name', lang))}</li>
       <li>{'Код ЄДРПОУ' if lang == 'uk' else 'EDRPOU'} {o['edrpou']}</li>
       <li><a href="{url('about', lang) + '#organisation'}">{'Реквізити і документи' if lang == 'uk' else 'Details and documents'}</a></li></ul></div>
@@ -819,7 +840,7 @@ def page_home(lang):
     <div class="now"><p>{e(L(SETTINGS, 'tagline', lang))}</p>
       <a class="cap" id="cap" href="{e(loc_href(first.get('link') or '', lang) or url('shows', lang))}">{'На фото' if lang == 'uk' else 'Pictured'}<b>{e(L(first, 'caption', lang))}</b><span class="ticks" aria-hidden="true">{ticks}</span></a></div>
     <h1 class="vh">{t['name']}</h1><p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
-    <nav class="hmenu" aria-label="{t['menu']}" style="--n:{len(hv)}">{hmenu}</nav>
+    <nav class="hmenu" aria-label="{'Розділи сайту' if lang == 'uk' else 'Site sections'}" style="--n:{len(hv)}">{hmenu}</nav>
   </div>
 </section>
 <section class="sec gut max">
@@ -1322,6 +1343,21 @@ def page_support(lang):
     return head(lang, "support", t["nav"]["support"], L(sp, "lead", lang), (url("support", lang), url("support", other(lang)))) + body + foot(lang)
 
 
+def press_preview(path):
+    """Small PNG for the logo grid on the press page; the full-size file stays behind the Download link."""
+    src = f"{ROOT}/static{path}"
+    if not path.startswith("/press/") or not os.path.exists(src):
+        return path
+    name = os.path.basename(path)
+    dst = f"{OUT}/press/prev/{name}"
+    if not os.path.exists(dst):
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        im = Image.open(src)
+        im.thumbnail((640, 640), Image.LANCZOS)
+        im.convert("RGBA").quantize(64, method=Image.FASTOCTREE).save(dst, optimize=True)
+    return f"/press/prev/{name}"
+
+
 def page_press(lang):
     t = T[lang]
     uk = lang == "uk"
@@ -1330,7 +1366,7 @@ def page_press(lang):
     texts = f"""<div class="bp"><div class="bh"><h3>{'Коротко' if uk else 'Short'}</h3>{copy_btn(lang, 'bp-short')}</div><div class="prose" id="bp-short"><p>{e(L(pr, 'about_short', lang))}</p></div></div>
 <div class="bp"><div class="bh"><h3>{'Детально' if uk else 'Long'}</h3>{copy_btn(lang, 'bp-long')}</div><div class="prose" id="bp-long">{mdh(L(pr, 'about_long', lang))}</div></div>
 <div class="bp"><div class="bh"><h3>{'Засновник' if uk else 'Founder'}: {e(L(PRODUCER, 'name', lang))}</h3>{copy_btn(lang, 'bp-bio')}</div><div class="prose" id="bp-bio">{mdh(L(PRODUCER, 'bio', lang))}</div></div>"""
-    logos = "".join(f"""<figure class="lg-{x.get('bg', 'light')}"><div class="lgim"><img src="{e(x['file'])}" alt="{e(L(x, 'title', lang))}" loading="lazy"></div><figcaption><span>{e(L(x, 'title', lang))}<small>PNG</small></span><a href="{e(x['file'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""" for x in pr.get("logos", []))
+    logos = "".join(f"""<figure class="lg-{x.get('bg', 'light')}"><div class="lgim"><img src="{e(press_preview(x['file']))}" alt="{e(L(x, 'title', lang))}" loading="lazy"></div><figcaption><span>{e(L(x, 'title', lang))}<small>PNG</small></span><a href="{e(x['file'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""" for x in pr.get("logos", []))
     cov = ""
     if pr.get("coverage"):
         items = []
@@ -1559,7 +1595,7 @@ def page_media(m, lang):
         cls = "rd rd-news"
     body = f'<div class="{cls}">{top}{main}</div>{more}'
     paths = (media_url(m["slug"], lang), media_url(m["slug"], other(lang)))
-    return head(lang, "media", title, L(m, "lead", lang), paths, og=img_url(m.get("cover")) if m.get("cover") else "") + body + foot(lang)
+    return head(lang, "media", title, L(m, "lead", lang), paths, og=img_url(m.get("cover")) if m.get("cover") else "", ld=ld_article(m, lang)) + body + foot(lang)
 
 
 def page_team(lang):
