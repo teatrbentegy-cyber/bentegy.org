@@ -69,3 +69,7 @@ gallery:
 - image: /uploads/kinets-zminy-2026-09.jpg
 - image: /uploads/kinets-zminy-2026-10.jpg
 photo_credit: Анастасія Правік / Anastasiia Pravik
+clips:
+  - { video: /uploads/kinets-zminy-clip-1.mp4, caption_uk: "Фрагмент вистави", caption_en: "Excerpt from the performance" }
+  - { video: /uploads/kinets-zminy-clip-2.mp4, caption_uk: "Прем'єра", caption_en: "Premiere" }
+  - { video: /uploads/kinets-zminy-clip-3.mp4, caption_uk: "Репетиція", caption_en: "Rehearsal" }

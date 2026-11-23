@@ -85,3 +85,7 @@ gallery:
 - image: /uploads/koni-08.jpg
 - image: /uploads/koni-09.jpg
 photo_credit: Нікіта Делюков, Мая Максимова / Nikita Delyukov, Maya Maksimova
+# Відео й фото «Коней» — лише до 31.12.2026
+clips:
+  - { video: /uploads/koni-clip-1.mp4, caption_uk: "Фрагмент вистави", caption_en: "Excerpt from the performance", until: 2026-12-31 }
+  - { video: /uploads/koni-clip-2.mp4, caption_uk: "Фрагмент вистави", caption_en: "Excerpt from the performance", until: 2026-12-31 }

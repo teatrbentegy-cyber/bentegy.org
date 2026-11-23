@@ -203,6 +203,16 @@ collections:
           - { name: caption_uk, label: Підпис (UA), widget: string, required: false }
           - { name: caption_en, label: Підпис (EN), widget: string, required: false }
       - { name: photo_credit, label: Автор фото, widget: string, required: false }
+      - name: clips
+        label: Відео під описом
+        widget: list
+        required: false
+        hint: "Ч/б кліпи без звуку (.mp4) і обкладинка з тією ж назвою (.jpg) у /uploads. Грають, коли на екрані"
+        fields:
+          - { name: video, label: "Відео (.mp4)", widget: file }
+          - { name: caption_uk, label: Підпис (UA), widget: string, required: false }
+          - { name: caption_en, label: Підпис (EN), widget: string, required: false }
+          - { name: until, label: "Показувати до (включно)", widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
 
   # ---------------------------------------------------------------- СТОРІНКИ
   # ---------------------------------------------------------------- ПРОЦЕС

@@ -950,7 +950,7 @@ def page_show(p, lang):
 {tixbox}
 <div class="gut max"><dl class="facts">{facts_h}</dl></div>
 <section class="sec gut max"><div class="sh"><h2>{('Про подію' if is_ev else 'Про виставу') if lang == 'uk' else 'About'}</h2></div>
-  <div class="two"><span></span><div class="prose">{mdh(L(p, 'description', lang))}</div></div></section>
+  <div class="two"><span></span><div><div class="prose">{mdh(L(p, 'description', lang))}</div>{clips_html(p, lang)}</div></div></section>
 {support_box(p, lang)}
 {f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Історія проєкту" if lang == "uk" else "The story so far"}</h2></div><div class="two"><span></span><div class="prose">{mdh(L(p, "history", lang))}</div></div></section>' if L(p, "history", lang) else ''}
 {show_quotes(p, lang)}
@@ -989,6 +989,21 @@ def support_box(p, lang):
     return f"""<section class="sbox gut max" aria-label="{e(L(sb, 'title', lang))}"><div class="sbi">
   <div><h2 class="sbt">{e(L(sb, 'title', lang))}</h2><p class="sbx">{e(L(sb, 'text', lang))}</p><p class="sbn">{e(L(sb, 'note', lang))}</p></div>
   <div class="sbb"><a class="tix big" href="{e(u)}" target="_blank" rel="noopener">{e(L(sb, 'button', lang))}</a>{alt_h}</div></div></section>"""
+
+
+def clips_html(p, lang):
+    """Show pages: silent black-and-white loops under the description (production yml → clips; `until` hides a clip after that date)."""
+    out = []
+    for c in p.get("clips") or []:
+        path, until = c.get("video", ""), c.get("until")
+        if isinstance(until, str):
+            until = dt.date.fromisoformat(until[:10])
+        if not path.endswith(".mp4") or poster_of(path) not in IMG_DONE or (until and TODAY > until):
+            continue
+        cap = L(c, "caption", lang)
+        pw, ph = IMG_DONE[poster_of(path)][2]
+        out.append(f'<figure class="clip"><video src="{e(path)}" poster="{img_url(poster_of(path), 800)}" width="{pw}" height="{ph}" muted loop playsinline preload="none" data-inview aria-label="{e(cap)}"></video>{f"<figcaption>{e(cap)}</figcaption>" if cap else ""}</figure>')
+    return f'<div class="clips n{len(out)}">{"".join(out)}</div>' if out else ""
 
 
 def funding_box(p, lang):

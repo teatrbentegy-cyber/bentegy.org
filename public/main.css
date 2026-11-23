@@ -983,3 +983,12 @@ code{font-family:inherit;font-size:inherit}
 @media (max-width:1000px){.alt3{grid-template-columns:1fr}.uses5{grid-template-columns:1fr 1fr}}
 @media (max-width:760px){.goal{grid-template-columns:1fr}.goal .im img{aspect-ratio:3/2}.goal .amts{grid-template-columns:1fr;gap:16px}}
 @media (max-width:480px){.uses5{grid-template-columns:1fr}}
+
+/* ---------------- show pages: silent clips under the description ---------------- */
+.clips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:clamp(28px,3vw,44px)}
+.clips.n1{grid-template-columns:minmax(0,1fr);max-width:420px}
+.clips.n2{grid-template-columns:repeat(2,minmax(0,1fr));max-width:720px}
+.clip{margin:0}
+.clip video{display:block;width:100%;height:auto;background:#111}
+.clip figcaption{font-size:13px;line-height:1.45;color:var(--mu);margin-top:8px}
+@media (max-width:560px){.clips,.clips.n2{grid-template-columns:repeat(2,minmax(0,1fr))}.clips.n3 .clip:last-child{display:none}}
