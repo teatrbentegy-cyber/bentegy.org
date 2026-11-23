@@ -7,10 +7,15 @@ online_url: ""
 online_note_uk: 'Оплата через WayForPay: Visa, Mastercard, Apple Pay, Google Pay. Внесок отримує ГО «В РЕСУРСІ» як благодійну пожертву на статутну діяльність.'
 online_note_en: 'Secure payment via WayForPay: Visa and Mastercard from any country, Apple Pay, Google Pay. Donations go to NGO “In the Resource” as a charitable donation towards its statutory work.'
 
+# Мета зверху сторінки: вистава, на яку збираємо зараз (блок support_box з її файлу). Після goal_until — загальний внесок.
+goal_production: under-the-uniform
+goal_until: 2026-12-11
+
 # Рівні донатів. Посилання — з кабінету WayForPay (Платіжні кнопки). Рівень зʼявляється на сайті, щойно додано посилання:
 # гривневе — на українській сторінці, єврове — на англійській.
 tiers:
   - amount_uah: 300
+    hint: true
     amount_eur: 10
     title_uk: Третій дзвінок
     title_en: Curtain up
@@ -35,6 +40,7 @@ tiers:
     url_uah: https://secure.wayforpay.com/donate/bentegy_uah
     url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 5000
+    hint: true
     amount_eur: 100
     title_uk: Сцена
     title_en: The stage
@@ -43,6 +49,7 @@ tiers:
     url_uah: https://secure.wayforpay.com/donate/bentegy_uah
     url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 15000
+    hint: true
     amount_eur: 300
     title_uk: Партнер показу
     title_en: Performance partner
