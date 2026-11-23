@@ -179,13 +179,13 @@ support_box:
 # Блок для кураторів і фестивалів (лише англійська сторінка, внизу)
 presenters:
   title_en: For presenters and festivals
-  text_en: Under the Uniform is available for touring in 2027 in two formats, the full production and a compact solo version first shown in Prizren.
+  text_en: Under the Uniform is available for touring in 2027.
   rows_en:
-    - ["Full production", "4 performers, approx. 1 h 30 min with a 15-min interval. Company on tour: 6 (4 performers, director, stage manager). Technical rider after the Kyiv premiere on 11 December 2026"]
-    - ["Solo version", "1 performer, up to 30 min, followed by a 30-min conversation with the audience. Company on tour: 3. First shown at Kosovo Theatre Showcase 2026, Prizren"]
-    - ["Solo version: venue", "Projector and screen or a large monitor, house PA, a basic lighting rig with an operator from the venue. No set to ship. About 5 to 6 hours at the venue, on the day or the day before"]
-    - ["Language", "Ukrainian and English, with English subtitles for the Ukrainian parts"]
-    - ["Age", "18+ full production, 16+ solo version"]
+    - ["Company on tour", "6: 4 performers, director and stage manager"]
+    - ["Running time", "Approx. 1 h 30 min: two shows with a 15-min interval"]
+    - ["Language", "Ukrainian and English. A bilingual touring version with English surtitles for the Ukrainian parts, as shown in Prizren"]
+    - ["Age", "18+"]
+    - ["Premiere", "11 December 2026, Kyiv. First shown as a work in progress at Kosovo Theatre Showcase 2026, Prizren"]
     - ["Co-production", "Bentegy Theatre (Kyiv) and Qendra Multimedia (Pristina)"]
-  note_en: Technical rider, video of the showing and fees on request.
+  note_en: Technical rider, video and fees on request.
   email: pavlo@bentegy.org
