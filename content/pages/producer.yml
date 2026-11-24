@@ -25,7 +25,7 @@ stats:
 bio_uk: |
   Театральний продюсер, режисер і драматург із Києва, засновник незалежного Театру Бентеги. Як митець працює з документом, свідченням і тілом у постдраматичних формах. Як продюсер будує незалежну сцену Києва: випускає власні роботи, міжнародні копродукції та вистави молодих команд, тримаючи обидві ролі водночас.
 bio_en: |
-  Theatre producer, director and playwright based in Kyiv, founder of Bentegy Theatre, an independent company. As an artist he works with documents, testimony and the body in postdramatic forms. As a producer he helps build Kyiv’s independent scene, bringing out his own work, international co-productions and work by emerging companies, and holding both roles at once.
+  Theatre producer, director and playwright based in Kyiv, founder of Bentegy Theatre, an independent company. As an artist he works with documents, testimony and the body in postdramatic forms. As a producer he is building Kyiv’s independent scene, putting on his own work, international co-productions and work by emerging companies, and holding both roles at once.
 now:
   - year: "2025"
     uk: Театр Бентеги | засновник, продюсер
@@ -93,7 +93,7 @@ flagships:
     year: "2026"
     link: mizh-svitom-i-dusheyu
     text_uk: Документальна моновистава про памʼять, опір і моральний вибір через постать поета й дисидента Василя Стуса. Текст зібрано з його поезії, листів і автобіографічної прози; пластична партитура — за методом Тадаші Сузукі; мінімальна сценографія створена для гастролей.
-    text_en: A documentary solo performance about memory, resistance and moral choice through the figure of poet and dissident Vasyl Stus. The text draws on his poetry, letters and autobiographical prose; the physical score on the Suzuki Method; the minimal set is built to tour.
+    text_en: A documentary solo performance about memory, resistance and moral choice through the figure of poet and dissident Vasyl Stus. The text draws on his poetry, letters and autobiographical prose; the physical score follows the Suzuki Method; the minimal set is built for touring.
     facts_uk:
       - ["Роль", "Режисер, автор сценарію, продюсер"]
       - ["Продакшн", "Театр Бентеги"]
@@ -109,7 +109,7 @@ flagships:
     year: "2026–2027"
     link: under-the-uniform
     text_uk: "Постдокументальна вистава про момент, коли маска вже не тримається: за один вечір — два шоу, те, яке мало статися, і те, яке сталося насправді. Виросла з інтерв'ю з ветеранами, ветеранками й чинними військовими, серед них — представники ЛГБТК+ спільноти. Герої вигадані, досвід справжній."
-    text_en: "A post-documentary performance about the moment the mask stops holding: one evening, two shows, the one that was supposed to happen and the one that actually did. It grew out of interviews with veterans and serving soldiers, among them members of the LGBTQ+ community. The characters are invented; the experience is real."
+    text_en: "A post-documentary performance about the moment the mask no longer holds: one evening, two shows, the one that was supposed to happen and the one that actually did. It grew out of interviews with veterans, both men and women, and active-duty service members, among them members of the LGBTQ+ community. The characters are invented; the experience is real."
     facts_uk:
       - ["Роль", "Режисер, драматург, продюсер"]
       - ["Копродукція", "Україна — Косово, Qendra Multimedia (Приштина)"]
@@ -125,7 +125,7 @@ flagships:
 scene_uk: |
   Театр Бентеги — незалежний театр у Києві, заснований 2025 року. Працює з різними жанрами й форматами, з 2026-го має власний репертуарний сезон і діє через ГО «В РЕСУРСІ». Моя робота тут — будувати спільноту, підтримувати незалежних митців і розвивати незалежну сцену Києва.
 scene_en: |
-  Bentegy Theatre is an independent theatre company in Kyiv, founded in 2025. It works across genres and formats, has run its own repertory season since 2026 and operates through the NGO In the Resource. My work here is community building, support for independent artists and the growth of Kyiv’s independent scene.
+  Bentegy Theatre is an independent theatre company in Kyiv, founded in 2025. It works across genres and formats, has run its own repertory season since 2026 and operates through the NGO “In the Resource”. My work here is community building, support for independent artists and the growth of Kyiv’s independent scene.
 scene_facts_uk:
   - ["Роль", "Засновник, куратор, продюсер"]
   - ["Модель", "Мінімум грошей, максимум бартеру: майданчик, бар, транспорт і друк — через партнерства"]

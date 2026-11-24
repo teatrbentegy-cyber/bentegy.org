@@ -157,8 +157,8 @@ T = {
                legal="Діє через Громадську організацію «В РЕСУРСІ» | код ЄДРПОУ 44977435", sections="Розділи", connect="Звʼязок", org_h="Організація"),
     "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", process="Process", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", opportunities="Opportunities", press="Press", media="Media", team="Team"),
                tickets="Tickets", menu="Menu", skip="Skip to content", other="UA", soon="On sale soon", free="Free entry", sold="Sold out",
-               all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Produced by Bentegy",
-               upcoming_tag="Premiering soon", produced_tag="Bentegy production", nodates="New dates will be announced soon. Follow us on Instagram.",
+               all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Producing",
+               upcoming_tag="Premiering soon", produced_tag="Produced by Bentegy", nodates="New dates will be announced soon. Follow us on Instagram.",
                genre="Form", premiere="Premiere", duration="Running time", age="Age rating", credits="Credits", dates="Dates", photos="Photos",
                producer_cta="Work with the producer", about_producer="Founder and producer", read_more="Read more", time="Time",
                legal="Operated by NGO “In the Resource” | EDRPOU 44977435", sections="Sections", connect="Contact", org_h="Organisation"),
@@ -218,6 +218,15 @@ def media_url(slug, lang):
 
 def mtype_url(tp, lang):
     return f"{url('media', lang)}{MTYPE[tp][0 if lang == 'uk' else 1]}/"
+
+
+def plural_uk(n, one, few, many):
+    n = abs(int(n))
+    if n % 10 == 1 and n % 100 != 11:
+        return one
+    if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+        return few
+    return many
 
 
 def fdate(d, lang):
@@ -1249,17 +1258,17 @@ def page_org(lang):
     goals = "".join(f"<li>{e(g)}</li>" for g in GOALS[lang])
     lead = ("Театр Бентеги діє через молодіжну громадську організацію «В РЕСУРСІ». Організація неприбуткова, позапартійна і незалежна, внесена до Реєстру неприбуткових установ та організацій."
             if uk else
-            "Bentegy Theatre operates through the youth NGO In the Resource. It is non-profit, non-partisan and independent, and is listed in the Register of Non-Profit Institutions of the State Tax Service of Ukraine.")
+            "Bentegy Theatre operates through the youth NGO “In the Resource”. It is non-profit, non-partisan and independent, and is listed in the Register of Non-Profit Institutions of the State Tax Service of Ukraine.")
     purpose = ("Розбудова активного громадянського суспільства; всебічний розвиток культури й мистецтва в Україні; підтримка театрального, музичного, літературного, візуального й перформативного мистецтва; формування нових культурних практик та інституцій; розвиток неформальної та громадянської освіти, самовизначення й самореалізація молоді, її змістовне дозвілля."
                if uk else
-               "Building an active civil society; the comprehensive development of culture and the arts in Ukraine; supporting theatre, music, literary, visual and performing arts; contributing to new cultural practices and institutions; developing non-formal and civic education and the self-realisation and meaningful leisure of young people.")
+               "Building an active civil society; the comprehensive development of culture and the arts in Ukraine; supporting theatre, music, literary, visual and performing arts; shaping new cultural practices and institutions; developing non-formal and civic education; the self-determination, self-realisation and meaningful leisure of young people.")
     funding = ("Організація існує завдяки грантам, власним надходженням від квитків і партнерствам з майданчиками. Документи організації надаємо на запит."
                if uk else
                "The organisation is funded by grants, box-office income and in-kind partnerships with venues. Organisational documents are available on request.")
     partners = "".join(f"<span>{e(bi(x, lang))}</span>" for x in SETTINGS.get("partners", []))
     body = page_head(t["nav"]["org"], lead) + f"""
 <section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{'Реквізити' if uk else 'Details'}</h2></div><dl class="req">{dl}</dl></section>
-<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Мета' if uk else 'Purpose'}</h2></div><div class="two"><span></span><div class="prose"><p>{purpose}</p><p class="mu" style="font-size:15px">{'Статут затверджено рішенням Загальних зборів, протокол № 5 від 1 серпня 2025 року.' if uk else 'Statute approved by the General Meeting, Protocol No. 5 of 1 August 2025. English text is a courtesy translation.'}</p></div></div></section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Мета' if uk else 'Purpose'}</h2></div><div class="two"><span></span><div class="prose"><p>{purpose}</p><p class="mu" style="font-size:15px">{'Статут затверджено рішенням Загальних зборів, протокол № 5 від 1 серпня 2025 року.' if uk else 'The statute was approved by the General Meeting, Protocol No. 5 of 1 August 2025. English text is a courtesy translation.'}</p></div></div></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Напрями' if uk else 'Activities'}</h2></div><ol class="goals">{goals}</ol></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Фінансування' if uk else 'Funding'}</h2></div><div class="two"><span></span><div><p class="prose">{funding}</p><div class="chips" style="margin-top:24px">{partners}</div></div></div></section>
 """
@@ -1366,7 +1375,7 @@ def page_support(lang):
         if not uk and b.get("correspondents"):
             corr = "".join(f"<dt>{e(c.get('bank', ''))}</dt><dd>SWIFT {e(c.get('swift', ''))} | Account {e(str(c.get('account', '')))}</dd>" for c in b["correspondents"])
             foreign = f'<details class="corr"><summary>Correspondent banks (EUR)</summary><dl class="req tight">{corr}</dl></details>'
-        bank = f"""<div><h3>{'Переказ на рахунок' if uk else 'Bank transfer'}</h3><p>{'Гривневий рахунок ГО «В РЕСУРСІ» у ПриватБанку.' if uk else 'Euro, dollar and hryvnia accounts of NGO In the Resource at PrivatBank.'}</p>
+        bank = f"""<div><h3>{'Переказ на рахунок' if uk else 'Bank transfer'}</h3><p>{'Гривневий рахунок ГО «В РЕСУРСІ» у ПриватБанку.' if uk else 'Euro and hryvnia accounts of the NGO “In the Resource” at PrivatBank.'}</p>
   <details class="bankd"><summary>{'Показати реквізити' if uk else 'Show bank details'}</summary><dl class="req tight">{dl}</dl>{foreign}</details></div>"""
     partner = f"""<div><h3>{'Партнерам' if uk else 'Partners'}</h3><p>{'Партнерство сезону чи вистави, підтримка в натуральній формі (майданчик, світло й звук, друк, перевезення, проживання на гастролях) або особиста підтримка з подякою на сайті й у програмках.' if uk else 'Season or production partnership, in-kind support (rehearsal space, lighting and sound, printing, transport, accommodation on tour) or personal patronage, with thanks on the website and in programmes if you wish.'}</p>
   <a class="go" href="mailto:{mail}">{mail}</a></div>"""
@@ -1430,7 +1439,7 @@ def page_press(lang):
             items.append(f"""<a class="cov" href="{e(x['url'])}" target="_blank" rel="noopener"><span class="d">{ds}</span><b>{e(x.get(f'outlet_{lang}') or x.get('outlet', ''))}</b><span class="t">{e(x.get(f'title_{lang}') or x.get('title', ''))}</span><span class="ar">→</span></a>""")
         cov = f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Публікації" if uk else "Coverage"}</h2></div>{"".join(items)}</section>'
     n_cov = len([m for m in MEDIA if m["type"] == "article"])
-    cov_link = f'''<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Про нас пишуть" if uk else "Coverage"}</h2><a class="more" href="{mtype_url("article", lang)}">{(f"{n_cov} публікацій у розділі «Медіа»" if uk else f"{n_cov} articles in the Media section")} →</a></div></section>''' if n_cov else ""
+    cov_link = f'''<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{"Про нас пишуть" if uk else "Coverage"}</h2><a class="more" href="{mtype_url("article", lang)}">{(f"{n_cov} {plural_uk(n_cov, 'публікація', 'публікації', 'публікацій')} у розділі «Медіа»" if uk else f"{n_cov} {'article' if n_cov == 1 else 'articles'} in the Media section")} →</a></div></section>''' if n_cov else ""
     qs = ""
     if pr.get("quotes"):
         qs = '<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>' + ("Відгуки" if uk else "Quotes") + '</h2></div><div class="quotes">' + "".join(
@@ -1679,7 +1688,7 @@ def page_team(lang):
     cards = "".join(f"""<article class="tc" id="{x['slug']}"><div class="im">{img(x.get('photo'), L(x, 'name', lang), "(max-width:760px) 50vw, 25vw") or f'<span class="ini">{e(initials(x))}</span>'}</div>
   <p class="tr">{e(L(x, 'role', lang)) if L(x, 'name', lang) else ("Скоро в команді" if uk else "Joining soon")}</p><h3>{e(L(x, 'name', lang) or L(x, 'role', lang))}</h3>{f"<p class='tb'>{e(L(x, 'bio', lang))}</p>" if L(x, 'bio', lang) else ''}{links(x)}</article>""" for x in core)
     rows = "".join(f"""<article class="tl" id="{x['slug']}"><h3>{e(L(x, 'name', lang))}</h3><p class="tr">{e(L(x, 'role', lang))}</p><p class="tb">{e(L(x, 'projects', lang) or L(x, 'bio', lang))}</p>{links(x)}</article>""" for x in collab)
-    arows = "".join(f"""<article class="tl" id="{x['slug']}"><h3>{e(L(x, 'name', lang))}</h3><p class="tr">{len(by_author(x['slug']))} {"тексти" if uk else "pieces"}</p><p class="tb">{e(L(x, 'bio', lang))}</p>{links(x)}</article>""" for x in auth)
+    arows = "".join(f"""<article class="tl" id="{x['slug']}"><h3>{e(L(x, 'name', lang))}</h3><p class="tr">{len(by_author(x['slug']))} {plural_uk(len(by_author(x['slug'])), "текст", "тексти", "текстів") if uk else ("piece" if len(by_author(x['slug'])) == 1 else "pieces")}</p><p class="tb">{e(L(x, 'bio', lang))}</p>{links(x)}</article>""" for x in auth)
 
     def sec(h, inner, cls):
         return f'<section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{h}</h2></div><div class="{cls}">{inner}</div></section>' if inner else ""
@@ -1816,8 +1825,8 @@ GOALS = {
            "Організація освітніх і культурних заходів: лекцій, тренінгів, майстер-класів, відкритих дискусій, читань.",
            "Розвиток критичного мислення, інклюзивності та міждисциплінарної співпраці в культурі й мистецтві.",
            "Сприятливе середовище для співпраці культурних і громадських організацій, держави, бізнесу та міжнародних партнерів."],
-    "en": ["Promoting culture and the theatre, performing, musical, visual, film, literary and multidisciplinary arts in Ukraine.",
-           "Creating conditions for young artists and people in the cultural, creative and educational sectors.",
+    "en": ["Promoting the development of culture and of theatre, performing, musical, visual, film, literary and multidisciplinary arts in Ukraine.",
+           "Creating conditions for the development of young artists and people working in the cultural, creative and educational sectors.",
            "Supporting and running cultural, artistic and educational projects, festivals, residencies, workshops and laboratories.",
            "Supporting the creation of individual and collective works of art, including theatre productions.",
            "Organising educational and cultural events: lectures, training sessions, masterclasses, open discussions, readings.",

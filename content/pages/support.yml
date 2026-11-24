@@ -5,7 +5,7 @@ lead_en: Bentegy is an independent theatre company in Kyiv. Every contribution b
 # Онлайн-внесок карткою (WayForPay). Коли буде посилання на платіжну сторінку — вставте його сюди.
 online_url: ""
 online_note_uk: 'Оплата через WayForPay: Visa, Mastercard, Apple Pay, Google Pay. Внесок отримує ГО «В РЕСУРСІ» як благодійну пожертву на статутну діяльність.'
-online_note_en: 'Secure payment via WayForPay: Visa and Mastercard from any country, Apple Pay, Google Pay. Donations go to NGO “In the Resource” as a charitable donation towards its statutory work.'
+online_note_en: 'Secure payment via WayForPay: Visa and Mastercard from any country, Apple Pay, Google Pay. Contributions are received by the NGO “In the Resource” as charitable donations for its statutory activities.'
 
 # Мета зверху сторінки: вистава, на яку збираємо зараз (блок support_box з її файлу). Після goal_until — загальний внесок.
 goal_production: under-the-uniform
@@ -28,7 +28,7 @@ tiers:
     title_uk: Вихід на сцену
     title_en: Entrance
     text_uk: Підтримка людей, які виходять до вас на сцену.
-    text_en: Support for the people who step out on stage for you, night after night.
+    text_en: Support for the people who step out on stage to meet you.
     url_uah: https://secure.wayforpay.com/donate/bentegy_uah
     url_eur: https://secure.wayforpay.com/donate/bentegy_eur
   - amount_uah: 1500
@@ -153,7 +153,7 @@ abonement:
       amount_uah: 2500
       amount_eur: 60
       text_uk: Найближче коло театру. Тримає сезон на ногах.
-      text_en: The theatre's inner circle. It keeps the season on its feet.
+      text_en: The theatre’s inner circle. It keeps the season on its feet.
   perks_uk:
     - Щомісяця лист «з-за лаштунків» про те, що відбувається в театрі
     - Раз на квартал звіт, скільки зібрали й на що пішли кошти
@@ -163,7 +163,7 @@ abonement:
     - A monthly letter from backstage about what is happening in the theatre
     - A quarterly report on how much was raised and where it went
     - Once a season, an invitation to an open rehearsal or run-through
-    - Your name among the theatre's friends on the website, if you wish
+    - Your name among the theatre’s friends on the website, if you wish
   button_uk: Оформити абонемент
   button_en: Subscribe monthly
   stop_uk: Щоб зупинити абонемент, напишіть на theatre@bentegy.org, і ми скасуємо списання.
