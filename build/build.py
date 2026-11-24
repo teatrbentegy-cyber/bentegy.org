@@ -1375,7 +1375,18 @@ def page_support(lang):
              f"Donations are received by {e(org['name_en'])}, EDRPOU {org['edrpou']}, a registered non-profit (code 0032) that uses funds only for its statutory activities. A report on how funds were used is available on request.")
     clear = f"""<div><h3>{'Прозорість' if uk else 'Transparency'}</h3><p>{trust}</p><a class="go" href="{url('about', lang) + '#organisation'}">{'Реквізити організації' if uk else 'Organisation details'}</a></div>"""
     uses = "".join(f"<div><h3>{e(x['title'])}</h3><p>{e(x['text'])}</p></div>" for x in sp.get(f"uses_{lang}", []))
-    body = page_head(t["nav"]["support"], L(sp, "lead", lang)) + goal + f"""
+    # 2. Абонемент: monthly gifts through the same WayForPay pages (their monthly «Абонемент» types)
+    ab = sp.get("abonement") or {}
+    abo = ""
+    if ab and free:
+        lv = "".join(f'<div class="abl"><p class="k">{e(L(x, "title", lang))}</p><p class="amt">{money(x.get(f"amount_{cur}"))}<small>{"на місяць" if uk else "a month"}</small></p><p>{e(L(x, "text", lang))}</p></div>' for x in ab.get("levels") or [])
+        perks = "".join(f"<li>{e(x)}</li>" for x in ab.get(f"perks_{lang}") or [])
+        abo = f"""<section class="sec gut max" id="abonement" style="padding-top:0"><div class="sh"><h2>{e(L(ab, 'title', lang))}</h2></div>
+  <p class="sbx" style="margin-top:22px;max-width:60ch">{e(L(ab, 'lead', lang))}</p>
+  <div class="abo">{lv}</div>
+  <div class="abf"><div><p class="k">{"Абонентам" if uk else "Subscribers get"}</p><ul>{perks}</ul></div>
+    <div><a class="tix big" href="{e(free)}" target="_blank" rel="noopener">{e(L(ab, 'button', lang))}</a><p class="n">{e(L(ab, 'stop', lang))}</p></div></div></section>"""
+    body = page_head(t["nav"]["support"], L(sp, "lead", lang)) + goal + abo + f"""
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Інші способи' if uk else 'Other ways to help'}</h2></div><div class="alt3">{bank}{partner}{clear}</div></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'На що йдуть кошти' if uk else 'Where it goes'}</h2></div><div class="uses5">{uses}</div></section>
 """

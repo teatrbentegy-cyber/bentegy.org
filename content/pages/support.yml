@@ -128,3 +128,43 @@ partners_en:
     text: Rehearsal space, lighting and sound, printing, transport, accommodation on tour.
   - title: Patronage
     text: Personal support for the theatre, with thanks on the website and in programmes if you wish.
+
+# Абонемент: щомісячна підтримка через ті самі сторінки WayForPay (види «Абонемент» з регулярним платежем щомісяця)
+abonement:
+  title_uk: Абонемент
+  title_en: Monthly subscription
+  lead_uk: Щомісячна підтримка, на якій тримається сезон. WayForPay списує внесок щомісяця, зупинити можна будь-коли.
+  lead_en: Monthly support that keeps the season going. WayForPay charges your gift every month, and you can stop any time.
+  levels:
+    - title_uk: Гальорка
+      title_en: Gallery
+      amount_uah: 500
+      amount_eur: 15
+      text_uk: Звідси видно всю сцену й увесь сезон.
+      text_en: From here you see the whole stage and the whole season.
+    - title_uk: Партер
+      title_en: Stalls
+      amount_uah: 1000
+      amount_eur: 30
+      text_uk: Ближче до сцени й до людей, які її створюють.
+      text_en: Closer to the stage and to the people who make it.
+    - title_uk: Ложа
+      title_en: Box
+      amount_uah: 2500
+      amount_eur: 60
+      text_uk: Найближче коло театру. Тримає сезон на ногах.
+      text_en: The theatre's inner circle. It keeps the season on its feet.
+  perks_uk:
+    - Щомісяця лист «з-за лаштунків» про те, що відбувається в театрі
+    - Раз на квартал звіт, скільки зібрали й на що пішли кошти
+    - Раз на сезон запрошення на відкриту репетицію чи прогін
+    - Ваше ім'я серед друзів театру на сайті, якщо бажаєте
+  perks_en:
+    - A monthly letter from backstage about what is happening in the theatre
+    - A quarterly report on how much was raised and where it went
+    - Once a season, an invitation to an open rehearsal or run-through
+    - Your name among the theatre's friends on the website, if you wish
+  button_uk: Оформити абонемент
+  button_en: Subscribe monthly
+  stop_uk: Щоб зупинити абонемент, напишіть на theatre@bentegy.org, і ми скасуємо списання.
+  stop_en: To stop your subscription, write to theatre@bentegy.org and we will cancel the payment.
