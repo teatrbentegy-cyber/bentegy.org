@@ -496,7 +496,7 @@ def ld_person(lang):
         "jobTitle": "Театральний продюсер і режисер" if uk else "Theatre producer and director",
         "description": first, "url": SITE + url("producer", lang),
         "email": SETTINGS["contacts"].get("producer") or "pavlo@bentegy.org",
-        "worksFor": org_ref(lang), "founder": org_ref(lang),
+        "worksFor": org_ref(lang),  # founding is stated on the organisation (TheaterGroup.founder); Person has no "founder"
         "nationality": {"@type": "Country", "name": "Україна" if uk else "Ukraine"},
         "alumniOf": {"@type": "CollegeOrUniversity", "name": "Київський національний університет культури і мистецтв" if uk else "Kyiv National University of Culture and Arts"},
         "sameAs": PERSON_SAME_AS,
