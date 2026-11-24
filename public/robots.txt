@@ -4,4 +4,6 @@ Disallow: /dyakuyemo/
 Disallow: /en/thank-you/
 Disallow: /dyakuyemo-za-vnesok/
 Disallow: /en/thank-you-donation/
+Disallow: /pidpysku-pidtverdzheno/
+Disallow: /en/subscribed/
 Sitemap: https://bentegy.org/sitemap.xml

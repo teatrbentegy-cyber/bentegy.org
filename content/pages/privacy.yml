@@ -1,5 +1,5 @@
 # Сторінка «Політика конфіденційності» (/pryvatnist/, /en/privacy/)
-updated: 2026-11-18
+updated: 2026-11-24
 lead_uk: Як Театр Бентеги збирає, використовує й захищає дані відвідувачів сайту, глядачів і донорів.
 lead_en: How Bentegy Theatre collects, uses and protects data about website visitors, audiences and donors.
 body_uk: |
@@ -17,6 +17,8 @@ body_uk: |
 
   **Листи й повідомлення.** Коли ви пишете нам на пошту чи в соцмережі, ми зберігаємо листування, щоб відповісти й продовжити співпрацю.
 
+  **Розсилка.** Якщо ви підписуєтеся на розсилку на сайті, ми отримуємо вашу адресу електронної пошти. Детальніше — у розділі [«Розсилка»](#newsletter) нижче.
+
   **Хостинг.** Сайт розміщено на GitHub Pages. GitHub веде технічні журнали запитів (зокрема IP-адреси) для безпеки сервісу.
 
   ## Навіщо ці дані
@@ -24,9 +26,16 @@ body_uk: |
   - продаж квитків і допуск на покази;
   - обробка благодійних внесків і звітність про них;
   - відповіді на ваші листи й запити;
+  - розсилка листів тим, хто на неї підписався;
   - розуміння, як люди знаходять театр, і покращення сайту та реклами.
 
   Дані використовуємо лише для цих цілей і передаємо тільки сервісам, переліченим на цій сторінці.
+
+  <h2 id="newsletter">Розсилка</h2>
+
+  Розсилку надсилаємо через сервіс Brevo (Франція). Підписка починає діяти лише після того, як ви підтвердите її за посиланням у листі. Адресу використовуємо тільки для листів театру: прем’єри, покази, відкриті виклики й новини. Brevo фіксує, чи відкрито лист і чи натиснуто посилання в ньому, щоб ми бачили, що цікаво читачам.
+
+  Відписатися можна будь-коли: посиланням у кожному листі або листом на [theatre@bentegy.org](mailto:theatre@bentegy.org). Після відписки ми більше не надсилаємо вам розсилку.
 
   ## Файли cookie
 
@@ -34,7 +43,7 @@ body_uk: |
 
   ## Скільки зберігаємо
 
-  Статистика Google Analytics зберігається 14 місяців. Дані про квитки й донати — стільки, скільки вимагає законодавство про бухгалтерський облік і звітність. Листування — доки воно потрібне для співпраці.
+  Статистика Google Analytics зберігається 14 місяців. Дані про квитки й донати — стільки, скільки вимагає законодавство про бухгалтерський облік і звітність. Листування — доки воно потрібне для співпраці. Адресу для розсилки — доки ви підписані.
 
   ## Ваші права
 
@@ -54,6 +63,8 @@ body_en: |
 
   **Emails and messages.** When you write to us by email or on social media, we keep the correspondence so we can reply and keep working with you.
 
+  **Newsletter.** If you subscribe to the newsletter on the site, we receive your email address. See the [Newsletter](#newsletter) section below.
+
   **Hosting.** The site is hosted on GitHub Pages. GitHub keeps technical request logs (including IP addresses) for the security of its service.
 
   ## Why we use the data
@@ -61,9 +72,16 @@ body_en: |
   - selling tickets and admitting audiences;
   - processing charitable donations and reporting on them;
   - replying to your emails and requests;
+  - sending the newsletter to people who have subscribed to it;
   - understanding how people find the theatre, and improving the site and our advertising.
 
   We use the data for these purposes only and share it only with the services listed on this page.
+
+  <h2 id="newsletter">Newsletter</h2>
+
+  We send the newsletter through Brevo (France). Your subscription starts only after you confirm it with the link in the email we send. We use your address only for the theatre’s letters: premieres, performances, open calls and news. Brevo records whether an email was opened and whether a link in it was clicked, so we can see what interests our readers.
+
+  You can unsubscribe at any time with the link in every email or by writing to [theatre@bentegy.org](mailto:theatre@bentegy.org). Once you unsubscribe, we stop sending you the newsletter.
 
   ## Cookies
 
@@ -71,7 +89,7 @@ body_en: |
 
   ## How long we keep data
 
-  Google Analytics statistics are kept for 14 months. Ticket and donation records are kept for as long as accounting and reporting law requires. Correspondence is kept for as long as we need it to work with you.
+  Google Analytics statistics are kept for 14 months. Ticket and donation records are kept for as long as accounting and reporting law requires. Correspondence is kept for as long as we need it to work with you. Newsletter addresses are kept for as long as you stay subscribed.
 
   ## Your rights
 

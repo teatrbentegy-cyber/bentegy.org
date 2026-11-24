@@ -100,3 +100,8 @@ short_links:
   tg: {to: /vystavy/under-the-uniform/, source: telegram, medium: social}
   mail: {to: /vystavy/under-the-uniform/, source: email, medium: email}
 short_links_campaign: utu-premiere
+# Розсилка (Brevo): адреси форм підписки з подвійним підтвердженням. Списки: «Розсилка UA» і «Newsletter EN».
+# Після підтвердження Brevo веде на /pidpysku-pidtverdzheno/ або /en/subscribed/.
+newsletter:
+  action_uk: "https://335f45dd.sibforms.com/serve/MUIFAFixBFmq1hcwR3DpCkF0MFqv7p5wF7lHAgCTm3fIDzgJmneh2F-kzWJCdhm1EB3kuI7IximI-0uoh3NG9fbZzd0BBQpz4gWUClinZX03XNSz0O5C3Fh8ileRmjU3xp6LdRqlsfcGl5TP7kYu3aMaDr10pVRLytDMD8Lgek_Wae6BFjz8s2TCkEU0FFTvUHc3Y1k0lKyiP4uxvg=="
+  action_en: "https://335f45dd.sibforms.com/serve/MUIFAE1a6WCBmlDdnnxQE6cT7rTHAI4EUwnEqHKc1IJNhGS0zDkfPFH_ucZVqNZ4J5ui6yIlSUjIA-7XbGdX91979Wr0RLX6TJBa47bxCMdXc3_YtVJ52GyLCcvEIn9AcsDX4p7FEeaogfFtTsWMBst5YvHoF7Zj1ifLRUMqYBEbRsXS6FTAPyemVCUnZlj_2den_17IszgOqlRaaw=="

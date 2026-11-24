@@ -981,3 +981,25 @@ code{font-family:inherit;font-size:inherit}
 .abf li{font-size:17px;line-height:1.45;color:#e6e6e6;padding:10px 0;border-bottom:1px solid var(--hair)}
 .abf .n{font-size:14px;color:var(--mu);margin-top:18px;max-width:46ch}
 @media (max-width:860px){.abo{grid-template-columns:1fr}.abf{grid-template-columns:1fr}}
+
+/* ---------------- newsletter (Brevo double opt-in), in the footer ---------------- */
+.nl{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:18px 48px;border-top:2px solid #fff;padding:26px 0 30px}
+.nl h2{margin-bottom:10px}
+.nlt p{font:700 clamp(22px,2.4vw,34px)/1.12 var(--f);letter-spacing:-.02em;max-width:22ch}
+.nlr{display:flex;align-items:stretch}
+.nlr[hidden],.nlm[hidden]{display:none}
+.nlr input{flex:1;min-width:0;height:54px;background:#000;color:#fff;border:2px solid #fff;border-right:0;border-radius:0;padding:0 16px;font:400 17px/1 var(--f);-webkit-appearance:none;appearance:none}
+.nlr input::placeholder{color:var(--mu)}
+.nlr input:focus{outline:none;border-color:var(--r);box-shadow:inset 0 0 0 1px var(--r)}
+.nlr .tix{height:54px;min-height:54px;border:0;cursor:pointer;padding:0 26px}
+.nlr .tix:disabled{opacity:.6;cursor:default}
+.nlr .tix:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.nln{margin-top:10px;font-size:13px;line-height:1.45;color:var(--mu);max-width:60ch}
+.nln a{color:inherit;text-decoration:underline;text-underline-offset:2px}
+.nlm{font-size:16px;line-height:1.45;max-width:52ch}
+.nlm.ok::before{content:"";display:inline-block;width:9px;height:9px;background:var(--r);margin-right:10px;vertical-align:middle}
+.nlm.err{color:#ff7a72;margin-top:12px}
+.nlhp{position:absolute!important;left:-10000px;width:1px;height:1px;opacity:0;pointer-events:none}
+.empty a{color:inherit;text-decoration:underline;text-decoration-color:var(--rd);text-underline-offset:3px}
+@media (max-width:860px){.nl{grid-template-columns:1fr}}
+@media (max-width:520px){.nlr{flex-direction:column}.nlr input{flex:none;height:54px;border-right:2px solid #fff;border-bottom:0}.nlr .tix{width:100%}}

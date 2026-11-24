@@ -192,3 +192,28 @@ document.addEventListener('click', function (ev) {
   }, { threshold: 0.25 });
   vids.forEach(function (v) { io.observe(v); });
 })();
+
+// newsletter (Brevo double opt-in): post in the background and show the message in place.
+// Without JS the form posts to Brevo directly. GA4 gets "newsletter_signup" (consent mode applies).
+(function () {
+  var forms = document.querySelectorAll('form.nlf');
+  if (!forms.length || !window.fetch || !window.URLSearchParams || !window.FormData) return;
+  [].forEach.call(forms, function (f) {
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var inp = f.querySelector('input[name="EMAIL"]'), b = f.querySelector('button[type="submit"]'),
+          m = f.querySelector('.nlm'), hp = f.querySelector('input[name="email_address_check"]');
+      if (!inp.checkValidity()) { if (inp.reportValidity) inp.reportValidity(); return; }
+      if (hp && hp.value) return;
+      b.disabled = true;
+      fetch(f.action, { method: 'POST', mode: 'no-cors', body: new URLSearchParams(new FormData(f)) }).then(function () {
+        m.textContent = m.getAttribute('data-ok'); m.className = 'nlm ok'; m.hidden = false;
+        f.querySelector('.nlr').hidden = true;
+        f.querySelector('.nln').hidden = true;
+        if (typeof window.gtag === 'function') gtag('event', 'newsletter_signup', { language: f.getAttribute('data-lang') || '' });
+      }).catch(function () {
+        m.textContent = m.getAttribute('data-err'); m.className = 'nlm err'; m.hidden = false; b.disabled = false;
+      });
+    });
+  });
+})();

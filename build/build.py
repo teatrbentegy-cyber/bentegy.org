@@ -151,14 +151,14 @@ T = {
     "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", process="Процес", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти", support="Підтримати", opportunities="Можливості", press="Преса", media="Медіа", team="Команда"),
                tickets="Квитки", menu="Меню", skip="До змісту", other="EN", soon="Продаж скоро", free="Вхід вільний", sold="Квитки продано",
                all_dates="Уся афіша", all_shows="Усі вистави", next="Найближчі покази", repertoire="Репертуар", produced="Продюсування",
-               upcoming_tag="Прем'єра скоро", produced_tag="За продюсування Бентег", nodates="Нові дати зʼявляться найближчим часом. Стежте за анонсами в Instagram.",
+               upcoming_tag="Прем'єра скоро", produced_tag="За продюсування Бентег", nodates="Нові дати зʼявляться найближчим часом. <a href=\"#nl\">Підпишіться на розсилку</a>, щоб дізнатися першими, або стежте за Instagram.",
                genre="Жанр", premiere="Прем'єра", duration="Тривалість", age="Вік", credits="Команда", dates="Дати показів", photos="Фото",
                producer_cta="Співпраця з продюсером", about_producer="Засновник і продюсер", read_more="Детальніше", time="Час",
                legal="Діє через Громадську організацію «В РЕСУРСІ» | код ЄДРПОУ 44977435", sections="Розділи", connect="Звʼязок", org_h="Організація"),
     "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", process="Process", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", opportunities="Opportunities", press="Press", media="Media", team="Team"),
                tickets="Tickets", menu="Menu", skip="Skip to content", other="UA", soon="On sale soon", free="Free entry", sold="Sold out",
                all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Producing",
-               upcoming_tag="Premiering soon", produced_tag="Produced by Bentegy", nodates="New dates will be announced soon. Follow us on Instagram.",
+               upcoming_tag="Premiering soon", produced_tag="Produced by Bentegy", nodates="New dates will be announced soon. <a href=\"#nl\">Subscribe to our newsletter</a> to hear first, or follow us on Instagram.",
                genre="Form", premiere="Premiere", duration="Running time", age="Age rating", credits="Credits", dates="Dates", photos="Photos",
                producer_cta="Work with the producer", about_producer="Founder and producer", read_more="Read more", time="Time",
                legal="Operated by NGO “In the Resource” | EDRPOU 44977435", sections="Sections", connect="Contact", org_h="Organisation"),
@@ -638,6 +638,7 @@ def foot(lang):
     return f"""</main>
 <footer class="ft gut max">
   <p class="word" aria-hidden="true">{'Бентеги' if lang == 'uk' else 'Bentegy'}<span class="dot">.</span></p>
+  {newsletter_form(lang)}
   <div class="cols">
     <div><h2>{t['sections']}</h2><ul>{links}</ul></div>
     <div><h2>{t['connect']}</h2><ul>
@@ -661,6 +662,29 @@ def foot(lang):
 </body>
 </html>
 """
+
+
+def newsletter_form(lang, sid="nl"):
+    """Brevo double opt-in sign-up (content/site.yml → newsletter.action_uk / action_en). /site.js posts it in the
+    background and shows the message; without JS the browser posts to Brevo directly."""
+    action = ((SETTINGS.get("newsletter") or {}).get(f"action_{lang}") or "").strip()
+    if not action:
+        return ""
+    uk = lang == "uk"
+    ok = ("Дякуємо! Перевірте пошту й підтвердьте підписку за посиланням у листі. Лист може потрапити в «Спам» чи «Промоакції»."
+          if uk else "Thank you! Check your inbox and confirm your subscription with the link in the email. It may land in Spam or Promotions.")
+    err = ("Сталася помилка. Спробуйте ще раз або напишіть на theatre@bentegy.org."
+           if uk else "Something went wrong. Please try again or write to theatre@bentegy.org.")
+    return f"""<section class="nl" id="{sid}" aria-labelledby="{sid}-h">
+  <div class="nlt"><h2 id="{sid}-h">{'Розсилка' if uk else 'Newsletter'}</h2><p>{'Першими дізнавайтеся про прем’єри, покази й відкриті виклики.' if uk else 'Be the first to hear about premieres, performances and open calls.'}</p></div>
+  <form class="nlf" method="POST" action="{e(action)}" data-lang="{lang}">
+    <div class="nlr"><label class="vh" for="{sid}-e">{'Електронна пошта' if uk else 'Email'}</label><input id="{sid}-e" type="email" name="EMAIL" required autocomplete="email" inputmode="email" placeholder="{'Ваша пошта' if uk else 'Your email'}"><button type="submit" class="tix">{'Підписатися' if uk else 'Subscribe'}</button></div>
+    <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" class="nlhp" aria-hidden="true">
+    <input type="hidden" name="locale" value="en"><input type="hidden" name="html_type" value="simple">
+    <p class="nln">{'Надішлемо лист для підтвердження. Відписатися можна будь-коли, посиланням у кожному листі.' if uk else 'We will send you an email to confirm. Unsubscribe any time with the link in every email.'} <a href="{url('privacy', lang)}#newsletter">{'Як ми працюємо з даними' if uk else 'How we handle your data'}</a></p>
+    <p class="nlm" role="status" aria-live="polite" hidden data-ok="{e(ok)}" data-err="{e(err)}"></p>
+  </form>
+</section>"""
 
 
 def consent_banner(lang):
@@ -1784,6 +1808,21 @@ def page_thanks(lang):
     return head(lang, "thanks", "Дякуємо" if uk else "Thank you", lead, (url("thanks", lang), url("thanks", other(lang))), noindex=True) + body + foot(lang)
 
 
+R["subscribed"] = ("/pidpysku-pidtverdzheno/", "/en/subscribed/")
+
+
+def page_subscribed(lang):
+    """Where Brevo sends people after they click the confirmation link. noindex, kept out of the sitemap and menus."""
+    uk = lang == "uk"
+    c = SETTINGS["contacts"]
+    title = "Ви в розсилці" if uk else "You’re subscribed"
+    lead = ("Дякуємо, підписку підтверджено. Ми писатимемо, коли буде привід: прем’єра, нові дати чи відкритий виклик."
+            if uk else "Thank you, your subscription is confirmed. We will write when there is news: a premiere, new dates or an open call.")
+    body = page_head(title, lead, small=True) + f"""
+<section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="bact"><a class="tix big" href="{url('afisha', lang)}">{T[lang]['all_dates']}</a><a class="go" href="{url('shows', lang)}">{T[lang]['all_shows']}</a><a class="go" href="{c['instagram']}" target="_blank" rel="noopener">Instagram</a></div></section>"""
+    return head(lang, "subscribed", title, lead, (url("subscribed", lang), url("subscribed", other(lang))), noindex=True) + body + foot(lang)
+
+
 R["thanks_donation"] = ("/dyakuyemo-za-vnesok/", "/en/thank-you-donation/")
 
 
@@ -1899,6 +1938,7 @@ def build():
         write(url("org", lang), redirect_page(lang, url("about", lang) + "#organisation"))
         write(url("thanks", lang), page_thanks(lang))  # noindex, kept out of the sitemap
         write(url("thanks_donation", lang), page_thanks_donation(lang))  # noindex, kept out of the sitemap
+        write(url("subscribed", lang), page_subscribed(lang))  # noindex, kept out of the sitemap
         if PRIVACY:
             write(url("privacy", lang), page_privacy(lang)); urls.append(url("privacy", lang))
         if OPPS:
@@ -1908,7 +1948,7 @@ def build():
     write("/404.html", page_404())
     open(f"{OUT}/CNAME", "w").write("bentegy.org\n")
     open(f"{OUT}/.nojekyll", "w").close()
-    open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /dyakuyemo/\nDisallow: /en/thank-you/\nDisallow: /dyakuyemo-za-vnesok/\nDisallow: /en/thank-you-donation/\nSitemap: {SITE}/sitemap.xml\n")
+    open(f"{OUT}/robots.txt", "w").write(f"User-agent: *\nDisallow: /admin/\nDisallow: /dyakuyemo/\nDisallow: /en/thank-you/\nDisallow: /dyakuyemo-za-vnesok/\nDisallow: /en/thank-you-donation/\nDisallow: /pidpysku-pidtverdzheno/\nDisallow: /en/subscribed/\nSitemap: {SITE}/sitemap.xml\n")
     open(f"{OUT}/sitemap.xml", "w").write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' +
                                           "".join(f"<url><loc>{SITE}{u}</loc></url>" for u in urls) + "</urlset>")
     print(f"built {len(urls)} pages, {len(IMG_DONE)} images, {len(EVENTS)} events")
