@@ -555,7 +555,24 @@ def premiere_date(p):
     return None
 
 
-CREDIT_MAP = (("director", ("direct",)), ("actor", ("perform", "cast")), ("author", ("written", "playwright")), ("musicBy", ("music", "composer")))
+CREDIT_MAP = (("director", ("direct",)), ("actor", ("perform", "cast")), ("author", ("written", "playwright")), ("composer", ("music", "composer")))
+# Play (CreativeWork) has author/creator/contributor; director/actor/composer exist only on events (validator.schema.org)
+PLAY_PROP = {"director": "creator", "actor": "contributor", "author": "author", "composer": "contributor"}
+
+
+def credit_people(p, lang):
+    """{'director': [...], 'actor': [...], ...} from the page's credits; organisations and collectives are left out."""
+    out = {}
+    for c in p.get("credits") or []:
+        role = (c.get("role_en") or "").lower()
+        names = [n for n in (c.get(f"names_{lang}") or c.get("names") or "").split(",") if n.strip() and not any(w in n.lower() for w in ORG_WORDS)]
+        for prop, keys in CREDIT_MAP:
+            if any(k in role for k in keys):
+                for n in names:
+                    ref = ld_person_name(n, lang)
+                    if ref not in out.setdefault(prop, []):
+                        out[prop].append(ref)
+    return out
 
 
 def ld_play(p, lang):
@@ -587,16 +604,9 @@ def ld_play(p, lang):
         d["producer"] = org_ref(lang)
         if pd and pd <= TODAY:  # premiere already happened
             d["datePublished"] = pd.isoformat()
-        for c in p.get("credits") or []:
-            role = (c.get("role_en") or "").lower()
-            names = [n for n in (c.get(f"names_{lang}") or c.get("names") or "").split(",") if n.strip() and not any(w in n.lower() for w in ORG_WORDS)]
-            for prop, keys in CREDIT_MAP:
-                if any(k in role for k in keys):
-                    for n in names:
-                        ref = ld_person_name(n, lang)
-                        lst = d.setdefault(prop, [])
-                        if ref not in lst:
-                            lst.append(ref)
+        for prop, people in credit_people(p, lang).items():
+            lst = d.setdefault(PLAY_PROP[prop], [])
+            lst.extend(x for x in people if x not in lst)
     return d
 
 
@@ -625,6 +635,9 @@ def ld_event(ev, lang):
     if p:
         d["@id"] = SITE + show_url(p["slug"], "uk") + "#event-" + ev["date"].isoformat()
         d["workPerformed"] = {"@id": play_id(p["slug"])}
+        for prop, people in credit_people(p, lang).items():
+            if prop != "author":
+                d[prop] = people
         d["url"] = SITE + show_url(p["slug"], lang)
         ims = [SITE + x for x in (img_url(p.get("cover"), 1600), OG_DONE.get(f"{p['slug']}-{lang}")) if x]
         if ims:
