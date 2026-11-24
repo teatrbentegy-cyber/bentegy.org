@@ -1,12 +1,12 @@
-# Сторінка «Можливості»: відкриті виклики й формати співпраці (погоджено Павлом 24.11.2026)
-lead_uk: "Відкриті виклики для молодих команд, акторів, партнерів і всіх, хто хоче працювати з нами: пітчинги, кастинги, копродукції, стажування й волонтерство."
+# Сторінка «Можливості»: open calls і формати співпраці (погоджено Павлом 24.11.2026)
+lead_uk: "Open calls для молодих команд, акторів, партнерів і всіх, хто хоче працювати з нами: пітчинги, кастинги, копродукції, стажування й волонтерство."
 lead_en: "Open calls for emerging companies, performers, partners and anyone who wants to work with us: pitches, castings, co-productions, internships and volunteering."
 
-# Актуальні виклики. Порожній список — сторінка показує, де їх оголошуємо.
+# Актуальні open calls. Порожній список — сторінка показує, де їх оголошуємо.
 # Поля: title_uk/en, text_uk/en, deadline (РРРР-ММ-ДД), url, button_uk/en
 open: []
-next_uk: Нові виклики оголошуємо тут і в Instagram.
-next_en: New calls are announced here and on Instagram.
+next_uk: Нові open calls оголошуємо тут, у розсилці та в Instagram.
+next_en: New open calls are announced here, in our newsletter and on Instagram.
 
 formats:
   - title_uk: Відкритий пітчинг

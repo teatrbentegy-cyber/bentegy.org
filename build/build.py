@@ -676,7 +676,7 @@ def newsletter_form(lang, sid="nl"):
     err = ("Сталася помилка. Спробуйте ще раз або напишіть на theatre@bentegy.org."
            if uk else "Something went wrong. Please try again or write to theatre@bentegy.org.")
     return f"""<section class="nl" id="{sid}" aria-labelledby="{sid}-h">
-  <div class="nlt"><h2 id="{sid}-h">{'Розсилка' if uk else 'Newsletter'}</h2><p>{'Першими дізнавайтеся про прем’єри, покази й відкриті виклики.' if uk else 'Be the first to hear about premieres, performances and open calls.'}</p></div>
+  <div class="nlt"><h2 id="{sid}-h">{'Розсилка' if uk else 'Newsletter'}</h2><p>{'Першими дізнавайтеся про прем’єри, покази й open calls.' if uk else 'Be the first to hear about premieres, performances and open calls.'}</p></div>
   <form class="nlf" method="POST" action="{e(action)}" data-lang="{lang}">
     <div class="nlr"><label class="vh" for="{sid}-e">{'Електронна пошта' if uk else 'Email'}</label><input id="{sid}-e" type="email" name="EMAIL" required autocomplete="email" inputmode="email" placeholder="{'Ваша пошта' if uk else 'Your email'}"><button type="submit" class="tix">{'Підписатися' if uk else 'Subscribe'}</button></div>
     <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" class="nlhp" aria-hidden="true">
@@ -1816,7 +1816,7 @@ def page_subscribed(lang):
     uk = lang == "uk"
     c = SETTINGS["contacts"]
     title = "Ви в розсилці" if uk else "You’re subscribed"
-    lead = ("Дякуємо, підписку підтверджено. Ми писатимемо, коли буде привід: прем’єра, нові дати чи відкритий виклик."
+    lead = ("Дякуємо, підписку підтверджено. Ми писатимемо, коли буде привід: прем’єра, нові дати чи open call."
             if uk else "Thank you, your subscription is confirmed. We will write when there is news: a premiere, new dates or an open call.")
     body = page_head(title, lead, small=True) + f"""
 <section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="bact"><a class="tix big" href="{url('afisha', lang)}">{T[lang]['all_dates']}</a><a class="go" href="{url('shows', lang)}">{T[lang]['all_shows']}</a><a class="go" href="{c['instagram']}" target="_blank" rel="noopener">Instagram</a></div></section>"""
