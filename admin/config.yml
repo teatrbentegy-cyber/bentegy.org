@@ -513,6 +513,32 @@ collections:
               - { name: text_en, label: Опис (EN), widget: text }
               - { name: url_uah, label: Посилання WayForPay (гривня), widget: string, required: false }
               - { name: url_eur, label: Посилання WayForPay (євро), widget: string, required: false }
+          - name: abonement
+            label: Абонемент (щомісячна підтримка)
+            widget: object
+            required: false
+            hint: "Суми мають збігатися з видами «Абонемент» на сторінках внесків WayForPay"
+            fields:
+              - { name: title_uk, label: Заголовок (UA), widget: string }
+              - { name: title_en, label: Заголовок (EN), widget: string }
+              - { name: lead_uk, label: Вступ (UA), widget: text }
+              - { name: lead_en, label: Вступ (EN), widget: text }
+              - name: levels
+                label: Рівні
+                widget: list
+                fields:
+                  - { name: title_uk, label: Назва (UA), widget: string }
+                  - { name: title_en, label: Назва (EN), widget: string }
+                  - { name: amount_uah, label: Сума в гривнях на місяць, widget: number, value_type: int }
+                  - { name: amount_eur, label: Сума в євро на місяць, widget: number, value_type: int }
+                  - { name: text_uk, label: Опис (UA), widget: string }
+                  - { name: text_en, label: Опис (EN), widget: string }
+              - { name: perks_uk, label: Що отримують абоненти (UA), widget: list }
+              - { name: perks_en, label: Що отримують абоненти (EN), widget: list }
+              - { name: button_uk, label: Кнопка (UA), widget: string }
+              - { name: button_en, label: Кнопка (EN), widget: string }
+              - { name: stop_uk, label: Як зупинити (UA), widget: string }
+              - { name: stop_en, label: Як зупинити (EN), widget: string }
           - { name: free_url_uah, label: "Посилання «Своя сума» (гривня)", widget: string, required: false }
           - { name: free_url_eur, label: "Посилання «Своя сума» (євро)", widget: string, required: false }
           - { name: online_note_uk, label: Примітка до оплати (UA), widget: text, required: false }

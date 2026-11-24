@@ -1801,6 +1801,7 @@ def page_thanks_donation(lang):
   <div class="im">{g_img}</div>
   <div><p class="k">{"Ваш внесок іде на" if uk else "Your gift goes to"}</p><h2>{e(g_h)}</h2><p class="x">{e(g_x)}</p>
     <div class="bb">{btn}</div>
+    <p class="n">{"Хочете підтримувати щомісяця?" if uk else "Want to give every month?"} <a href="{url('support', lang)}#abonement">{"Абонемент" if uk else "Monthly subscription"} →</a></p>
     <p class="n">{"Стежте за роботою команди:" if uk else "Follow the team at work:"}</p><div class="bb" style="margin-top:14px">{socials}</div></div></div></section>
 <script src="/thanks-donation.js" defer></script>"""
     return head(lang, "thanks_donation", "Дякуємо за внесок" if uk else "Thank you for your gift", lead,

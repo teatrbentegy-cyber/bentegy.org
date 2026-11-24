@@ -129,7 +129,7 @@ partners_en:
   - title: Patronage
     text: Personal support for the theatre, with thanks on the website and in programmes if you wish.
 
-# Абонемент: щомісячна підтримка через ті самі сторінки WayForPay (види «Абонемент» з регулярним платежем щомісяця)
+# Абонемент (погоджено Павлом 24.11.2026): щомісячна підтримка через ті самі сторінки WayForPay (види «Абонемент» з регулярним платежем щомісяця)
 abonement:
   title_uk: Абонемент
   title_en: Monthly subscription
