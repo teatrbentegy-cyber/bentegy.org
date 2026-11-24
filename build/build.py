@@ -39,6 +39,7 @@ for p in sorted(glob.glob(f"{ROOT}/content/productions/*.yml")):
 PRODUCTIONS.sort(key=lambda d: (d.get("order") or 99, d["slug"]))
 BY_SLUG = {p["slug"]: p for p in PRODUCTIONS}
 EVENTS = []
+ALL_EVENTS = []
 for p in sorted(glob.glob(f"{ROOT}/content/events/*.yml")):
     d = load(p)
     if not d.get("date"):
@@ -51,8 +52,10 @@ for p in sorted(glob.glob(f"{ROOT}/content/events/*.yml")):
         f = dt.date.fromisoformat(f) if isinstance(f, str) else f
         if f and f <= TODAY and st.get("price"):
             d["price"] = st["price"]
+            d["price_from"] = f
     if d.get("price") and d.get("price_max") and int(d["price"]) >= int(d["price_max"]):
         d.pop("price_max")
+    ALL_EVENTS.append(d)  # every performance, past ones too (structured data on show pages)
     if d["date"] >= TODAY or d.get("date_note_uk"):
         EVENTS.append(d)
 EVENTS.sort(key=lambda d: (d["date"], str(d.get("time") or "")))
@@ -379,44 +382,6 @@ def ld_tag(data):
     return '\n<script type="application/ld+json">' + json.dumps(data, ensure_ascii=False).replace("</", "<\\/") + "</script>"
 
 
-def ld_org(lang):
-    c = SETTINGS["contacts"]
-    o = SETTINGS["organization"]
-    return {
-        "@context": "https://schema.org", "@type": "TheaterGroup",
-        "name": T[lang]["name"], "alternateName": ["Театр Бентеги", "Bentegy Theatre", "Бентеги"],
-        "url": SITE + url("home", lang), "logo": SITE + "/press/bentegy-znak.png",
-        "image": SITE + OG_DONE.get(f"bentegy-{lang}", ""), "description": L(SETTINGS, "tagline", lang) if lang == "uk" else L(ABOUT, "lead", lang),
-        "email": c.get("theatre") or c["team"], "telephone": c["phone"].replace(" ", ""),
-        "contactPoint": [{"@type": "ContactPoint", "contactType": ct, "email": em} for ct, em in (("customer support", c.get("theatre")), ("partnerships", c.get("team")), ("press", c.get("press"))) if em],
-        "address": {"@type": "PostalAddress", "addressLocality": "Kyiv", "addressCountry": "UA"},
-        "foundingDate": "2025", "founder": {"@type": "Person", "name": L(PRODUCER, "name", lang)},
-        "sameAs": [x for x in (c["instagram"], c["telegram"], c.get("youtube")) if x],
-        "parentOrganization": {"@type": "NGO", "name": L(o, "name", lang), "taxID": o["edrpou"]},
-    }
-
-
-def ld_article(m, lang):
-    tp = m.get("type")
-    authors = [{"@type": "Person", "name": person_name(a, lang)} for a in (m.get("authors") or [])]
-    if L(m, "guest_author", lang):
-        authors.append({"@type": "Person", "name": L(m, "guest_author", lang)})
-    d = {
-        "@context": "https://schema.org", "@type": "NewsArticle" if tp in ("news", "release") else "Article",
-        "headline": L(m, "title", lang), "description": short_desc(L(m, "lead", lang), 200),
-        "inLanguage": lang, "datePublished": m["date"].isoformat(),
-        "mainEntityOfPage": SITE + media_url(m["slug"], lang),
-        "publisher": {"@type": "TheaterGroup", "name": T[lang]["name"], "url": SITE + url("home", lang), "logo": {"@type": "ImageObject", "url": SITE + "/press/bentegy-znak.png"}},
-    }
-    if m.get("cover"):
-        d["image"] = SITE + img_url(m["cover"])
-    if authors:
-        d["author"] = authors[0] if len(authors) == 1 else authors
-    else:
-        d["author"] = {"@type": "Organization", "name": T[lang]["name"]}
-    return d
-
-
 def concert_url(ev):
     u = (ev.get("concert_url") or "").strip()
     if not u:
@@ -461,6 +426,180 @@ def venue_parts(ev, lang):
     return name.strip(), (L(ev, "address", lang) or street).strip()
 
 
+# One graph: every entity has a stable @id shared by both languages; pages reference each other instead of repeating objects.
+ORG_ID = SITE + R["home"][0] + "#organization"
+PERSON_ID = SITE + R["producer"][0] + "#person"
+NGO_ID = SITE + R["about"][0] + "#ngo"  # /orhanizatsiia/ redirects to the «Організація» block of /pro-teatr/
+PAVLO = ("Павло Коваль", "Pavlo Koval")
+# Pavlo's profiles and pages about him (from the structured-data brief of 24.11.2026); add Wikidata first when it exists
+PERSON_SAME_AS = ["https://www.instagram.com/pavel_koval_/"]
+PERSON_SUBJECT_OF = ["https://ui.org.ua/news/news-performing-arts/znajomymo-z-uchasnykamy-yczyamy-speczialnoyi-prodyuserskoyi-programy-na-festyvali-sirenos/"]
+ORG_WORDS = ("театр", "theatre", "проєкт", "project", "бентег", "bentegy", "студент", "student", "клуб", "club")
+
+
+def play_id(slug):
+    return SITE + show_url(slug, "uk") + "#play"
+
+
+def org_ref(lang):
+    return {"@type": "TheaterGroup", "@id": ORG_ID, "name": T[lang]["name"], "url": SITE + url("home", lang)}
+
+
+def person_ref(lang):
+    return {"@type": "Person", "@id": PERSON_ID, "name": L(PRODUCER, "name", lang)}
+
+
+def ld_person_name(n, lang):
+    return person_ref(lang) if n.strip() in PAVLO else {"@type": "Person", "name": n.strip()}
+
+
+def ld_org(lang):
+    c = SETTINGS["contacts"]
+    o = SETTINGS["organization"]
+    return {
+        "@context": "https://schema.org", "@type": "TheaterGroup", "@id": ORG_ID,
+        "name": T[lang]["name"], "alternateName": ["Театр Бентеги", "Bentegy Theatre", "Бентеги"],
+        "url": SITE + url("home", lang), "logo": SITE + "/press/bentegy-znak.png",
+        "image": SITE + OG_DONE.get(f"bentegy-{lang}", ""), "description": L(SETTINGS, "tagline", lang) if lang == "uk" else L(ABOUT, "lead", lang),
+        "email": c.get("theatre") or c["team"], "telephone": c["phone"].replace(" ", ""),
+        "contactPoint": [{"@type": "ContactPoint", "contactType": ct, "email": em} for ct, em in (("customer support", c.get("theatre")), ("partnerships", c.get("team")), ("press", c.get("press"))) if em],
+        "address": {"@type": "PostalAddress", "addressLocality": "Kyiv", "addressCountry": "UA"},
+        "foundingDate": "2025", "founder": person_ref(lang),
+        "sameAs": [x for x in (c["instagram"], c["telegram"], c.get("youtube")) if x],
+        "parentOrganization": {"@type": "NGO", "@id": NGO_ID, "name": L(o, "name", lang), "taxID": o["edrpou"]},
+    }
+
+
+def ld_about(lang):
+    return {"@context": "https://schema.org", "@type": "AboutPage", "url": SITE + url("about", lang), "inLanguage": lang, "mainEntity": org_ref(lang)}
+
+
+def ld_ngo(lang):
+    o = SETTINGS["organization"]
+    return {"@context": "https://schema.org", "@type": "NGO", "@id": NGO_ID, "name": L(o, "name", lang),
+            "alternateName": ["ГО «В РЕСУРСІ»", "NGO “In the Resource”", "V RESURSI"], "url": SITE + url("about", lang) + "#organisation",
+            "taxID": o["edrpou"], "foundingDate": str(o.get("registered") or ""),
+            "address": {"@type": "PostalAddress", "streetAddress": "проспект Героїв АТО, 7Б" if lang == "uk" else "7B Heroiv ATO Ave.",
+                        "postalCode": "51937", "addressLocality": "Камʼянське" if lang == "uk" else "Kamianske",
+                        "addressRegion": "Дніпропетровська обл." if lang == "uk" else "Dnipropetrovsk region", "addressCountry": "UA"},
+            "subOrganization": org_ref(lang)}
+
+
+def ld_person(lang):
+    pr = PRODUCER
+    uk = lang == "uk"
+    bio = " ".join(str(L(pr, "bio", lang)).split())
+    first = bio.split(". ")[0].rstrip(".") + "."
+    p = {
+        "@type": "Person", "@id": PERSON_ID, "name": L(pr, "name", lang),
+        "alternateName": [x for x in PAVLO if x != L(pr, "name", lang)],
+        "jobTitle": "Театральний продюсер і режисер" if uk else "Theatre producer and director",
+        "description": first, "url": SITE + url("producer", lang),
+        "email": SETTINGS["contacts"].get("producer") or "pavlo@bentegy.org",
+        "worksFor": org_ref(lang), "founder": org_ref(lang),
+        "nationality": {"@type": "Country", "name": "Україна" if uk else "Ukraine"},
+        "alumniOf": {"@type": "CollegeOrUniversity", "name": "Київський національний університет культури і мистецтв" if uk else "Kyiv National University of Culture and Arts"},
+        "sameAs": PERSON_SAME_AS,
+        "subjectOf": [{"@type": "CreativeWork", "url": u} for u in PERSON_SUBJECT_OF],
+    }
+    if pr.get("photo") and img_url(pr["photo"]):
+        p["image"] = SITE + img_url(pr["photo"])
+    return {"@context": "https://schema.org", "@type": "ProfilePage", "url": SITE + url("producer", lang), "inLanguage": lang, "mainEntity": p}
+
+
+def ld_article(m, lang):
+    tp = m.get("type")
+    authors = [ld_person_name(person_name(a, lang), lang) for a in (m.get("authors") or [])]
+    if L(m, "guest_author", lang):
+        authors.append({"@type": "Person", "name": L(m, "guest_author", lang)})
+    d = {
+        "@context": "https://schema.org", "@type": "NewsArticle" if tp in ("news", "release") else "Article",
+        "headline": L(m, "title", lang), "description": short_desc(L(m, "lead", lang), 200),
+        "inLanguage": lang, "datePublished": m["date"].isoformat(),
+        "mainEntityOfPage": SITE + media_url(m["slug"], lang),
+        "publisher": {**org_ref(lang), "logo": {"@type": "ImageObject", "url": SITE + "/press/bentegy-znak.png"}},
+    }
+    if m.get("cover"):
+        d["image"] = SITE + img_url(m["cover"])
+    if authors:
+        d["author"] = authors[0] if len(authors) == 1 else authors
+    else:
+        d["author"] = org_ref(lang)
+    about = [{"@id": ORG_ID}] + ([{"@id": play_id(m["production"])}] if m.get("production") in BY_SLUG else [])
+    d["about"] = about
+    return d
+
+
+def ld_coverage(items, lang):
+    """«Про нас пишуть»: each external piece as a NewsArticle about the theatre and, where known, the production."""
+    out = []
+    for i, m in enumerate(items, 1):
+        if not m.get("url"):
+            continue
+        a = {"@type": "NewsArticle", "headline": re.sub(r"\s*\((?:німецькою|українською|англійською|in [A-Z][a-z]+)\)$", "", L(m, "title", lang)),
+             "datePublished": m["date"].isoformat(), "url": m["url"],
+             "publisher": {"@type": "Organization", "name": L(m, "outlet", lang)},
+             "about": [{"@id": ORG_ID}] + ([{"@id": play_id(m["production"])}] if m.get("production") in BY_SLUG else [])}
+        out.append({"@type": "ListItem", "position": len(out) + 1, "item": a})
+    return {"@context": "https://schema.org", "@type": "ItemList", "itemListElement": out} if out else None
+
+
+UK_MONTH = {m: i + 1 for i, m in enumerate(MONTHS["uk"])}
+
+
+def premiere_date(p):
+    """'11 червня 2026, Collider, Київ' -> date(2026, 6, 11); anything else -> None."""
+    mt = re.match(r"\s*(\d{1,2})\s+(\S+)\s+(\d{4})", p.get("premiere_uk") or "")
+    if mt and mt.group(2) in UK_MONTH:
+        return dt.date(int(mt.group(3)), UK_MONTH[mt.group(2)], int(mt.group(1)))
+    return None
+
+
+CREDIT_MAP = (("director", ("direct",)), ("actor", ("perform", "cast")), ("author", ("written", "playwright")), ("musicBy", ("music", "composer")))
+
+
+def ld_play(p, lang):
+    """The production itself as a work (Play); НАОСЛІП-type evenings as an Event. People come only from the page's credits."""
+    is_ev = p.get("status") == "event"
+    title = L(p, "title", lang)
+    d = {"@context": "https://schema.org", "@type": "Event" if is_ev else "Play", "@id": play_id(p["slug"]),
+         "name": title, "url": SITE + show_url(p["slug"], lang), "description": L(p, "summary", lang)}
+    alt = L(p, "title", other(lang))
+    if alt and alt != title:
+        d["alternateName"] = alt
+    if L(p, "genre", lang):
+        d["genre"] = L(p, "genre", lang)
+    if img_url(p.get("cover")):
+        d["image"] = [SITE + img_url(p.get("cover"))]
+    pd = premiere_date(p)
+    if is_ev:
+        parts = [x.strip() for x in (L(p, "premiere", "uk") if lang == "uk" else L(p, "premiere", "en")).split(",")]
+        if not pd:
+            return None
+        d.update({"startDate": pd.isoformat(), "eventStatus": "https://schema.org/EventScheduled",
+                  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", "organizer": org_ref(lang), "inLanguage": lang})
+        if len(parts) >= 3:
+            d["location"] = {"@type": "Place", "name": ", ".join(parts[1:-1]),
+                             "address": {"@type": "PostalAddress", "addressLocality": parts[-1], "addressCountry": "UA"}}
+        else:
+            return None
+    else:
+        d["producer"] = org_ref(lang)
+        if pd and pd <= TODAY:  # premiere already happened
+            d["datePublished"] = pd.isoformat()
+        for c in p.get("credits") or []:
+            role = (c.get("role_en") or "").lower()
+            names = [n for n in (c.get(f"names_{lang}") or c.get("names") or "").split(",") if n.strip() and not any(w in n.lower() for w in ORG_WORDS)]
+            for prop, keys in CREDIT_MAP:
+                if any(k in role for k in keys):
+                    for n in names:
+                        ref = ld_person_name(n, lang)
+                        lst = d.setdefault(prop, [])
+                        if ref not in lst:
+                            lst.append(ref)
+    return d
+
+
 def ld_event(ev, lang):
     if ev.get("date_note_uk") or ev.get("date_note_en"):
         return None
@@ -470,27 +609,29 @@ def ld_event(ev, lang):
     mins = duration_min(p)
     end = (st + dt.timedelta(minutes=mins)).isoformat() if has_time and mins else start
     vname, street = venue_parts(ev, lang)
-    theatre = {"@type": "PerformingGroup", "name": T[lang]["name"], "url": SITE}
-    perf = {"@type": "PerformingGroup", "name": L(p, "performer", lang), "url": SITE + show_url(p["slug"], lang)} if p and L(p, "performer", lang) else theatre
+    perf = {"@type": "PerformingGroup", "name": L(p, "performer", lang), "url": SITE + show_url(p["slug"], lang)} if p and L(p, "performer", lang) else org_ref(lang)
+    place = {"@type": "Place", "address": {"@type": "PostalAddress", **({"streetAddress": street} if street else {}), "addressLocality": L(ev, "city", lang), "addressCountry": ev.get("country") or "UA"}}
+    if not ev.get("venue_tba"):  # a placeholder like «Майданчик оголосимо згодом» must not become a place name
+        place = {"@type": "Place", "name": vname or L(ev, "venue", lang), "address": place["address"]}
     d = {
         "@context": "https://schema.org", "@type": "TheaterEvent",
         "name": L(p, "title", lang) or L(ev, "title", lang), "startDate": start, "endDate": end,
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-        "location": {"@type": "Place", "name": vname or L(ev, "venue", lang),
-                     "address": {"@type": "PostalAddress", **({"streetAddress": street} if street else {}), "addressLocality": L(ev, "city", lang), "addressCountry": ev.get("country") or "UA"}},
-        "organizer": theatre, "performer": perf,
+        "location": place, "organizer": org_ref(lang), "performer": perf,
         "description": L(p, "summary", lang),
         "inLanguage": lang,
     }
     if p:
+        d["@id"] = SITE + show_url(p["slug"], "uk") + "#event-" + ev["date"].isoformat()
+        d["workPerformed"] = {"@id": play_id(p["slug"])}
         d["url"] = SITE + show_url(p["slug"], lang)
         ims = [SITE + x for x in (img_url(p.get("cover"), 1600), OG_DONE.get(f"{p['slug']}-{lang}")) if x]
         if ims:
             d["image"] = ims
     buy = ev.get("ticket_url") or concert_url(ev)
-    if buy and ev.get("price"):
-        vf = ev.get("sale_start") or (ev["date"] - dt.timedelta(days=30))
+    if buy and ev.get("price") and ev["date"] >= TODAY:
+        vf = ev.get("price_from") or ev.get("sale_start") or (ev["date"] - dt.timedelta(days=30))
         d["offers"] = {"@type": "Offer", "url": buy, "price": str(ev["price"]), "priceCurrency": "UAH",
                        "validFrom": vf.isoformat() if hasattr(vf, "isoformat") else str(vf),
                        "availability": "https://schema.org/SoldOut" if ev.get("status") == "sold_out" else "https://schema.org/InStock"}
@@ -502,7 +643,9 @@ def ld_events(evs, lang):
 
 
 def ld_production(p, evs, lang):
-    return ld_events(evs, lang) or None
+    """Show page: the work plus every performance of it (past ones included), linked by workPerformed."""
+    play = ld_play(p, lang)
+    return ([play] if play else []) + ld_events(evs, lang) or None
 
 
 # ------------------------------------------------------------------ layout
@@ -598,6 +741,7 @@ def head(lang, key, title, desc, paths, body_cls="", og="", ld=None, noindex=Fal
 <link rel="canonical" href="{SITE}{paths[0]}">
 <link rel="alternate" hreflang="{lang}" href="{SITE}{paths[0]}">
 <link rel="alternate" hreflang="{o}" href="{SITE}{paths[1]}">
+<link rel="alternate" hreflang="x-default" href="{SITE}{paths[0] if lang == 'uk' else paths[1]}">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{t['name']}">
 <meta property="og:title" content="{e(full)}">
@@ -1009,7 +1153,7 @@ def page_show(p, lang):
         nx = up[0]
         desc = desc.rstrip(".") + ". " + (f"Найближчий показ — {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}." if uk else f"Next performance: {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}.")
     sale = [x for x in up if x.get("ticket_url") and (x.get("status") or "soon") not in ("sold_out", "free", "info")]
-    return head(lang, "shows", seo_title, desc, paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, evs, lang), tix=sale[0] if sale else None) + body + foot(lang)
+    return head(lang, "shows", seo_title, desc, paths, og=OG_DONE.get(f"{p['slug']}-{lang}"), ld=ld_production(p, [x for x in ALL_EVENTS if x.get("production") == p["slug"]], lang), tix=sale[0] if sale else None) + body + foot(lang)
 
 
 def support_box(p, lang):
@@ -1174,7 +1318,7 @@ def page_producer(lang):
 {sec('Голоси' if uk else 'Voices', f'<div class="voices">{voices}</div>', f'<span class="more">{e(L(pr, "voices_note", lang))}</span>')}
 {media_strip(by_author("pavlo-koval"), lang, 'Тексти' if uk else 'Writing', mtype_url('text', lang), 'Усі тексти' if uk else 'All texts', top0=True)}
 """
-    return head(lang, "producer", name, L(pr, "bio", lang)[:160], (url("producer", lang), url("producer", other(lang))), og=img_url(pr.get("photo"))) + body + foot(lang)
+    return head(lang, "producer", name, L(pr, "bio", lang)[:160], (url("producer", lang), url("producer", other(lang))), og=img_url(pr.get("photo")), ld=ld_person(lang)) + body + foot(lang)
 
 
 def team_cards(lang):
@@ -1235,7 +1379,7 @@ def page_about(lang):
 <section class="sec gut max grp"><div class="sh"><h2>{'Партнери' if uk else 'Partners'}</h2></div><div class="chips" style="margin-top:24px">{partners}</div></section>
 {org_block(lang)}
 """
-    return head(lang, "about", t["nav"]["about"], L(a, "lead", lang), (url("about", lang), url("about", other(lang))), ld=ld_org(lang)) + body + foot(lang)
+    return head(lang, "about", t["nav"]["about"], L(a, "lead", lang), (url("about", lang), url("about", other(lang))), ld=[ld_about(lang), ld_ngo(lang)]) + body + foot(lang)
 
 
 def redirect_page(lang, to):
@@ -1296,7 +1440,7 @@ def page_org(lang):
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Напрями' if uk else 'Activities'}</h2></div><ol class="goals">{goals}</ol></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Фінансування' if uk else 'Funding'}</h2></div><div class="two"><span></span><div><p class="prose">{funding}</p><div class="chips" style="margin-top:24px">{partners}</div></div></div></section>
 """
-    return head(lang, "org", t["nav"]["org"], lead, (url("org", lang), url("org", other(lang)))) + body + foot(lang)
+    return head(lang, "org", t["nav"]["org"], lead, (url("org", lang), url("org", other(lang))), ld=ld_ngo(lang)) + body + foot(lang)
 
 
 def page_contact(lang):
@@ -1587,7 +1731,7 @@ def page_media_index(lang, tp=None):
   {feat}<div class="mlist">{rest}</div>{empty}{pitch}</section>"""
     path = url("media", lang) if not tp else mtype_url(tp, lang)
     alt = url("media", other(lang)) if not tp else mtype_url(tp, other(lang))
-    return head(lang, "media", title, lead, (path, alt)) + body + foot(lang)
+    return head(lang, "media", title, lead, (path, alt), ld=ld_coverage(items, lang) if tp == "article" else None) + body + foot(lang)
 
 
 

@@ -26,7 +26,7 @@ body_uk: |
   - продаж квитків і допуск на покази;
   - обробка благодійних внесків і звітність про них;
   - відповіді на ваші листи й запити;
-  - розсилка листів тим, хто на неї підписався;
+  - розсилка листів тим, хто на неї підписався, і листи для тих, хто оформив абонемент;
   - розуміння, як люди знаходять театр, і покращення сайту та реклами.
 
   Дані використовуємо лише для цих цілей і передаємо тільки сервісам, переліченим на цій сторінці.
@@ -34,6 +34,8 @@ body_uk: |
   <h2 id="newsletter">Розсилка</h2>
 
   Розсилку надсилаємо через сервіс Brevo (Франція). Підписка починає діяти лише після того, як ви підтвердите її за посиланням у листі. Адресу використовуємо тільки для листів театру: прем’єри, покази, open calls і новини. Brevo фіксує, чи відкрито лист і чи натиснуто посилання в ньому, щоб ми бачили, що цікаво читачам.
+
+  Тим, хто оформив абонемент, через Brevo також надсилаємо щомісячний лист «з-за лаштунків» і квартальний звіт: вони входять в абонемент.
 
   Відписатися можна будь-коли: посиланням у кожному листі або листом на [theatre@bentegy.org](mailto:theatre@bentegy.org). Після відписки ми більше не надсилаємо вам розсилку.
 
@@ -72,7 +74,7 @@ body_en: |
   - selling tickets and admitting audiences;
   - processing charitable donations and reporting on them;
   - replying to your emails and requests;
-  - sending the newsletter to people who have subscribed to it;
+  - sending the newsletter to people who have subscribed to it, and letters to monthly subscribers;
   - understanding how people find the theatre, and improving the site and our advertising.
 
   We use the data for these purposes only and share it only with the services listed on this page.
@@ -80,6 +82,8 @@ body_en: |
   <h2 id="newsletter">Newsletter</h2>
 
   We send the newsletter through Brevo (France). Your subscription starts only after you confirm it with the link in the email we send. We use your address only for the theatre’s letters: premieres, performances, open calls and news. Brevo records whether an email was opened and whether a link in it was clicked, so we can see what interests our readers.
+
+  If you have a monthly subscription, we also send you the monthly backstage letter and the quarterly report through Brevo, as part of the subscription.
 
   You can unsubscribe at any time with the link in every email or by writing to [theatre@bentegy.org](mailto:theatre@bentegy.org). Once you unsubscribe, we stop sending you the newsletter.
 

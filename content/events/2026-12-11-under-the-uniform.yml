@@ -5,6 +5,8 @@ date_note_uk: ""
 date_note_en: ""
 venue_uk: Майданчик оголосимо згодом
 venue_en: Venue to be announced
+# Поки майданчик не підтверджено: у структурованих даних лише місто, без назви місця. Коли буде — вписати venue_uk/venue_en і прибрати цей рядок
+venue_tba: true
 city_uk: Київ
 city_en: Kyiv
 label_uk: Прем'єра
