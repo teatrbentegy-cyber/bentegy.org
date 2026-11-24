@@ -1,0 +1,28 @@
+# Сторінка «Можливості»: відкриті виклики й формати співпраці (ЧЕРНЕТКА, чекає погодження Павла)
+lead_uk: "Відкриті виклики для молодих команд, акторів і партнерів: пітчинги, кастинги, копродукції."
+lead_en: "Open calls for emerging companies, performers and partners: pitches, castings, co-productions."
+
+# Актуальні виклики. Порожній список — сторінка показує, де їх оголошуємо.
+# Поля: title_uk/en, text_uk/en, deadline (РРРР-ММ-ДД), url, button_uk/en
+open: []
+next_uk: Нові виклики оголошуємо тут, в Instagram і Telegram.
+next_en: New calls are announced here, on Instagram and on Telegram.
+
+formats:
+  - title_uk: Відкритий пітчинг
+    title_en: Open pitch
+    text_uk: Молоді команди презентують свої проєкти зі сцени. Переможець отримує продюсування — майданчик, промо й продаж квитків, менторський супровід. Художні рішення, склад і авторство лишаються за командою.
+    text_en: "Emerging companies present their projects on stage. The winner gets producing support: a venue, promotion and ticketing, mentoring. Artistic decisions, casting and authorship stay with the company."
+    case_uk: «Коні за вікном» перемогли на пітчингу НАОСЛІП у серпні 2026 року. Від пітчингу до прем'єри минуло 72 дні.
+    case_en: Horses Outside the Window won the NAOSLIP pitch in August 2026. The premiere came 72 days later.
+    show: koni-za-viknom
+    media: koni-za-viknom-premiera
+  - title_uk: Кастинги
+    title_en: Castings
+    text_uk: Кастинги оголошуємо під конкретні вистави. Умови, дати й формат публікуємо в кожному оголошенні.
+    text_en: Castings are announced for specific productions, each with its own terms, dates and format.
+  - title_uk: Копродукції й резиденції
+    title_en: Co-productions and residencies
+    text_uk: Робимо вистави разом із театрами й інституціями з інших міст і країн. «Під уніформою» народилася в резиденції Qendra Multimedia в Призрені як копродукція Україна — Косово.
+    text_en: "We make work together with theatres and institutions from other cities and countries. Under the Uniform began in a residency with Qendra Multimedia in Prizren, as a Ukraine–Kosovo co-production."
+    show: under-the-uniform

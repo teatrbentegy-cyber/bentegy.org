@@ -146,16 +146,16 @@ MTYPE = {  # media type -> (uk path, en path, uk label, en label, uk singular, e
     "news": ("novyny", "news", "Новини", "News", "Новина", "News"),
 }
 NAV = ["afisha", "shows", "process", "media", "about", "contact"]
-FOOT = ["support", "press", "producer"]
+FOOT = ["support", "opportunities", "press", "producer"]
 T = {
-    "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", process="Процес", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти", support="Підтримати", press="Преса", media="Медіа", team="Команда"),
+    "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", process="Процес", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти", support="Підтримати", opportunities="Можливості", press="Преса", media="Медіа", team="Команда"),
                tickets="Квитки", menu="Меню", skip="До змісту", other="EN", soon="Продаж скоро", free="Вхід вільний", sold="Квитки продано",
                all_dates="Уся афіша", all_shows="Усі вистави", next="Найближчі покази", repertoire="Репертуар", produced="Продюсування",
                upcoming_tag="Прем'єра скоро", produced_tag="За продюсування Бентег", nodates="Нові дати зʼявляться найближчим часом. Стежте за анонсами в Instagram.",
                genre="Жанр", premiere="Прем'єра", duration="Тривалість", age="Вік", credits="Команда", dates="Дати показів", photos="Фото",
                producer_cta="Співпраця з продюсером", about_producer="Засновник і продюсер", read_more="Детальніше", time="Час",
                legal="Діє через Громадську організацію «В РЕСУРСІ» | код ЄДРПОУ 44977435", sections="Розділи", connect="Звʼязок", org_h="Організація"),
-    "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", process="Process", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", press="Press", media="Media", team="Team"),
+    "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", process="Process", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", opportunities="Opportunities", press="Press", media="Media", team="Team"),
                tickets="Tickets", menu="Menu", skip="Skip to content", other="UA", soon="On sale soon", free="Free entry", sold="Sold out",
                all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Produced by Bentegy",
                upcoming_tag="Premiering soon", produced_tag="Bentegy production", nodates="New dates will be announced soon. Follow us on Instagram.",
@@ -1677,6 +1677,44 @@ def page_team(lang):
 
 
 R["thanks"] = ("/dyakuyemo/", "/en/thank-you/")
+R["opportunities"] = ("/mozhlyvosti/", "/en/opportunities/")
+OPPS = load(f"{ROOT}/content/pages/opportunities.yml") if os.path.exists(f"{ROOT}/content/pages/opportunities.yml") else {}
+
+
+def page_opportunities(lang):
+    """Open calls and ways to work together: what is open now, the formats (pitch, castings, co-productions), contact."""
+    t = T[lang]
+    uk = lang == "uk"
+    op = OPPS
+    c = SETTINGS["contacts"]
+    now = []
+    for x in op.get("open") or []:
+        dl = x.get("deadline")
+        if isinstance(dl, str):
+            dl = dt.date.fromisoformat(dl[:10])
+        if dl and TODAY > dl:
+            continue
+        btn = f'<a class="tix" href="{e(x["url"])}" target="_blank" rel="noopener">{e(L(x, "button", lang) or ("Подати заявку" if uk else "Apply"))}</a>' if x.get("url") else ""
+        now.append(f'<div class="rw"><h3>{e(L(x, "title", lang))}</h3><div><p>{e(L(x, "text", lang))}</p>{f"<p class=mu>{"Дедлайн" if uk else "Deadline"}: {fdate(dl, lang)}</p>" if dl else ""}{btn}</div></div>')
+    socials = "".join(f'<a class="go" href="{e(c[k])}" target="_blank" rel="noopener">{n}</a>' for k, n in (("instagram", "Instagram"), ("telegram", "Telegram")) if c.get(k))
+    open_h = (f'<div class="rows" style="margin-top:28px">{"".join(now)}</div>' if now else
+              f'<div class="two"><span></span><div><p class="big-lead">{e(L(op, "next", lang))}</p><div class="bact" style="margin-top:28px">{socials}</div></div></div>')
+    fm = []
+    for x in op.get("formats") or []:
+        links = []
+        p = BY_SLUG.get(x.get("show") or "")
+        if p:
+            links.append(f'<a class="go" href="{show_url(p["slug"], lang)}">{e(L(p, "title", lang))} →</a>')
+        m = next((m for m in MEDIA if m["slug"] == x.get("media")), None)
+        if m and m["type"] != "article":
+            links.append(f'<a class="go" href="{media_url(m["slug"], lang)}">{e(mlabel(m, lang))} →</a>')
+        case = f'<p style="margin-top:12px;color:var(--mu)">{e(L(x, "case", lang))}</p>' if L(x, "case", lang) else ""
+        fm.append(f'<div class="rw"><h3>{e(L(x, "title", lang))}</h3><div><p>{e(L(x, "text", lang))}</p>{case}{f"<div class=bact style=margin-top:16px>{"".join(links)}</div>" if links else ""}</div></div>')
+    body = page_head(t["nav"]["opportunities"], L(op, "lead", lang), small=True) + f"""
+<section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{'Зараз відкрито' if uk else 'Open now'}</h2></div>{open_h}</section>
+<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Формати' if uk else 'Formats'}</h2></div><div class="rows" style="margin-top:28px">{"".join(fm)}</div></section>
+<section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="cgrid"><div class="cr"><div><small>{'Пітчинги, копродукції, резиденції' if uk else 'Pitches, co-productions, residencies'}</small><p>{'Розкажіть про свій проєкт — відповімо й запропонуємо формат.' if uk else 'Tell us about your project, and we will suggest a format.'}</p></div><a href="mailto:{c['team']}">{c['team']}</a></div></div></section>"""
+    return head(lang, "opportunities", t["nav"]["opportunities"], L(op, "lead", lang), (url("opportunities", lang), url("opportunities", other(lang)))) + body + foot(lang)
 R["privacy"] = ("/pryvatnist/", "/en/privacy/")
 PRIVACY = load(f"{ROOT}/content/pages/privacy.yml") if os.path.exists(f"{ROOT}/content/pages/privacy.yml") else {}
 
@@ -1842,6 +1880,8 @@ def build():
         write(url("thanks_donation", lang), page_thanks_donation(lang))  # noindex, kept out of the sitemap
         if PRIVACY:
             write(url("privacy", lang), page_privacy(lang)); urls.append(url("privacy", lang))
+        if OPPS:
+            write(url("opportunities", lang), page_opportunities(lang)); urls.append(url("opportunities", lang))
     for key, cfg in (SETTINGS.get("short_links") or {}).items():  # noindex, kept out of the sitemap
         write(f"/{key}/", short_link_page(key, cfg or {}))
     write("/404.html", page_404())
