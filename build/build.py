@@ -151,14 +151,14 @@ T = {
     "uk": dict(name="Театр Бентеги", nav=dict(afisha="Афіша", shows="Вистави", process="Процес", producer="Продюсер", about="Про театр", org="Організація", contact="Контакти", support="Підтримати", press="Преса", media="Медіа", team="Команда"),
                tickets="Квитки", menu="Меню", skip="До змісту", other="EN", soon="Продаж скоро", free="Вхід вільний", sold="Квитки продано",
                all_dates="Уся афіша", all_shows="Усі вистави", next="Найближчі покази", repertoire="Репертуар", produced="Продюсування",
-               upcoming_tag="Прем'єра скоро", produced_tag="За продюсування Бентег", nodates="Нові дати зʼявляться найближчим часом. Стежте за анонсами в Instagram і Telegram.",
+               upcoming_tag="Прем'єра скоро", produced_tag="За продюсування Бентег", nodates="Нові дати зʼявляться найближчим часом. Стежте за анонсами в Instagram.",
                genre="Жанр", premiere="Прем'єра", duration="Тривалість", age="Вік", credits="Команда", dates="Дати показів", photos="Фото",
                producer_cta="Співпраця з продюсером", about_producer="Засновник і продюсер", read_more="Детальніше", time="Час",
                legal="Діє через Громадську організацію «В РЕСУРСІ» | код ЄДРПОУ 44977435", sections="Розділи", connect="Звʼязок", org_h="Організація"),
     "en": dict(name="Bentegy Theatre", nav=dict(afisha="Schedule", process="Process", shows="Productions", producer="Producer", about="About", org="Organisation", contact="Contact", support="Support us", press="Press", media="Media", team="Team"),
                tickets="Tickets", menu="Menu", skip="Skip to content", other="UA", soon="On sale soon", free="Free entry", sold="Sold out",
                all_dates="Full schedule", all_shows="All productions", next="Coming up", repertoire="Repertoire", produced="Produced by Bentegy",
-               upcoming_tag="Premiering soon", produced_tag="Bentegy production", nodates="New dates will be announced soon. Follow us on Instagram and Telegram.",
+               upcoming_tag="Premiering soon", produced_tag="Bentegy production", nodates="New dates will be announced soon. Follow us on Instagram.",
                genre="Form", premiere="Premiere", duration="Running time", age="Age rating", credits="Credits", dates="Dates", photos="Photos",
                producer_cta="Work with the producer", about_producer="Founder and producer", read_more="Read more", time="Time",
                legal="Operated by NGO “In the Resource” | EDRPOU 44977435", sections="Sections", connect="Contact", org_h="Organisation"),
@@ -636,10 +636,10 @@ def foot(lang):
       <li><small>{'Співпраця й команда' if lang == 'uk' else 'Partnerships'}</small><a href="mailto:{c['team']}">{c['team']}</a></li>
       <li><small>{'Преса' if lang == 'uk' else 'Press'}</small><a href="mailto:{c['press']}">{c['press']}</a></li>
       <li><small>{'Продюсер' if lang == 'uk' else 'Producer'}</small><a href="mailto:{c['producer']}">{c['producer']}</a></li>
-      <li><small>{'Телефон' if lang == 'uk' else 'Phone'}</small><a href="tel:{c['phone'].replace(' ', '')}">{c['phone']}</a></li></ul></div>
+      <li><small>{'Телефон' if lang == 'uk' else 'Phone'}</small><a href="tel:{c['phone'].replace(' ', '')}">{c['phone']}</a></li>
+      <li><small>Telegram</small><a href="{c['telegram']}">@{c['telegram'].rstrip('/').rsplit('/', 1)[-1]}</a></li></ul></div>
     <div><h2>{'Соцмережі' if lang == 'uk' else 'Follow'}</h2><ul>
-      <li><a href="{c['instagram']}">Instagram</a></li>
-      <li><a href="{c['telegram']}">Telegram</a></li>{yt_li}</ul></div>
+      <li><a href="{c['instagram']}">Instagram</a></li>{yt_li}</ul></div>
     <div><h2>{t['org_h']}</h2><ul>
       <li>{e(L(o, 'name', lang))}</li>
       <li>{'Код ЄДРПОУ' if lang == 'uk' else 'EDRPOU'} {o['edrpou']}</li>
@@ -1746,7 +1746,7 @@ def page_thanks_donation(lang):
         g_x = "Кожна гривня йде на вистави, команду й покази." if uk else "Every euro goes to productions, the team and performances."
         g_img = img((SETTINGS.get("hero") or [{}])[0].get("image"), T[lang]["name"], "(max-width:760px) 100vw, 40vw")
     btn = (f'<a class="tix big" href="{show_url(show["slug"], lang)}">{("До вистави «" + L(show, "title", lang) + "»") if uk else ("Go to " + L(show, "title", lang))}</a>' if show else "")
-    socials = "".join(f'<a class="go" href="{e(c[k])}" target="_blank" rel="noopener">{n}</a>' for k, n in (("instagram", "Instagram"), ("telegram", "Telegram")) if c.get(k))
+    socials = "".join(f'<a class="go" href="{e(c[k])}" target="_blank" rel="noopener">{n}</a>' for k, n in (("instagram", "Instagram"), ("youtube", "YouTube")) if c.get(k))
     body = page_head("Дякуємо" if uk else "Thank you", lead) + f"""
 <section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="goal">
   <div class="im">{g_img}</div>
