@@ -340,6 +340,40 @@ collections:
   - name: pages
     label: Сторінки
     files:
+      - name: opportunities
+        label: Можливості (відкриті виклики)
+        file: content/pages/opportunities.yml
+        fields:
+          - { name: lead_uk, label: Вступ (UA), widget: text }
+          - { name: lead_en, label: Вступ (EN), widget: text }
+          - name: open
+            label: Зараз відкрито
+            widget: list
+            required: false
+            hint: "Актуальні виклики: пітчинг, кастинг, стажування. Після дедлайну виклик зникає зі сторінки сам"
+            fields:
+              - { name: title_uk, label: Назва (UA), widget: string }
+              - { name: title_en, label: Назва (EN), widget: string, required: false }
+              - { name: text_uk, label: Опис (UA), widget: text }
+              - { name: text_en, label: Опис (EN), widget: text, required: false }
+              - { name: deadline, label: Дедлайн, widget: datetime, format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
+              - { name: url, label: Посилання на заявку, widget: string, required: false }
+              - { name: button_uk, label: Текст кнопки (UA), widget: string, required: false, hint: "Порожньо — «Подати заявку»" }
+              - { name: button_en, label: Текст кнопки (EN), widget: string, required: false, hint: "Порожньо — «Apply»" }
+          - { name: next_uk, label: "Коли відкритих викликів немає (UA)", widget: string }
+          - { name: next_en, label: "Коли відкритих викликів немає (EN)", widget: string }
+          - name: formats
+            label: Формати
+            widget: list
+            fields:
+              - { name: title_uk, label: Назва (UA), widget: string }
+              - { name: title_en, label: Назва (EN), widget: string }
+              - { name: text_uk, label: Опис (UA), widget: text }
+              - { name: text_en, label: Опис (EN), widget: text }
+              - { name: case_uk, label: Приклад (UA), widget: text, required: false }
+              - { name: case_en, label: Приклад (EN), widget: text, required: false }
+              - { name: show, label: Вистава-приклад, widget: relation, collection: productions, value_field: "{{slug}}", search_fields: [title_uk], display_fields: [title_uk], required: false }
+              - { name: media, label: "Матеріал з «Медіа» (slug)", widget: string, required: false }
       - name: privacy
         label: Політика конфіденційності
         file: content/pages/privacy.yml
