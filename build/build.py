@@ -1696,7 +1696,7 @@ def page_opportunities(lang):
             continue
         btn = f'<a class="tix" href="{e(x["url"])}" target="_blank" rel="noopener">{e(L(x, "button", lang) or ("Подати заявку" if uk else "Apply"))}</a>' if x.get("url") else ""
         now.append(f'<div class="rw"><h3>{e(L(x, "title", lang))}</h3><div><p>{e(L(x, "text", lang))}</p>{f"<p class=mu>{"Дедлайн" if uk else "Deadline"}: {fdate(dl, lang)}</p>" if dl else ""}{btn}</div></div>')
-    socials = "".join(f'<a class="go" href="{e(c[k])}" target="_blank" rel="noopener">{n}</a>' for k, n in (("instagram", "Instagram"), ("telegram", "Telegram")) if c.get(k))
+    socials = "".join(f'<a class="go" href="{e(c[k])}" target="_blank" rel="noopener">{n}</a>' for k, n in (("instagram", "Instagram"),) if c.get(k))
     open_h = (f'<div class="rows" style="margin-top:28px">{"".join(now)}</div>' if now else
               f'<div class="two"><span></span><div><p class="big-lead">{e(L(op, "next", lang))}</p><div class="bact" style="margin-top:28px">{socials}</div></div></div>')
     fm = []
@@ -1713,7 +1713,7 @@ def page_opportunities(lang):
     body = page_head(t["nav"]["opportunities"], L(op, "lead", lang), small=True) + f"""
 <section class="sec gut max" style="padding-top:clamp(32px,4vw,56px)"><div class="sh"><h2>{'Зараз відкрито' if uk else 'Open now'}</h2></div>{open_h}</section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Формати' if uk else 'Formats'}</h2></div><div class="rows" style="margin-top:28px">{"".join(fm)}</div></section>
-<section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="cgrid"><div class="cr"><div><small>{'Пітчинги, копродукції, резиденції' if uk else 'Pitches, co-productions, residencies'}</small><p>{'Розкажіть про свій проєкт — відповімо й запропонуємо формат.' if uk else 'Tell us about your project, and we will suggest a format.'}</p></div><a href="mailto:{c['team']}">{c['team']}</a></div></div></section>"""
+<section class="gut max" style="padding-bottom:clamp(60px,8vw,120px)"><div class="cgrid"><div class="cr"><div><small>{'Пітчинги, копродукції, стажування' if uk else 'Pitches, co-productions, internships'}</small><p>{'Розкажіть про свій проєкт чи про себе — відповімо й запропонуємо формат.' if uk else 'Tell us about your project or about yourself, and we will suggest a format.'}</p></div><a href="mailto:{c['team']}">{c['team']}</a></div></div></section>"""
     return head(lang, "opportunities", t["nav"]["opportunities"], L(op, "lead", lang), (url("opportunities", lang), url("opportunities", other(lang)))) + body + foot(lang)
 R["privacy"] = ("/pryvatnist/", "/en/privacy/")
 PRIVACY = load(f"{ROOT}/content/pages/privacy.yml") if os.path.exists(f"{ROOT}/content/pages/privacy.yml") else {}

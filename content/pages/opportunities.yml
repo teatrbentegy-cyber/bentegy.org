@@ -1,12 +1,12 @@
 # Сторінка «Можливості»: відкриті виклики й формати співпраці (ЧЕРНЕТКА, чекає погодження Павла)
-lead_uk: "Відкриті виклики для молодих команд, акторів і партнерів: пітчинги, кастинги, копродукції."
-lead_en: "Open calls for emerging companies, performers and partners: pitches, castings, co-productions."
+lead_uk: "Відкриті виклики для молодих команд, акторів, партнерів і всіх, хто хоче працювати з нами: пітчинги, кастинги, копродукції, стажування й волонтерство."
+lead_en: "Open calls for emerging companies, performers, partners and anyone who wants to work with us: pitches, castings, co-productions, internships and volunteering."
 
 # Актуальні виклики. Порожній список — сторінка показує, де їх оголошуємо.
 # Поля: title_uk/en, text_uk/en, deadline (РРРР-ММ-ДД), url, button_uk/en
 open: []
-next_uk: Нові виклики оголошуємо тут, в Instagram і Telegram.
-next_en: New calls are announced here, on Instagram and on Telegram.
+next_uk: Нові виклики оголошуємо тут і в Instagram.
+next_en: New calls are announced here and on Instagram.
 
 formats:
   - title_uk: Відкритий пітчинг
@@ -26,3 +26,7 @@ formats:
     text_uk: Робимо вистави разом із театрами й інституціями з інших міст і країн. «Під уніформою» народилася в резиденції Qendra Multimedia в Призрені як копродукція Україна — Косово.
     text_en: "We make work together with theatres and institutions from other cities and countries. Under the Uniform began in a residency with Qendra Multimedia in Prizren, as a Ukraine–Kosovo co-production."
     show: under-the-uniform
+  - title_uk: Стажування й волонтерство
+    title_en: Internships and volunteering
+    text_uk: Долучайтеся до команди на виставах і подіях — у продакшні, роботі з глядачами, промо, фото й відео. Напишіть, що вам цікаво, і ми запросимо на найближчий проєкт.
+    text_en: Join the team at performances and events, in production, front of house, promotion, photo and video. Tell us what interests you, and we will invite you to the next project.
