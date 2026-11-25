@@ -9,12 +9,10 @@ city_uk: Київ
 city_en: Kyiv
 label_uk: Прем'єра
 label_en: Premiere
-ticket_url: https://secure.wayforpay.com/payment/under_the_uniform
-ticket_operator: WayForPay
+# Квитки — Concert.ua (з 25.11.2026; сторінку WayForPay вимкнено). Ціни 400–1500 ₴ за місцями
+ticket_url: https://concert.ua/uk/event/pid-uniformoyu-11-12?utm_source=bentegy&utm_medium=site&utm_campaign=under-the-uniform
+ticket_operator: Concert.ua
+sale_start: 2026-11-25
 status: on_sale
-price: 500
-price_max: 700
-# Ціна по датах (так само налаштовано у WayForPay): 500 — ранні до 18.11, 600 — 19–25.11, 700 — з 26.11
-price_steps:
-  - { from: 2026-11-19, price: 600 }
-  - { from: 2026-11-26, price: 700 }
+price: 400
+price_max: 1500

@@ -1,0 +1,18 @@
+production: under-the-uniform
+date: 2026-12-12
+time: "18:00"
+date_note_uk: ""
+date_note_en: ""
+venue_uk: Сцена 6, вул. Васильківська, 1
+venue_en: Stsena 6, 1 Vasylkivska St
+city_uk: Київ
+city_en: Kyiv
+label_uk: Другий показ
+label_en: Second performance
+# Квитки — Concert.ua (з 25.11.2026; сторінку WayForPay вимкнено). Ціни 400–1500 ₴ за місцями
+ticket_url: https://concert.ua/uk/event/pid-uniformoyu-12-12?utm_source=bentegy&utm_medium=site&utm_campaign=under-the-uniform
+ticket_operator: Concert.ua
+sale_start: 2026-11-25
+status: on_sale
+price: 400
+price_max: 1500
