@@ -1139,6 +1139,7 @@ def page_show(p, lang):
     body = f"""{top}
 {tixbox}
 <div class="gut max"><dl class="facts">{facts_h}</dl></div>
+{f'<section class="sec gut max" id="visit"><div class="sh"><h2>{"Перед візитом" if lang == "uk" else "Before you go"}</h2></div><div class="two"><span></span><div class="prose">{mdh(L(p, "visit", lang))}</div></div></section>' if L(p, "visit", lang) and nxt else ''}
 <section class="sec gut max"><div class="sh"><h2>{('Про подію' if is_ev else 'Про виставу') if lang == 'uk' else 'About'}</h2></div>
   <div class="two"><span></span><div><div class="prose">{mdh(L(p, 'description', lang))}</div>{clips_html(p, lang)}</div></div></section>
 {support_box(p, lang)}

@@ -24,7 +24,7 @@ description_uk: |
 
   **За один вечір ми покажемо вам два шоу: те, яке мало статися, і те, яке сталося насправді. Яке з них яке — вирішує кожен.**
 
-  Вистава виросла з інтерв'ю з ветеранами, ветеранками й чинними військовими. Серед них — представники ЛГБТК+ спільноти, і саме їхній досвід стоїть у центрі історії. Герої вигадані, досвід справжній.
+  Команда записала інтерв'ю з понад 25 ветеранами, ветеранками й чинними військовими, серед них — представники ЛГБТК+ спільноти, і зібрала з них художню історію. В її основі — закохана пара ветеранів. Герої вигадані, досвід справжній.
 
   У статуті прописано навіть п'ятдесят сантиметрів між ліжками в казармі. Для двох чоловіків, які люблять одне одного, графи в законі досі немає — тому один герой каже про іншого: «Мені ніхто не скаже, де він. Я йому — ніхто». Половину вечора зала сміється; потім вистава забирає цей сміх назад.
 description_en: |
@@ -36,19 +36,23 @@ description_en: |
 
   **In one evening, we present two shows: the one that was supposed to happen and the one that actually did. Which is which is up to each of you.**
 
-  The performance grew out of interviews with veterans, both men and women, and with active-duty service members. Some of them are LGBTQ+, and it is their experience that sits at the heart of the story. The characters are invented; the experience is real.
+  The team recorded interviews with more than 25 veterans, both men and women, and active-duty service members, including members of the LGBTQ+ community, and shaped them into a work of fiction. At its heart is a couple of veterans in love. The characters are invented; the experience is real.
 
   Military regulations specify even the fifty centimetres between beds in a barracks. For two men who love each other, the law still makes no provision at all. So one character says of the other: “No one will tell me where he is. I’m nobody to him.” For half the evening the audience laughs; then the performance takes that laughter back.
 credits:
-- role_uk: Драматургія і режисура
-  role_en: Written and directed by
+- role_uk: Режисер і продюсер
+  role_en: Director and producer
   names: Павло Коваль
   names_en: Pavlo Koval
-- role_uk: На сцені
+- role_uk: Актори
   role_en: Cast
-  names: Костя Шахман, Сашко Петрина, Давід Димченко, Сашко Колотій
-  names_en: Kostia Shakhman, Sashko Petryna, David Dymchenko, Sashko Kolotii
-- role_uk: Стейдж-менеджерка
+  names: Костянтин Шахман, Олександр Петрина, Давід Димченко, Олександр Колотій
+  names_en: Kostiantyn Shakhman, Oleksandr Petryna, David Dymchenko, Oleksandr Kolotii
+- role_uk: Ко-продюсерка
+  role_en: Co-producer
+  names: Романа Ізабела Соутус (Експериментальний театральний клуб «НАШі»)
+  names_en: Romana Isabella Soutus (NASHi Experimental Theatre Club)
+- role_uk: Менеджерка сцени
   role_en: Stage manager
   names: Софія Форніка
   names_en: Sofiia Fornika
@@ -82,16 +86,29 @@ funding:
   disclaimer_en: "Funded by the European Union. Views and opinions expressed are however those of the author(s) only and do not necessarily reflect those of the European Union or European Education and Culture Executive Agency (EACEA). Neither the European Union nor the granting authority can be held responsible for them."
   text_uk: "«Під уніформою» співфінансовано в межах проєкту Culture Helps Solidarity / Культура допомагає: Солідарність за підтримки програми ЄС «Креативна Європа» (проєкт № 101237762). Проєкт впроваджує консорціум на чолі з European Cultural Foundation (Амстердам) разом з «Іншою освітою» (Київ), zusa (Берлін) і Жіночим ветеранським рухом VETERANKA."
   text_en: "Under the Uniform is co-financed by the project Culture Helps Solidarity / Культура допомагає: Солідарність, with support from the EU Creative Europe programme (project No. 101237762). Culture Helps Solidarity is implemented by a consortium led by the European Cultural Foundation (Amsterdam) with Insha Osvita (Kyiv), zusa (Berlin) and Veteranka, the Female Veterans Movement."
+# Блок «Перед візитом» (одразу після фактів під кнопками квитків)
+visit_uk: |
+  - **Вхід до зали** — за годину до початку: 11 грудня з 18:00, 12 грудня з 17:00.
+  - **Як дістатися** — Сцена 6, вул. Васильківська, 1, метро «Голосіївська».
+  - **Після показу** — обговорення за участі ветеранів.
+  - **Перед переглядом** — вистава говорить про війну й військову службу, а також про досвід ЛГБТК+ військових і кохання двох ветеранів. Радимо врахувати це, плануючи вечір.
+  - **Під час повітряної тривоги** — жовтий рівень: показ триває, глядачі залишаються в залі на власний розсуд і ризик; піти до укриття можна будь-якої миті, станція метро «Голосіївська» розташована прямо під Сценою 6. Червоний рівень: показ зупиняємо й чекаємо відбою, після чого продовжуємо.
+visit_en: |
+  - **Doors** open an hour before the start: from 18:00 on 11 December and from 17:00 on 12 December.
+  - **Getting there** — Stsena 6, 1 Vasylkivska St, Holosiivska metro station.
+  - **After the show** — a discussion with veterans.
+  - **Before you come** — the performance deals with war and military service, with the experience of LGBTQ+ service members and with the love between two veterans. Please keep this in mind when planning your evening.
+  - **During an air-raid alert** — yellow level: the performance continues, and audience members stay in the hall at their own discretion and risk; you can leave for a shelter at any moment, as Holosiivska metro station is directly beneath Stsena 6. Red level: we pause the performance, wait for the all-clear and then continue.
 history_uk: |
   **Як усе почалося.** Поверхом нижче від простору театру «НАШі», де працюють Бентеги, розташований Veterans Hub ГО «Українські ЛГБТ-військові за рівні права». Звідти почалося знайомство з людьми, чиї історії лягли в основу вистави. Ще одним поштовхом став мюзикл «Nkoli» на фестивалі Theater der Welt у Німеччині. Команда записала інтерв'ю з ветеранами, ветеранками й чинними військовими, серед них — представники ЛГБТК+ спільноти, і зібрала з них художню історію.
 
-  **Призрен, листопад 2026.** Першу версію команда створила в резиденції з Qendra Multimedia і показала 8 листопада на [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) у галереї Міського театру ім. Бекіма Фехміу: соло для Сашка Петрини, ведучий на відео — Костя Шахман. Після показу — розмова з глядачами. Паралельно з репетиціями команда працювала над повною версією п'єси разом із драматургом Qendra.
+  **Призрен, листопад 2026.** Першу версію команда створила в резиденції з Qendra Multimedia і показала 8 листопада на [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) у галереї Міського театру ім. Бекіма Фехміу: соло для Олександра Петрини, ведучий на відео — Костянтин Шахман. Після показу — розмова з глядачами. Паралельно з репетиціями команда працювала над повною версією п'єси разом із драматургом Qendra.
 
   **Київ, грудень 2026.** 11 грудня — київська прем'єра копродукції Україна — Косово, вперше в повному складі, 12 грудня — другий показ. Обидва вечори на Сцені 6.
 history_en: |
   **How it began.** One floor below the NASHi theatre space, where Bentegy works, is the Veterans Hub of the NGO Ukrainian LGBT Military for Equal Rights. That is where the team met the people whose stories the performance is built on. Another push came from the musical Nkoli at Theater der Welt in Germany. The team recorded interviews with veterans, both men and women, and with active-duty service members, including members of the LGBTQ+ community, and shaped them into a work of fiction.
 
-  **Prizren, November 2026.** The first version was created during a residency with Qendra Multimedia and shown on 8 November at [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) in the gallery of the Bekim Fehmiu City Theatre: a solo for Sashko Petryna, with Kostia Shakhman as the host on video, followed by a conversation with the audience. Alongside rehearsals, the team worked on the full version of the play with Qendra’s dramaturg.
+  **Prizren, November 2026.** The first version was created during a residency with Qendra Multimedia and shown on 8 November at [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) in the gallery of the Bekim Fehmiu City Theatre: a solo for Oleksandr Petryna, with Kostiantyn Shakhman as the host on video, followed by a conversation with the audience. Alongside rehearsals, the team worked on the full version of the play with Qendra’s dramaturg.
 
   **Kyiv, December 2026.** On 11 December, this Ukraine–Kosovo co-production premieres in Kyiv, with the full cast together on stage for the first time; the second performance follows on 12 December. Both evenings are at Stsena 6.
 quotes:
@@ -142,8 +159,8 @@ gallery:
     caption_uk: Робота над текстом
     caption_en: Working on the text
   - image: /uploads/utu-prizren-02.jpg
-    caption_uk: Сашко Петрина. Робоча версія, Призрен
-    caption_en: Sashko Petryna. Work in progress, Prizren
+    caption_uk: Олександр Петрина. Робоча версія, Призрен
+    caption_en: Oleksandr Petryna. Work in progress, Prizren
   - image: /uploads/utu-prizren-04.jpg
     caption_uk: Kosovo Theatre Showcase 2026, галерея Міського театру ім. Бекіма Фехміу
     caption_en: Kosovo Theatre Showcase 2026, Bekim Fehmiu City Theatre gallery
