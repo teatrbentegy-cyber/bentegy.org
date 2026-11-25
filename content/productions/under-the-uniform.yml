@@ -5,8 +5,8 @@ status: upcoming
 order: 3
 genre_uk: Постдокументальна вистава
 genre_en: A post-documentary performance
-premiere_uk: 11 грудня 2026, Сцена 6, Київ
-premiere_en: 11 December 2026, Stsena 6, Kyiv
+premiere_uk: 11 грудня 2026, Сцена 6, Київ | другий показ 12 грудня
+premiere_en: 11 December 2026, Stsena 6, Kyiv | second performance 12 December
 duration_uk: "Близько 1 год 30 хв: два шоу з перервою (15 хв) | українською"
 duration_en: "Approx. 1 h 30 min: two shows with a 15-min interval | in Ukrainian"
 age: 18+
@@ -87,13 +87,13 @@ history_uk: |
 
   **Призрен, листопад 2026.** Першу версію команда створила в резиденції з Qendra Multimedia і показала 8 листопада на [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) у галереї Міського театру ім. Бекіма Фехміу: соло для Сашка Петрини, ведучий на відео — Костя Шахман. Після показу — розмова з глядачами. Паралельно з репетиціями команда працювала над повною версією п'єси разом із драматургом Qendra.
 
-  **Київ, грудень 2026.** 11 грудня — київська прем'єра копродукції Україна — Косово, вперше в повному складі.
+  **Київ, грудень 2026.** 11 грудня — київська прем'єра копродукції Україна — Косово, вперше в повному складі, 12 грудня — другий показ. Обидва вечори на Сцені 6.
 history_en: |
   **How it began.** One floor below the NASHi theatre space, where Bentegy works, is the Veterans Hub of the NGO Ukrainian LGBT Military for Equal Rights. That is where the team met the people whose stories the performance is built on. Another push came from the musical Nkoli at Theater der Welt in Germany. The team recorded interviews with veterans, both men and women, and with active-duty service members, including members of the LGBTQ+ community, and shaped them into a work of fiction.
 
   **Prizren, November 2026.** The first version was created during a residency with Qendra Multimedia and shown on 8 November at [Kosovo Theatre Showcase 2026](https://qendra.org/kosovo-theatre-showcase-2026-dates-announced-registration-open/?lang=en) in the gallery of the Bekim Fehmiu City Theatre: a solo for Sashko Petryna, with Kostia Shakhman as the host on video, followed by a conversation with the audience. Alongside rehearsals, the team worked on the full version of the play with Qendra’s dramaturg.
 
-  **Kyiv, December 2026.** On 11 December, this Ukraine–Kosovo co-production premieres in Kyiv, with the full cast together on stage for the first time.
+  **Kyiv, December 2026.** On 11 December, this Ukraine–Kosovo co-production premieres in Kyiv, with the full cast together on stage for the first time; the second performance follows on 12 December. Both evenings are at Stsena 6.
 quotes:
   - text_uk: "Перформер Сашко Петрина досліджує, що лишається за кадром публічного визнання військової служби: право бути собою й любити поза уніформою."
     text_en: "Performer Sashko Petryna explores what the public recognition of military service blanks out: the right to be yourself and to love beyond the uniform."
@@ -165,8 +165,8 @@ photo_credit: "Varvara Barbados (репетиції) | Esad Duraki, Kosovo Theat
 support_box:
   title_uk: Допоможіть прем'єрі відбутися
   title_en: Help this premiere happen
-  text_uk: "«Під уніформою» виходить у Києві 11 грудня 2026 року. Ваш внесок покриває оренду майданчика, сценографію, друк і промо, щоб ця історія дійшла до якомога більшої кількості людей."
-  text_en: "Under the Uniform opens in Kyiv on 11 December 2026. Your contribution covers venue hire, the set, printing and promotion, so that this story reaches as many people as possible."
+  text_uk: "«Під уніформою» виходить у Києві 11 і 12 грудня 2026 року. Ваш внесок покриває оренду майданчика, сценографію, друк і промо, щоб ця історія дійшла до якомога більшої кількості людей."
+  text_en: "Under the Uniform opens in Kyiv on 11 and 12 December 2026. Your contribution covers venue hire, the set, printing and promotion, so that this story reaches as many people as possible."
   button_uk: Підтримати прем'єру
   button_en: Support the premiere
   url_uk: https://secure.wayforpay.com/donate/bentegy_uah
@@ -185,7 +185,7 @@ presenters:
     - ["Running time", "Approx. 1 h 30 min: two shows with a 15-min interval"]
     - ["Language", "Ukrainian and English. A bilingual touring version with English surtitles for the Ukrainian parts, as shown in Prizren"]
     - ["Age", "18+"]
-    - ["Premiere", "11 December 2026, Stsena 6, Kyiv. First shown as a work in progress at Kosovo Theatre Showcase 2026, Prizren"]
+    - ["Premiere", "11 December 2026, Stsena 6, Kyiv (second performance 12 December). First shown as a work in progress at Kosovo Theatre Showcase 2026, Prizren"]
     - ["Co-production", "Bentegy Theatre (Kyiv) and Qendra Multimedia (Pristina)"]
   note_en: Technical rider, video and fees on request.
   email: pavlo@bentegy.org

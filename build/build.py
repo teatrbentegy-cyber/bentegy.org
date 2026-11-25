@@ -1161,7 +1161,8 @@ def page_show(p, lang):
         nx = up[0]
         when = f"{nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}"
         seo_title = f"{title}: {'прем' + chr(39) + 'єра' if uk else 'premiere'} {when}"
-        desc = (f"Прем'єра — {when}. " if uk else f"Premiere: {when}. ") + desc
+        more = (f"Другий показ — {up[1]['date'].day} {MONTHS[lang][up[1]['date'].month - 1]}. " if uk else f"Second performance: {up[1]['date'].day} {MONTHS[lang][up[1]['date'].month - 1]}. ") if len(up) > 1 else ""
+        desc = (f"Прем'єра — {when}. " if uk else f"Premiere: {when}. ") + more + desc
     elif up:
         nx = up[0]
         desc = desc.rstrip(".") + ". " + (f"Найближчий показ — {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}." if uk else f"Next performance: {nx['date'].day} {MONTHS[lang][nx['date'].month - 1]}, {L(nx, 'city', lang)}.")
