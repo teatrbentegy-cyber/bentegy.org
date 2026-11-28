@@ -369,6 +369,10 @@ def make_og_images():
         pic = p.get("cover") or next((g["image"] for g in (p.get("gallery") or [])), None)
         og_image(f"{p['slug']}-uk", pic, L(p, "title", "uk"), "Театр Бентеги")
         og_image(f"{p['slug']}-en", pic, L(p, "title", "en"), "Bentegy Theatre")
+        for lg in ("uk", "en"):  # an official poster (1200x630) replaces the generated share image
+            src = p.get(f"og_image_{lg}")
+            if src and os.path.exists(f"{ROOT}/static{src}"):
+                OG_DONE[f"{p['slug']}-{lg}"] = src
 
 
 # ------------------------------------------------------------------ structured data (schema.org)
@@ -1609,6 +1613,11 @@ def page_press(lang):
 <div class="bp"><div class="bh"><h3>{'Детально' if uk else 'Long'}</h3>{copy_btn(lang, 'bp-long')}</div><div class="prose" id="bp-long">{mdh(L(pr, 'about_long', lang))}</div></div>
 <div class="bp"><div class="bh"><h3>{'Засновник' if uk else 'Founder'}: {e(L(PRODUCER, 'name', lang))}</h3>{copy_btn(lang, 'bp-bio')}</div><div class="prose" id="bp-bio">{mdh(L(PRODUCER, 'bio', lang))}</div></div>"""
     logos = "".join(f"""<figure class="lg-{x.get('bg', 'light')}"><div class="lgim"><img src="{e(press_preview(x['file']))}" alt="{e(L(x, 'title', lang))}" loading="lazy"></div><figcaption><span>{e(L(x, 'title', lang))}<small>PNG</small></span><a href="{e(x['file'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""" for x in pr.get("logos", []))
+    posters = ""
+    for grp in pr.get("posters") or []:
+        figs = "".join(f"""<figure><img src="{e(x['file'])}" alt="{e(L(x, 'title', lang))}" loading="lazy" style="aspect-ratio:{x.get('ratio', '3/2')};object-fit:contain;background:#f2f2f2"><figcaption><span>{e(L(x, 'title', lang))}<small>{e(x.get('size', 'JPG'))}</small></span><a href="{e(x['file'])}" download>{'Завантажити' if uk else 'Download'} ↓</a></figcaption></figure>""" for x in grp.get("files", []))
+        credit = f'<p class="note" style="margin-top:14px;color:var(--mu)">{e(L(grp, "credit", lang))}</p>' if L(grp, "credit", lang) else ""
+        posters += f'<section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{e(L(grp, "title", lang))}</h2></div><div class="dl">{figs}</div>{credit}</section>'
     cov = ""
     if pr.get("coverage"):
         items = []
@@ -1631,7 +1640,7 @@ def page_press(lang):
 <section class="gut max"><div class="cgrid"><div class="cr"><div><small>{'Контакт для преси' if uk else 'Press contact'}</small><p>{'Акредитації, інтервʼю, запити на фото й відео.' if uk else 'Accreditation, interviews, photo and video requests.'}</p></div><a href="mailto:{c['press']}">{c['press']}</a></div></div></section>
 <section class="sec gut max" style="padding-top:clamp(40px,5vw,72px)"><div class="sh"><h2>{'Про театр' if uk else 'About'}</h2></div><div class="bps">{texts}</div></section>
 <section class="sec gut max" style="padding-top:0"><div class="sh"><h2>{'Логотипи' if uk else 'Logos'}</h2><a class="more" href="/press/bentegy-logos.zip" download>{'Повний пакет PNG + SVG .zip' if uk else 'Full package PNG + SVG .zip'}</a></div><div class="dl logos">{logos}</div></section>
-{media_strip([m for m in MEDIA if m["type"] == "release"], lang, "Пресрелізи" if uk else "Press releases", "", "", top0=True, sid="releases", limit=99)}
+{posters}{media_strip([m for m in MEDIA if m["type"] == "release"], lang, "Пресрелізи" if uk else "Press releases", "", "", top0=True, sid="releases", limit=99)}
 {cov_link}{qs}
 """
     return head(lang, "press", t["nav"]["press"], L(pr, "lead", lang), (url("press", lang), url("press", other(lang)))) + body + foot(lang)

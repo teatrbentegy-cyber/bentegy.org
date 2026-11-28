@@ -10,7 +10,8 @@ premiere_en: 11 December 2026, Stsena 6, Kyiv | second performance 12 December
 duration_uk: "Близько 1 год 30 хв: два шоу з перервою (15 хв) | українською"
 duration_en: "Approx. 1 h 30 min: two shows with a 15-min interval | in Ukrainian"
 age: 18+
-cover: /uploads/utu-prizren-01.jpg
+cover: /uploads/utu-afisha-cover.jpg
+og_image_uk: /uploads/utu-afisha-og.jpg
 summary_uk: "Один вечір, два шоу: те, яке мало статися, і те, яке сталося насправді. Яке з них яке — вирішує кожен."
 summary_en: "One evening, two shows: the one that was supposed to happen and the one that actually did. Which is which is up to each of you."
 hook_uk: "Один вечір, два шоу. Яке з них сталося насправді — вирішує кожен."
@@ -134,6 +135,9 @@ quotes:
     role_uk: Qendra Multimedia, після показу в Призрені
     role_en: Qendra Multimedia, after the showing in Prizren
 gallery:
+  - image: /uploads/utu-prizren-01.jpg
+    caption_uk: Робоча версія, Призрен
+    caption_en: Work in progress, Prizren
   - image: /uploads/utu-rehearsal-16.jpg
     caption_uk: Репетиції
     caption_en: Rehearsals
@@ -176,7 +180,7 @@ gallery:
   - image: /uploads/utu-prizren-08.jpg
     caption_uk: Аурела Кадріу (Qendra Multimedia) на обговоренні
     caption_en: Aurela Kadriu (Qendra Multimedia) at the discussion
-photo_credit: "Varvara Barbados (репетиції) | Esad Duraki, Kosovo Theatre Showcase 2026 (Призрен) / Varvara Barbados (rehearsals) | Esad Duraki, Kosovo Theatre Showcase 2026 (Prizren)"
+photo_credit: "Varvara Barbados (афіша, репетиції) | Esad Duraki, Kosovo Theatre Showcase 2026 (Призрен) / Varvara Barbados (poster, rehearsals) | Esad Duraki, Kosovo Theatre Showcase 2026 (Prizren)"
 
 # Блок збору на прем'єру (з'являється одразу після опису вистави)
 support_box:

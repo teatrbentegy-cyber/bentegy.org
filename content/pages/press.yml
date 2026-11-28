@@ -56,6 +56,24 @@ logos:
     title_en: Wordmark, white
     bg: dark
 
+# Офіційні афіші вистав (для медіа й партнерів)
+posters:
+  - title_uk: Афіша «Під уніформою»
+    title_en: Under the Uniform poster
+    credit_uk: "Фото: Varvara Barbados. Афіша українською: 11 і 12 грудня 2026, Сцена 6, Київ."
+    credit_en: "Photo: Varvara Barbados. Poster in Ukrainian: 11 and 12 December 2026, Stsena 6, Kyiv."
+    files:
+      - file: /press/pid-uniformoyu-afisha-vertykalna.jpg
+        title_uk: Вертикальна
+        title_en: Vertical
+        size: JPG, 1080 × 1440
+        ratio: 3/4
+      - file: /press/pid-uniformoyu-afisha-horyzontalna.jpg
+        title_uk: Горизонтальна
+        title_en: Horizontal
+        size: JPG, 1920 × 1080
+        ratio: 16/9
+
 # Публікації в медіа. Додавайте лише справжні, з посиланням.
 coverage:
   - outlet: Theater der Zeit
